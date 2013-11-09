@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright (c) 2013 -- WPI Suite
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Rachel Wigell
+ *    Craig Nesbitt
+ *    Liam Dunn
+ *    John French
+ ******************************************************************************/
+
 package edu.wpi.cs.wpisuitetng.modules.calendar.model;
 
 import java.util.Date;
@@ -21,6 +36,16 @@ public class Event extends AbstractModel {
 	private Collection<User> invited; //invited people
 	private Collection<User> attending; //people who are attending
 
+	
+	/*
+	 * Empty constructor for creating dummy events objects because the Data object was written
+	 * by some idiot who'd never heard of the Class class (passing Event.class instead of
+	 * a dummy Event object). DO NOT USE for general use.
+	 */
+	public Event(){
+		
+	}
+	
 	//constructor with only required fields
 	public Event(String name, String location, Date startDate, Date endDate, User creator){
 		this.name = name;
@@ -150,6 +175,17 @@ public class Event extends AbstractModel {
 		Collection<User> previous = this.attending;
 		this.attending.remove(toRemove);
 		return previous;
+	}
+	
+	/*
+	 * JSON stuff!
+	 */
+	public static Event fromJson(String json) {
+		return new Gson().fromJson(json, Event.class);
+	}
+	
+	public static Event[] fromJsonArray(String json) {
+		return new Gson().fromJson(json, Event[].class);
 	}
 
 	/*
