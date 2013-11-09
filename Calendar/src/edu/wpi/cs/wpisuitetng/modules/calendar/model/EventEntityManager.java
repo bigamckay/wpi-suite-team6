@@ -13,12 +13,12 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.model;
 
 import edu.wpi.cs.wpisuitetng.Session;
+import edu.wpi.cs.wpisuitetng.database.Data;
 import edu.wpi.cs.wpisuitetng.exceptions.BadRequestException;
 import edu.wpi.cs.wpisuitetng.exceptions.ConflictException;
 import edu.wpi.cs.wpisuitetng.exceptions.NotFoundException;
 import edu.wpi.cs.wpisuitetng.exceptions.WPISuiteException;
 import edu.wpi.cs.wpisuitetng.modules.EntityManager;
-import edu.wpi.cs.wpisuitetng.modules.Model;
 
 /**
  * This is the entity manager for the Event in the Calendar module.
@@ -26,8 +26,23 @@ import edu.wpi.cs.wpisuitetng.modules.Model;
  * @author John French
  *
  */
-public class CalendarEventEntityManager implements EntityManager<Event> {
+public class EventEntityManager implements EntityManager<Event> {
 
+	//database
+	private Data db;
+	
+	/**
+	 * Constructs the entity manager. This constructor is called by
+	 * {@link edu.wpi.cs.wpisuitetng.ManagerLayer#ManagerLayer()}. To make sure
+	 * this happens, be sure to place add this entity manager to the map in
+	 * the ManagerLayer file.
+	 * 
+	 * @param db a reference to the persistent database
+	 */
+	public EventEntityManager(Data db) {
+		this.db = db;
+	}
+	
 	@Override
 	public Event makeEntity(Session s, String content)
 			throws BadRequestException, ConflictException, WPISuiteException {
