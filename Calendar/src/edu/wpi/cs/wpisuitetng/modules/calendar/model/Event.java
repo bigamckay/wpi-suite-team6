@@ -4,12 +4,14 @@ import java.util.Date;
 import java.util.Collection;
 import java.util.LinkedList;
 
+import com.google.gson.Gson;
+
 import edu.wpi.cs.wpisuitetng.Permission;
-import edu.wpi.cs.wpisuitetng.modules.Model;
+import edu.wpi.cs.wpisuitetng.modules.AbstractModel;
 import edu.wpi.cs.wpisuitetng.modules.core.models.Project;
 import edu.wpi.cs.wpisuitetng.modules.core.models.User;
 
-public class Event implements Model {
+public class Event extends AbstractModel {
 	private String name; //event name
 	private String location; //event location
 	private String description; //event description
@@ -153,51 +155,26 @@ public class Event implements Model {
 	/*
 	 * Here begin the methods for implementing the Model interface
 	 */
+	
+	//We don't need to implement save or delete right now
+	//TODO determine if actual implementation is needed
 	@Override
-	public void save() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void save() {}
 
+	//TODO determine if actual implementation is needed
 	@Override
-	public void delete() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void delete() {}
 
+	//Serialize this event as JSON
 	@Override
 	public String toJSON() {
-		// TODO Auto-generated method stub
-		return null;
+		return new Gson().toJson(this, Event.class);
 	}
 
+	//We can use the default implementation for now
+	//TODO determine if actual implementation is needed
 	@Override
 	public Boolean identify(Object o) {
-		// TODO Auto-generated method stub
 		return null;
-	}
-
-	@Override
-	public Permission getPermission(User u) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setPermission(Permission p, User u) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public Project getProject() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setProject(Project p) {
-		// TODO Auto-generated method stub
-		
 	}
 }
