@@ -7,8 +7,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Chris Casola
- *    Andrew Hurle
+ *    John French
  ******************************************************************************/
 
 package edu.wpi.cs.wpisuitetng.modules.calendar.model;
@@ -22,8 +21,7 @@ import edu.wpi.cs.wpisuitetng.modules.EntityManager;
 import edu.wpi.cs.wpisuitetng.modules.Model;
 
 /**
- * This is the entity manager for the PostBoardMessage in the
- * PostBoard module.
+ * This is the entity manager for the Event in the Calendar module.
  * 
  * @author John French
  *
