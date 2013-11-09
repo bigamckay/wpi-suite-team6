@@ -1,4 +1,4 @@
-package edu.wpi.cs.wpisuitetng.modules.Calendar;
+package edu.wpi.cs.wpisuitetng.modules.calendar;
 
 import java.awt.Color;
 import java.util.ArrayList;
