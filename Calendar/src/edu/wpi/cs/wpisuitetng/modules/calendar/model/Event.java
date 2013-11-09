@@ -4,9 +4,12 @@ import java.util.Date;
 import java.util.Collection;
 import java.util.LinkedList;
 
+import edu.wpi.cs.wpisuitetng.Permission;
+import edu.wpi.cs.wpisuitetng.modules.Model;
+import edu.wpi.cs.wpisuitetng.modules.core.models.Project;
 import edu.wpi.cs.wpisuitetng.modules.core.models.User;
 
-public class Event {
+public class Event implements Model {
 	private String name; //event name
 	private String location; //event location
 	private String description; //event description
@@ -153,5 +156,56 @@ public class Event {
 		Collection<User> previous = this.attending;
 		this.attending.remove(toRemove);
 		return previous;
+	}
+
+	/*
+	 * Here begin the methods for implementing the Model interface
+	 */
+	@Override
+	public void save() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void delete() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String toJSON() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean identify(Object o) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Permission getPermission(User u) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setPermission(Permission p, User u) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Project getProject() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setProject(Project p) {
+		// TODO Auto-generated method stub
+		
 	}
 }
