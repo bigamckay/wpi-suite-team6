@@ -35,7 +35,7 @@ public class Event {
 		this.location = location;
 		this.startDate = startDate;
 		this.endDate = endDate;
-		this.creator = maker;
+		this.creator = creator;
 		this.description = description;
 		this.invited = invited;
 		this.attending = attending;
@@ -60,14 +60,6 @@ public class Event {
 	
 	public Date getEndDate(){
 		return this.endDate;
-	}
-	
-	public Time getStartTime(){
-		return this.startTime;
-	}
-	
-	public Time getEndTime(){
-		return this.endTime;
 	}
 	
 	public Collection<User> getInvited(){
