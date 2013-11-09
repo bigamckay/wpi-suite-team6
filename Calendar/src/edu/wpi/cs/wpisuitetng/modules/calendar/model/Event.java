@@ -42,6 +42,7 @@ public class Event extends AbstractModel {
 	 * by some idiot who'd never heard of the Class class (passing Event.class instead of
 	 * a dummy Event object). DO NOT USE for general use.
 	 */
+	//TODO remove this constructor if possible (see notes in EventEntityManager)
 	public Event(){
 		
 	}
