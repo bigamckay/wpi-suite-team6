@@ -1,12 +1,32 @@
+/*******************************************************************************
+ * Copyright (c) 2013 -- WPI Suite
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Rachel Wigell
+ *    Craig Nesbitt
+ *    Liam Dunn
+ *    John French
+ ******************************************************************************/
+
 package edu.wpi.cs.wpisuitetng.modules.calendar.model;
 
 import java.util.Date;
 import java.util.Collection;
 import java.util.LinkedList;
 
+import com.google.gson.Gson;
+
+import edu.wpi.cs.wpisuitetng.Permission;
+import edu.wpi.cs.wpisuitetng.modules.AbstractModel;
+import edu.wpi.cs.wpisuitetng.modules.core.models.Project;
 import edu.wpi.cs.wpisuitetng.modules.core.models.User;
 
-public class Event {
+public class Event extends AbstractModel {
 	private String name; //event name
 	private String location; //event location
 	private String description; //event description
@@ -16,6 +36,17 @@ public class Event {
 	private Collection<User> invited; //invited people
 	private Collection<User> attending; //people who are attending
 
+	
+	/*
+	 * Empty constructor for creating dummy events objects because the Data object was written
+	 * by some idiot who'd never heard of the Class class (passing Event.class instead of
+	 * a dummy Event object). DO NOT USE for general use.
+	 */
+	//TODO remove this constructor if possible (see notes in EventEntityManager)
+	public Event(){
+		
+	}
+	
 	//constructor with only required fields
 	public Event(String name, String location, Date startDate, Date endDate, User creator){
 		this.name = name;
@@ -145,5 +176,42 @@ public class Event {
 		Collection<User> previous = this.attending;
 		this.attending.remove(toRemove);
 		return previous;
+	}
+	
+	/*
+	 * JSON stuff!
+	 */
+	public static Event fromJson(String json) {
+		return new Gson().fromJson(json, Event.class);
+	}
+	
+	public static Event[] fromJsonArray(String json) {
+		return new Gson().fromJson(json, Event[].class);
+	}
+
+	/*
+	 * Here begin the methods for implementing the Model interface
+	 */
+	
+	//We don't need to implement save or delete right now
+	//TODO determine if actual implementation is needed
+	@Override
+	public void save() {}
+
+	//TODO determine if actual implementation is needed
+	@Override
+	public void delete() {}
+
+	//Serialize this event as JSON
+	@Override
+	public String toJSON() {
+		return new Gson().toJson(this, Event.class);
+	}
+
+	//We can use the default implementation for now
+	//TODO determine if actual implementation is needed
+	@Override
+	public Boolean identify(Object o) {
+		return null;
 	}
 }
