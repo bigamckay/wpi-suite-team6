@@ -88,8 +88,7 @@ public class EventEntityManager implements EntityManager<Event> {
 
 	@Override
 	public void save(Session s, Event model) throws WPISuiteException {
-		// TODO implement this function
-		throw new WPISuiteException("This functionality is not implemented yet");
+		db.save(model);
 	}
 
 	@Override
@@ -113,9 +112,8 @@ public class EventEntityManager implements EntityManager<Event> {
 
 	@Override
 	public int Count() throws WPISuiteException {
-		// TODO implement this function
-		throw new WPISuiteException("This functionality is not implemented yet");
-}
+		return db.retrieveAll(new Event()).size();
+	}
 
 	@Override
 	public String advancedPut(Session s, String[] args, String content)
