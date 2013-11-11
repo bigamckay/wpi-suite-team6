@@ -29,7 +29,7 @@ import edu.wpi.cs.wpisuitetng.modules.Model;
  * @author John French
  *
  */
-public class EventEntityManager implements EntityManager<Event> {
+public class EventEntityManager implements EntityManager<EventMessage> {
 
 	//database
 	private Data db;
@@ -47,11 +47,11 @@ public class EventEntityManager implements EntityManager<Event> {
 	}
 	
 	@Override
-	public Event makeEntity(Session s, String content)
+	public EventMessage makeEntity(Session s, String content)
 			throws BadRequestException, ConflictException, WPISuiteException {
 		
 		//parse the JSON to get the event:
-		final Event newEvent = Event.fromJson(content);
+		final EventMessage newEvent = EventMessage.fromJson(content);
 		
 		//Store it or throw an exception if storing it fails
 		if(!db.save(newEvent, s.getProject())){
@@ -63,31 +63,31 @@ public class EventEntityManager implements EntityManager<Event> {
 	}
 
 	@Override
-	public Event[] getEntity(Session s, String id) throws NotFoundException,
+	public EventMessage[] getEntity(Session s, String id) throws NotFoundException,
 			WPISuiteException {
 		// TODO implement this function
 		throw new WPISuiteException("This functionality is not implemented yet");
 	}
 
 	@Override
-	public Event[] getAll(Session s) throws WPISuiteException {
+	public EventMessage[] getAll(Session s) throws WPISuiteException {
 		//Get all events from the database.
 		//TODO look into using Event.class instead of a dummy event.
 		//Probably would require modifying the main WPI Suite a bit.
-		List<Model> events = db.retrieveAll(new Event(), s.getProject());
+		List<Model> events = db.retrieveAll(new EventMessage(), s.getProject());
 		
 		//return the list as an array
-		return (Event[]) events.toArray();
+		return (EventMessage[]) events.toArray();
 	}
 
 	@Override
-	public Event update(Session s, String content) throws WPISuiteException {
+	public EventMessage update(Session s, String content) throws WPISuiteException {
 		// TODO implement this function
 		throw new WPISuiteException("This functionality is not implemented yet");
 	}
 
 	@Override
-	public void save(Session s, Event model) throws WPISuiteException {
+	public void save(Session s, EventMessage model) throws WPISuiteException {
 		db.save(model);
 	}
 
@@ -112,7 +112,7 @@ public class EventEntityManager implements EntityManager<Event> {
 
 	@Override
 	public int Count() throws WPISuiteException {
-		return db.retrieveAll(new Event()).size();
+		return db.retrieveAll(new EventMessage()).size();
 	}
 
 	@Override

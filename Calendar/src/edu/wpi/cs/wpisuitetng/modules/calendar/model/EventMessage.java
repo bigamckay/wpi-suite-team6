@@ -26,7 +26,7 @@ import edu.wpi.cs.wpisuitetng.modules.AbstractModel;
 import edu.wpi.cs.wpisuitetng.modules.core.models.Project;
 import edu.wpi.cs.wpisuitetng.modules.core.models.User;
 
-public class Event extends AbstractModel {
+public class EventMessage extends AbstractModel {
 	private String name; //event name
 	private String location; //event location
 	private String description; //event description
@@ -43,12 +43,12 @@ public class Event extends AbstractModel {
 	 * a dummy Event object). DO NOT USE for general use.
 	 */
 	//TODO remove this constructor if possible (see notes in EventEntityManager)
-	public Event(){
+	public EventMessage(){
 		
 	}
 	
 	//constructor with only required fields
-	public Event(String name, String location, Date startDate, Date endDate, User creator){
+	public EventMessage(String name, String location, Date startDate, Date endDate, User creator){
 		this.name = name;
 		this.location = location;
 		this.startDate = startDate;
@@ -60,7 +60,7 @@ public class Event extends AbstractModel {
 	}
 	
 	//constructor including optional fields
-	public Event(String name, String location, Date startDate, Date endDate, User creator,
+	public EventMessage(String name, String location, Date startDate, Date endDate, User creator,
 			String description, Collection<User> invited, Collection<User> attending){
 		this.name = name;
 		this.location = location;
@@ -181,12 +181,12 @@ public class Event extends AbstractModel {
 	/*
 	 * JSON stuff!
 	 */
-	public static Event fromJson(String json) {
-		return new Gson().fromJson(json, Event.class);
+	public static EventMessage fromJson(String json) {
+		return new Gson().fromJson(json, EventMessage.class);
 	}
 	
-	public static Event[] fromJsonArray(String json) {
-		return new Gson().fromJson(json, Event[].class);
+	public static EventMessage[] fromJsonArray(String json) {
+		return new Gson().fromJson(json, EventMessage[].class);
 	}
 
 	/*
@@ -205,7 +205,7 @@ public class Event extends AbstractModel {
 	//Serialize this event as JSON
 	@Override
 	public String toJSON() {
-		return new Gson().toJson(this, Event.class);
+		return new Gson().toJson(this, EventMessage.class);
 	}
 
 	//We can use the default implementation for now
