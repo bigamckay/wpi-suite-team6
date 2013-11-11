@@ -1,2 +1,2 @@
-See the wiki at https://github.com/fracture91/wpi-suite-tng/wiki
+See the wiki at https://github.com/frenchie16/wpi-suite-team6/wiki
 
