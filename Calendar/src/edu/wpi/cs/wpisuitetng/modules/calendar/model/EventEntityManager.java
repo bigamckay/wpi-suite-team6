@@ -13,6 +13,7 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.model;
 
 import java.util.List;
+import java.util.UUID;
 
 import edu.wpi.cs.wpisuitetng.Session;
 import edu.wpi.cs.wpisuitetng.database.Data;
@@ -65,8 +66,8 @@ public class EventEntityManager implements EntityManager<Event> {
 	@Override
 	public Event[] getEntity(Session s, String id) throws NotFoundException,
 			WPISuiteException {
-		// TODO implement this function
-		throw new WPISuiteException("This functionality is not implemented yet");
+		UUID idAsUUID = UUID.fromString(id);
+		return (Event[]) (db.retrieve(Event.class, Event.ID_FIELD_NAME, idAsUUID).toArray());
 	}
 
 	@Override
@@ -93,8 +94,8 @@ public class EventEntityManager implements EntityManager<Event> {
 
 	@Override
 	public boolean deleteEntity(Session s, String id) throws WPISuiteException {
-		// TODO implement this function
-		throw new WPISuiteException("This functionality is not implemented yet");
+		Event deleted = db.delete(getEntity(s, id)[0]);
+		return deleted != null;
 	}
 
 	@Override

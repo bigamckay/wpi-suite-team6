@@ -18,15 +18,16 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.model;
 import java.util.Date;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.UUID;
 
 import com.google.gson.Gson;
 
-import edu.wpi.cs.wpisuitetng.Permission;
 import edu.wpi.cs.wpisuitetng.modules.AbstractModel;
-import edu.wpi.cs.wpisuitetng.modules.core.models.Project;
 import edu.wpi.cs.wpisuitetng.modules.core.models.User;
 
 public class Event extends AbstractModel {
+	public static String ID_FIELD_NAME = "id";
+	private final UUID id; //ID for database storage.
 	private String name; //event name
 	private String location; //event location
 	private String description; //event description
@@ -44,11 +45,12 @@ public class Event extends AbstractModel {
 	 */
 	//TODO remove this constructor if possible (see notes in EventEntityManager)
 	public Event(){
-		
+		this.id = new UUID(0, 0);
 	}
 	
 	//constructor with only required fields
 	public Event(String name, String location, Date startDate, Date endDate, User creator){
+		this.id = UUID.randomUUID();
 		this.name = name;
 		this.location = location;
 		this.startDate = startDate;
@@ -62,6 +64,7 @@ public class Event extends AbstractModel {
 	//constructor including optional fields
 	public Event(String name, String location, Date startDate, Date endDate, User creator,
 			String description, Collection<User> invited, Collection<User> attending){
+		this.id = UUID.randomUUID();
 		this.name = name;
 		this.location = location;
 		this.startDate = startDate;
@@ -73,6 +76,11 @@ public class Event extends AbstractModel {
 	}
 	
 	//getters
+	
+	public UUID getId(){
+		return this.id;
+	}
+	
 	public String getName(){
 		return this.name;
 	}
