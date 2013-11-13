@@ -30,7 +30,7 @@ import edu.wpi.cs.wpisuitetng.modules.Model;
  * @author John French
  *
  */
-public class EventEntityManager implements EntityManager<Event> {
+public class EventManager implements EntityManager<Event> {
 
 	//database
 	private Data db;
@@ -43,7 +43,7 @@ public class EventEntityManager implements EntityManager<Event> {
 	 * 
 	 * @param db a reference to the persistent database
 	 */
-	public EventEntityManager(Data db) {
+	public EventManager(Data db) {
 		this.db = db;
 	}
 	
