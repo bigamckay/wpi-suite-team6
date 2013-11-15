@@ -15,7 +15,7 @@
 
 package edu.wpi.cs.wpisuitetng.modules.calendar.model;
 
-import java.util.Date;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.UUID;
@@ -31,8 +31,8 @@ public class Event extends AbstractModel {
 	private String name; //event name
 	private String location; //event location
 	private String description; //event description
-	private Date startDate; //year/month/day that event starts
-	private Date endDate; //year/month/day that event ends
+	private Calendar start; //when the event starts
+	private Calendar end; //when the event ends
 	private User creator; //person who made the event
 	private Collection<User> invited; //invited people
 	private Collection<User> attending; //people who are attending
@@ -49,12 +49,12 @@ public class Event extends AbstractModel {
 	}
 	
 	//constructor with only required fields
-	public Event(String name, String location, Date startDate, Date endDate, User creator){
+	public Event(String name, String location, Calendar start, Calendar end, User creator){
 		this.id = UUID.randomUUID();
 		this.name = name;
 		this.location = location;
-		this.startDate = startDate;
-		this.endDate = endDate;
+		this.start = start;
+		this.end = end;
 		this.creator = creator;
 		this.description = "";
 		this.invited = new LinkedList<User>();
@@ -62,13 +62,13 @@ public class Event extends AbstractModel {
 	}
 	
 	//constructor including optional fields
-	public Event(String name, String location, Date startDate, Date endDate, User creator,
+	public Event(String name, String location, Calendar start, Calendar end, User creator,
 			String description, Collection<User> invited, Collection<User> attending){
 		this.id = UUID.randomUUID();
 		this.name = name;
 		this.location = location;
-		this.startDate = startDate;
-		this.endDate = endDate;
+		this.start = start;
+		this.end = end;
 		this.creator = creator;
 		this.description = description;
 		this.invited = invited;
@@ -93,12 +93,12 @@ public class Event extends AbstractModel {
 		return this.description;
 	}
 	
-	public Date getStartDate(){
-		return this.startDate;
+	public Calendar getStart(){
+		return this.start;
 	}
 	
-	public Date getEndDate(){
-		return this.endDate;
+	public Calendar getEnd(){
+		return this.end;
 	}
 	
 	public Collection<User> getInvited(){
@@ -128,9 +128,9 @@ public class Event extends AbstractModel {
 		return previous;
 	}
 	
-	public Date setStartDate(Date to){
-		Date previous = this.startDate;
-		this.startDate = to;
+	public Calendar setStart(Calendar to){
+		Calendar previous = this.start;
+		this.start = to;
 		return previous;
 	}
 	
@@ -138,9 +138,9 @@ public class Event extends AbstractModel {
 		return creator;
 	}
 
-	public Date setEndDate(Date to){
-		Date previous = this.endDate;
-		this.endDate = to;
+	public Calendar setEnd(Calendar to){
+		Calendar previous = this.end;
+		this.end = to;
 		return previous;
 	}
 	
