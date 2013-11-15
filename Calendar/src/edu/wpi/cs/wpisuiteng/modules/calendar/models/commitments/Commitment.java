@@ -1,6 +1,6 @@
 package edu.wpi.cs.wpisuiteng.modules.calendar.models.commitments;
 
-import java.util.Date;
+import java.util.Calendar;
 
 import com.google.gson.Gson;
 
@@ -37,7 +37,7 @@ public class Commitment extends AbstractModel{
 	 * @param due
 	 * 			  The start of the Commitment
 	 */
-	public Commitment(int id, String name, Date due) {
+	public Commitment(int id, String name, Calendar due) {
 		this.id = id;
 		this.name = name;
 		if (name.trim().length() == 0)
@@ -62,7 +62,7 @@ public class Commitment extends AbstractModel{
 	 * Sets the due date for the commitment
 	 * @param start start date
 	 */
-	public void setDueDate(Date due) {
+	public void setDueDate(Calendar due) {
 		this.duedate = new CommitmentDate(due);
 	}
 
