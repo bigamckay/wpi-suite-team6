@@ -1,4 +1,4 @@
-package org.eclipse.wb.swt;
+package edu.wpi.cs.wpisuitetng.modules.calendar.gui;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -22,7 +22,7 @@ import javax.swing.JScrollPane;
 import org.jdesktop.swingx.JXMonthView;
 import org.jdesktop.swingx.calendar.DateSelectionModel.SelectionMode;
 
-public class GUIv0 {
+public class CalendarGUI {
 
 	private JFrame frameCalendar;
 	private JTextField eventDescription;
@@ -38,24 +38,25 @@ public class GUIv0 {
 
 	/**
 	 * Launch the application.
+	 * Unnecessary - launched by Janeway
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					GUIv0 window = new GUIv0();
+					CalendarGUI window = new CalendarGUI();
 					window.frameCalendar.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
-	}
+	}*/
 
 	/**
 	 * Create the application.
 	 */
-	public GUIv0() {
+	public CalendarGUI() {
 		initialize();
 	}
 

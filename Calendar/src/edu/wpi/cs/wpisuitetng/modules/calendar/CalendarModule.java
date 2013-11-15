@@ -11,13 +11,17 @@ import javax.swing.JPanel;
 
 import edu.wpi.cs.wpisuitetng.janeway.modules.IJanewayModule;
 import edu.wpi.cs.wpisuitetng.janeway.modules.JanewayTabModel;
+import edu.wpi.cs.wpisuitetng.modules.calendar.gui.CalendarGUI;
 
-public class CalendarModule implements IJanewayModule {
+public class CalendarModule extends CalendarGUI implements IJanewayModule {
 	
 	List<JanewayTabModel> tabs;
 	
 	public CalendarModule() {
+		
 		tabs = new ArrayList<JanewayTabModel>();
+		
+		//CalendarGUI gui = new CalendarGUI();
 		
 		// Create a JPanel to hold the toolbar for the tab
 		JPanel toolbarPanel = new JPanel();
