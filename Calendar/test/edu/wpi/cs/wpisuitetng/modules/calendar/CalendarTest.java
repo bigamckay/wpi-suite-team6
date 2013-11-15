@@ -26,13 +26,6 @@ public class CalendarTest {
 	public void testDummyCalendar() {
 		assertNotNull(dummyCalendar);
 	}
-	
-	/*
-	@Test
-	public void testCalendarName() {
-		assertTrue();
-	}
-	*/
 
 	@Test
 	public void testCalendar() {
