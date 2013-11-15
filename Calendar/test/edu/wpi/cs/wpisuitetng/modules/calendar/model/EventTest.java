@@ -3,12 +3,15 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.model;
 import static org.junit.Assert.*;
 
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.GregorianCalendar;
 import java.util.UUID;
+import java.util.LinkedList;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import edu.wpi.cs.wpisuitetng.exceptions.WPISuiteException;
 import edu.wpi.cs.wpisuitetng.modules.core.models.User;
 
 public class EventTest {
@@ -16,14 +19,45 @@ public class EventTest {
 	Event dummyEvent;
 	Event basicEvent;
 	
+	User testUser = new User("Jean Valjean", "jvaljean", "mynameisjeanvaljean", 42601);
+	User testUser2 = new User("Spongebob", "ssquarepants", "iheartpatrick", 12345);
+	User testUser3 = new User("Golem", "smeagol", "myprecious", 98765);
+	Calendar testStart = new GregorianCalendar(2013, Calendar.NOVEMBER, 14, 18, 0);
+	Calendar testStart2 = new GregorianCalendar(2013, Calendar.JANUARY, 21, 18, 0);
+	Calendar testEnd = new GregorianCalendar(2013, Calendar.NOVEMBER, 14, 22, 0);
+	Calendar testEnd2 = new GregorianCalendar(2013, Calendar.JANUARY, 21, 20, 0);
+	
+	LinkedList<User> users = new LinkedList<User>();
+	LinkedList<User> users2 = new LinkedList<User>();
+	LinkedList<User> users3 = new LinkedList<User>();
+	
 	@Before
 	public void setup() {
-		User testUser = new User("Jean Valjean", "jvaljean", "mynameisjeanvaljean", 42601);
-		Calendar testStart = new GregorianCalendar(2013, Calendar.NOVEMBER, 14, 18, 0);
-		Calendar testEnd = new GregorianCalendar(2013, Calendar.NOVEMBER, 14, 22, 0);
+		
+		users.add(testUser);
+		users.add(testUser2);
+		
+		users2.add(testUser2);
+		users2.add(testUser3);
+		
+		users3.add(testUser3);
 		
 		dummyEvent = new Event();
-		//basicEvent = new Event("Team 6 Meeting", "Flower", testStart, testEnd, testUser);
+		try{
+			basicEvent = new Event("Team 6 Meeting", "Flower", testStart, testEnd, testUser,"Funtimes!", users, users);
+		} catch(WPISuiteException e){
+			// does this if throws exception
+			// compare e.getMessage() to expected
+		}
+		// does this if it works
+		
+		try{
+			basicEvent = new Event("PlayDate", "Bancroft Towers", testStart2, testEnd2, testUser3, "Ring Toss", users2, users2);
+		}catch(WPISuiteException e){
+			
+		}
+		
+		
 	}
 
 	@Test
@@ -59,74 +93,90 @@ public class EventTest {
 		assertTrue(basicEvent.getLocation().equals("Flower"));
 	}
 
-	@Test
-	public void testGetDescription() {
-		fail("Not yet implemented");
-	}
 
 	@Test
 	public void testGetStartDate() {
-		fail("Not yet implemented");
+		assertNotNull(basicEvent.getStart());
+		assertEquals(new GregorianCalendar(2013, Calendar.NOVEMBER, 14, 18, 0), basicEvent.getStart());
 	}
 
 	@Test
 	public void testGetEndDate() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetInvited() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetAttending() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetName() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetLocation() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetDescription() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetStartDate() {
-		fail("Not yet implemented");
+		assertNotNull(basicEvent.getEnd());
+		assertEquals(new GregorianCalendar(2013, Calendar.NOVEMBER, 14, 22, 0),basicEvent.getEnd());
 	}
 
 	@Test
 	public void testGetCreator() {
-		fail("Not yet implemented");
+		assertNotNull(basicEvent.getCreator());
+		assertEquals(testUser, basicEvent.getCreator());
+	}
+	
+	@Test
+	public void testGetDescription() {
+		assertNotNull(basicEvent.getDescription());
+		assertEquals("Funtimes!", basicEvent.getDescription());
+	}
+	
+	@Test
+	public void testGetInvited() {
+		assertNotNull(basicEvent.getInvited());
+		assertEquals(users, basicEvent.getInvited());
 	}
 
 	@Test
+	public void testGetAttending() {
+		assertNotNull(basicEvent.getAttending());
+		assertEquals(users, basicEvent.getAttending());
+	}
+
+	@Test
+	public void testSetName() {
+		basicEvent.setName("Poopies!");
+		assertEquals("Poopies!",basicEvent.getName());
+	}
+
+	@Test
+	public void testSetLocation() {
+		basicEvent.setLocation("Bathroom");
+		assertEquals("Bathroom",basicEvent.getLocation());
+	}
+
+	@Test
+	public void testSetStartDate() {
+		basicEvent.setStart(new GregorianCalendar(2013, Calendar.JUNE, 6, 18, 0));
+		assertEquals(new GregorianCalendar(2013, Calendar.JUNE, 6, 18, 0),basicEvent.getStart());
+	}
+	
+	@Test
 	public void testSetEndDate() {
-		fail("Not yet implemented");
+		basicEvent.setEnd(new GregorianCalendar(2013, Calendar.JUNE, 10, 18, 0));
+		assertEquals(new GregorianCalendar(2013, Calendar.JUNE, 6, 18, 0), basicEvent.getEnd());
+	}
+	
+	@Test
+	public void testSetDescription() {
+		basicEvent.setDescription("You don't want to know.");
+		assertEquals("You don't want to know.", basicEvent.getDescription());
 	}
 
 	@Test
 	public void testSetInvited() {
-		fail("Not yet implemented");
+		basicEvent.setInvited(users2);
+		assertEquals(users2, basicEvent.getInvited());
 	}
 
 	@Test
 	public void testSetAttending() {
-		fail("Not yet implemented");
+		basicEvent.setAttending(users3);
+		assertEquals(users3, basicEvent.getAttending());
 	}
 
 	@Test
 	public void testAddInvited() {
-		fail("Not yet implemented");
+		basicEvent.setInvited(users3);
+		basicEvent.addInvited(testUser2);
+		assertEquals(users3,basicEvent.getInvited());
 	}
 
 	@Test
