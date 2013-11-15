@@ -24,6 +24,8 @@ import com.google.gson.Gson;
 
 import edu.wpi.cs.wpisuitetng.modules.AbstractModel;
 import edu.wpi.cs.wpisuitetng.modules.core.models.User;
+import edu.wpi.cs.wpisuitetng.exceptions.WPISuiteException;
+
 
 public class Event extends AbstractModel {
 	public static String ID_FIELD_NAME = "id";
@@ -48,6 +50,7 @@ public class Event extends AbstractModel {
 		this.id = new UUID(0, 0);
 	}
 	
+	/* only want constructor with all fields
 	//constructor with only required fields
 	public Event(String name, String location, Calendar start, Calendar end, User creator){
 		this.id = UUID.randomUUID();
@@ -60,11 +63,26 @@ public class Event extends AbstractModel {
 		this.invited = new LinkedList<User>();
 		this.attending = new LinkedList<User>();
 	}
+	*/
 	
 	//constructor including optional fields
 	public Event(String name, String location, Calendar start, Calendar end, User creator,
-			String description, Collection<User> invited, Collection<User> attending){
+			String description, Collection<User> invited, Collection<User> attending) throws WPISuiteException{
+		
+		// Why is the ID random? And what do we need it for?
 		this.id = UUID.randomUUID();
+		
+		try{
+			isValidName(name);
+			isValidLocation(location);
+			isValidDescription(description);
+			isValidDate(start);
+			isValidDate(end);
+			isValidDateOrder(start,end);
+		} catch(WPISuiteException e){
+			throw e;
+		}
+		
 		this.name = name;
 		this.location = location;
 		this.start = start;
@@ -204,7 +222,7 @@ public class Event extends AbstractModel {
 
 	// Validation funnctions for input
 	// make sure that name is valid:
-	private boolean isValidName(String name){
+	private boolean isValidName(String name) throws WPISuiteException{
 		// size limitation
 		// restrictions on characters (ascii 32 - 126 inclusive)
 		// minimum length 1
@@ -215,7 +233,7 @@ public class Event extends AbstractModel {
 	}
 	
 	// make sure that location is valid:
-	private boolean isValidLocation(String location){
+	private boolean isValidLocation(String location) throws WPISuiteException{
 		// size limitation
 		// restrictions on characters (ascii 32 - 126 inclusive)
 		// no minimum length, allowed to be empty
@@ -225,7 +243,7 @@ public class Event extends AbstractModel {
 	}
 	
 	// make sure that Description is valid:
-	private boolean isValidDescription(String desc){
+	private boolean isValidDescription(String desc) throws WPISuiteException{
 		// size limitation (big, check with gui for size constraints)
 		// restrictions on characters (ascii 32 - 126 inclusive)
 		// no minimum length, allowed to be empty
@@ -235,7 +253,7 @@ public class Event extends AbstractModel {
 	}
 	
 	
-	private boolean isValidDate(Calendar cal){
+	private boolean isValidDate(Calendar cal) throws WPISuiteException{
 		// date has to exist
 		// Date has to be in the present or future
 		// valid day for given month
@@ -254,7 +272,7 @@ public class Event extends AbstractModel {
 	}
 	
 	// Make sure that the endDate is after the StartDate
-	private boolean isValidDateOrder(Calendar startDate, Calendar endDate){
+	private boolean isValidDateOrder(Calendar startDate, Calendar endDate) throws WPISuiteException{
 		// make sure end date is after start date
 		// endDate.after(startDate) should be true
 		// accept combinations of dates if and only if isValidDate(startDate) && isValidDate(endDate) && isValidDateOrder(startDate, endDate)
