@@ -186,6 +186,76 @@ public class Event extends AbstractModel {
 		return previous;
 	}
 	
+	
+	
+	
+	/*
+		private String name; //event name
+	private String location; //event location
+	private String description; //event description
+	private Date startDate; //year/month/day that event starts
+	private Date endDate; //year/month/day that event ends
+	private User creator; //person who made the event
+	private Collection<User> invited; //invited people
+	private Collection<User> attending; //people who are attending
+	
+	
+	
+	DATE
+	    int year = Integer.MIN_VALUE;
+        int mon = -1;
+        int mday = -1;
+        int hour = -1;
+        int min = -1;
+        int sec = -1;
+        int millis = -1;
+        int c = -1;
+        int i = 0;
+        int n = -1;
+        int wst = -1;
+        int tzoffset = -1;
+        int prevc = 0;
+	*/
+
+	// Validation funnctions for input
+	private boolean isValidName(String name){
+		// make sure that name is valid:
+		// size limitation
+		// restrictions on characters (ascii 32 - 126 inclusive)
+		// minimum length (1)
+		
+		
+		// return 1 if valid, 0 if invalid
+		return 1;
+	}
+	
+	private boolean isValidLocation(String location){
+		// make sure that name is valid:
+		// size limitation
+		// restrictions on characters (ascii 32 - 126 inclusive)
+		// no minimum length, allowed to be empty
+		
+		// return 1 if valid, 0 if invalid
+		return 1;
+	}
+	
+	
+	private boolean isValidDescriction(String desc){
+		// make sure that name is valid:
+		// size limitation (big, check with gui for size constraints)
+		// restrictions on characters (ascii 32 - 126 inclusive)
+		// no minimum length, allowed to be empty
+		
+		// return 1 if valid, 0 if invalid
+		return 1;
+	}
+	
+	private boolean isValidDate(Date date){
+		// date has to exist
+		// Date has to be in the present or future
+		// 
+	}
+	
 	/*
 	 * JSON stuff!
 	 */
