@@ -198,39 +198,24 @@ public class Event extends AbstractModel {
 	private User creator; //person who made the event
 	private Collection<User> invited; //invited people
 	private Collection<User> attending; //people who are attending
-	
-	
-	
-	DATE
-	    int year = Integer.MIN_VALUE;
-        int mon = -1;
-        int mday = -1;
-        int hour = -1;
-        int min = -1;
-        int sec = -1;
-        int millis = -1;
-        int c = -1;
-        int i = 0;
-        int n = -1;
-        int wst = -1;
-        int tzoffset = -1;
-        int prevc = 0;
 	*/
+	
+
 
 	// Validation funnctions for input
+	// make sure that name is valid:
 	private boolean isValidName(String name){
-		// make sure that name is valid:
 		// size limitation
 		// restrictions on characters (ascii 32 - 126 inclusive)
-		// minimum length (1)
+		// minimum length 1
 		
 		
 		// return 1 if valid, 0 if invalid
 		return true;
 	}
 	
+	// make sure that location is valid:
 	private boolean isValidLocation(String location){
-		// make sure that name is valid:
 		// size limitation
 		// restrictions on characters (ascii 32 - 126 inclusive)
 		// no minimum length, allowed to be empty
@@ -239,9 +224,8 @@ public class Event extends AbstractModel {
 		return true;
 	}
 	
-	
-	private boolean isValidDescriction(String desc){
-		// make sure that name is valid:
+	// make sure that Description is valid:
+	private boolean isValidDescription(String desc){
 		// size limitation (big, check with gui for size constraints)
 		// restrictions on characters (ascii 32 - 126 inclusive)
 		// no minimum length, allowed to be empty
@@ -250,12 +234,45 @@ public class Event extends AbstractModel {
 		return true;
 	}
 	
-	private boolean isValidDate(Calendar date){
+	
+	private boolean isValidDate(Calendar cal){
 		// date has to exist
 		// Date has to be in the present or future
-		// 
+		// valid day for given month
+		// valid hour for given day
+		/*
+		 * 	try {
+    			cal.setTime(yourDate);
+			}
+			catch (Exception e) {
+  				//System.out.println("Invalid date");
+  				 return false;
+			}
+		*/
+	
 		return true;
 	}
+	
+	// Make sure that the endDate is after the StartDate
+	private boolean isValidDateOrder(Calendar startDate, Calendar endDate){
+		// make sure end date is after start date
+		// endDate.after(startDate) should be true
+		// accept combinations of dates if and only if isValidDate(startDate) && isValidDate(endDate) && isValidDateOrder(startDate, endDate)
+		return true;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	/*
 	 * JSON stuff!

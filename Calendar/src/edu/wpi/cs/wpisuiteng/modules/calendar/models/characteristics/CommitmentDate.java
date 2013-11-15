@@ -1,22 +1,22 @@
 package edu.wpi.cs.wpisuiteng.modules.calendar.models.characteristics;
 
-import java.util.Date;
+import java.util.Calendar;
 
 public class CommitmentDate {
-private Date date;
+private Calendar date;
 	
 	/**
 	 * Constructor for IterationDate.
 	 * @param curr date
 	 */
-	public CommitmentDate(Date curr) {
+	public CommitmentDate(Calendar curr) {
 		this.date = curr;
 	}
 
 	/**
 	
 	 *  * @return the date */
-	public Date getDate()
+	public Calendar getDate()
 	{
 		return this.date;
 	}
@@ -25,7 +25,7 @@ private Date date;
 	 * Sets the date
 	 * @param date the new date.
 	 */
-	public void setDate(Date date)
+	public void setDate(Calendar date)
 	{
 		this.date = date;
 	}

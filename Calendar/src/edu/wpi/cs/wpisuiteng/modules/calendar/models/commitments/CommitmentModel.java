@@ -1,7 +1,7 @@
 package edu.wpi.cs.wpisuiteng.modules.calendar.models.commitments;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 
@@ -189,7 +189,7 @@ public class CommitmentModel extends AbstractListModel {
 	 * @param end the end date
 	
 	 * @return the conflicting iteration */
-	public Commitment getConflictingCommitment(Date due) {
+	public Commitment getConflictingCommitment(Calendar due) {
 		Commitment isValid = null;
 		
 		if (due == null) {
@@ -218,7 +218,7 @@ public class CommitmentModel extends AbstractListModel {
 	 * @param date the date to check for
 	
 	 * @return the iterations */
-	public List<Commitment> getIterationForDate(Date date) {
+	public List<Commitment> getIterationForDate(Calendar date) {
 		List<Commitment> iter = new ArrayList<Commitment>();
 		if(date == null) return iter;
 
