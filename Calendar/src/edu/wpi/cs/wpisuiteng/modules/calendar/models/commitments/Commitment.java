@@ -9,14 +9,14 @@ import edu.wpi.cs.wpisuiteng.modules.calendar.models.characteristics.CommitmentD
 import edu.wpi.cs.wpisuitetng.modules.AbstractModel;
 
 public class Commitment extends AbstractModel{
-	/** the ID of the iteration */
+	/** the ID of the Commitment */
 	private int id; // TODO: move ID stuff to server side? (copied from
 					// requirement impl.)
 
 	/** the name of the commitment */
 	private String name;
 		
-	/** start and end date associated with the iteration */
+	/** start and end date associated with the commitment */
 	private CommitmentDate duedate;
 
 	public Commitment() {
@@ -27,7 +27,7 @@ public class Commitment extends AbstractModel{
 	}
 
 	/**
-	 * Construct an Iteration with required properties provided and others set
+	 * Construct an Commitment with required properties provided and others set
 	 * to default
 	 * 
 	 * @param id
@@ -111,13 +111,13 @@ public class Commitment extends AbstractModel{
 
 	/**
 	
-	 * @return the duedate of the iteration */
+	 * @return the duedate of the commitment */
 	public CommitmentDate getDueDate() {
 		return duedate;
 	}
 
 	/**
-	 * @param start the start of the iteration
+	 * @param start the start of the commitment
 	 */
 //	public void setDueDate(CommitmentDate due) {
 //		this.duedate = due;
@@ -127,7 +127,7 @@ public class Commitment extends AbstractModel{
 	/**
 
 	/**
-	 * represents iteration as a string which is currently just the name
+	 * represents commitment as a string which is currently just the name
 	 * 	
 	 * @return the name * @see edu.wpi.cs.wpisuitetng.modules.Model#toString() * @see edu.wpi.cs.wpisuitetng.modules.Model#toString() * @see edu.wpi.cs.wpisuitetng.modules.Model#toString()
 	 */
@@ -137,14 +137,14 @@ public class Commitment extends AbstractModel{
 	}
 
 	/**
-	 * compares two iterations for equality based on name
+	 * compares two commitment for equality based on name
 	 * 
 	 * @param that
-	 *            iteration to compare to
+	 *            commitment to compare to
 	
 	 * @return boolean for equality */
 	// should this also be extended for the other fields?
-	public boolean equals(Commitment that) {
+	public boolean equalsCommitment(Commitment that) {
 		if (this.name.equals(that.getName()))
 			return true;
 		else
@@ -152,11 +152,11 @@ public class Commitment extends AbstractModel{
 	}
 
 	/**
-	 * Copies all of the values from the given iteration to this iteration
+	 * Copies all of the values from the given commitment to this commitment
 	 * excluding the Id.
 	 * 
 	 * @param toCopyFrom
-	 *            the iteration to copy from.
+	 *            the commitment to copy from.
 	 */
 	public void copyFrom(Commitment toCopyFrom) {
 		this.name = toCopyFrom.name;
@@ -164,10 +164,10 @@ public class Commitment extends AbstractModel{
 	}
 
 	/**
-	 * Returns an array of Iterations parsed from the given JSON-encoded
+	 * Returns an array of Commitments parsed from the given JSON-encoded
 	 * string.
 	 * 
-	 * @param body	string containing a JSON-encoded array of Iteration
+	 * @param body	string containing a JSON-encoded array of Commitments
 	
 	 * @return an array of Requirement deserialized from the given JSON string */
 	public static Commitment[] fromJsonArray(String body) {
@@ -186,13 +186,13 @@ public class Commitment extends AbstractModel{
 	}
 
 	/**
-	 * Returns an instance of Iteration constructed using the given
+	 * Returns an instance of Commitment constructed using the given
 	 * Iteration encoded as a JSON string.
 	 * 
 	 * @param body the
 	 *            JSON-encoded Iteration to deserialize
 	
-	 * @return the Iteration contained in the given JSON */
+	 * @return the Commitment contained in the given JSON */
 	public static Commitment fromJson(String body) {
 		final Gson parser = new Gson();
 		Commitment test = parser.fromJson(body, Commitment.class);
