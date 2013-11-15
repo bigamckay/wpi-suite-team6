@@ -226,7 +226,7 @@ public class Event extends AbstractModel {
 		
 		
 		// return 1 if valid, 0 if invalid
-		return 1;
+		return true;
 	}
 	
 	private boolean isValidLocation(String location){
@@ -236,7 +236,7 @@ public class Event extends AbstractModel {
 		// no minimum length, allowed to be empty
 		
 		// return 1 if valid, 0 if invalid
-		return 1;
+		return true;
 	}
 	
 	
@@ -247,13 +247,14 @@ public class Event extends AbstractModel {
 		// no minimum length, allowed to be empty
 		
 		// return 1 if valid, 0 if invalid
-		return 1;
+		return true;
 	}
 	
-	private boolean isValidDate(Date date){
+	private boolean isValidDate(Calendar date){
 		// date has to exist
 		// Date has to be in the present or future
 		// 
+		return true;
 	}
 	
 	/*
