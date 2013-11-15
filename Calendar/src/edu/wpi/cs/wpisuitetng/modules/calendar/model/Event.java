@@ -253,10 +253,11 @@ public class Event extends AbstractModel {
 		return true;
 	}
 	
-	
+	// Make sure that the endDate is after the StartDate
 	private boolean isValidDateOrder(Calendar startDate, Calendar endDate){
 		// make sure end date is after start date
-		
+		// endDate.after(startDate) should be true
+		// accept combinations of dates if and only if isValidDate(startDate) && isValidDate(endDate) && isValidDateOrder(startDate, endDate)
 		return true;
 	}
 	
