@@ -23,7 +23,7 @@ public class EventTest {
 		Calendar testEnd = new GregorianCalendar(2013, Calendar.NOVEMBER, 14, 22, 0);
 		
 		dummyEvent = new Event();
-		basicEvent = new Event("Team 6 Meeting", "Flower", testStart, testEnd, testUser);
+		//basicEvent = new Event("Team 6 Meeting", "Flower", testStart, testEnd, testUser);
 	}
 
 	@Test

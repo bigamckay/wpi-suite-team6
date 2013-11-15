@@ -6,11 +6,7 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
- * Contributors:
- *    Rachel Wigell
- *    Craig Nesbitt
- *    Liam Dunn
- *    John French
+ * Contributors: Seal Team Six
  ******************************************************************************/
 
 package edu.wpi.cs.wpisuitetng.modules.calendar.model;
@@ -24,8 +20,19 @@ import com.google.gson.Gson;
 
 import edu.wpi.cs.wpisuitetng.modules.AbstractModel;
 import edu.wpi.cs.wpisuitetng.modules.core.models.User;
+import edu.wpi.cs.wpisuitetng.exceptions.WPISuiteException;
 
+
+
+/** 
+ *  Needs to be documented
+ * @author Craig
+ *
+ */
 public class Event extends AbstractModel {
+	private static final int SHORT_MAX = 40;
+	private static final int LONG_MAX = 200;
+	
 	public static String ID_FIELD_NAME = "id";
 	private final UUID id; //ID for database storage.
 	private String name; //event name
@@ -36,7 +43,6 @@ public class Event extends AbstractModel {
 	private User creator; //person who made the event
 	private Collection<User> invited; //invited people
 	private Collection<User> attending; //people who are attending
-
 	
 	/*
 	 * Empty constructor for creating dummy events objects because the Data object was written
@@ -48,23 +54,26 @@ public class Event extends AbstractModel {
 		this.id = new UUID(0, 0);
 	}
 	
-	//constructor with only required fields
-	public Event(String name, String location, Calendar start, Calendar end, User creator){
-		this.id = UUID.randomUUID();
-		this.name = name;
-		this.location = location;
-		this.start = start;
-		this.end = end;
-		this.creator = creator;
-		this.description = "";
-		this.invited = new LinkedList<User>();
-		this.attending = new LinkedList<User>();
-	}
-	
-	//constructor including optional fields
+	//constructor for Event. Checks for invalid input and throws exception if invalid input is found
 	public Event(String name, String location, Calendar start, Calendar end, User creator,
-			String description, Collection<User> invited, Collection<User> attending){
+			String description, Collection<User> invited, Collection<User> attending) throws WPISuiteException{
+		
+		// Why is the ID random? And what do we need it for?
 		this.id = UUID.randomUUID();
+		
+		// validate all input before assigning values
+		try{
+			isValidName(name);
+			isValidLocation(location);
+			isValidDescription(description);
+			isValidDate(start);
+			isValidDate(end);
+			isValidDateOrder(start,end);
+		} catch(WPISuiteException e){
+			throw e;
+		}
+		
+		// assign values
 		this.name = name;
 		this.location = location;
 		this.start = start;
@@ -75,7 +84,7 @@ public class Event extends AbstractModel {
 		this.attending = attending;
 	}
 	
-	//getters
+	/*GETTERS*/
 	
 	public UUID getId(){
 		return this.id;
@@ -109,167 +118,207 @@ public class Event extends AbstractModel {
 		return this.attending;
 	}
 	
+	// get event creator
+	public User getCreator() {
+		return creator;
+	}
+	
+	/* SETTERS*/
 	//setters - returns previous value of the variable (whatever was just overwritten)
-	public String setName(String to){
+	
+	// Set Name
+	public String setName(String to) throws WPISuiteException{
+		try{
+			isValidName(to);
+		} catch (WPISuiteException e){
+			throw e;
+		}
 		String previous = this.name;
 		this.name = to;
 		return previous;
 	}
 	
-	public String setLocation(String to){
+	// Set Location
+	public String setLocation(String to) throws WPISuiteException{
+		try{
+			isValidLocation(to);
+		} catch (WPISuiteException e){
+			throw e;
+		}
+		
 		String previous = this.location;
 		this.location = to;
 		return previous;
 	}
 	
-	public String setDescription(String to){
+	// Set Description
+	public String setDescription(String to) throws WPISuiteException{
+		try{
+			isValidDescription(to);
+		} catch (WPISuiteException e){
+			throw e;
+		}
 		String previous = this.description;
 		this.description = to;
 		return previous;
 	}
 	
-	public Calendar setStart(Calendar to){
+	// Set start date
+	public Calendar setStart(Calendar to) throws WPISuiteException{
+		try{
+			isValidDate(to);
+			isValidDateOrder(to, this.end);
+		} catch (WPISuiteException e){
+			throw e;
+		}
 		Calendar previous = this.start;
 		this.start = to;
 		return previous;
 	}
 	
-	public User getCreator() {
-		return creator;
-	}
-
-	public Calendar setEnd(Calendar to){
+	// Set end date
+	public Calendar setEnd(Calendar to) throws WPISuiteException{
+		try{
+			isValidDate(to);
+			isValidDateOrder(this.start, to);
+		} catch (WPISuiteException e){
+			throw e;
+		}
 		Calendar previous = this.end;
 		this.end = to;
 		return previous;
 	}
 	
 	//replaces entire invited list
-	public Collection<User> setInvited(Collection<User> to){
+	public Collection<User> setInvited(Collection<User> to) throws WPISuiteException{
+		// exception stuffs
 		Collection<User> previous = this.invited;
 		this.invited = to;
 		return previous;
 	}
 	
+	
 	//replaces entire attending list
-	public Collection<User> setAttending(Collection<User> to){
+	public Collection<User> setAttending(Collection<User> to) throws WPISuiteException{
+		// exception stuffs
 		Collection<User> previous = this.attending;
 		this.attending = to;
 		return previous;
 	}
 	
 	//appends a user to the end of the invited list
-	public Collection<User> addInvited(User toAdd){
+	public Collection<User> addInvited(User toAdd) throws WPISuiteException{
+		// exception stuffs
 		Collection<User> previous = this.invited;
 		this.invited.add(toAdd);
 		return previous;
 	}
 	
 	//removes the user at the given index from the attending list
-	public Collection<User> removeInvited(int toRemove){
+	public Collection<User> removeInvited(int toRemove) throws WPISuiteException{
+		// exception stuffs
 		Collection<User> previous = this.invited;
 		this.invited.remove(toRemove);
 		return previous;
 	}	
 	
 	//appends a user to the end of the attending list
-	public Collection<User> addAttending(User toAdd){
+	public Collection<User> addAttending(User toAdd) throws WPISuiteException{
+		// exception stuffs
 		Collection<User> previous = this.attending;
 		this.attending.add(toAdd);
 		return previous;
 	}
 		
 	//removes the user at the given index from the attending list
-	public Collection<User> removeAttending(int toRemove){
+	public Collection<User> removeAttending(int toRemove) throws WPISuiteException{
+		// exception stuffs
 		Collection<User> previous = this.attending;
 		this.attending.remove(toRemove);
 		return previous;
 	}
 	
 	
-	
-	
-	/*
-		private String name; //event name
-	private String location; //event location
-	private String description; //event description
-	private Date startDate; //year/month/day that event starts
-	private Date endDate; //year/month/day that event ends
-	private User creator; //person who made the event
-	private Collection<User> invited; //invited people
-	private Collection<User> attending; //people who are attending
-	*/
-	
+	/* VALIDATION METHODS*/
+	// Checks if input is valid for the Event Class
 
-
-	// Validation funnctions for input
-	// make sure that name is valid:
-	private boolean isValidName(String name){
-		// size limitation
+	// Confirms that the name is valid:
+	//  - cannot exceed certain length
+	//  - cannot be NULL
+	//  - can only contain ascii between 32 and 126 (inclusive)
+	private int isValidName(String name) throws WPISuiteException{
+		//restriction on field length
+		if(name.length() > SHORT_MAX)
+			throw new WPISuiteException("Name too long.");
+		if(name.length() == 0)
+			throw new WPISuiteException("Name cannot be empty."); 
 		// restrictions on characters (ascii 32 - 126 inclusive)
-		// minimum length 1
-		
-		
-		// return 1 if valid, 0 if invalid
-		return true;
+		for(int i = 0; i<32; i++){
+			String j = "" + (char) i; //cast as char to convert ascii value to character
+			//then append with empty string to convert to string
+			if(name.contains(j))
+				throw new WPISuiteException("Name cannot contain character " + j);
+		}
+		String j = "" + (char) 127;
+		if(name.contains(j))
+			throw new WPISuiteException("Name cannot contain character " + j); //also check for ascii 127
+		//if method hasn't thrown exception by this point, name should be valid. return
+		return 0;
 	}
 	
-	// make sure that location is valid:
-	private boolean isValidLocation(String location){
-		// size limitation
-		// restrictions on characters (ascii 32 - 126 inclusive)
-		// no minimum length, allowed to be empty
-		
-		// return 1 if valid, 0 if invalid
-		return true;
+	// Confirms that the location is valid:
+	//  - cannot exceed certain length
+	//  - can only contain ascii between 32 and 126 (inclusive)
+	private int isValidLocation(String location) throws WPISuiteException{
+		//same as name, minus nonempty requirement. location an optional field.
+		if(location.length() > SHORT_MAX)
+			throw new WPISuiteException("Location name too long.");
+		for(int i = 0; i<32; i++){
+			String j = "" + (char) i;
+		if(location.contains(j))
+			throw new WPISuiteException("Location name cannot contain character " + j);
+		}
+		String j = "" + (char) 127;
+		if(location.contains(j))
+			throw new WPISuiteException("Location name cannot contain character " + j);
+		//if method hasn't thrown exception by this point, name location be valid. return
+		return 0;
 	}
 	
-	// make sure that Description is valid:
-	private boolean isValidDescription(String desc){
-		// size limitation (big, check with gui for size constraints)
-		// restrictions on characters (ascii 32 - 126 inclusive)
-		// no minimum length, allowed to be empty
-		
-		// return 1 if valid, 0 if invalid
-		return true;
+	// Confirms that the description is valid:
+	//  - cannot exceed certain length
+	//  - can only contain ascii between 32 and 126 (inclusive)
+	private int isValidDescription(String desc) throws WPISuiteException{
+		//same as location, but with larger character cap
+		if(desc.length() > LONG_MAX)
+			throw new WPISuiteException("Description too long.");
+		for(int i = 0; i<32; i++){
+			String j = "" + (char) i;
+			if(desc.contains(j))
+				throw new WPISuiteException("Description cannot contain character " + j);
+		}
+		String j = "" + (char) 127;
+		if(desc.contains(j))
+			throw new WPISuiteException("Description cannot contain character " + j);
+		return 0;
 	}
 	
-	
-	private boolean isValidDate(Calendar cal){
-		// date has to exist
+	// Confirms that date is in the future
+	private int isValidDate(Calendar cal) throws WPISuiteException{
 		// Date has to be in the present or future
-		// valid day for given month
-		// valid hour for given day
-		/*
-		 * 	try {
-    			cal.setTime(yourDate);
-			}
-			catch (Exception e) {
-  				//System.out.println("Invalid date");
-  				 return false;
-			}
-		*/
-	
-		return true;
+		if(cal.compareTo(Calendar.getInstance()) < 0)
+			throw new WPISuiteException("Events must occur in the future.");
+		return 0;
 	}
 	
-	// Make sure that the endDate is after the StartDate
-	private boolean isValidDateOrder(Calendar startDate, Calendar endDate){
+	// Confirms that the endDate is after the StartDate
+	private int isValidDateOrder(Calendar startDate, Calendar endDate) throws WPISuiteException{
 		// make sure end date is after start date
-		// endDate.after(startDate) should be true
+		if (startDate.after(endDate))
+			throw new WPISuiteException("Events must end after they begin.");
 		// accept combinations of dates if and only if isValidDate(startDate) && isValidDate(endDate) && isValidDateOrder(startDate, endDate)
-		return true;
+		return 0;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	
