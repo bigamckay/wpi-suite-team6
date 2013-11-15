@@ -8,6 +8,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JButton;
 
 import edu.wpi.cs.wpisuitetng.janeway.modules.IJanewayModule;
 import edu.wpi.cs.wpisuitetng.janeway.modules.JanewayTabModel;
@@ -15,6 +16,8 @@ import edu.wpi.cs.wpisuitetng.janeway.modules.JanewayTabModel;
 public class Calendar implements IJanewayModule {
 	
 	List<JanewayTabModel> tabs;
+	JButton testButton;
+	
 	
 	public Calendar() {
 		tabs = new ArrayList<JanewayTabModel>();
