@@ -12,11 +12,11 @@ import javax.swing.JPanel;
 import edu.wpi.cs.wpisuitetng.janeway.modules.IJanewayModule;
 import edu.wpi.cs.wpisuitetng.janeway.modules.JanewayTabModel;
 
-public class Calendar implements IJanewayModule {
+public class CalendarModule implements IJanewayModule {
 	
 	List<JanewayTabModel> tabs;
 	
-	public Calendar() {
+	public CalendarModule() {
 		tabs = new ArrayList<JanewayTabModel>();
 		
 		// Create a JPanel to hold the toolbar for the tab
