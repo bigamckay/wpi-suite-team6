@@ -18,14 +18,16 @@ public class EventTest {
 		
 	Event dummyEvent;
 	Event basicEvent;
+	Event basicEvent2;
+	
 	
 	User testUser = new User("Jean Valjean", "jvaljean", "mynameisjeanvaljean", 42601);
 	User testUser2 = new User("Spongebob", "ssquarepants", "iheartpatrick", 12345);
 	User testUser3 = new User("Golem", "smeagol", "myprecious", 98765);
-	Calendar testStart = new GregorianCalendar(2013, Calendar.NOVEMBER, 14, 18, 0);
-	Calendar testStart2 = new GregorianCalendar(2013, Calendar.JANUARY, 21, 18, 0);
-	Calendar testEnd = new GregorianCalendar(2013, Calendar.NOVEMBER, 14, 22, 0);
-	Calendar testEnd2 = new GregorianCalendar(2013, Calendar.JANUARY, 21, 20, 0);
+	Calendar testStart = new GregorianCalendar(2014, Calendar.NOVEMBER, 14, 18, 0);
+	Calendar testStart2 = new GregorianCalendar(2014, Calendar.JANUARY, 21, 18, 0);
+	Calendar testEnd = new GregorianCalendar(2014, Calendar.NOVEMBER, 14, 22, 0);
+	Calendar testEnd2 = new GregorianCalendar(2014, Calendar.JANUARY, 21, 20, 0);
 	
 	LinkedList<User> users = new LinkedList<User>();
 	LinkedList<User> users2 = new LinkedList<User>();
@@ -52,7 +54,7 @@ public class EventTest {
 		// does this if it works
 		
 		try{
-			basicEvent = new Event("PlayDate", "Bancroft Towers", testStart2, testEnd2, testUser3, "Ring Toss", users2, users2);
+			basicEvent2 = new Event("PlayDate", "Bancroft Towers", testStart2, testEnd2, testUser3, "Ring Toss", users2, users2);
 		}catch(WPISuiteException e){
 			
 		}
@@ -90,14 +92,14 @@ public class EventTest {
 	@Test
 	public void testGetLocation() {
 		assertNotNull(basicEvent.getLocation());
-		assertTrue(basicEvent.getLocation().equals("Flower"));
+		assertEquals(basicEvent.getLocation(), "Flower");
 	}
 
 
 	@Test
 	public void testGetStartDate() {
-		assertNotNull(basicEvent.getStart());
-		assertEquals(new GregorianCalendar(2013, Calendar.NOVEMBER, 14, 18, 0), basicEvent.getStart());
+		assertTrue(basicEvent.getStart() instanceof GregorianCalendar);
+		assertEquals(testStart, basicEvent.getStart());
 	}
 
 	@Test
@@ -160,10 +162,22 @@ public class EventTest {
 	@Test
 	public void testSetEndDate() {
 		try{
-			basicEvent.setEnd(new GregorianCalendar(2013, Calendar.JUNE, 10, 18, 0));
+			basicEvent.setEnd(new GregorianCalendar(2014, Calendar.JUNE, 10, 18, 0));
 		}catch(WPISuiteException e){}
-		assertEquals(new GregorianCalendar(2013, Calendar.JUNE, 6, 18, 0), basicEvent.getEnd());
+		assertEquals(new GregorianCalendar(2014, Calendar.JUNE, 6, 18, 0), basicEvent.getEnd());
 	}
+
+	@Test
+	public void testBadSetEndDate() {
+		try{
+			basicEvent.setEnd(new GregorianCalendar(2012, Calendar.JUNE, 10, 18, 0));
+//			
+			assertTrue("Exception not thrown when shouled have.", false);
+		}catch(WPISuiteException e){
+			assertTrue("Exception thrown for invalid date", true);
+		}
+	}
+	
 	
 	@Test
 	public void testSetDescription() {
@@ -183,10 +197,15 @@ public class EventTest {
 
 	@Test
 	public void testSetAttending() {
+
 		try{
-		basicEvent.setAttending(users3);
-		}catch(WPISuiteException e){}
-		assertEquals(users3, basicEvent.getAttending());
+			basicEvent.setAttending(users3);
+			assertEquals("Attending users of basic event should be users3.", users3, basicEvent.getAttending());
+		}catch(WPISuiteException e){
+			assertTrue("Exception was encountered", false);
+			return;
+		}
+		
 	}
 
 	@Test
