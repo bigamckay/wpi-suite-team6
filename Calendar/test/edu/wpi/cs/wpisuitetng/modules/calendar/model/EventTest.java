@@ -132,50 +132,72 @@ public class EventTest {
 
 	@Test
 	public void testSetName() {
-		basicEvent.setName("Poopies!");
-		assertEquals("Poopies!",basicEvent.getName());
+		try{
+			basicEvent.setName("Poopies!");
+		}catch (WPISuiteException e){
+			System.out.print("Name not valid");
+		}
+		
+		assertEquals("Poopies!", basicEvent.getName());
 	}
 
 	@Test
 	public void testSetLocation() {
-		basicEvent.setLocation("Bathroom");
+		try{
+			basicEvent.setLocation("Bathroom");
+		}catch (WPISuiteException e){}
 		assertEquals("Bathroom",basicEvent.getLocation());
 	}
 
 	@Test
 	public void testSetStartDate() {
-		basicEvent.setStart(new GregorianCalendar(2013, Calendar.JUNE, 6, 18, 0));
+		try{
+			basicEvent.setStart(new GregorianCalendar(2013, Calendar.JUNE, 6, 18, 0));
+		}catch(WPISuiteException e){}
 		assertEquals(new GregorianCalendar(2013, Calendar.JUNE, 6, 18, 0),basicEvent.getStart());
 	}
 	
 	@Test
 	public void testSetEndDate() {
-		basicEvent.setEnd(new GregorianCalendar(2013, Calendar.JUNE, 10, 18, 0));
+		try{
+			basicEvent.setEnd(new GregorianCalendar(2013, Calendar.JUNE, 10, 18, 0));
+		}catch(WPISuiteException e){}
 		assertEquals(new GregorianCalendar(2013, Calendar.JUNE, 6, 18, 0), basicEvent.getEnd());
 	}
 	
 	@Test
 	public void testSetDescription() {
-		basicEvent.setDescription("You don't want to know.");
+		try{
+			basicEvent.setDescription("You don't want to know.");
+		}catch(WPISuiteException e){}
 		assertEquals("You don't want to know.", basicEvent.getDescription());
 	}
 
 	@Test
 	public void testSetInvited() {
+		try{
 		basicEvent.setInvited(users2);
+		}catch(WPISuiteException e){}
 		assertEquals(users2, basicEvent.getInvited());
 	}
 
 	@Test
 	public void testSetAttending() {
+		try{
 		basicEvent.setAttending(users3);
+		}catch(WPISuiteException e){}
 		assertEquals(users3, basicEvent.getAttending());
 	}
 
 	@Test
 	public void testAddInvited() {
+		try{
 		basicEvent.setInvited(users3);
+		}catch(WPISuiteException e){}
+		try{
 		basicEvent.addInvited(testUser2);
+		}catch(WPISuiteException e){}
+		
 		assertEquals(users3,basicEvent.getInvited());
 	}
 
