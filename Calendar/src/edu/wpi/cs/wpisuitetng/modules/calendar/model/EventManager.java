@@ -12,6 +12,7 @@
 
 package edu.wpi.cs.wpisuitetng.modules.calendar.model;
 
+import java.lang.reflect.Field;
 import java.util.List;
 import java.util.UUID;
 
@@ -66,8 +67,17 @@ public class EventManager implements EntityManager<Event> {
 	@Override
 	public Event[] getEntity(Session s, String id) throws NotFoundException,
 			WPISuiteException {
+		
 		UUID idAsUUID = UUID.fromString(id);
-		return (Event[]) (db.retrieve(Event.class, Event.ID_FIELD_NAME, idAsUUID).toArray());
+		
+		Event[] events = (Event[]) db.retrieve(Event.class, Event.ID_FIELD_NAME, idAsUUID).toArray();
+		
+		//if there are no events in the array throw an exception
+		if(events.length < 1 || events[0] == null) {
+			throw new NotFoundException();
+		}
+		
+		return events;
 	}
 
 	@Override
@@ -83,8 +93,24 @@ public class EventManager implements EntityManager<Event> {
 
 	@Override
 	public Event update(Session s, String content) throws WPISuiteException {
-		// TODO implement this function
-		throw new WPISuiteException("This functionality is not implemented yet");
+		
+		//We need to update the fields one by one because that's all the Data class supports.
+		//REFLECTION TO THE REFLESCUE
+		
+		//THIS IS HORRIBLE. db4o is entirely the wrong database to be using here.
+		
+		Event jsonEvent = Event.fromJson(content);
+		
+		Field[] fields = Event.class.getFields();
+		
+		for(Field f : fields){
+			try {
+				db.update(Event.class, Event.ID_FIELD_NAME, jsonEvent.getId(), f.getName(), f.get(jsonEvent));
+			} catch(IllegalAccessException e) {
+				throw new WPISuiteException("Illegal field access while updating Event!");
+			}
+		}
+		return jsonEvent;
 	}
 
 	@Override
@@ -107,8 +133,7 @@ public class EventManager implements EntityManager<Event> {
 
 	@Override
 	public void deleteAll(Session s) throws WPISuiteException {
-		// TODO implement this function
-		throw new WPISuiteException("This functionality is not implemented yet");
+		db.deleteAll(new Event());
 	}
 
 	@Override
