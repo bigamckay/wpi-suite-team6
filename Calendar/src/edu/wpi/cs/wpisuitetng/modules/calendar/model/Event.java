@@ -30,7 +30,10 @@ import edu.wpi.cs.wpisuitetng.exceptions.WPISuiteException;
  *
  */
 public class Event extends AbstractModel {
+	
+	// character limit for name and location field
 	private static final int SHORT_MAX = 40;
+	// character limit for description field
 	private static final int LONG_MAX = 200;
 	
 	public static String ID_FIELD_NAME = "id";
@@ -253,7 +256,7 @@ public class Event extends AbstractModel {
 		if(name.length() == 0)
 			throw new WPISuiteException("Name cannot be empty."); 
 		// restrictions on characters (ascii 32 - 126 inclusive)
-		for(int i = 0; i<32; i++){
+		for(int i = 1; i<32; i++){
 			String j = "" + (char) i; //cast as char to convert ascii value to character
 			//then append with empty string to convert to string
 			if(name.contains(j))
@@ -273,7 +276,7 @@ public class Event extends AbstractModel {
 		//same as name, minus nonempty requirement. location an optional field.
 		if(location.length() > SHORT_MAX)
 			throw new WPISuiteException("Location name too long.");
-		for(int i = 0; i<32; i++){
+		for(int i = 1; i<32; i++){
 			String j = "" + (char) i;
 		if(location.contains(j))
 			throw new WPISuiteException("Location name cannot contain character " + j);
@@ -292,7 +295,7 @@ public class Event extends AbstractModel {
 		//same as location, but with larger character cap
 		if(desc.length() > LONG_MAX)
 			throw new WPISuiteException("Description too long.");
-		for(int i = 0; i<32; i++){
+		for(int i = 1; i<32; i++){
 			String j = "" + (char) i;
 			if(desc.contains(j))
 				throw new WPISuiteException("Description cannot contain character " + j);
