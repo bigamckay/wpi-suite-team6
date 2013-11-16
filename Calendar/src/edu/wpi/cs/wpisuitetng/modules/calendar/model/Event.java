@@ -298,7 +298,7 @@ public class Event extends AbstractModel {
 		for(int i = 1; i<32; i++){
 			String j = "" + (char) i;
 			if(desc.contains(j))
-				throw new WPISuiteException("Description cannot contain character." + j);
+				throw new WPISuiteException("Description cannot contain character " + j);
 		}
 		String j = "" + (char) 127;
 		if(desc.contains(j))
