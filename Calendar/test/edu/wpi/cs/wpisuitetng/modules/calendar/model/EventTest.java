@@ -140,7 +140,7 @@ public class EventTest {
 			System.out.print("Name not valid");
 		}
 		
-		assertEquals("Poopies!", basicEvent.getName());
+		assertEquals("IamTheWalrus!", basicEvent.getName());
 	}
 
 	@Test
