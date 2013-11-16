@@ -105,7 +105,7 @@ public class EventTest {
 	@Test
 	public void testGetEndDate() {
 		assertNotNull(basicEvent.getEnd());
-		assertEquals(new GregorianCalendar(2013, Calendar.NOVEMBER, 14, 22, 0),basicEvent.getEnd());
+		assertEquals(testEnd ,basicEvent.getEnd());
 	}
 
 	@Test
@@ -162,20 +162,9 @@ public class EventTest {
 	@Test
 	public void testSetEndDate() {
 		try{
-			basicEvent.setEnd(new GregorianCalendar(2014, Calendar.JUNE, 10, 18, 0));
+			basicEvent.setEnd(new GregorianCalendar(2015, Calendar.JUNE, 10, 18, 0));
 		}catch(WPISuiteException e){}
-		assertEquals(new GregorianCalendar(2014, Calendar.JUNE, 6, 18, 0), basicEvent.getEnd());
-	}
-
-	@Test
-	public void testBadSetEndDate() {
-		try{
-			basicEvent.setEnd(new GregorianCalendar(2012, Calendar.JUNE, 10, 18, 0));
-//			
-			assertTrue("Exception not thrown when shouled have.", false);
-		}catch(WPISuiteException e){
-			assertTrue("Exception thrown for invalid date", true);
-		}
+		assertEquals("New end date should be applied without exception.",new GregorianCalendar(2015, Calendar.JUNE, 10, 18, 0), basicEvent.getEnd());
 	}
 	
 	
@@ -234,6 +223,20 @@ public class EventTest {
 	public void testRemoveAttending() {
 		fail("Not yet implemented");
 	}
+	
+	
+	@Test
+	public void testBadSetEndDate() {
+		try{
+			basicEvent.setEnd(new GregorianCalendar(2012, Calendar.JUNE, 10, 18, 0));	
+			assertTrue("Exception not thrown when shouled have.", false);
+		}catch(WPISuiteException e){
+			assertEquals("Exception thrown that events must occur in the future.", e.getMessage(), "Events must occur in the future.");
+		}
+	}
+	
+	
+	
 
 	@Test
 	public void testFromJson() {
