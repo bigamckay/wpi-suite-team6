@@ -18,13 +18,13 @@ import javax.swing.AbstractListModel;
 public class EventModel extends AbstractListModel {
 	
 	/** The list of all the events on the calendar */
-	private List<EventMessage> events;
+	private List<Event> events;
 	
 	/**
 	 * Constructs a new board with no messages.
 	 */
 	public EventModel() {
-		events = new ArrayList<EventMessage>();
+		events = new ArrayList<Event>();
 	}
 
 	/**
@@ -32,7 +32,7 @@ public class EventModel extends AbstractListModel {
 	 * 
 	 * @param newMessage the new message to add
 	 */
-	public void addMessage(EventMessage newMessage) {
+	public void addMessage(Event newMessage) {
 		// Add the message
 		events.add(newMessage);
 		
@@ -45,7 +45,7 @@ public class EventModel extends AbstractListModel {
 	 * 
 	 * @param messages the array of messages to add
 	 */
-	public void addMessages(EventMessage[] messages) {
+	public void addMessages(Event[] messages) {
 		for (int i = 0; i < messages.length; i++) {
 			this.events.add(messages[i]);
 		}
@@ -62,7 +62,7 @@ public class EventModel extends AbstractListModel {
 	 */
 	public void emptyModel() {
 		int oldSize = getSize();
-		Iterator<EventMessage> iterator = events.iterator();
+		Iterator<Event> iterator = events.iterator();
 		while (iterator.hasNext()) {
 			iterator.next();
 			iterator.remove();

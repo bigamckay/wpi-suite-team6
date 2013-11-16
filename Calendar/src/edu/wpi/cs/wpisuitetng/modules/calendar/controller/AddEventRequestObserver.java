@@ -1,7 +1,7 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.controller;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.AddEventController;
-import edu.wpi.cs.wpisuitetng.modules.calendar.model.EventMessage;
+import edu.wpi.cs.wpisuitetng.modules.calendar.model.Event;
 import edu.wpi.cs.wpisuitetng.network.RequestObserver;
 import edu.wpi.cs.wpisuitetng.network.models.IRequest;
 import edu.wpi.cs.wpisuitetng.network.models.ResponseModel;
@@ -30,7 +30,7 @@ public class AddEventRequestObserver implements RequestObserver {
 		final ResponseModel response = iReq.getResponse();
 		
 		// Parse the requirement out of the response body
-		final EventMessage requirement = EventMessage.fromJson(response.getBody());		
+		final Event requirement = Event.fromJson(response.getBody());		
 	}
 
 	/**
