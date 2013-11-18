@@ -20,22 +20,25 @@ public class EventTest {
 	Event basicEvent;
 	Event basicEvent2;
 	
-	
+	// create test users for the events
 	User testUser = new User("Jean Valjean", "jvaljean", "mynameisjeanvaljean", 42601);
 	User testUser2 = new User("Spongebob", "ssquarepants", "iheartpatrick", 12345);
 	User testUser3 = new User("Golem", "smeagol", "myprecious", 98765);
+	
+	// create test dates for the events
 	Calendar testStart = new GregorianCalendar(2014, Calendar.NOVEMBER, 14, 18, 0);
 	Calendar testStart2 = new GregorianCalendar(2014, Calendar.JANUARY, 21, 18, 0);
 	Calendar testEnd = new GregorianCalendar(2014, Calendar.NOVEMBER, 14, 22, 0);
 	Calendar testEnd2 = new GregorianCalendar(2014, Calendar.JANUARY, 21, 20, 0);
 	
+	//create test events
 	LinkedList<User> users = new LinkedList<User>();
 	LinkedList<User> users2 = new LinkedList<User>();
 	LinkedList<User> users3 = new LinkedList<User>();
 	
 	@Before
 	public void setup() {
-		
+		// add users to the user lists for invited and attending
 		users.add(testUser);
 		users.add(testUser2);
 		
@@ -62,76 +65,83 @@ public class EventTest {
 		
 	}
 
+	// test the dummy constructor
 	@Test
 	public void testDummyConstructor() {
 		assertNotNull(dummyEvent);
 	}
 	
+	
+	// test the basic event to make sure it is created successfully
 	@Test
 	public void testBasicConstructor() {
 		assertNotNull(basicEvent);
 	}
 
-	@Test
-	public void testAdvancedConstructor() {
-		fail("Test not yet implemented");
-	}
-
+	// tests the getter for the ids
 	@Test
 	public void testGetId() {
 		assertNotNull(basicEvent.getId()); //the ID is not null and...
 		assertNotEquals(basicEvent.getId().compareTo(new UUID(0, 0)), 0); //it's been randomized
 	}
 
+	// tests the getter for the name
 	@Test
 	public void testGetName() {
 		assertNotNull(basicEvent.getName());
 		assertTrue(basicEvent.getName().equals("Team 6 Meeting"));
 	}
 
+	// tests the getter for the location
 	@Test
 	public void testGetLocation() {
 		assertNotNull(basicEvent.getLocation());
 		assertEquals(basicEvent.getLocation(), "Flower");
 	}
 
-
+	// tests the getter for the start date
 	@Test
 	public void testGetStartDate() {
 		assertTrue(basicEvent.getStart() instanceof GregorianCalendar);
 		assertEquals(testStart, basicEvent.getStart());
 	}
 
+	// tests the getter for the end date
 	@Test
 	public void testGetEndDate() {
 		assertNotNull(basicEvent.getEnd());
 		assertEquals(testEnd ,basicEvent.getEnd());
 	}
 
+	// tests the getter for the creator
 	@Test
 	public void testGetCreator() {
 		assertNotNull(basicEvent.getCreator());
 		assertEquals(testUser, basicEvent.getCreator());
 	}
 	
+	// tests the getter for the description
 	@Test
 	public void testGetDescription() {
 		assertNotNull(basicEvent.getDescription());
 		assertEquals("Funtimes!", basicEvent.getDescription());
 	}
 	
+	// tests the getter for the list of invited people
 	@Test
 	public void testGetInvited() {
 		assertNotNull(basicEvent.getInvited());
 		assertEquals(users, basicEvent.getInvited());
 	}
 
+	// tests the getter for the list of attending people
 	@Test
 	public void testGetAttending() {
 		assertNotNull(basicEvent.getAttending());
 		assertEquals(users, basicEvent.getAttending());
 	}
 
+	// tests the setter for the name
 	@Test
 	public void testSetName() {
 		try{
@@ -143,6 +153,7 @@ public class EventTest {
 		assertEquals("Poopies!", basicEvent.getName());
 	}
 
+	
 	@Test
 	public void testSetLocation() {
 		try{
