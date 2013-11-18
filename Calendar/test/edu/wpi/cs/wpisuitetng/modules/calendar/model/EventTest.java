@@ -135,7 +135,7 @@ public class EventTest {
 	@Test
 	public void testSetName() {
 		try{
-			basicEvent.setName("Poopies!");
+			basicEvent.setName("IamTheWalrus!");
 		}catch (WPISuiteException e){
 			System.out.print("Name not valid");
 		}
