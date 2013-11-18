@@ -1,6 +1,7 @@
-package edu.wpi.cs.wpisuitetng.modules.calendar.gui;
+package edu.wpi.cs.wpisuitetng.modules.calendarmodule.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Container;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -20,10 +21,9 @@ import javax.swing.SwingConstants;
 import javax.swing.JScrollPane;
 
 import org.jdesktop.swingx.JXMonthView;
-import org.jdesktop.swingx.calendar.DateSelectionModel.SelectionMode;
 
-public class CalendarGUI {
-
+public class CalendarGUI extends JPanel{
+	
 	private JFrame frameCalendar;
 	private JTextField eventDescription;
 	private JTextField eventLocation;
@@ -250,6 +250,9 @@ public class CalendarGUI {
 		monthView.setPreferredRowCount(1);
 		monthView.setPreferredColumnCount(1);
 		calendarPanel.add(monthView, BorderLayout.CENTER);*/
+		
+		// add all components to panel
+		this.add(frameCalendar);
 		
 	}
 }

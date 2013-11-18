@@ -1,4 +1,4 @@
-package edu.wpi.cs.wpisuitetng.modules.calendar;
+package edu.wpi.cs.wpisuitetng.modules.calendarmodule;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -11,9 +11,9 @@ import javax.swing.JPanel;
 
 import edu.wpi.cs.wpisuitetng.janeway.modules.IJanewayModule;
 import edu.wpi.cs.wpisuitetng.janeway.modules.JanewayTabModel;
-import edu.wpi.cs.wpisuitetng.modules.calendar.gui.CalendarGUI;
+import edu.wpi.cs.wpisuitetng.modules.calendarmodule.gui.CalendarGUI;
 
-public class CalendarModule extends CalendarGUI implements IJanewayModule {
+public class CalendarModule implements IJanewayModule {
 	
 	List<JanewayTabModel> tabs;
 	
@@ -21,7 +21,7 @@ public class CalendarModule extends CalendarGUI implements IJanewayModule {
 		
 		tabs = new ArrayList<JanewayTabModel>();
 		
-		//CalendarGUI gui = new CalendarGUI();
+		CalendarGUI gui = new CalendarGUI();
 		
 		// Create a JPanel to hold the toolbar for the tab
 		JPanel toolbarPanel = new JPanel();
@@ -30,7 +30,7 @@ public class CalendarModule extends CalendarGUI implements IJanewayModule {
 
 		// Create a JPanel to hold the main contents of the tab
 		JPanel mainPanel = new JPanel();
-		mainPanel.add(new JLabel("Calendar placeholder"));
+		//mainPanel.add(gui);
 		mainPanel.setBorder(BorderFactory.createLineBorder(Color.green, 2));
 
 		// Create a tab model that contains the toolbar panel and the main content panel

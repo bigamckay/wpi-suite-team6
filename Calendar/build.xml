@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<project name="Calendar" default="compile.deps">
+<project name="CalendarModule" default="compile.deps">
 	<import file="../build-common.xml"/>
 
-	<property name="core-jar-dest" location="${core-lib}/Calendar.jar"/>
-	<property name="janeway-jar-dest" location="../Janeway/modules/Calendar.jar"/>
+	<property name="core-jar-dest" location="${core-lib}/CalendarModule.jar"/>
+	<property name="janeway-jar-dest" location="../Janeway/modules/CalendarModule.jar"/>
 
 	<path id="classpath">
 		<pathelement path="../Janeway/build"/>
