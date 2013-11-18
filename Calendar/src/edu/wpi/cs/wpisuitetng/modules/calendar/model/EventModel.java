@@ -2,9 +2,20 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.model;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.AbstractListModel;
+import javax.swing.DefaultListModel;
+import javax.swing.ListModel;
+
+import edu.wpi.cs.wpisuitetng.modules.calendar.controller.AddEventController;
+import edu.wpi.cs.wpisuitetng.modules.requirementmanager.controller.AddRequirementController;
+import edu.wpi.cs.wpisuitetng.modules.requirementmanager.models.Requirement;
+import edu.wpi.cs.wpisuitetng.modules.requirementmanager.models.RequirementModel;
+import edu.wpi.cs.wpisuitetng.modules.requirementmanager.models.characteristics.RequirementStatus;
+import edu.wpi.cs.wpisuitetng.modules.requirementmanager.models.iterations.Iteration;
+import edu.wpi.cs.wpisuitetng.modules.requirementmanager.view.ViewEventController;
 
 /**
  * This is a model for the post board. It contains all of the messages
@@ -16,48 +27,140 @@ import javax.swing.AbstractListModel;
  */
 @SuppressWarnings({"serial"})
 public class EventModel extends AbstractListModel {
-	
-	/** The list of all the events on the calendar */
+	/**
+	 * The list in which all the requirements for a single project are contained
+	 */
 	private List<Event> events;
+	private int nextID; // the next available ID number for the requirements that are added.
+	
+	//the static object to allow the requirement model to be 
+	private static EventModel instance; 
+
+	/**
+	 * Constructs an empty list of requirements for the project
+	 */
+	private EventModel (){
+		events = new ArrayList<Event>();
+		nextID = 0;
+	}
 	
 	/**
-	 * Constructs a new board with no messages.
+	
+	 * @return the instance of the requirement model singleton. */
+	public static EventModel getInstance()
+	{
+		if(instance == null)
+		{
+			instance = new EventModel();
+		}
+		
+		return instance;
+	}
+	
+	/**
+	 * Adds a single requirement to the requirements of the project
+	 * 
+	 * @param newReq The requirement to be added to the list of requirements in the project
 	 */
-	public EventModel() {
-		events = new ArrayList<Event>();
+	public void addEvent(Event newReq){
+		// add the requirement
+		events.add(newReq);
+		try 
+		{
+			AddEventController.getInstance().addEvent(newReq);
+			//ViewEventController.getInstance().refreshTable();
+			//ViewEventController.getInstance().refreshTree();
+		}
+		catch(Exception e)
+		{
+			
+		}
+	}
+	/**
+	 * Returns the Requirement with the given ID
+	 * 
+	 * @param id The ID number of the requirement to be returned
+	
+	 * @return the requirement for the id or null if the requirement is not found */
+	public Event getEvent(int id)
+	{
+		Event temp = null;
+		// iterate through list of requirements until id is found
+		for (int i=0; i < this.events.size(); i++){
+			temp = events.get(i);
+			if (temp.getId() == id){
+				break;
+			}
+		}
+		return temp;
+	}
+	/**
+	 * Removes the requirement with the given ID
+	 * 
+	 * @param removeId The ID number of the requirement to be removed from the list of requirements in the project
+	 */
+	public void removeEvent(int removeId){
+		// iterate through list of requirements until id of project is found
+		for (int i=0; i < this.events.size(); i++){
+			if (events.get(i).getId() == removeId){
+				// remove the id
+				events.remove(i);
+				break;
+			}
+		}
+		/*try {
+			ViewEventController.getInstance().refreshTable();
+			ViewEventController.getInstance().refreshTree();
+		}
+		catch(Exception e) {}*/
 	}
 
 	/**
-	 * Adds the given message to the Calendar
+	 * Provides the number of elements in the list of requirements for the project. This
+	 * function is called internally by the JList in NewRequirementPanel. Returns elements
+	 * in reverse order, so the newest requirement is returned first.
 	 * 
-	 * @param newMessage the new message to add
+	
+	
+	
+	 * @return the number of requirements in the project * @see javax.swing.ListModel#getSize() * @see javax.swing.ListModel#getSize() * @see javax.swing.ListModel#getSize()
 	 */
-	public void addMessage(Event newMessage) {
-		// Add the message
-		events.add(newMessage);
+	public int getSize() {
+		return events.size();
+	}
+	
+	/**
+	 * 
+	 * Provides the next ID number that should be used for a new requirement that is created.
+	 * 
+	
+	 * @return the next open id number */
+	public int getNextID()
+	{
 		
-		// Notify the model that it has changed so the GUI will be updated
-		this.fireIntervalAdded(this, 0, 0);
+		return this.nextID++;
 	}
-	
+
 	/**
-	 * Adds the given array of Events to the Calendar
+	 * This function takes an index and finds the requirement in the list of requirements
+	 * for the project. Used internally by the JList in NewRequirementModel.
 	 * 
-	 * @param messages the array of messages to add
-	 */
-	public void addMessages(Event[] messages) {
-		for (int i = 0; i < messages.length; i++) {
-			this.events.add(messages[i]);
-		}
-		this.fireIntervalAdded(this, 0, Math.max(getSize() - 1, 0));
-	}
+	 * @param index The index of the requirement to be returned
 	
+	
+	
+	 * @return the requirement associated with the provided index * @see javax.swing.ListModel#getElementAt(int) * @see javax.swing.ListModel#getElementAt(int) * @see javax.swing.ListModel#getElementAt(int)
+	 */
+	public Event getElementAt(int index) {
+		return events.get(events.size() - 1 - index);
+	}
+
 	/**
-	 * Removes all Events from this model
+	 * Removes all requirements from this model
 	 * 
 	 * NOTE: One cannot simply construct a new instance of
 	 * the model, because other classes in this module have
-	 * references to it. Hence, we manually remove each message
+	 * references to it. Hence, we manually remove each requirement
 	 * from the model.
 	 */
 	public void emptyModel() {
@@ -68,29 +171,66 @@ public class EventModel extends AbstractListModel {
 			iterator.remove();
 		}
 		this.fireIntervalRemoved(this, 0, Math.max(oldSize - 1, 0));
+		/*try{
+			ViewEventController.getInstance().refreshTable();
+			ViewEventController.getInstance().refreshTree();
+		}
+		catch (Exception e) {}*/
 	}
 	
-	/** 
-	 * Returns the message at the given index. This method is called
-	 * internally by the JList in BoardPanel. Note this method returns
-	 * elements in reverse order, so newest messages are returned first.
+	/**
+	 * Adds the given array of requirements to the list
 	 * 
-	 * @see javax.swing.ListModel#getElementAt(int)
+	 * @param requirements the array of requirements to add
 	 */
-	@Override
-	public Object getElementAt(int index) {
-		return events.get(events.size() - 1 - index).toString();
+	public void addEvents(Event[] requirements) {
+		for (int i = 0; i < requirements.length; i++) {
+			this.events.add(requirements[i]);
+			if(events[i].getId() >= nextID) nextID = events[i].getId() + 1;
+		}
+		this.fireIntervalAdded(this, 0, Math.max(getSize() - 1, 0));
+		/*ViewEventController.getInstance().refreshTable();
+		ViewEventController.getInstance().refreshTree();*/
 	}
 
 	/**
-	 * Returns the number of messages in the model. Also used internally
-	 * by the JList in BoardPanel.
-	 * 
-	 * @see javax.swing.ListModel#getSize()
-	 */
-	@Override
-	public int getSize() {
-		return events.size();
-	}
+	 * Returns the list of the requirements
+	
+	 * @return the requirements held within the requirementmodel. */
+	public List<Event> getEvents() {
+		return events;
+	}	
+	
+	/**
+	 * Returns the list of requirements that are assigned to the given iteration
+	 * @param name the iteration name
+	
+	 * @return the list of requirements */
+	/*public List<Requirement> getRequirementsForIteration(String name) {
+		List<Requirement> reqForIteration = new LinkedList<Requirement>();
+		
+		boolean backlog = false;
+		if(name.trim().length() == 0) backlog = true;
+		
+		for(Requirement req : requirements)
+		{
+			if(backlog)
+			{
+				if(req.getIteration().equals("Backlog") || req.getIteration().trim().equals(""))
+				{
+					reqForIteration.add(req);
+				}
+			}
+			else
+			{
+				if(req.getIteration().equals(name))
+				{
+					reqForIteration.add(req);
+				}
+			}
+		}
+		
+		return reqForIteration;
+	}*/
 
 }

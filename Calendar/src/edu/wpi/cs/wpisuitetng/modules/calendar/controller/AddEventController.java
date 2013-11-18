@@ -10,11 +10,23 @@ public class AddEventController {
 		
 	private AddEventRequestObserver observer;
 	
+	private static AddEventController instance; 
+	
 	/**
 	 * Construct an AddRequirementController for the given model, view pair
 	 */
 	private AddEventController() {
 		observer = new AddEventRequestObserver(this);
+	}
+	
+	public AddEventController getInstance()
+	{
+		if(instance == null)
+		{
+			instance = new AddEventController();
+		}
+		
+		return instance;
 	}
 
 	/**
