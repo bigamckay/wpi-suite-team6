@@ -4,18 +4,13 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.UUID;
 
 import javax.swing.AbstractListModel;
 import javax.swing.DefaultListModel;
 import javax.swing.ListModel;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.AddEventController;
-import edu.wpi.cs.wpisuitetng.modules.requirementmanager.controller.AddRequirementController;
-import edu.wpi.cs.wpisuitetng.modules.requirementmanager.models.Requirement;
-import edu.wpi.cs.wpisuitetng.modules.requirementmanager.models.RequirementModel;
-import edu.wpi.cs.wpisuitetng.modules.requirementmanager.models.characteristics.RequirementStatus;
-import edu.wpi.cs.wpisuitetng.modules.requirementmanager.models.iterations.Iteration;
-import edu.wpi.cs.wpisuitetng.modules.requirementmanager.view.ViewEventController;
 
 /**
  * This is a model for the post board. It contains all of the messages
@@ -82,10 +77,10 @@ public class EventModel extends AbstractListModel {
 	 * @param id The ID number of the requirement to be returned
 	
 	 * @return the requirement for the id or null if the requirement is not found */
-	public Event getEvent(int id)
+	public Event getEvent(UUID id)
 	{
 		Event temp = null;
-		// iterate through list of requirements until id is found
+		// iterate through list of events until id is found
 		for (int i=0; i < this.events.size(); i++){
 			temp = events.get(i);
 			if (temp.getId() == id){
@@ -99,7 +94,7 @@ public class EventModel extends AbstractListModel {
 	 * 
 	 * @param removeId The ID number of the requirement to be removed from the list of requirements in the project
 	 */
-	public void removeEvent(int removeId){
+	public void removeEvent(UUID removeId){
 		// iterate through list of requirements until id of project is found
 		for (int i=0; i < this.events.size(); i++){
 			if (events.get(i).getId() == removeId){
@@ -186,7 +181,6 @@ public class EventModel extends AbstractListModel {
 	public void addEvents(Event[] requirements) {
 		for (int i = 0; i < requirements.length; i++) {
 			this.events.add(requirements[i]);
-			if(events[i].getId() >= nextID) nextID = events[i].getId() + 1;
 		}
 		this.fireIntervalAdded(this, 0, Math.max(getSize() - 1, 0));
 		/*ViewEventController.getInstance().refreshTable();

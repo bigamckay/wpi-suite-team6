@@ -3,9 +3,12 @@
  */
 package edu.wpi.cs.wpisuitetng.modules.calendar.controller;
 
+import java.util.Calendar;
+
 import edu.wpi.cs.wpisuitetng.network.RequestObserver;
 import edu.wpi.cs.wpisuitetng.network.models.IRequest;
 import edu.wpi.cs.wpisuitetng.modules.calendar.model.Event;
+import edu.wpi.cs.wpisuitetng.modules.core.models.User;
 
 /**
  * @author Eric Guleksen
@@ -52,7 +55,7 @@ public class GetEventRequestObserver implements RequestObserver{
 	 */
 	@Override
 	public void fail(IRequest iReq, Exception exception) {
-		Event[] errorEvent = { new Event(6, "Error", "error desc") };
+		Event[] errorEvent = { new Event() };
 		controller.receivedEvents(errorEvent);
 	}
 

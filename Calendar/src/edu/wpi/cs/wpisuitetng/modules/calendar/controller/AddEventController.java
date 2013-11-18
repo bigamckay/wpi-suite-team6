@@ -19,7 +19,7 @@ public class AddEventController {
 		observer = new AddEventRequestObserver(this);
 	}
 	
-	public AddEventController getInstance()
+	public static AddEventController getInstance()
 	{
 		if(instance == null)
 		{
