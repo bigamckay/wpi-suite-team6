@@ -1,4 +1,4 @@
-package edu.wpi.cs.wpisuitetng.modules.calendarmodule.gui;
+package edu.wpi.cs.wpisuitetng.modules.calendar.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
@@ -20,7 +20,7 @@ import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import javax.swing.JScrollPane;
 
-import org.jdesktop.swingx.JXMonthView;
+//import org.jdesktop.swingx.JXMonthView;
 
 public class CalendarGUI extends JPanel{
 	
@@ -34,7 +34,7 @@ public class CalendarGUI extends JPanel{
 	private JTextField eventName;
 	private JTable dayTable;
 	private JTextField searchBar;
-	private JXMonthView monthView;
+	//private JXMonthView monthView;
 
 	/**
 	 * Launch the application.

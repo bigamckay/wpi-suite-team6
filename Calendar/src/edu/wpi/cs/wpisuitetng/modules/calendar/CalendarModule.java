@@ -1,4 +1,4 @@
-package edu.wpi.cs.wpisuitetng.modules.calendarmodule;
+package edu.wpi.cs.wpisuitetng.modules.calendar;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 
 import edu.wpi.cs.wpisuitetng.janeway.modules.IJanewayModule;
 import edu.wpi.cs.wpisuitetng.janeway.modules.JanewayTabModel;
-import edu.wpi.cs.wpisuitetng.modules.calendarmodule.gui.CalendarGUI;
+import edu.wpi.cs.wpisuitetng.modules.calendar.gui.CalendarGUI;
 
 public class CalendarModule implements IJanewayModule {
 	

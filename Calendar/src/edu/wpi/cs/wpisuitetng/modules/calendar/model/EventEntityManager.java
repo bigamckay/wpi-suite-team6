@@ -10,7 +10,7 @@
  *    John French
  ******************************************************************************/
 
-package edu.wpi.cs.wpisuitetng.modules.calendarmodule.model;
+package edu.wpi.cs.wpisuitetng.modules.calendar.model;
 
 import java.util.List;
 
