@@ -462,15 +462,15 @@ public class EventTest {
 		fail("Not yet implemented");
 	}
 
-	@Test
-	public void testSave() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testDelete() {
-		fail("Not yet implemented");
-	}
+//	@Test
+//	public void testSave() {
+//		fail("Not yet implemented");
+//	}
+//
+//	@Test
+//	public void testDelete() {
+//		fail("Not yet implemented");
+//	}
 
 	@Test
 	public void testToJSON() {
@@ -478,8 +478,16 @@ public class EventTest {
 	}
 
 	@Test
-	public void testIdentify() {
-		fail("Not yet implemented");
+	public void testToFromJson() {
+		String jsonbasicevent = basicEvent.toJSON();
+		Event returned = Event.fromJson(jsonbasicevent);
+		assertEquals(returned.getId(), basicEvent.getId());
+		assertEquals(returned.getName(), basicEvent.getName());
 	}
+	
+//	@Test
+//	public void testIdentify() {
+//		fail("Not yet implemented");
+//	}
 
 }
