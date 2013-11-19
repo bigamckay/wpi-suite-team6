@@ -19,6 +19,7 @@ public class EventTest {
 	Event dummyEvent;
 	Event basicEvent;
 	Event basicEvent2;
+	Event basicEvent3;
 	
 	// create test users for the events
 	User testUser = new User("Jean Valjean", "jvaljean", "mynameisjeanvaljean", 42601);
@@ -61,6 +62,10 @@ public class EventTest {
 		}catch(WPISuiteException e){
 			
 		}
+		
+		try{
+			basicEvent3 = new Event("Another Event","Somewhere", testStart2,testEnd2,testUser2,"Doing something?",users3,users3);
+		}catch(WPISuiteException e){}
 		
 		
 	}
@@ -153,7 +158,7 @@ public class EventTest {
 		assertEquals("IamTheWalrus!", basicEvent.getName());
 	}
 
-	
+	// tests the setter for the location
 	@Test
 	public void testSetLocation() {
 		try{
@@ -162,6 +167,7 @@ public class EventTest {
 		assertEquals("Bathroom",basicEvent.getLocation());
 	}
 
+	// tests the setter for the start date
 	@Test
 	public void testSetStartDate() {
 		try{
@@ -170,6 +176,7 @@ public class EventTest {
 		assertEquals(new GregorianCalendar(2014, Calendar.JUNE, 6, 18, 0),basicEvent.getStart());
 	}
 	
+	// tests the setter for the end date
 	@Test
 	public void testSetEndDate() {
 		try{
@@ -178,7 +185,7 @@ public class EventTest {
 		assertEquals("New end date should be applied without exception.",new GregorianCalendar(2015, Calendar.JUNE, 10, 18, 0), basicEvent.getEnd());
 	}
 	
-	
+	// tests the setter for the description
 	@Test
 	public void testSetDescription() {
 		try{
@@ -187,6 +194,7 @@ public class EventTest {
 		assertEquals("You don't want to know.", basicEvent.getDescription());
 	}
 
+	// tests the setter for the list of invited people
 	@Test
 	public void testSetInvited() {
 		try{
@@ -195,6 +203,7 @@ public class EventTest {
 		assertEquals(users2, basicEvent.getInvited());
 	}
 
+	// tests the setter for the list of attending people
 	@Test
 	public void testSetAttending() {
 
@@ -208,6 +217,7 @@ public class EventTest {
 		
 	}
 
+	// test for adding a user to the invited users list
 	@Test
 	public void testAddInvited() {
 		try{
@@ -220,13 +230,27 @@ public class EventTest {
 		assertEquals(users3,basicEvent.getInvited());
 	}
 
+	// CURRENTLY DOESN'T WORK, FIX REMOVE INVITED
+	// tests for removing a user from the invited users list
 	@Test
 	public void testRemoveInvited() {
-		fail("Not yet implemented");
+		System.out.println(basicEvent2.getInvited());
+		try{
+			basicEvent2.removeInvited(testUser2);
+		}catch(WPISuiteException e){
+			System.out.println("EXCEPTION");
+		}
+		
+		System.out.println(basicEvent2.getInvited());
+		System.out.println(basicEvent3.getInvited());
+		assertEquals(basicEvent3.getInvited(),basicEvent2.getInvited());
 	}
 
 	@Test
 	public void testAddAttending() {
+		try{
+			basicEvent3.addAttending(testUser2);
+		}catch(WPISuiteException e){}
 		fail("Not yet implemented");
 	}
 
