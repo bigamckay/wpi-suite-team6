@@ -1,4 +1,4 @@
-package edu.wpi.cs.wpisuiteng.modules.calendar.models.commitments;
+package edu.wpi.cs.wpisuitetng.modules.calendar.models.commitments;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -7,7 +7,7 @@ import java.util.List;
 
 import javax.swing.AbstractListModel;
 
-import edu.wpi.cs.wpisuiteng.modules.calendar.commitmentcontroller.AddCommitmentController;
+import edu.wpi.cs.wpisuitetng.modules.calendar.commitmentcontroller.AddCommitmentController;
 
 
 public class CommitmentModel extends AbstractListModel {

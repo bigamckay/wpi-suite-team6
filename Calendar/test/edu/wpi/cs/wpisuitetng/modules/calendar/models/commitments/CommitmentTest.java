@@ -3,7 +3,6 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.models.commitments;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-import edu.wpi.cs.wpisuiteng.modules.calendar.models.commitments.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.commitments.*;
 import static org.junit.Assert.*;
 
