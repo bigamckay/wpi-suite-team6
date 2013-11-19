@@ -220,7 +220,7 @@ public class Event extends AbstractModel {
 	}
 	
 	//removes the user at the given index from the attending list
-	public Collection<User> removeInvited(int toRemove) throws WPISuiteException{
+	public Collection<User> removeInvited(User toRemove) throws WPISuiteException{
 		// exception stuffs
 		Collection<User> previous = this.invited;
 		this.invited.remove(toRemove);
@@ -236,7 +236,7 @@ public class Event extends AbstractModel {
 	}
 		
 	//removes the user at the given index from the attending list
-	public Collection<User> removeAttending(int toRemove) throws WPISuiteException{
+	public Collection<User> removeAttending(User toRemove) throws WPISuiteException{
 		// exception stuffs
 		Collection<User> previous = this.attending;
 		this.attending.remove(toRemove);
