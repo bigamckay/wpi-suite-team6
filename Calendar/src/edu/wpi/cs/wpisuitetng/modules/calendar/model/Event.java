@@ -15,6 +15,7 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.UUID;
+import java.util.GregorianCalendar;
 
 import com.google.gson.Gson;
 
@@ -439,6 +440,31 @@ public class Event extends AbstractModel {
 			throw new WPISuiteException("Events must end after they begin.");
 		// accept combinations of dates if and only if isValidDate(startDate) && isValidDate(endDate) && isValidDateOrder(startDate, endDate)
 		return 0;
+	}
+	
+	private Calendar dateTimeParser(String date, String time) throws WPISuiteException, IllegalArgumentException{
+		if(date.length() != 10 || date.charAt(2) != '/' || date.charAt(5) != '/'){
+			throw new WPISuiteException("Date must be in form mm/dd/yyyy");
+		}
+		int year = Integer.parseInt(date.substring(6, 10));
+		int month = Integer.parseInt(date.substring(0, 2));
+		int day = Integer.parseInt(date.substring(3, 5));
+		
+		if(time.length() != 5 || time.charAt(2) != ':'){
+			throw new WPISuiteException("Time must be in form hh:mm");
+		}		
+		int hour = Integer.parseInt(time.substring(0, 2));
+		int minute = Integer.parseInt(time.substring(3, 5));
+		
+		Calendar dateTime = new GregorianCalendar();
+		dateTime.setLenient(false);
+		try{
+			dateTime = new GregorianCalendar(year, month, day, hour, minute);
+		}
+		catch(IllegalArgumentException e){
+			throw new WPISuiteException("Invalid date/time input");
+		}
+		return dateTime;
 	}
 	
 	
