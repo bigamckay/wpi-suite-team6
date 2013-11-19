@@ -458,10 +458,8 @@ public class Event extends AbstractModel {
 		
 		Calendar dateTime = new GregorianCalendar();
 		dateTime.setLenient(false);
-		try{
-			dateTime = new GregorianCalendar(year, month-1, day, hour, minute);
-		}
-		catch(IllegalArgumentException e){
+		dateTime = new GregorianCalendar(year, month-1, day, hour, minute);
+		if(dateTime.get(Calendar.YEAR) != year || dateTime.get(Calendar.MONTH) != month-1 || dateTime.get(Calendar.DAY_OF_MONTH) != day || dateTime.get(Calendar.HOUR_OF_DAY) != hour || dateTime.get(Calendar.MINUTE) != minute){
 			throw new WPISuiteException("Invalid date/time input");
 		}
 		return dateTime;

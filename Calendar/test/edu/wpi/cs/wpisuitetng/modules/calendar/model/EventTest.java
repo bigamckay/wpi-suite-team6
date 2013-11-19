@@ -500,6 +500,7 @@ public class EventTest {
 			fail("Threw exception");
 		}	
 	}
+	
 	@Test
 	public void testParserInvalidDateFormat(){
 		try{
@@ -508,6 +509,17 @@ public class EventTest {
 		}
 		catch(WPISuiteException e){
 			assertEquals("Exception that date length is wrong", e.getMessage(), "Date must be in form mm/dd/yyyy");
+		}
+	}
+	
+	@Test
+	public void testParserInvalidDate(){
+		try{
+			dummyEvent.dateTimeParser("04/31/2014", "12:00");
+			fail("Failed to throw invalid date exception");
+		}
+		catch(WPISuiteException e){
+			assertEquals("Exception that date is invalid", e.getMessage(), "Invalid date/time input");
 		}
 	}
 
