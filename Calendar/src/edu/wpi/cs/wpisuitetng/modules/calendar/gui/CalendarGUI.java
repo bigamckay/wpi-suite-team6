@@ -22,9 +22,9 @@ import javax.swing.JScrollPane;
 
 //import org.jdesktop.swingx.JXMonthView;
 
-public class CalendarGUI extends JPanel{
+public class CalendarGUI{
 	
-	private JFrame frameCalendar;
+	private JPanel panelCalendar;
 	private JTextField eventDescription;
 	private JTextField eventLocation;
 	private JTextField startTime;
@@ -45,7 +45,7 @@ public class CalendarGUI extends JPanel{
 			public void run() {
 				try {
 					CalendarGUI window = new CalendarGUI();
-					window.frameCalendar.setVisible(true);
+					window.panelCalendar.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -59,23 +59,30 @@ public class CalendarGUI extends JPanel{
 	public CalendarGUI() {
 		initialize();
 	}
+	
+	/**
+	 * Gets the panel that contains the entire GUI
+	 */
+	public JPanel getPanel() {
+		return panelCalendar;
+	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frameCalendar = new JFrame();
-		frameCalendar.getContentPane().setBackground(UIManager.getColor("InternalFrame.activeTitleBackground"));
-		frameCalendar.setResizable(false);
-		frameCalendar.setBounds(100, 100, 1024, 768);
-		frameCalendar.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frameCalendar.getContentPane().setLayout(null);
+		panelCalendar = new JPanel();
+		panelCalendar.setBackground(UIManager.getColor("InternalFrame.activeTitleBackground"));
+		//panelCalendar.setResizable(false);
+		panelCalendar.setBounds(100, 100, 1024, 768);
+		//panelCalendar.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		panelCalendar.setLayout(null);
 		
 		JPanel titlePanel = new JPanel();
 		titlePanel.setBounds(0, 0, 1018, 80);
 		titlePanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		titlePanel.setBackground(UIManager.getColor("InternalFrame.activeTitleGradient"));
-		frameCalendar.getContentPane().add(titlePanel);
+		panelCalendar.add(titlePanel);
 		titlePanel.setLayout(null);
 		
 		JLabel lblCalendar = new JLabel("Calendar");
@@ -94,7 +101,7 @@ public class CalendarGUI extends JPanel{
 		eventPanel.setBounds(5, 86, 292, 234);
 		eventPanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		eventPanel.setBackground(UIManager.getColor("InternalFrame.inactiveTitleBackground"));
-		frameCalendar.getContentPane().add(eventPanel);
+		panelCalendar.add(eventPanel);
 		eventPanel.setLayout(null);
 		
 		JButton btnCreateEvent = new JButton("Create Event");
@@ -171,7 +178,7 @@ public class CalendarGUI extends JPanel{
 		tabbedPane.setBounds(5, 324, 292, 412);
 		tabbedPane.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		tabbedPane.setBackground(UIManager.getColor("InternalFrame.inactiveTitleBackground"));
-		frameCalendar.getContentPane().add(tabbedPane);
+		panelCalendar.add(tabbedPane);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		tabbedPane.addTab("Events", null, scrollPane, null);
@@ -220,7 +227,7 @@ public class CalendarGUI extends JPanel{
 		calendarPanel.setBounds(302, 86, 711, 650);
 		calendarPanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		calendarPanel.setBackground(UIManager.getColor("InternalFrame.borderShadow"));
-		frameCalendar.getContentPane().add(calendarPanel);
+		panelCalendar.add(calendarPanel);
 		calendarPanel.setLayout(null);
 		
 		JButton upButton = new JButton("UP");
@@ -250,9 +257,6 @@ public class CalendarGUI extends JPanel{
 		monthView.setPreferredRowCount(1);
 		monthView.setPreferredColumnCount(1);
 		calendarPanel.add(monthView, BorderLayout.CENTER);*/
-		
-		// add all components to panel
-		this.add(frameCalendar);
 		
 	}
 }
