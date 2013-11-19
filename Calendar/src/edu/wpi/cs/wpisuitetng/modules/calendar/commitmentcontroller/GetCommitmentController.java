@@ -1,10 +1,10 @@
-package edu.wpi.cs.wpisuiteng.modules.calendar.commitmentcontroller;
+package edu.wpi.cs.wpisuitetng.modules.calendar.commitmentcontroller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import edu.wpi.cs.wpisuiteng.modules.calendar.models.commitments.Commitment;
-import edu.wpi.cs.wpisuiteng.modules.calendar.models.commitments.CommitmentModel;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.commitments.Commitment;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.commitments.CommitmentModel;
 import edu.wpi.cs.wpisuitetng.network.Network;
 import edu.wpi.cs.wpisuitetng.network.Request;
 import edu.wpi.cs.wpisuitetng.network.models.HttpMethod;

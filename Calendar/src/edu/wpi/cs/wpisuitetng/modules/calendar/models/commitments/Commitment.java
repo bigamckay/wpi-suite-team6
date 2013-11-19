@@ -1,12 +1,13 @@
-package edu.wpi.cs.wpisuiteng.modules.calendar.models.commitments;
+package edu.wpi.cs.wpisuitetng.modules.calendar.models.commitments;
 
 import java.util.Calendar;
 
 import com.google.gson.Gson;
 
 //import edu.wpi.cs.wpisuiteng.modules.calendar.commitmentcontroller.UpdateCommitmentController;
-import edu.wpi.cs.wpisuiteng.modules.calendar.models.characteristics.CommitmentDate;
+
 import edu.wpi.cs.wpisuitetng.modules.AbstractModel;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.characteristics.CommitmentDate;
 
 public class Commitment extends AbstractModel{
 	/** the ID of the Commitment */

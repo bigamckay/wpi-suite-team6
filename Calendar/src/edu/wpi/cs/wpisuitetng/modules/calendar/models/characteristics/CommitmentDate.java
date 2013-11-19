@@ -1,4 +1,4 @@
-package edu.wpi.cs.wpisuiteng.modules.calendar.models.characteristics;
+package edu.wpi.cs.wpisuitetng.modules.calendar.models.characteristics;
 
 import java.util.Calendar;
 
