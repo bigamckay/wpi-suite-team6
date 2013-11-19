@@ -489,5 +489,26 @@ public class EventTest {
 //	public void testIdentify() {
 //		fail("Not yet implemented");
 //	}
+	
+	@Test
+	public void testParserValidInput(){
+		try{
+			Calendar testCal1 = dummyEvent.dateTimeParser("11/14/2014", "18:00");
+			assertEquals(testStart, testCal1);
+		}
+		catch(WPISuiteException e){
+			fail("Threw exception");
+		}	
+	}
+	@Test
+	public void testParserInvalidDateFormat(){
+		try{
+			dummyEvent.dateTimeParser("4/30/14", "12:00");
+			fail("Failed to throw invalid date exception");
+		}
+		catch(WPISuiteException e){
+			assertEquals("Exception that date length is wrong", e.getMessage(), "Date must be in form mm/dd/yyyy");
+		}
+	}
 
 }

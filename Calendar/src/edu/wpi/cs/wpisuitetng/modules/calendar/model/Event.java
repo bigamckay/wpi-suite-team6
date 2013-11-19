@@ -442,7 +442,7 @@ public class Event extends AbstractModel {
 		return 0;
 	}
 	
-	private Calendar dateTimeParser(String date, String time) throws WPISuiteException, IllegalArgumentException{
+	public Calendar dateTimeParser(String date, String time) throws WPISuiteException{
 		if(date.length() != 10 || date.charAt(2) != '/' || date.charAt(5) != '/'){
 			throw new WPISuiteException("Date must be in form mm/dd/yyyy");
 		}
@@ -459,7 +459,7 @@ public class Event extends AbstractModel {
 		Calendar dateTime = new GregorianCalendar();
 		dateTime.setLenient(false);
 		try{
-			dateTime = new GregorianCalendar(year, month, day, hour, minute);
+			dateTime = new GregorianCalendar(year, month-1, day, hour, minute);
 		}
 		catch(IllegalArgumentException e){
 			throw new WPISuiteException("Invalid date/time input");
