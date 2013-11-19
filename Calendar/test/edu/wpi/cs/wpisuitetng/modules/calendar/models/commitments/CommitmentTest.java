@@ -48,7 +48,7 @@ public class CommitmentTest {
 		//NEEDS A WAY TO TEST THAT IT IS AN INT
 		//assertEquals(testCommitment.getId(), Integer.class);  
 		assertTrue(testCommitment.getName() instanceof String); 
-		assertTrue(testCommitment.getDueDate().getDate() instanceof Calendar); 
+		assertTrue(testCommitment.getDueDate() instanceof Calendar); 
 		fail("NEEDS FIXED!");
 	}
 	
@@ -67,7 +67,7 @@ public class CommitmentTest {
 	public void testSetDueDate() {
 		assertNotNull(testCommitment.getDueDate());
 		testCommitment.setDueDate(testDueDate1);
-		assertEquals(testCommitment.getDueDate().getDate(), testDueDate1);
+		assertEquals(testCommitment.getDueDate(), testDueDate1);
 	}
 
 	@Test
@@ -94,7 +94,7 @@ public class CommitmentTest {
 	@Test
 	public void testGetDueDate() {
 		assertNotNull(testCommitment.getDueDate());
-		assertTrue(testCommitment.getDueDate().getDate().equals(testDueDate));
+		assertTrue(testCommitment.getDueDate().equals(testDueDate));
 	}
 
 	@Test

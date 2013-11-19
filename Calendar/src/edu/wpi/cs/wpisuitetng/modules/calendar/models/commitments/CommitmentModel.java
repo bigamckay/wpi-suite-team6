@@ -196,15 +196,15 @@ public class CommitmentModel extends AbstractListModel {
 			return isValid;
 		}
 		
-		for(Commitment comit : listOfCommitments)
+		for(Commitment commit : listOfCommitments)
 		{
-			if(comit == backlog) continue;
-			boolean startGreaterOrEqual = (due.after(comit.getDueDate().getDate()));
+			if(commit == backlog) continue;
+			boolean startGreaterOrEqual = (due.after(commit.getDueDate()));
 			
 
 			if(!(startGreaterOrEqual))
 			{
-				isValid = comit;
+				isValid = commit;
 			}
 		}
 		
@@ -226,7 +226,7 @@ public class CommitmentModel extends AbstractListModel {
 		{
 			if(comit2 == backlog) continue;
 			
-			boolean startValid = comit2.getDueDate().getDate().before(date);
+			boolean startValid = comit2.getDueDate().before(date);
 			
 			if(startValid)
 			{
