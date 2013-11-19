@@ -22,13 +22,15 @@ import edu.wpi.cs.wpisuitetng.modules.AbstractModel;
 import edu.wpi.cs.wpisuitetng.modules.core.models.User;
 import edu.wpi.cs.wpisuitetng.exceptions.WPISuiteException;
 
-
-
 /** 
  *  Needs to be documented
- * @author Craig
- *
+ *  @author Rachel Wigell
+ *  @author Craig Nesbitt
+ *  
+ *  Events are user-created objects. As a result, their creation must be very secure and able to handle
+ *  bad input.
  */
+
 public class Event extends AbstractModel {
 	
 	// character limit for name and location field
@@ -290,7 +292,7 @@ public class Event extends AbstractModel {
 	
 	// Confirms that the description is valid:
 	//  - cannot exceed certain length
-	//  - can only contain ascii between 32 and 126 (inclusive)
+	//  - can only contain ascii 0 and 32 - 126 inclusive
 	private int isValidDescription(String desc) throws WPISuiteException{
 		//same as location, but with larger character cap
 		if(desc.length() > LONG_MAX)
