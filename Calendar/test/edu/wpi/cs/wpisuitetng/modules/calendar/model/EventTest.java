@@ -13,7 +13,7 @@ import org.junit.Test;
 
 import edu.wpi.cs.wpisuitetng.exceptions.WPISuiteException;
 import edu.wpi.cs.wpisuitetng.modules.core.models.User;
-import edu.wpi.cs.wpisuitetng.modules.requirementmanager.MockNetwork;
+import edu.wpi.cs.wpisuitetng.modules.calendar.MockNetwork;
 
 public class EventTest {
 		
