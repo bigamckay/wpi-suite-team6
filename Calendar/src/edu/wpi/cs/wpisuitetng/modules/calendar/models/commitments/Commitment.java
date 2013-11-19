@@ -7,7 +7,6 @@ import com.google.gson.Gson;
 //import edu.wpi.cs.wpisuiteng.modules.calendar.commitmentcontroller.UpdateCommitmentController;
 
 import edu.wpi.cs.wpisuitetng.modules.AbstractModel;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.characteristics.CommitmentDate;
 
 public class Commitment extends AbstractModel{
 	/** the ID of the Commitment */
@@ -18,7 +17,7 @@ public class Commitment extends AbstractModel{
 	private String name;
 		
 	/** start and end date associated with the commitment */
-	private CommitmentDate duedate;
+	private Calendar duedate;
 
 	public Commitment() {
 		super();
@@ -43,7 +42,7 @@ public class Commitment extends AbstractModel{
 		this.name = name;
 		if (name.trim().length() == 0)
 			this.name = "Backlog";
-		this.duedate = new CommitmentDate(due);
+		this.duedate = due;
 	}
 	
 	/**
@@ -64,7 +63,7 @@ public class Commitment extends AbstractModel{
 	 * @param start start date
 	 */
 	public void setDueDate(Calendar due) {
-		this.duedate = new CommitmentDate(due);
+		this.duedate = due;
 	}
 
 	/**
@@ -113,14 +112,14 @@ public class Commitment extends AbstractModel{
 	/**
 	
 	 * @return the duedate of the commitment */
-	public CommitmentDate getDueDate() {
+	public Calendar getDueDate() {
 		return duedate;
 	}
 
 	/**
 	 * @param start the start of the commitment
 	 */
-//	public void setDueDate(CommitmentDate due) {
+//	public void setDueDate(Calendar due) {
 //		this.duedate = due;
 //		UpdateCommitmentController.getInstance().updateCommitment(this);
 //	}
