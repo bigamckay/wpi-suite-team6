@@ -325,6 +325,7 @@ public class GUIv4 {
 				"Time", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
 			}
 		));
+		
 		weekScrollPane.setViewportView(weekDayHeaders);
 		
 		JButton weekNextButton = new JButton("Next Week");

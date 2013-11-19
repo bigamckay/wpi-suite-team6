@@ -3,8 +3,13 @@
  */
 package edu.wpi.cs.wpisuitetng.modules.calendar.gui;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Point;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -18,8 +23,7 @@ import javax.swing.border.EtchedBorder;
  *
  */
 public class CalendarEventView extends JPanel {
-
-	private JPanel eventPanel;
+	
 	private JTextField eventDescription;
 	private JTextField eventLocation;
 	private JTextField startTime;
@@ -34,11 +38,12 @@ public class CalendarEventView extends JPanel {
 	
 	private void initialize() {
 		
-		eventPanel = new JPanel();
-		eventPanel.setBounds(5, 86, 292, 234);
-		eventPanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		eventPanel.setBackground(UIManager.getColor("InternalFrame.inactiveTitleBackground"));
-		eventPanel.setLayout(null);
+		setPreferredSize(new Dimension(292,234));
+		setLocation(5, 0);
+		//setBounds(5, 86, 292, 234);
+		//setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		setBackground(UIManager.getColor("InternalFrame.inactiveTitleBackground"));
+		setLayout(null);
 		
 		JButton btnCreateEvent = new JButton("Create Event");
 		btnCreateEvent.setBounds(10, 203, 112, 23);

@@ -27,13 +27,13 @@ public class CalendarModule implements IJanewayModule {
 		// Create a JPanel to hold the toolbar for the tab
 		JPanel toolbarPanel = new JPanel();
 		toolbarPanel.add(new JLabel("Calendar toolbar placeholder")); // add a label with some placeholder text
-		toolbarPanel.setBorder(BorderFactory.createLineBorder(Color.blue, 2)); // add a border so you can see the panel
+		//toolbarPanel.setBorder(BorderFactory.createLineBorder(Color.blue, 2)); // add a border so you can see the panel
 
 		// Create a JPanel to hold the main contents of the tab
 		JPanel mainPanel = new JPanel();
 		//mainPanel.add(new JLabel("YOLOSWAG"));
 		mainPanel.add(mainView);
-		mainPanel.setBorder(BorderFactory.createLineBorder(Color.green, 2));
+		//mainPanel.setBorder(BorderFactory.createLineBorder(Color.green, 2));
 
 		// Create a tab model that contains the toolbar panel and the main content panel
 		JanewayTabModel tab1 = new JanewayTabModel(getName(), new ImageIcon(), toolbarPanel, mainPanel);
