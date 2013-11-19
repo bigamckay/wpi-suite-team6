@@ -39,7 +39,6 @@ public class CommitmentTest {
 			testCommitment = new Commitment("thisIsATest", testDueDate, testUser);
 			testCommitment1 = new Commitment("thisIsAlsoATest",testDueDate2, testUser);
 			testCommitment2 = new Commitment("thisIsATest", testDueDate1, testUser);
-			System.out.println("initialization.");
 		}catch(WPISuiteException e){
 			System.out.println("Exception during initialization.");
 		}	
