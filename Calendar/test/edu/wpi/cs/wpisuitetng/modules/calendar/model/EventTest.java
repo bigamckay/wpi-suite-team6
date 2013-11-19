@@ -230,33 +230,45 @@ public class EventTest {
 		assertEquals(users3,basicEvent.getInvited());
 	}
 
-	// CURRENTLY DOESN'T WORK, FIX REMOVE INVITED
+	
 	// tests for removing a user from the invited users list
 	@Test
 	public void testRemoveInvited() {
-		System.out.println(basicEvent2.getInvited());
 		try{
 			basicEvent2.removeInvited(testUser2);
 		}catch(WPISuiteException e){
 			System.out.println("EXCEPTION");
 		}
 		
-		System.out.println(basicEvent2.getInvited());
-		System.out.println(basicEvent3.getInvited());
 		assertEquals(basicEvent3.getInvited(),basicEvent2.getInvited());
 	}
 
+	
+	// tests the adding of a user to the attending users list
 	@Test
 	public void testAddAttending() {
 		try{
 			basicEvent3.addAttending(testUser2);
 		}catch(WPISuiteException e){}
-		fail("Not yet implemented");
+	
+		LinkedList<User> testUsers = new LinkedList<User>();
+		testUsers.add(testUser3);
+		testUsers.add(testUser2);
+		
+		assertEquals(basicEvent3.getAttending(), testUsers);
+		
 	}
 
+	// tests the removal of a user from the list of attending users
 	@Test
 	public void testRemoveAttending() {
-		fail("Not yet implemented");
+		
+		try{
+			basicEvent2.removeAttending(testUser2);
+		}catch(WPISuiteException e){}
+		
+		
+		assertEquals(basicEvent3.getAttending(), basicEvent2.getAttending());
 	}
 	
 	/* TEST NAME EXCEPTIONS */
