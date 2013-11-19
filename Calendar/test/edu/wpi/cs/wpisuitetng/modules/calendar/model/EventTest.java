@@ -493,8 +493,8 @@ public class EventTest {
 	@Test
 	public void testParserValidInput(){
 		try{
-			Calendar testCal1 = dummyEvent.dateTimeParser("11/14/2014", "18:00");
-			assertEquals(testStart, testCal1);
+			Calendar testCal1 = dummyEvent.dateTimeParser("01/21/2014", "18:00");
+			assertEquals(testStart2, testCal1);
 		}
 		catch(WPISuiteException e){
 			fail("Threw exception");
@@ -520,6 +520,27 @@ public class EventTest {
 		}
 		catch(WPISuiteException e){
 			assertEquals("Exception that date is invalid", e.getMessage(), "Invalid date/time input");
+		}
+	}
+	
+	@Test
+	public void testParserInvalidTimeFormat(){
+		try{
+			dummyEvent.dateTimeParser("04/25/1992", "7:00");
+			fail("Failed to throw invalid time exception");
+		}
+		catch(WPISuiteException e){
+			assertEquals("Exception that time is invalid", e.getMessage(), "Time must be in form hh:mm");
+		}
+	}
+	
+	public void testParserInvalidTime(){
+		try{
+			dummyEvent.dateTimeParser("04/25/1992", "25:00");
+			fail("Failed to throw invalid time exception");
+		}
+		catch(WPISuiteException e){
+			assertEquals("Exception that time is invalid", e.getMessage(),"Invalid date/time input");
 		}
 	}
 
