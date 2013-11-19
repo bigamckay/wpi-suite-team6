@@ -4,20 +4,35 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.commitments.*;
+import edu.wpi.cs.wpisuitetng.modules.calendar.MockData;
+import edu.wpi.cs.wpisuitetng.modules.calendar.MockNetwork;
+import edu.wpi.cs.wpisuitetng.modules.calendar.MockRequest;
+
+import edu.wpi.cs.wpisuitetng.network.Network;
+import edu.wpi.cs.wpisuitetng.network.configuration.NetworkConfiguration;
 import static org.junit.Assert.*;
 
 import org.junit.*;
 
 public class CommitmentTest {
 
+	//set up example calendars
 	Calendar testDueDate = new GregorianCalendar(2014, Calendar.NOVEMBER, 15, 16, 0);
 	Calendar testDueDate1 = new GregorianCalendar(2015, Calendar.NOVEMBER, 15, 17, 0);
 	
+	//set up example commitments
 	Commitment testCommitment = new Commitment(2, "thisIsATest", testDueDate);
 	Commitment testCommitment1 = new Commitment(3, "thisIsAlsoATest");
 	Commitment testCommitment2 = new Commitment(4, "thisIsATest", testDueDate1);
 	Commitment blankCommitment = new Commitment(0, "", testDueDate);
 	
+	@Before
+	public void setUp() throws Exception {
+		//make a fake simulated network to test JSON things
+		Network.initNetwork(new MockNetwork());
+		Network.getInstance().setDefaultNetworkConfiguration(
+				new NetworkConfiguration("http://wpisuitetng"));
+	}	
 	
 	@Test
 	public void testCommitment() {
@@ -103,35 +118,27 @@ public class CommitmentTest {
 		assertTrue(testCommitment.getDueDate().equals(blankCommitment.getDueDate()));
 		assertNotEquals(testCommitment.getId(), (blankCommitment.getId()));
 	}
+	
+	@Test
+	public void testToFromJson() {
+		Commitment com = new Commitment(12, "jsontest");
+		String jsoncom = com.toJSON();
+		Commitment returned = Commitment.fromJson(jsoncom);
+		assertEquals(returned.getId(), com.getId());
+		assertEquals(returned.getName(), com.getName());
+	}
 
 	@Test
 	public void testFromJsonArray() {
 		fail("Not yet implemented");
 	}
 
-	@Test
-	public void testToJSON() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testFromJson() {
-		fail("Not yet implemented");
-	}
 
 	@Test
 	public void testIdentify() {
-		fail("Not yet implemented");
+		//the identify method just returns null no matter what
+		assertNull(testCommitment.identify(testCommitment));
 	}
 
-	@Test
-	public void testSave() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testDelete() {
-		fail("Not yet implemented");
-	}
 
 }
