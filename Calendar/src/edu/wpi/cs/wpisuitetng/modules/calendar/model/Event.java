@@ -442,23 +442,37 @@ public class Event extends AbstractModel {
 		return 0;
 	}
 	
+	/**
+	 * Takes in user's input for a date and a time, in string form, validates, and converts to a calendar object
+	 * - throws a WPI Suite Exception with description if date or time is not in correct form or is invalid
+	 * @param date the user's input for date
+	 * @param time the user's input for time
+	 * @return calendar object if successfully created
+	 */
 	public Calendar dateTimeParser(String date, String time) throws WPISuiteException{
+		//hoping to receive date input in mm/dd/yyyy form: check for correct length and placement of /'s
 		if(date.length() != 10 || date.charAt(2) != '/' || date.charAt(5) != '/'){
 			throw new WPISuiteException("Date must be in form mm/dd/yyyy");
 		}
+		//convert to int and place first two characters of string into month, 3rd and 4th into day, and 6-9 into year
 		int year = Integer.parseInt(date.substring(6, 10));
 		int month = Integer.parseInt(date.substring(0, 2));
 		int day = Integer.parseInt(date.substring(3, 5));
 		
+		//hoping to receive time input in hh:mm form: check for correct length and placement of :
 		if(time.length() != 5 || time.charAt(2) != ':'){
 			throw new WPISuiteException("Time must be in form hh:mm");
-		}		
+		}
+		//convert to int and place first two characters of string into hour, last two into minute
 		int hour = Integer.parseInt(time.substring(0, 2));
 		int minute = Integer.parseInt(time.substring(3, 5));
 		
-		Calendar dateTime = new GregorianCalendar();
-		dateTime.setLenient(false);
-		dateTime = new GregorianCalendar(year, month-1, day, hour, minute);
+		Calendar dateTime = new GregorianCalendar(); //create a calendar object to hold the date and time
+		dateTime.setLenient(false); //non-lenient mode will check for invalid dates such as April 31st
+		dateTime = new GregorianCalendar(year, month-1, day, hour, minute); //must use month-1 because months start at 0; e.g. January = 0 but user will input 01 for January
+		//Calendar constructor handles invalid dates such as April 31st by changing the user input into a valid date.
+		//Therefore it is possible to check for invalid dates by comparing the date that was attempted to use
+		//and the date that was actually used and seeing if they are equal.
 		if(dateTime.get(Calendar.YEAR) != year || dateTime.get(Calendar.MONTH) != month-1 || dateTime.get(Calendar.DAY_OF_MONTH) != day || dateTime.get(Calendar.HOUR_OF_DAY) != hour || dateTime.get(Calendar.MINUTE) != minute){
 			throw new WPISuiteException("Invalid date/time input");
 		}
