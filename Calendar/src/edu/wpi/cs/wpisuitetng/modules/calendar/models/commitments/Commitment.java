@@ -47,10 +47,10 @@ public class Commitment extends AbstractModel{
 	 * 			  The start of the Commitment
 	 */
 	public Commitment(String name, Calendar due, User creator) throws WPISuiteException{
-		this.id = new UUID(0,0);
+		this.id = UUID.randomUUID();
 		try{
 			isValidName(name);
-			isValidDate(duedate);
+			isValidDate(due);
 		}catch(WPISuiteException e){
 			throw e;
 		}
