@@ -7,7 +7,7 @@ import java.util.UUID;
 
 import javax.swing.AbstractListModel;
 
-import edu.wpi.cs.wpisuitetng.modules.calendar.controller.AddEventController;
+import edu.wpi.cs.wpisuitetng.modules.calendar.controllers.AddEventController;
 
 /**
  * NOTE that this is a model in the swing sense, NOT the WPISuite sense

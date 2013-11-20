@@ -1,7 +1,7 @@
 /**
  * 
  */
-package edu.wpi.cs.wpisuitetng.modules.calendar.gui;
+package edu.wpi.cs.wpisuitetng.modules.calendar.views;
 
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;

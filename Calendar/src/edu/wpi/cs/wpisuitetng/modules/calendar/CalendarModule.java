@@ -25,8 +25,8 @@ import javax.swing.JTextField;
 
 import edu.wpi.cs.wpisuitetng.janeway.modules.IJanewayModule;
 import edu.wpi.cs.wpisuitetng.janeway.modules.JanewayTabModel;
-import edu.wpi.cs.wpisuitetng.modules.calendar.gui.MainView;
-import edu.wpi.cs.wpisuitetng.modules.calendar.gui.CalendarCalendarView;
+import edu.wpi.cs.wpisuitetng.modules.calendar.views.CalendarCalendarView;
+import edu.wpi.cs.wpisuitetng.modules.calendar.views.MainView;
 
 public class CalendarModule extends CalendarCalendarView implements IJanewayModule {
 	

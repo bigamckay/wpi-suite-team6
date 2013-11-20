@@ -1,4 +1,4 @@
-package edu.wpi.cs.wpisuitetng.modules.calendar.controller;
+package edu.wpi.cs.wpisuitetng.modules.calendar.controllers;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Event;
 import edu.wpi.cs.wpisuitetng.network.Network;

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package edu.wpi.cs.wpisuitetng.modules.calendar.controller;
+package edu.wpi.cs.wpisuitetng.modules.calendar.controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

@@ -1,4 +1,4 @@
-package edu.wpi.cs.wpisuitetng.modules.calendar.gui;
+package edu.wpi.cs.wpisuitetng.modules.calendar.views;
 
 import java.awt.CardLayout;
 import java.awt.Color;
