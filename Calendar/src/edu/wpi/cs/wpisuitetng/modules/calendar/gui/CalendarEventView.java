@@ -24,7 +24,8 @@ import javax.swing.UIManager;
 import javax.swing.border.EtchedBorder;
 
 import edu.wpi.cs.wpisuitetng.exceptions.WPISuiteException;
-import edu.wpi.cs.wpisuitetng.modules.calendar.model.Event;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.Event;
+import edu.wpi.cs.wpisuitetng.modules.calendar.utils.DateTimeUtils;
 
 /**
  * Contains the GUI elements of the Event Panel
@@ -285,8 +286,8 @@ public class CalendarEventView extends JTabbedPane {
 	            	Calendar eventStart;
 	            	Calendar eventEnd;
 	            	try{
-	            		eventStart = newEvent.dateTimeParser(startDay.getText(), startTime.getText());
-	            		eventEnd = newEvent.dateTimeParser(endDay.getText(), endTime.getText());
+	            		eventStart = DateTimeUtils.dateTimeParser(startDay.getText(), startTime.getText());
+	            		eventEnd = DateTimeUtils.dateTimeParser(endDay.getText(), endTime.getText());
 	            	}
 	            	catch(WPISuiteException exception){
 	            		eventFeedbackLabel.setText(exception.getMessage());

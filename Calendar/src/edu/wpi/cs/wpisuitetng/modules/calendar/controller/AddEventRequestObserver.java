@@ -1,7 +1,7 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.controller;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.AddEventController;
-import edu.wpi.cs.wpisuitetng.modules.calendar.model.Event;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.Event;
 import edu.wpi.cs.wpisuitetng.network.RequestObserver;
 import edu.wpi.cs.wpisuitetng.network.models.IRequest;
 import edu.wpi.cs.wpisuitetng.network.models.ResponseModel;

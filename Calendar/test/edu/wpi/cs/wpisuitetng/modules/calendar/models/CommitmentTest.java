@@ -1,4 +1,4 @@
-package edu.wpi.cs.wpisuitetng.modules.calendar.models.commitments;
+package edu.wpi.cs.wpisuitetng.modules.calendar.models;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -29,19 +29,10 @@ public class CommitmentTest {
 	
 		
 	@Before
-	public void setUp() {
-		//make a fake simulated network to test JSON things
-		//Network.initNetwork(new MockNetwork());
-		//Network.getInstance().setDefaultNetworkConfiguration(
-//				new NetworkConfiguration("http://wpisuitetng"));
-		//set up example commitments
-		try{
-			testCommitment = new Commitment("thisIsATest", testDueDate, testUser);
-			testCommitment1 = new Commitment("thisIsAlsoATest",testDueDate2, testUser);
-			testCommitment2 = new Commitment("thisIsATest", testDueDate1, testUser);
-		}catch(WPISuiteException e){
-			System.out.println("Exception during initialization.");
-		}	
+	public void setUp() throws WPISuiteException {
+		testCommitment = new Commitment("thisIsATest", testDueDate, testUser);
+		testCommitment1 = new Commitment("thisIsAlsoATest",testDueDate2, testUser);
+		testCommitment2 = new Commitment("thisIsATest", testDueDate1, testUser);	
 	}	
 	
 	@Test
@@ -54,7 +45,7 @@ public class CommitmentTest {
 	public void testCommitmentCompleteConstructor() {
 		assertNotNull(testCommitment.getName());
 		assertNotNull(testCommitment.getDueDate());
-		assertNotNull(testCommitment.getCreator());
+		assertNotNull(testCommitment.getOwner());
 		assertTrue(testCommitment.getName() instanceof String); 
 		assertTrue(testCommitment.getDueDate() instanceof Calendar); 
 	}
@@ -82,16 +73,14 @@ public class CommitmentTest {
 	
 	@Test
 	public void testGetCreator(){
-		assertNotNull(testCommitment.getCreator());
-		assertEquals(testUser, testCommitment.getCreator());
+		assertNotNull(testCommitment.getOwner());
+		assertEquals(testUser, testCommitment.getOwner());
 	}
 
 	@Test
 	public void testSetName(){
 		assertNotNull(testCommitment.getName());
-		try{
-			testCommitment.setName("This is a new test!");
-		}catch(WPISuiteException e){}
+		testCommitment.setName("This is a new test!");
 		
 		assertEquals(testCommitment.getName(), "This is a new test!");
 	}
@@ -99,40 +88,25 @@ public class CommitmentTest {
 	@Test
 	// Test that exception is thrown when entering a null name
 	public void testException_SetName_NULL() {
-		try{
-			testCommitment.setName("");
-			// Should throw exception and not execute the following line
-			assertTrue("Exception not thrown when shouled have.", false);
-		}catch(WPISuiteException e){
-			// confirm that the cause of exception is that the name must exist
-			assertEquals("Exception thrown that event's name can't be empty.", e.getMessage(), "Name cannot be empty.");
-		}
+		testCommitment.setName("");
+		// Should throw exception and not execute the following line
+		assertTrue("Exception not thrown when shouled have.", false);
 	}
 	
 	@Test
 	// Test that exception is thrown when entering an invalid character
 	public void testException_SetName_InvalidCharacter() {
-		try{
-			testCommitment.setName("myNameis	");
-			// Should throw exception and not execute the following line
-			assertTrue("Exception not thrown when shouled have.", false);
-		}catch(WPISuiteException e){
-			// confirm that the cause of exception is existence of tab
-			assertEquals("Exception thrown that event's name must have valid character.", e.getMessage(), "Name cannot contain character 	");
-		}
+		testCommitment.setName("myNameis	");
+		// Should throw exception and not execute the following line
+		assertTrue("Exception not thrown when shouled have.", false);
 	}
 	
 	@Test
 	// Test that exception is thrown when entering a really long name
 	public void testException_SetName_NameTooLong() {
-		try{
-			testCommitment.setName("1234567890 1234567890 1234567890 1234567980");
-			// Should throw exception and not execute the following line
-			assertTrue("Exception not thrown when shouled have.", false);
-		}catch(WPISuiteException e){
-			// confirm that the cause of exception is length
-			assertEquals("Exception thrown that event's name has a size limit.", e.getMessage(), "Name too long.");
-		}
+		testCommitment.setName("1234567890 1234567890 1234567890 1234567980");
+		// Should throw exception and not execute the following line
+		assertTrue("Exception not thrown when shouled have.", false);
 	}
 	
 	
@@ -140,9 +114,7 @@ public class CommitmentTest {
 	@Test
 	public void testSetDueDate() {
 		assertNotNull(testCommitment.getDueDate());
-		try{
-			testCommitment.setDueDate(testDueDate1);
-		}catch(WPISuiteException e){}
+		testCommitment.setDueDate(testDueDate1);
 		
 		assertEquals(testCommitment.getDueDate(), testDueDate1);
 	}
@@ -153,21 +125,19 @@ public class CommitmentTest {
 	@Test
 	// Test that exception is thrown when trying to set an invalid date
 	public void testException_SetDueDate_DateInPast() {
-		try{
-			testCommitment.setDueDate(new GregorianCalendar(2012, Calendar.JUNE, 10, 18, 0));
-			// Should throw exception and not execute the following line
-			assertTrue("Exception not thrown when shouled have.", false);
-		}catch(WPISuiteException e){
-			// confirm that the cause of exception is a date in the past
-			assertEquals("Exception thrown that events must occur in the future.", e.getMessage(), "Events must occur in the future.");
-		}
+		testCommitment.setDueDate(new GregorianCalendar(2012, Calendar.JUNE, 10, 18, 0));
+		// Should throw exception and not execute the following line
+		assertTrue("Exception not thrown when shouled have.", false);
 	}
 	
 	
 	@Test
 	public void testEqualsCommitment() {
+		/*
 		assertTrue(testCommitment.equalsCommitment(testCommitment2));
 		assertFalse(testCommitment.equalsCommitment(testCommitment1));
+		*/
+		fail("Need to reimplement this by comparing ids, possibly with the identify method in commitment");
 	}
 
 //	@Test

@@ -1,4 +1,4 @@
-package edu.wpi.cs.wpisuitetng.modules.calendar.model;
+package edu.wpi.cs.wpisuitetng.modules.calendar.models;
 
 import static org.junit.Assert.*;
 
@@ -14,6 +14,7 @@ import org.junit.Test;
 import edu.wpi.cs.wpisuitetng.exceptions.WPISuiteException;
 import edu.wpi.cs.wpisuitetng.modules.core.models.User;
 import edu.wpi.cs.wpisuitetng.modules.calendar.MockNetwork;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.Event;
 
 public class EventTest {
 		
@@ -122,8 +123,8 @@ public class EventTest {
 	// tests the getter for the creator
 	@Test
 	public void testGetCreator() {
-		assertNotNull(basicEvent.getCreator());
-		assertEquals(testUser, basicEvent.getCreator());
+		assertNotNull(basicEvent.getOwner());
+		assertEquals(testUser, basicEvent.getOwner());
 	}
 	
 	// tests the getter for the description
@@ -452,15 +453,15 @@ public class EventTest {
 		}
 	}
 
-//	@Test
-//	public void testFromJson() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	public void testFromJsonArray() {
-//		fail("Not yet implemented");
-//	}
+	@Test
+	public void testFromJson() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testFromJsonArray() {
+		fail("Not yet implemented");
+	}
 
 //	@Test
 //	public void testSave() {
@@ -472,6 +473,10 @@ public class EventTest {
 //		fail("Not yet implemented");
 //	}
 
+	@Test
+	public void testToJSON() {
+		fail("Not yet implemented");
+	}
 
 	@Test
 	public void testToFromJson() {
@@ -485,71 +490,5 @@ public class EventTest {
 //	public void testIdentify() {
 //		fail("Not yet implemented");
 //	}
-	
-	/*@Test
-	public void testParserValidInput(){
-		try{
-			Calendar testCal1 = dummyEvent.dateTimeParser("01/21/2014", "18:00");
-			assertEquals(testStart2, testCal1);
-		}
-		catch(WPISuiteException e){
-			fail("Threw exception");
-		}	
-	}
-	
-	@Test
-	public void testParserInvalidDateFormat(){
-		try{
-			dummyEvent.dateTimeParser("4/30/14", "12:00");
-			fail("Failed to throw invalid date exception");
-		}
-		catch(WPISuiteException e){
-			assertEquals("Exception that date length is wrong", e.getMessage(), "Date must be in form mm/dd/yyyy");
-		}
-	}
-	
-	@Test
-	public void testParserInvalidDate(){
-		try{
-			dummyEvent.dateTimeParser("04/31/2014", "12:00");
-			fail("Failed to throw invalid date exception");
-		}
-		catch(WPISuiteException e){
-			assertEquals("Exception that date is invalid", e.getMessage(), "Invalid date/time input");
-		}
-	}
-	
-	@Test
-	public void testParserInvalidTimeFormat(){
-		try{
-			dummyEvent.dateTimeParser("04/25/1992", "7:00");
-			fail("Failed to throw invalid time exception");
-		}
-		catch(WPISuiteException e){
-			assertEquals("Exception that time is invalid", e.getMessage(), "Time must be in form hh:mm");
-		}
-	}
-	
-	@Test
-	public void testParserInvalidTime(){
-		try{
-			dummyEvent.dateTimeParser("04/25/1992", "25:00");
-			fail("Failed to throw invalid time exception");
-		}
-		catch(WPISuiteException e){
-			assertEquals("Exception that time is invalid", e.getMessage(),"Invalid date/time input");
-		}
-	}*/
-	
-	@Test
-	public void testParserSillyTime(){
-		try{
-			dummyEvent.dateTimeParser("12/31/2001", "aa:bb");
-			fail("Failed to throw invalid time exception");
-		}
-		catch(WPISuiteException e){
-			assertEquals("Exception that time is invalid", e.getMessage(), "Hour and minute must be numbers.");
-		}
-	}
 
 }

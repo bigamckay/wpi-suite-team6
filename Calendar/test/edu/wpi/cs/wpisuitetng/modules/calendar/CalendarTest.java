@@ -8,7 +8,7 @@ import java.util.GregorianCalendar;
 import org.junit.Before;
 import org.junit.Test;
 
-import edu.wpi.cs.wpisuitetng.modules.calendar.model.Event;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.Event;
 import edu.wpi.cs.wpisuitetng.modules.core.models.User;
 
 public class CalendarTest {
