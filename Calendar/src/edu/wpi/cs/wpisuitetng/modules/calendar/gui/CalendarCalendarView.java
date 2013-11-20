@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Calendar;
 import java.util.Arrays;
 import java.util.ArrayList;
+import java.lang.Math;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -726,27 +727,122 @@ public class CalendarCalendarView extends JTabbedPane{
 		populateYear(monthArray);
 	}
 	
-	public JTable populateMonth(JTable month, int startDay, int daysInMonth){
+	public int populateMonth(JTable month, int startDay, int daysInMonth){
 		Integer dayCounter = 1;
 		int j=startDay;
 		for(int i=0; i<6; i++){
 			for(; j<7; j++){
 				month.getModel().setValueAt(dayCounter.toString(), i, j);
 				if (dayCounter == daysInMonth){
-					return month;
+					return j+1;
 				}
 				dayCounter++;
 			}
 			j =0;
 		}
-		return month;
+		return j+1;
 	}
 
+	int determineStartingDay(int year) 	// taken from http://mathforum.org/library/drmath/view/55837.html
+	{									// modified specifically to find the first day of the year
+		double startDay;
+
+		year -= 1;
+
+		startDay = (35 + year + Math.floor(year / 4) - Math.floor(year / 100) + Math.floor(year / 400) + 1);
+		startDay = startDay % 7;
+
+		return (int)startDay;
+	}
 	
 	public void populateYear(JTable[] monthArray){
+		int year = Calendar.getInstance().get(Calendar.YEAR);
+		int startDay = 0;;
 		for(int i=0; i<12; i++){
-			populateMonth(monthArray[i], 2, 31);
+			if(i==0)
+				startDay = populateMonth(monthArray[i], determineStartingDay(year), daysInMonth(i,year));
+			else
+				startDay = populateMonth(monthArray[i], startDay, daysInMonth(i,year));
 		}
 		return;
 	}
+	
+	public int daysInMonth(int i, int year){
+		int result = 0;								// for the respective month value and prints that month and the year to console
+		boolean leapYear = isLeapYear(year);
+		
+		switch(i)
+		{
+		case 0:
+			result = 31;
+			break;
+		case 1:
+			if(leapYear)
+			{
+				result = 29;
+			}
+			else
+			{
+				result = 28;
+			}
+			break;
+		case 2:
+			result = 31;
+			break;
+		case 3:
+			result = 30;
+			break;
+		case 4:
+			result = 31;
+			break;
+		case 5:
+			result = 30;
+			break;
+		case 6:
+			result = 31;
+			break;
+		case 7:
+			result = 31;
+			break;
+		case 8:
+			result = 30;
+			break;
+		case 9:
+			result = 31;
+			break;
+		case 10:
+			result = 30;
+			break;
+		case 11:
+			result = 31;
+			break;
+		}
+
+		return result;
+	}
+	
+	boolean isLeapYear(int year)		//takes an input year and checks to see if it's a leap year: 1 for true, 0 for false
+	{
+		boolean leapYear;
+
+		if((year % 400) == 0)
+		{
+			leapYear = true;
+		}
+		else if((year % 100) == 0)
+		{
+			leapYear = false;
+		}
+		else if((year % 4) == 0)
+		{
+			leapYear = true;
+		}
+		else
+		{
+			leapYear = false;
+		}
+
+		return leapYear;
+	}
+	
 }
