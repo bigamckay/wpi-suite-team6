@@ -74,6 +74,7 @@ public class GetEventController implements ActionListener{
 	 */
 	public void receivedEvents(Event[] requirements) {
 		// Empty the local model to eliminate duplications
+
 		EventListModel.getInstance().emptyModel();
 		
 		// Make sure the response was not null
@@ -81,6 +82,7 @@ public class GetEventController implements ActionListener{
 			
 			// add the requirements to the local model
 			EventListModel.getInstance().addEvents(requirements);
+			
 		}
 	}
 

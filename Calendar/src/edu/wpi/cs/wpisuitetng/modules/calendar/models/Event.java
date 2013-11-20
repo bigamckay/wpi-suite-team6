@@ -13,7 +13,6 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.models;
 
 import java.util.Calendar;
 import java.util.Collection;
-import java.util.LinkedList;
 import java.util.UUID;
 
 import com.google.gson.Gson;

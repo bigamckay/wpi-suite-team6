@@ -2,19 +2,15 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.models;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 
 import javax.swing.AbstractListModel;
-import javax.swing.DefaultListModel;
-import javax.swing.ListModel;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.AddEventController;
 
 /**
- * NOTE WELL that this is a 'model' in the swing sense, not a 'model' in the WPISuite sense.
- * 
+ * NOTE that this is a model in the swing sense, NOT the WPISuite sense
  * This is a model for the post board. It contains all of the messages
  * to be displayed on the board. It extends AbstractListModel so that
  * it can provide the model data to the JList component in the BoardPanel.

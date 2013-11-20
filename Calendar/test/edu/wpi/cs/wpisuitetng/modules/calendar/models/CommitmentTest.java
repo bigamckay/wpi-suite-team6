@@ -1,4 +1,4 @@
-package edu.wpi.cs.wpisuitetng.modules.calendar.model;
+package edu.wpi.cs.wpisuitetng.modules.calendar.models;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -6,7 +6,6 @@ import java.util.UUID;
 
 import edu.wpi.cs.wpisuitetng.exceptions.WPISuiteException;
 import edu.wpi.cs.wpisuitetng.modules.calendar.MockNetwork;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.core.models.User;
 import edu.wpi.cs.wpisuitetng.network.Network;
 import edu.wpi.cs.wpisuitetng.network.configuration.NetworkConfiguration;
@@ -30,15 +29,10 @@ public class CommitmentTest {
 	
 		
 	@Before
-	public void setUp() {
-		//make a fake simulated network to test JSON things
-		//Network.initNetwork(new MockNetwork());
-		//Network.getInstance().setDefaultNetworkConfiguration(
-//				new NetworkConfiguration("http://wpisuitetng"));
-		//set up example commitments
+	public void setUp() throws WPISuiteException {
 		testCommitment = new Commitment("thisIsATest", testDueDate, testUser);
 		testCommitment1 = new Commitment("thisIsAlsoATest",testDueDate2, testUser);
-		testCommitment2 = new Commitment("thisIsATest", testDueDate1, testUser);
+		testCommitment2 = new Commitment("thisIsATest", testDueDate1, testUser);	
 	}	
 	
 	@Test
@@ -84,7 +78,7 @@ public class CommitmentTest {
 	}
 
 	@Test
-	public void testSetName() throws WPISuiteException{
+	public void testSetName(){
 		assertNotNull(testCommitment.getName());
 		testCommitment.setName("This is a new test!");
 		
@@ -143,7 +137,7 @@ public class CommitmentTest {
 		assertTrue(testCommitment.equalsCommitment(testCommitment2));
 		assertFalse(testCommitment.equalsCommitment(testCommitment1));
 		*/
-		fail("Need to reimplement this, perhaps by checking ids or just calling commitment.identify");
+		fail("Need to reimplement this by comparing ids, possibly with the identify method in commitment");
 	}
 
 //	@Test

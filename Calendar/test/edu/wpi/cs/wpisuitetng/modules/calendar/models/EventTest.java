@@ -1,4 +1,4 @@
-package edu.wpi.cs.wpisuitetng.modules.calendar.model;
+package edu.wpi.cs.wpisuitetng.modules.calendar.models;
 
 import static org.junit.Assert.*;
 
