@@ -21,6 +21,8 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.border.EtchedBorder;
 
+import edu.wpi.cs.wpisuitetng.modules.calendar.model.Event;
+
 /**
  * Contains the GUI elements of the Event Panel
  *
@@ -96,7 +98,10 @@ public class CalendarEventView extends JPanel {
 			@Override
 			public void focusLost(FocusEvent e) {
 				// TODO Auto-generated method stub
-				
+				if(eventLocation.getText().equals(""))
+            	{
+					eventLocation.setText("Location Location Location");
+            	}
 			}
 	    });
 		eventLocation.setHorizontalAlignment(SwingConstants.CENTER);
@@ -111,7 +116,7 @@ public class CalendarEventView extends JPanel {
 		   startTime.addFocusListener(new FocusListener(){
 		        @Override
 		        public void focusGained(FocusEvent e){
-		            	if(startTime.getText().equals("00:00")){
+		            	if(startTime.getText().equals("hh:mm")){
 		            			startTime.setText("");
 		            	}
 		        }
@@ -119,11 +124,14 @@ public class CalendarEventView extends JPanel {
 				@Override
 				public void focusLost(FocusEvent e) {
 					// TODO Auto-generated method stub
-					
+					if(startTime.getText().equals(""))
+	            	{
+						startTime.setText("hh:mm");
+	            	}
 				}
 		    });
 		startTime.setHorizontalAlignment(SwingConstants.CENTER);
-		startTime.setText("00:00");
+		startTime.setText("hh:mm");
 		startTime.setBounds(10, 87, 112, 20);
 		add(startTime);
 		startTime.setColumns(10);
@@ -142,7 +150,10 @@ public class CalendarEventView extends JPanel {
 				@Override
 				public void focusLost(FocusEvent e) {
 					// TODO Auto-generated method stub
-					
+					if(startDay.getText().equals(""))
+	            	{
+						startDay.setText("mm/dd/yyyy");
+	            	}
 				}
 		    });
 		startDay.setHorizontalAlignment(SwingConstants.CENTER);
@@ -157,7 +168,7 @@ public class CalendarEventView extends JPanel {
 		 endTime.addFocusListener(new FocusListener(){
 		        @Override
 		        public void focusGained(FocusEvent e){
-		            	if(endTime.getText().equals("00:00")){
+		            	if(endTime.getText().equals("hh:mm")){
 		            			endTime.setText("");
 		            	}
 		        }
@@ -165,11 +176,14 @@ public class CalendarEventView extends JPanel {
 				@Override
 				public void focusLost(FocusEvent e) {
 					// TODO Auto-generated method stub
-					
+					if(endTime.getText().equals(""))
+	            	{
+						endTime.setText("hh:mm");
+	            	}
 				}
 		    });
 		endTime.setHorizontalAlignment(SwingConstants.CENTER);
-		endTime.setText("00:00");
+		endTime.setText("hh:mm");
 		endTime.setBounds(170, 87, 112, 20);
 		add(endTime);
 		endTime.setColumns(10);
@@ -188,7 +202,10 @@ public class CalendarEventView extends JPanel {
 				@Override
 				public void focusLost(FocusEvent e) {
 					// TODO Auto-generated method stub
-					
+					if(endDay.getText().equals(""))
+	            	{
+						endDay.setText("mm/dd/yyyy");
+	            	}
 				}
 		    });
 		endDay.setHorizontalAlignment(SwingConstants.CENTER);
@@ -226,7 +243,10 @@ public class CalendarEventView extends JPanel {
 				@Override
 				public void focusLost(FocusEvent e) {
 					// TODO Auto-generated method stub
-					
+					if(eventName.getText().equals(""))
+	            	{
+						eventName.setText("Event Name");
+	            	}
 				}
 		    });
 		eventName.setHorizontalAlignment(SwingConstants.CENTER);
@@ -235,5 +255,23 @@ public class CalendarEventView extends JPanel {
 		add(eventName);
 		eventName.setColumns(10);
 		//
+		
+		//End Day Text Field Boxes
+		
+		btnCreateEvent.addFocusListener(new FocusListener(){
+	        @Override
+	        public void focusGained(FocusEvent e){
+	            	Event newEvent = new Event();
+	            	//	newEvent.dateTimeParser(startDay.getText(), startTime);
+	            	
+	        }
+	        @Override
+	        public void focusLost(FocusEvent e){
+	        	//derp
+	        }
+	      });
 	}
+	
 }
+
+
