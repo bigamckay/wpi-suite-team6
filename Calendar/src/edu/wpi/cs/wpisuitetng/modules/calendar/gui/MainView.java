@@ -10,6 +10,7 @@ import javax.swing.JPanel;
  * This panel fills the main content area of the tab for the calendar module.
  *
  */
+@SuppressWarnings("serial")
 public class MainView extends JPanel {
 
 	private final CalendarEventView eventPanel;

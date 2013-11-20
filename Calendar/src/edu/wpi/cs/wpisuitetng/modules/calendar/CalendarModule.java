@@ -1,6 +1,7 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +9,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 
 import edu.wpi.cs.wpisuitetng.janeway.modules.IJanewayModule;
 import edu.wpi.cs.wpisuitetng.janeway.modules.JanewayTabModel;
@@ -26,8 +28,11 @@ public class CalendarModule implements IJanewayModule {
 		
 		// Create a JPanel to hold the toolbar for the tab
 		JPanel toolbarPanel = new JPanel();
-		toolbarPanel.add(new JLabel("Calendar toolbar placeholder")); // add a label with some placeholder text
-		//toolbarPanel.setBorder(BorderFactory.createLineBorder(Color.blue, 2)); // add a border so you can see the panel
+		JLabel monthLabel = new JLabel("Month");
+		monthLabel.setForeground(UIManager.getColor("Button.darkShadow"));
+		monthLabel.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 20));
+		toolbarPanel.add(monthLabel); // add a label with some placeholder text
+		toolbarPanel.setBorder(BorderFactory.createLineBorder(Color.blue, 2)); // add a border so you can see the panel
 
 		// Create a JPanel to hold the main contents of the tab
 		JPanel mainPanel = new JPanel();

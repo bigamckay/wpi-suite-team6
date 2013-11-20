@@ -20,8 +20,6 @@ import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import javax.swing.JScrollPane;
 
-//import org.jdesktop.swingx.JXMonthView;
-
 public class CalendarGUI{
 	
 	private JPanel panelCalendar;
@@ -34,24 +32,6 @@ public class CalendarGUI{
 	private JTextField eventName;
 	private JTable dayTable;
 	private JTextField searchBar;
-	//private JXMonthView monthView;
-
-	/**
-	 * Launch the application.
-	 * Unnecessary - launched by Janeway
-	 */
-	/*public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					CalendarGUI window = new CalendarGUI();
-					window.panelCalendar.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}*/
 
 	/**
 	 * Create the application.

@@ -17,6 +17,7 @@ import javax.swing.table.DefaultTableModel;
  *  Contains the GUI elements of the Tab Panel
  *
  */
+@SuppressWarnings("serial")
 public class CalendarTabView extends JTabbedPane {
 
 	private JTable dayTable;

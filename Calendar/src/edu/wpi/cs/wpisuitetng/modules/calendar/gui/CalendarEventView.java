@@ -3,13 +3,9 @@
  */
 package edu.wpi.cs.wpisuitetng.modules.calendar.gui;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Point;
 
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -22,6 +18,7 @@ import javax.swing.border.EtchedBorder;
  * Contains the GUI elements of the Event Panel
  *
  */
+@SuppressWarnings("serial")
 public class CalendarEventView extends JPanel {
 	
 	private JTextField eventDescription;
@@ -41,7 +38,7 @@ public class CalendarEventView extends JPanel {
 		setPreferredSize(new Dimension(292,234));
 		setLocation(5, 0);
 		//setBounds(5, 86, 292, 234);
-		//setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		setBackground(UIManager.getColor("InternalFrame.inactiveTitleBackground"));
 		setLayout(null);
 		
