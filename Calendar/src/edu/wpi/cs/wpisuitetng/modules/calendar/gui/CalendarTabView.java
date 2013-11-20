@@ -30,7 +30,7 @@ public class CalendarTabView extends JTabbedPane {
 	
 	private void initialize() {
 		//setBounds(5, 324, 250, 412);
-		setPreferredSize(new Dimension(250,330));
+		setPreferredSize(new Dimension(250,256));
 		setLocation(5, 324);
 		setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		setBackground(UIManager.getColor("InternalFrame.inactiveTitleBackground"));

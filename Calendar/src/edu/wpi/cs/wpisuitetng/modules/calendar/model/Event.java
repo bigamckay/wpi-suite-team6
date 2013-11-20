@@ -449,8 +449,18 @@ public class Event extends AbstractModel {
 	 * @param time the user's input for time
 	 * @return calendar object if successfully created
 	 */
+	
 	public Calendar dateTimeParser(String date, String time) throws WPISuiteException{
 		//hoping to receive date input in mm/dd/yyyy form: check for correct length and placement of /'s
+		int[] dateArray = new int[10];
+		for(int i = 0; i < 10; i++){
+			if(i != 2 && i !=5){
+				dateArray[i] = (int) date.charAt(i);
+				if(dateArray[i] < 48 || dateArray[i] > 57){
+					throw new WPISuiteException("Month, day, and year must be numbers.");
+				}
+			}
+		}
 		if(date.length() != 10 || date.charAt(2) != '/' || date.charAt(5) != '/'){
 			throw new WPISuiteException("Date must be in form mm/dd/yyyy");
 		}
@@ -460,10 +470,20 @@ public class Event extends AbstractModel {
 		int day = Integer.parseInt(date.substring(3, 5));
 		
 		//hoping to receive time input in hh:mm form: check for correct length and placement of :
+		int[] timeArray = new int[5];
+		for(int i=0; i<5; i++){
+			if(i != 2){
+				timeArray[i] = (int) time.charAt(i);
+				if(timeArray[i] < 48 || timeArray[i] > 57){
+					throw new WPISuiteException("Hour and minute must be numbers.");
+				}
+			}
+		}
 		if(time.length() != 5 || time.charAt(2) != ':'){
 			throw new WPISuiteException("Time must be in form hh:mm");
 		}
 		//convert to int and place first two characters of string into hour, last two into minute
+
 		int hour = Integer.parseInt(time.substring(0, 2));
 		int minute = Integer.parseInt(time.substring(3, 5));
 		
@@ -478,7 +498,6 @@ public class Event extends AbstractModel {
 		}
 		return dateTime;
 	}
-	
 	
 	
 	
@@ -518,4 +537,5 @@ public class Event extends AbstractModel {
 	public Boolean identify(Object o) {
 		return null;
 	}
+	
 }

@@ -5,6 +5,10 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.util.List;
+import java.util.Calendar;
+import java.util.Arrays;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -40,6 +44,7 @@ public class CalendarCalendarView extends JTabbedPane{
 	private JTable OctDayTable;
 	private JTable NovDayTable;
 	private JTable DecDayTable;
+	
 	
 	public CalendarCalendarView() {
 		initialize();
@@ -387,17 +392,20 @@ public class CalendarCalendarView extends JTabbedPane{
 		JanDayTable.setRowSelectionAllowed(false);
 		JanDayTable.setModel(new DefaultTableModel(
 			new Object[][] {
-				{null, null, "1", "2", "3", "4", "5"},
-				{"6", "7", "8", "9", "10", "11", "12"},
-				{"13", "14", "15", "16", "17", "18", "19"},
-				{"20", "21", "22", "23", "24", "25", "26"},
-				{"27", "28", "29", "30", "31", null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
 				{null, null, null, null, null, null, null},
 			},
 			new String[] {
 				"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"
 			}
 		));
+		
+		//populateYear(monthArray);
+		
 		JanDayTable.getColumnModel().getColumn(0).setPreferredWidth(15);
 		JanDayTable.getColumnModel().getColumn(1).setPreferredWidth(15);
 		JanDayTable.getColumnModel().getColumn(2).setPreferredWidth(15);
@@ -697,5 +705,48 @@ public class CalendarCalendarView extends JTabbedPane{
 		calendarDayButtons.setBounds(12, 117, 685, 485);
 		calendarPanel.add(calendarDayButtons);
 		calendarDayButtons.setLayout(null);*/
+		
+		JTable[] monthArray = {
+				JanDayTable,
+				FebDayTable,
+				MarDayTable,
+				AprDayTable,
+				MayDayTable,
+				JunDayTable,
+				JulDayTable,
+				AugDayTable,
+				SepDayTable,
+				OctDayTable,
+				NovDayTable,
+				DecDayTable
+				};
+
+		//populateMonth(monthArray[0], 2, 31);
+		//populateMonth(monthArray[1], 6, 28);
+		populateYear(monthArray);
+	}
+	
+	public JTable populateMonth(JTable month, int startDay, int daysInMonth){
+		Integer dayCounter = 1;
+		int j=startDay;
+		for(int i=0; i<6; i++){
+			for(; j<7; j++){
+				month.getModel().setValueAt(dayCounter.toString(), i, j);
+				if (dayCounter == daysInMonth){
+					return month;
+				}
+				dayCounter++;
+			}
+			j =0;
+		}
+		return month;
+	}
+
+	
+	public void populateYear(JTable[] monthArray){
+		for(int i=0; i<12; i++){
+			populateMonth(monthArray[i], 2, 31);
+		}
+		return;
 	}
 }
