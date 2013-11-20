@@ -10,7 +10,7 @@
  *    John French
  ******************************************************************************/
 
-package edu.wpi.cs.wpisuitetng.modules.calendar.model;
+package edu.wpi.cs.wpisuitetng.modules.calendar.entitymanagers;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -21,29 +21,22 @@ import edu.wpi.cs.wpisuitetng.database.Data;
 import edu.wpi.cs.wpisuitetng.exceptions.BadRequestException;
 import edu.wpi.cs.wpisuitetng.exceptions.ConflictException;
 import edu.wpi.cs.wpisuitetng.exceptions.NotFoundException;
+import edu.wpi.cs.wpisuitetng.exceptions.NotImplementedException;
 import edu.wpi.cs.wpisuitetng.exceptions.WPISuiteException;
 import edu.wpi.cs.wpisuitetng.modules.EntityManager;
 import edu.wpi.cs.wpisuitetng.modules.Model;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.Event;
 
 /**
- * This is the entity manager for the Event in the Calendar module.
+ * The entity manager for the Event in the Calendar module.
  * 
  * @author John French
- *
  */
 public class EventManager implements EntityManager<Event> {
 
 	//database
-	private Data db;
+	private final Data db;
 	
-	/**
-	 * Constructs the entity manager. This constructor is called by
-	 * {@link edu.wpi.cs.wpisuitetng.ManagerLayer#ManagerLayer()}. To make sure
-	 * this happens, be sure to place add this entity manager to the map in
-	 * the ManagerLayer file.
-	 * 
-	 * @param db a reference to the persistent database
-	 */
 	public EventManager(Data db) {
 		this.db = db;
 	}
@@ -127,8 +120,7 @@ public class EventManager implements EntityManager<Event> {
 	@Override
 	public String advancedGet(Session s, String[] args)
 			throws WPISuiteException {
-		// TODO implement this function
-		throw new WPISuiteException("This functionality is not implemented yet");
+		throw new NotImplementedException();
 	}
 
 	@Override
@@ -144,15 +136,13 @@ public class EventManager implements EntityManager<Event> {
 	@Override
 	public String advancedPut(Session s, String[] args, String content)
 			throws WPISuiteException {
-		// TODO implement this function
-		throw new WPISuiteException("This functionality is not implemented yet");
+		throw new NotImplementedException();
 	}
 
 	@Override
 	public String advancedPost(Session s, String string, String content)
 			throws WPISuiteException {
-		// TODO implement this function
-		throw new WPISuiteException("This functionality is not implemented yet");
+		throw new NotImplementedException();
 	}
 
 }

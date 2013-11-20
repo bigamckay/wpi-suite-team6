@@ -9,7 +9,7 @@
  * Contributors: Seal Team Six
  ******************************************************************************/
 
-package edu.wpi.cs.wpisuitetng.modules.calendar.model;
+package edu.wpi.cs.wpisuitetng.modules.calendar.models;
 
 import java.util.Calendar;
 import java.util.Collection;
@@ -44,7 +44,7 @@ public class Event extends AbstractModel {
 	private String description; //event description
 	private Calendar start; //when the event starts
 	private Calendar end; //when the event ends
-	private User creator; //person who made the event
+	private User owner; //person who owns the event
 	private Collection<User> invited; //invited people
 	private Collection<User> attending; //people who are attending
 	
@@ -64,12 +64,12 @@ public class Event extends AbstractModel {
 	 * @param location where the event is taking place, limited to SHORT_MAX characters
 	 * @param start stores the date/time of the start of the event
 	 * @param end stores the date/time of the end of the event
-	 * @param creator the user who created the event, who should have sole rights to delete or edit it
+	 * @param owner the user who created the event, who should have sole rights to delete or edit it
 	 * @param description a description of the event, optional field
 	 * @param invited a list of users invited to the event
 	 * @param attending a list of users who have committed to attending the event
 	 */
-	public Event(String name, String location, Calendar start, Calendar end, User creator,
+	public Event(String name, String location, Calendar start, Calendar end, User owner,
 			String description, Collection<User> invited, Collection<User> attending) throws WPISuiteException{
 		
 		// Why is the ID random? And what do we need it for?
@@ -92,7 +92,7 @@ public class Event extends AbstractModel {
 		this.location = location;
 		this.start = start;
 		this.end = end;
-		this.creator = creator;
+		this.owner = owner;
 		this.description = description;
 		this.invited = invited;
 		this.attending = attending;
@@ -165,11 +165,11 @@ public class Event extends AbstractModel {
 	}
 	
 	/**
-	 * returns the creator field of an Event; necessary because this is a private variable
-	 * @return the creator of the event
+	 * returns the owner field of an Event; necessary because this is a private variable
+	 * @return the owner of the event
 	 */
-	public User getCreator() {
-		return creator;
+	public User getOwner() {
+		return owner;
 	}
 	
 	/* SETTERS*/
@@ -189,6 +189,14 @@ public class Event extends AbstractModel {
 		String previous = this.name;
 		this.name = to;
 		return previous;
+	}
+	
+	/**
+	 * Changes the owner of this event
+	 * @param owner The new owner
+	 */
+	public void setOwner(User owner) {
+		this.owner = owner;
 	}
 	
 	/**
@@ -474,10 +482,14 @@ public class Event extends AbstractModel {
 		return new Gson().toJson(this, Event.class);
 	}
 
-	//We can use the default implementation for now
-	//TODO determine if actual implementation is needed
 	@Override
 	public Boolean identify(Object o) {
-		return null;
+		if(o instanceof UUID){
+			return o.equals(getId());
+		} else if(o instanceof Event){
+			return ((Event)o).getId().equals(getId());
+		} else {
+			return false;
+		}
 	}
 }

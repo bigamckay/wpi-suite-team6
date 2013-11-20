@@ -14,6 +14,7 @@ import org.junit.Test;
 import edu.wpi.cs.wpisuitetng.exceptions.WPISuiteException;
 import edu.wpi.cs.wpisuitetng.modules.core.models.User;
 import edu.wpi.cs.wpisuitetng.modules.calendar.MockNetwork;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.Event;
 
 public class EventTest {
 		
@@ -122,8 +123,8 @@ public class EventTest {
 	// tests the getter for the creator
 	@Test
 	public void testGetCreator() {
-		assertNotNull(basicEvent.getCreator());
-		assertEquals(testUser, basicEvent.getCreator());
+		assertNotNull(basicEvent.getOwner());
+		assertEquals(testUser, basicEvent.getOwner());
 	}
 	
 	// tests the getter for the description

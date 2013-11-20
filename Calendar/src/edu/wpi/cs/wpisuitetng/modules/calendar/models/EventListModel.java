@@ -1,4 +1,4 @@
-package edu.wpi.cs.wpisuitetng.modules.calendar.model;
+package edu.wpi.cs.wpisuitetng.modules.calendar.models;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -13,6 +13,8 @@ import javax.swing.ListModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.AddEventController;
 
 /**
+ * NOTE WELL that this is a 'model' in the swing sense, not a 'model' in the WPISuite sense.
+ * 
  * This is a model for the post board. It contains all of the messages
  * to be displayed on the board. It extends AbstractListModel so that
  * it can provide the model data to the JList component in the BoardPanel.
@@ -21,7 +23,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.controller.AddEventController;
  *
  */
 @SuppressWarnings({"serial"})
-public class EventModel extends AbstractListModel {
+public class EventListModel extends AbstractListModel {
 	/**
 	 * The list in which all the requirements for a single project are contained
 	 */
@@ -29,12 +31,12 @@ public class EventModel extends AbstractListModel {
 	private int nextID; // the next available ID number for the requirements that are added.
 	
 	//the static object to allow the requirement model to be 
-	private static EventModel instance; 
+	private static EventListModel instance; 
 
 	/**
 	 * Constructs an empty list of requirements for the project
 	 */
-	private EventModel (){
+	private EventListModel (){
 		events = new ArrayList<Event>();
 		nextID = 0;
 	}
@@ -42,11 +44,11 @@ public class EventModel extends AbstractListModel {
 	/**
 	
 	 * @return the instance of the requirement model singleton. */
-	public static EventModel getInstance()
+	public static EventListModel getInstance()
 	{
 		if(instance == null)
 		{
-			instance = new EventModel();
+			instance = new EventListModel();
 		}
 		
 		return instance;

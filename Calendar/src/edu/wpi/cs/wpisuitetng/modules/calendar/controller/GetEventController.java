@@ -9,8 +9,8 @@ import java.awt.event.ActionListener;
 import edu.wpi.cs.wpisuitetng.network.Network;
 import edu.wpi.cs.wpisuitetng.network.Request;
 import edu.wpi.cs.wpisuitetng.network.models.HttpMethod;
-import edu.wpi.cs.wpisuitetng.modules.calendar.model.Event;
-import edu.wpi.cs.wpisuitetng.modules.calendar.model.EventModel;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.Event;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.EventListModel;
 
 /**
  * @author Eric Guleksen
@@ -74,13 +74,13 @@ public class GetEventController implements ActionListener{
 	 */
 	public void receivedEvents(Event[] requirements) {
 		// Empty the local model to eliminate duplications
-		EventModel.getInstance().emptyModel();
+		EventListModel.getInstance().emptyModel();
 		
 		// Make sure the response was not null
 		if (requirements != null) {
 			
 			// add the requirements to the local model
-			EventModel.getInstance().addEvents(requirements);
+			EventListModel.getInstance().addEvents(requirements);
 		}
 	}
 
