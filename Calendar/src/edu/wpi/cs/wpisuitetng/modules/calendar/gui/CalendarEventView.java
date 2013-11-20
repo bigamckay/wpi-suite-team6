@@ -45,7 +45,7 @@ public class CalendarEventView extends JPanel {
 	
 	private void initialize() {
 		
-		setPreferredSize(new Dimension(292,234));
+		setPreferredSize(new Dimension(292,264));
 		setLocation(5, 0);
 		//setBounds(5, 86, 292, 234);
 		//setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
@@ -231,6 +231,13 @@ public class CalendarEventView extends JPanel {
 		lblEnd.setHorizontalAlignment(SwingConstants.CENTER);
 		lblEnd.setBounds(204, 38, 46, 14);
 		add(lblEnd);
+		
+		// User Feedback Label
+
+		JLabel userFeedbackLabel =new JLabel("#YOLO");
+		userFeedbackLabel.setForeground(UIManager.getColor("OptionPane.errorDialog.titlePane.shadow"));
+		userFeedbackLabel.setBounds(10, 238, 270, 16);
+		add(userFeedbackLabel);
 		
 		//Event Name Text Field Box
 		eventName = new JTextField();
