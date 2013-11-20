@@ -56,9 +56,7 @@ public class EventManager implements EntityManager<Event> {
 		final Event newEvent = Event.fromJson(content);
 		
 		//Store it or throw an exception if storing it fails
-		if(!db.save(newEvent, s.getProject())){
-			throw new WPISuiteException();
-		}
+		save(s, newEvent);
 		
 		//return the event we just stored
 		return newEvent;
@@ -115,7 +113,9 @@ public class EventManager implements EntityManager<Event> {
 
 	@Override
 	public void save(Session s, Event model) throws WPISuiteException {
-		db.save(model);
+		if(!db.save(model, s.getProject())){
+			throw new WPISuiteException("Could not save to database");
+		}
 	}
 
 	@Override
