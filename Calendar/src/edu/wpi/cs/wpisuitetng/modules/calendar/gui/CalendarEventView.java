@@ -10,6 +10,7 @@ import java.awt.Font;
 import java.awt.Point;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.util.Calendar;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -21,6 +22,7 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.border.EtchedBorder;
 
+import edu.wpi.cs.wpisuitetng.exceptions.WPISuiteException;
 import edu.wpi.cs.wpisuitetng.modules.calendar.model.Event;
 
 /**
@@ -262,12 +264,32 @@ public class CalendarEventView extends JPanel {
 	        @Override
 	        public void focusGained(FocusEvent e){
 	            	Event newEvent = new Event();
-	            	//	newEvent.dateTimeParser(startDay.getText(), startTime);
-	            	
+	            	Calendar eventStart;
+	            	Calendar eventEnd;
+	            	try{
+	            		eventStart = newEvent.dateTimeParser(startDay.getText(), startTime.getText());
+	            		eventEnd = newEvent.dateTimeParser(endDay.getText(), endTime.getText());
+	            	}
+	            	catch(WPISuiteException exception){
+	            		//add user message
+	            		return;
+	            	}
+	            	try{
+	            		newEvent.setName(eventName.getText());
+	            		newEvent.setLocation(eventLocation.getText());
+	            		newEvent.setDescription(eventDescription.getText());
+	            		newEvent.setStart(eventStart);
+	            		newEvent.setEnd(eventEnd);
+	            	}
+	            	catch(WPISuiteException exception2){
+	            		//add user message
+	            		return;
+	            	}
+	            	//do something with the event with the GUI here
 	        }
 	        @Override
 	        public void focusLost(FocusEvent e){
-	        	//derp
+
 	        }
 	      });
 	}
