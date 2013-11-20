@@ -1,4 +1,4 @@
-package edu.wpi.cs.wpisuiteng.modules.calendar.models.commitments;
+package edu.wpi.cs.wpisuitetng.modules.calendar.models.commitments;
 
 import java.util.List;
 

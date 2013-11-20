@@ -22,13 +22,14 @@ import edu.wpi.cs.wpisuitetng.modules.AbstractModel;
 import edu.wpi.cs.wpisuitetng.modules.core.models.User;
 import edu.wpi.cs.wpisuitetng.exceptions.WPISuiteException;
 
-
-
 /** 
- *  Needs to be documented
- * @author Craig
- *
+ *  @author Rachel Wigell
+ *  @author Craig Nesbitt
+ *  
+ *  Events are user-created objects. As a result, their creation must be very secure and able to handle
+ *  bad input.
  */
+
 public class Event extends AbstractModel {
 	
 	// character limit for name and location field
@@ -47,7 +48,7 @@ public class Event extends AbstractModel {
 	private Collection<User> invited; //invited people
 	private Collection<User> attending; //people who are attending
 	
-	/*
+	/**
 	 * Empty constructor for creating dummy events objects because the Data object was written
 	 * by some idiot who'd never heard of the Class class (passing Event.class instead of
 	 * a dummy Event object). DO NOT USE for general use.
@@ -57,7 +58,17 @@ public class Event extends AbstractModel {
 		this.id = new UUID(0, 0);
 	}
 	
-	//constructor for Event. Checks for invalid input and throws exception if invalid input is found
+	/**
+	 * constructor for Event. Checks for invalid input and throws exception if invalid input is found
+	 * @param name the name of the event, limited to SHORT_MAX characters
+	 * @param location where the event is taking place, limited to SHORT_MAX characters
+	 * @param start stores the date/time of the start of the event
+	 * @param end stores the date/time of the end of the event
+	 * @param creator the user who created the event, who should have sole rights to delete or edit it
+	 * @param description a description of the event, optional field
+	 * @param invited a list of users invited to the event
+	 * @param attending a list of users who have committed to attending the event
+	 */
 	public Event(String name, String location, Calendar start, Calendar end, User creator,
 			String description, Collection<User> invited, Collection<User> attending) throws WPISuiteException{
 		
@@ -89,39 +100,74 @@ public class Event extends AbstractModel {
 	
 	/*GETTERS*/
 	
+	/**
+	 * returns the ID field of an Event; necessary because this is a private variable
+	 * @return the UUID of the event
+	 */
 	public UUID getId(){
 		return this.id;
 	}
 	
+	/**
+	 * returns the name field of an Event; necessary because this is a private variable
+	 * @return the name of the event
+	 */
 	public String getName(){
 		return this.name;
 	}
 	
+	/**
+	 * returns the location field of an Event; necessary because this is a private variable
+	 * @return the location of the event
+	 */
 	public String getLocation(){
 		return this.location;
 	}
 	
+	/**
+	 * returns the description field of an Event; necessary because this is a private variable
+	 * @return the description of the event
+	 */
 	public String getDescription(){
 		return this.description;
 	}
 	
+	/**
+	 * returns the start field of an Event; necessary because this is a private variable
+	 * @return the start of the event
+	 */
 	public Calendar getStart(){
 		return this.start;
 	}
 	
+	/**
+	 * returns the end field of an Event; necessary because this is a private variable
+	 * @return the end of the event
+	 */
 	public Calendar getEnd(){
 		return this.end;
 	}
 	
+	/**
+	 * returns the invited field of an Event; necessary because this is a private variable
+	 * @return the invited of the event
+	 */
 	public Collection<User> getInvited(){
 		return this.invited;
 	}
 	
+	/**
+	 * returns the attending field of an Event; necessary because this is a private variable
+	 * @return the attending of the event
+	 */
 	public Collection<User> getAttending(){
 		return this.attending;
 	}
 	
-	// get event creator
+	/**
+	 * returns the creator field of an Event; necessary because this is a private variable
+	 * @return the creator of the event
+	 */
 	public User getCreator() {
 		return creator;
 	}
@@ -129,7 +175,11 @@ public class Event extends AbstractModel {
 	/* SETTERS*/
 	//setters - returns previous value of the variable (whatever was just overwritten)
 	
-	// Set Name
+	/**
+	 * updates the name field of the event, necessary because this is a private variable
+	 * @param to the new name for the event
+	 * @return the old name of the event
+	 */
 	public String setName(String to) throws WPISuiteException{
 		try{
 			isValidName(to);
@@ -141,7 +191,11 @@ public class Event extends AbstractModel {
 		return previous;
 	}
 	
-	// Set Location
+	/**
+	 * updates the location field of the event, necessary because this is a private variable
+	 * @param to the new location for the event
+	 * @return the old location of the event
+	 */
 	public String setLocation(String to) throws WPISuiteException{
 		try{
 			isValidLocation(to);
@@ -154,7 +208,11 @@ public class Event extends AbstractModel {
 		return previous;
 	}
 	
-	// Set Description
+	/**
+	 * updates the description field of the event, necessary because this is a private variable
+	 * @param to the new description for the event
+	 * @return the old description of the event
+	 */
 	public String setDescription(String to) throws WPISuiteException{
 		try{
 			isValidDescription(to);
@@ -166,7 +224,11 @@ public class Event extends AbstractModel {
 		return previous;
 	}
 	
-	// Set start date
+	/**
+	 * updates the start field of the event, necessary because this is a private variable
+	 * @param to the new start for the event
+	 * @return the old start of the event
+	 */
 	public Calendar setStart(Calendar to) throws WPISuiteException{
 		try{
 			isValidDate(to);
@@ -179,7 +241,11 @@ public class Event extends AbstractModel {
 		return previous;
 	}
 	
-	// Set end date
+	/**
+	 * updates the end field of the event, necessary because this is a private variable
+	 * @param to the new end for the event
+	 * @return the old end of the event
+	 */
 	public Calendar setEnd(Calendar to) throws WPISuiteException{
 		try{
 			isValidDate(to);
@@ -192,7 +258,11 @@ public class Event extends AbstractModel {
 		return previous;
 	}
 	
-	//replaces entire invited list
+	/**
+	 * replaces the entire list of invited people of the event, necessary because this is a private variable
+	 * @param to the new invited list for the event
+	 * @return the old invited list of the event
+	 */
 	public Collection<User> setInvited(Collection<User> to) throws WPISuiteException{
 		// exception stuffs
 		Collection<User> previous = this.invited;
@@ -201,7 +271,11 @@ public class Event extends AbstractModel {
 	}
 	
 	
-	//replaces entire attending list
+	/**
+	 * replaces the entire list of attending people of the event, necessary because this is a private variable
+	 * @param to the new attending list for the event
+	 * @return the old attending list of the event
+	 */
 	public Collection<User> setAttending(Collection<User> to) throws WPISuiteException{
 		// exception stuffs
 		Collection<User> previous = this.attending;
@@ -209,7 +283,11 @@ public class Event extends AbstractModel {
 		return previous;
 	}
 	
-	//appends a user to the end of the invited list
+	/**
+	 * appends a person to the list of invited people of the event, necessary because this is a private variable
+	 * @param to the addition to the invited list for the event
+	 * @return the old invited list of the event
+	 */
 	public Collection<User> addInvited(User toAdd) throws WPISuiteException{
 		// exception stuffs
 		Collection<User> previous = this.invited;
@@ -217,15 +295,23 @@ public class Event extends AbstractModel {
 		return previous;
 	}
 	
-	//removes the user at the given index from the attending list
-	public Collection<User> removeInvited(int toRemove) throws WPISuiteException{
+	/**
+	 * removes the given a person from the list of invited people of the event, necessary because this is a private variable
+	 * @param to the person to be removed from the invited list for the event
+	 * @return the old invited list of the event
+	 */
+	public Collection<User> removeInvited(User toRemove) throws WPISuiteException{
 		// exception stuffs
 		Collection<User> previous = this.invited;
 		this.invited.remove(toRemove);
 		return previous;
 	}	
 	
-	//appends a user to the end of the attending list
+	/**
+	 * appends a person to the list of attending people of the event, necessary because this is a private variable
+	 * @param to the addition to the attending list for the event
+	 * @return the old attending list of the event
+	 */
 	public Collection<User> addAttending(User toAdd) throws WPISuiteException{
 		// exception stuffs
 		Collection<User> previous = this.attending;
@@ -233,8 +319,12 @@ public class Event extends AbstractModel {
 		return previous;
 	}
 		
-	//removes the user at the given index from the attending list
-	public Collection<User> removeAttending(int toRemove) throws WPISuiteException{
+	/**
+	 * removes the given a person from the list of attending people of the event, necessary because this is a private variable
+	 * @param to the person to be removed from the attending list for the event
+	 * @return the old attending list of the event
+	 */
+	public Collection<User> removeAttending(User toRemove) throws WPISuiteException{
 		// exception stuffs
 		Collection<User> previous = this.attending;
 		this.attending.remove(toRemove);
@@ -245,10 +335,15 @@ public class Event extends AbstractModel {
 	/* VALIDATION METHODS*/
 	// Checks if input is valid for the Event Class
 
-	// Confirms that the name is valid:
-	//  - cannot exceed certain length
-	//  - cannot be NULL
-	//  - can only contain ascii between 32 and 126 (inclusive)
+	/**
+	 *  Confirms that the name is valid:
+	 *  - cannot exceed SHORT_MAX characters
+	 *  - cannot be NULL
+	 *  - can only contain ascii between 32 and 126 (inclusive)
+	 *  - throws WPI Suite Exception with description if any of these requirements are not fulfilled
+	 *  @param name the name to validate
+	 *  @return 0 on success
+	 */
 	private int isValidName(String name) throws WPISuiteException{
 		//restriction on field length
 		if(name.length() > SHORT_MAX)
@@ -269,9 +364,15 @@ public class Event extends AbstractModel {
 		return 0;
 	}
 	
-	// Confirms that the location is valid:
-	//  - cannot exceed certain length
-	//  - can only contain ascii between 32 and 126 (inclusive)
+	/**
+	 *  Confirms that the location is valid:
+	 *  - cannot exceed SHORT_MAX characters
+	 *  - can only contain ascii between 32 and 126 (inclusive)
+	 *  - CAN be empty; optional field
+	 *  - throws WPI Suite Exception with description if any of these requirements is not fulfilled
+	 *  @param location the string to validate
+	 *  @return 0 on success
+	 */
 	private int isValidLocation(String location) throws WPISuiteException{
 		//same as name, minus nonempty requirement. location an optional field.
 		if(location.length() > SHORT_MAX)
@@ -288,9 +389,15 @@ public class Event extends AbstractModel {
 		return 0;
 	}
 	
-	// Confirms that the description is valid:
-	//  - cannot exceed certain length
-	//  - can only contain ascii between 32 and 126 (inclusive)
+	/**
+	 *  Confirms that the description is valid:
+	 *  - cannot exceed LONG_MAX characters
+	 *	- can only contain ascii 0 and 32 - 126 inclusive
+	 * 	- CAN be empty; optional field
+	 * 	- throws a WPI Suite Exception with description if any of these requirements is not fulfilled
+	 * @param desc the string to be validated
+	 * @return 0 on success
+	 */
 	private int isValidDescription(String desc) throws WPISuiteException{
 		//same as location, but with larger character cap
 		if(desc.length() > LONG_MAX)
@@ -306,7 +413,12 @@ public class Event extends AbstractModel {
 		return 0;
 	}
 	
-	// Confirms that date is in the future
+	/**
+	 * Confirms that a date is in the future. Events should not be created in the past.
+	 * - throws a WPI Suite Exception with description if invalid
+	 * @param cal the calendar containing the date to be validated
+	 * @return 0 on success
+	 */
 	private int isValidDate(Calendar cal) throws WPISuiteException{
 		// Date has to be in the present or future
 		if(cal.compareTo(Calendar.getInstance()) < 0)
@@ -314,7 +426,13 @@ public class Event extends AbstractModel {
 		return 0;
 	}
 	
-	// Confirms that the endDate is after the StartDate
+	/**
+	 * Confirms that an event's end date is after its start date
+	 * - throws a WPI Suite Exception with description if invalid
+	 * @param startDate the calendar containing the time at which the event starts
+	 * @param endDate the calendar containing the time at which the event ends
+	 * @return 0 on success
+	 */
 	private int isValidDateOrder(Calendar startDate, Calendar endDate) throws WPISuiteException{
 		// make sure end date is after start date
 		if (startDate.after(endDate))

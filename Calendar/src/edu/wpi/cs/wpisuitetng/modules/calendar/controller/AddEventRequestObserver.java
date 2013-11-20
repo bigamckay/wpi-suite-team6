@@ -1,24 +1,25 @@
-package edu.wpi.cs.wpisuiteng.modules.calendar.commitmentcontroller;
+package edu.wpi.cs.wpisuitetng.modules.calendar.controller;
 
-import edu.wpi.cs.wpisuiteng.modules.calendar.models.commitments.Commitment;
+import edu.wpi.cs.wpisuitetng.modules.calendar.controller.AddEventController;
+import edu.wpi.cs.wpisuitetng.modules.calendar.model.Event;
 import edu.wpi.cs.wpisuitetng.network.RequestObserver;
 import edu.wpi.cs.wpisuitetng.network.models.IRequest;
 import edu.wpi.cs.wpisuitetng.network.models.ResponseModel;
 
-public class UpdateCommitmentRequestObserver implements RequestObserver{
-
-private final UpdateCommitmentController controller;
+public class AddEventRequestObserver implements RequestObserver {
+	
+	private AddEventController controller;
 	
 	/**
-	 * Constructs the observer given an AddIterationController
-	 * @param controller the controller used to add Iterations
+	 * Constructs the observer given an AddRequirementController
+	 * @param controller the controller used to add requirements
 	 */
-	public UpdateCommitmentRequestObserver(UpdateCommitmentController controller) {
+	public AddEventRequestObserver(AddEventController controller) {
 		this.controller = controller;
 	}
 	
 	/**
-	 * Parse the Iteration that was received from the server then pass them to
+	 * Parse the requirement that was received from the server then pass them to
 	 * the controller.
 	 * 
 	 * @see edu.wpi.cs.wpisuitetng.network.RequestObserver#responseSuccess(edu.wpi.cs.wpisuitetng.network.models.IRequest)
@@ -28,10 +29,10 @@ private final UpdateCommitmentController controller;
 		// Get the response to the given request
 		final ResponseModel response = iReq.getResponse();
 		
-		// Parse the Iteration out of the response body
-		final Commitment commitment = Commitment.fromJson(response.getBody());		
+		// Parse the requirement out of the response body
+		final Event requirement = Event.fromJson(response.getBody());		
 	}
-	
+
 	/**
 	 * Takes an action if the response results in an error.
 	 * Specifically, outputs that the request failed.
@@ -40,8 +41,7 @@ private final UpdateCommitmentController controller;
 	 * @see edu.wpi.cs.wpisuitetng.network.RequestObserver#responseError(IRequest) */
 	@Override
 	public void responseError(IRequest iReq) {
-		System.err.println(iReq.getResponse().getStatusMessage());
-		System.err.println("The request to update a Commitment failed.");
+		System.err.println("The request to add an event failed");
 	}
 
 	/**
@@ -53,8 +53,7 @@ private final UpdateCommitmentController controller;
 	 * @see edu.wpi.cs.wpisuitetng.network.RequestObserver#fail(IRequest, Exception) */
 	@Override
 	public void fail(IRequest iReq, Exception exception) {
-		System.err.println("The request to update a Commitment failed.");
+		System.err.println("The request to add an event failed spectacularly");
 	}
-	
-	
+
 }
