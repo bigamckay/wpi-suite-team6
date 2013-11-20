@@ -474,10 +474,13 @@ public class Event extends AbstractModel {
 		return new Gson().toJson(this, Event.class);
 	}
 
-	//We can use the default implementation for now
-	//TODO determine if actual implementation is needed
 	@Override
 	public Boolean identify(Object o) {
-		return null;
+		if(o instanceof UUID){
+			return o.equals(getId());
+		} else if(o instanceof Event){
+			return ((Event)o).getId().equals(getId());
+		}
+		return false;
 	}
 }
