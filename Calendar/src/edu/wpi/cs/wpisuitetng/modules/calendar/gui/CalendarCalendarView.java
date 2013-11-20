@@ -28,7 +28,7 @@ import javax.swing.table.DefaultTableModel;
  *  Contains the GUI elements of the Calendar Panel
  *
  */
-@SuppressWarnings("serial")
+//@SuppressWarnings("serial")
 public class CalendarCalendarView extends JTabbedPane{
 
 	private JTable monthDayHeaders;
@@ -45,6 +45,11 @@ public class CalendarCalendarView extends JTabbedPane{
 	private JTable OctDayTable;
 	private JTable NovDayTable;
 	private JTable DecDayTable;
+	
+	public JTable[] monthArray;
+	public DefaultTableModel nullModel;
+	
+	public int currentYear = Calendar.getInstance().get(Calendar.YEAR);
 	
 	
 	public CalendarCalendarView() {
@@ -707,7 +712,21 @@ public class CalendarCalendarView extends JTabbedPane{
 		calendarPanel.add(calendarDayButtons);
 		calendarDayButtons.setLayout(null);*/
 		
-		JTable[] monthArray = {
+		nullModel = new DefaultTableModel(
+				new Object[][] {
+						{null, null, null, null, null, null, null},
+						{null, null, null, null, null, null, null},
+						{null, null, null, null, null, null, null},
+						{null, null, null, null, null, null, null},
+						{null, null, null, null, null, null, null},
+						{null, null, null, null, null, null, null},
+					},
+					new String[] {
+						"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"
+					}
+				);
+		
+		monthArray = new JTable[]{
 				JanDayTable,
 				FebDayTable,
 				MarDayTable,
@@ -724,7 +743,7 @@ public class CalendarCalendarView extends JTabbedPane{
 
 		//populateMonth(monthArray[0], 2, 31);
 		//populateMonth(monthArray[1], 6, 28);
-		populateYear(monthArray);
+		populateYear(monthArray, currentYear);
 	}
 	
 	public int populateMonth(JTable month, int startDay, int daysInMonth){
@@ -755,9 +774,8 @@ public class CalendarCalendarView extends JTabbedPane{
 		return (int)startDay;
 	}
 	
-	public void populateYear(JTable[] monthArray){
-		int year = Calendar.getInstance().get(Calendar.YEAR);
-		int startDay = 0;;
+	public void populateYear(JTable[] monthArray, int year){
+		int startDay = 0;
 		for(int i=0; i<12; i++){
 			if(i==0)
 				startDay = populateMonth(monthArray[i], determineStartingDay(year), daysInMonth(i,year));
@@ -766,6 +784,13 @@ public class CalendarCalendarView extends JTabbedPane{
 		}
 		return;
 	}
+	
+	public void populateYearNull(JTable[] monthArray){
+			for(int i=0; i<12; i++){
+				monthArray[i].setModel(nullModel);
+			}
+			return;
+		}
 	
 	public int daysInMonth(int i, int year){
 		int result = 0;								// for the respective month value and prints that month and the year to console
