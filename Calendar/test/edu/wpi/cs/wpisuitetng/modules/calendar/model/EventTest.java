@@ -534,6 +534,7 @@ public class EventTest {
 		}
 	}
 	
+	@Test
 	public void testParserInvalidTime(){
 		try{
 			dummyEvent.dateTimeParser("04/25/1992", "25:00");
@@ -541,6 +542,17 @@ public class EventTest {
 		}
 		catch(WPISuiteException e){
 			assertEquals("Exception that time is invalid", e.getMessage(),"Invalid date/time input");
+		}
+	}
+	
+	@Test
+	public void testParserSillyTime(){
+		try{
+			dummyEvent.dateTimeParser("12/31/2001", "aa:bb");
+			fail("Failed to throw invalid time exception");
+		}
+		catch(WPISuiteException e){
+			assertEquals("Exception that time is invalid", e.getMessage(), "Invalid date/time input");
 		}
 	}
 
