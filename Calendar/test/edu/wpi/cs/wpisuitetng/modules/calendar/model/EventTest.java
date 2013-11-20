@@ -452,15 +452,15 @@ public class EventTest {
 		}
 	}
 
-	@Test
-	public void testFromJson() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testFromJsonArray() {
-		fail("Not yet implemented");
-	}
+//	@Test
+//	public void testFromJson() {
+//		fail("Not yet implemented");
+//	}
+//
+//	@Test
+//	public void testFromJsonArray() {
+//		fail("Not yet implemented");
+//	}
 
 //	@Test
 //	public void testSave() {
@@ -472,10 +472,6 @@ public class EventTest {
 //		fail("Not yet implemented");
 //	}
 
-	@Test
-	public void testToJSON() {
-		fail("Not yet implemented");
-	}
 
 	@Test
 	public void testToFromJson() {
@@ -490,7 +486,7 @@ public class EventTest {
 //		fail("Not yet implemented");
 //	}
 	
-	@Test
+	/*@Test
 	public void testParserValidInput(){
 		try{
 			Calendar testCal1 = dummyEvent.dateTimeParser("01/21/2014", "18:00");
@@ -543,7 +539,7 @@ public class EventTest {
 		catch(WPISuiteException e){
 			assertEquals("Exception that time is invalid", e.getMessage(),"Invalid date/time input");
 		}
-	}
+	}*/
 	
 	@Test
 	public void testParserSillyTime(){
@@ -552,7 +548,7 @@ public class EventTest {
 			fail("Failed to throw invalid time exception");
 		}
 		catch(WPISuiteException e){
-			assertEquals("Exception that time is invalid", e.getMessage(), "Invalid date/time input");
+			assertEquals("Exception that time is invalid", e.getMessage(), "Hour and minute must be numbers.");
 		}
 	}
 
