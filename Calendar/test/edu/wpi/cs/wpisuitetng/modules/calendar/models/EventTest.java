@@ -285,7 +285,15 @@ public class EventTest {
 		}
 	}
 	
-	
+	@Test
+	public void testException_SetName_EventName(){
+		try{
+			basicEvent.setName("Event Name");
+			assertTrue("Exception not thrown when should have.", false);
+		}catch(WPISuiteException e){
+			assertEquals("Exception thrown that event's name can't be empty.", e.getMessage(), "Name cannot be 'Event Name'");
+		}
+	}
 	
 	
 	@Test
