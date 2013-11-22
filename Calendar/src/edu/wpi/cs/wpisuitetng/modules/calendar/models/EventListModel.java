@@ -21,16 +21,16 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.controllers.AddEventController;
 @SuppressWarnings({"serial"})
 public class EventListModel extends AbstractListModel {
 	/**
-	 * The list in which all the requirements for a single project are contained
+	 * The list in which all the events for a single project are contained
 	 */
 	private List<Event> events;
-	private int nextID; // the next available ID number for the requirements that are added.
+	private int nextID; // the next available ID number for the events that are added.
 	
-	//the static object to allow the requirement model to be 
+	//the static object to allow the event model to be 
 	private static EventListModel instance; 
 
 	/**
-	 * Constructs an empty list of requirements for the project
+	 * Constructs an empty list of events for the project
 	 */
 	private EventListModel (){
 		events = new ArrayList<Event>();
@@ -39,7 +39,7 @@ public class EventListModel extends AbstractListModel {
 	
 	/**
 	
-	 * @return the instance of the requirement model singleton. */
+	 * @return the instance of the event model singleton. */
 	public static EventListModel getInstance()
 	{
 		if(instance == null)
@@ -51,12 +51,12 @@ public class EventListModel extends AbstractListModel {
 	}
 	
 	/**
-	 * Adds a single requirement to the requirements of the project
+	 * Adds a single event to the events of the project
 	 * 
-	 * @param newReq The requirement to be added to the list of requirements in the project
+	 * @param newReq The event to be added to the list of events in the project
 	 */
 	public void addEvent(Event newReq){
-		// add the requirement
+		// add the event
 		events.add(newReq);
 		try 
 		{
@@ -70,11 +70,11 @@ public class EventListModel extends AbstractListModel {
 		}
 	}
 	/**
-	 * Returns the Requirement with the given ID
+	 * Returns the Event with the given ID
 	 * 
-	 * @param id The ID number of the requirement to be returned
+	 * @param id The ID number of the event to be returned
 	
-	 * @return the requirement for the id or null if the requirement is not found */
+	 * @return the event for the id or null if the event is not found */
 	public Event getEvent(UUID id)
 	{
 		Event temp = null;
@@ -88,12 +88,12 @@ public class EventListModel extends AbstractListModel {
 		return temp;
 	}
 	/**
-	 * Removes the requirement with the given ID
+	 * Removes the event with the given ID
 	 * 
-	 * @param removeId The ID number of the requirement to be removed from the list of requirements in the project
+	 * @param removeId The ID number of the event to be removed from the list of events in the project
 	 */
 	public void removeEvent(UUID removeId){
-		// iterate through list of requirements until id of project is found
+		// iterate through list of events until id of project is found
 		for (int i=0; i < this.events.size(); i++){
 			if (events.get(i).getId() == removeId){
 				// remove the id
@@ -109,14 +109,14 @@ public class EventListModel extends AbstractListModel {
 	}
 
 	/**
-	 * Provides the number of elements in the list of requirements for the project. This
-	 * function is called internally by the JList in NewRequirementPanel. Returns elements
-	 * in reverse order, so the newest requirement is returned first.
+	 * Provides the number of elements in the list of events for the project. This
+	 * function is called internally by the JList in NewEventPanel. Returns elements
+	 * in reverse order, so the newest event is returned first.
 	 * 
 	
 	
 	
-	 * @return the number of requirements in the project * @see javax.swing.ListModel#getSize() * @see javax.swing.ListModel#getSize() * @see javax.swing.ListModel#getSize()
+	 * @return the number of events in the project * @see javax.swing.ListModel#getSize() * @see javax.swing.ListModel#getSize() * @see javax.swing.ListModel#getSize()
 	 */
 	public int getSize() {
 		return events.size();
@@ -124,7 +124,7 @@ public class EventListModel extends AbstractListModel {
 	
 	/**
 	 * 
-	 * Provides the next ID number that should be used for a new requirement that is created.
+	 * Provides the next ID number that should be used for a new event that is created.
 	 * 
 	
 	 * @return the next open id number */
@@ -135,25 +135,25 @@ public class EventListModel extends AbstractListModel {
 	}
 
 	/**
-	 * This function takes an index and finds the requirement in the list of requirements
-	 * for the project. Used internally by the JList in NewRequirementModel.
+	 * This function takes an index and finds the event in the list of events
+	 * for the project. Used internally by the JList in NewEventModel.
 	 * 
-	 * @param index The index of the requirement to be returned
+	 * @param index The index of the event to be returned
 	
 	
 	
-	 * @return the requirement associated with the provided index * @see javax.swing.ListModel#getElementAt(int) * @see javax.swing.ListModel#getElementAt(int) * @see javax.swing.ListModel#getElementAt(int)
+	 * @return the event associated with the provided index * @see javax.swing.ListModel#getElementAt(int) * @see javax.swing.ListModel#getElementAt(int) * @see javax.swing.ListModel#getElementAt(int)
 	 */
 	public Event getElementAt(int index) {
 		return events.get(events.size() - 1 - index);
 	}
 
 	/**
-	 * Removes all requirements from this model
+	 * Removes all events from this model
 	 * 
 	 * NOTE: One cannot simply construct a new instance of
 	 * the model, because other classes in this module have
-	 * references to it. Hence, we manually remove each requirement
+	 * references to it. Hence, we manually remove each event
 	 * from the model.
 	 */
 	public void emptyModel() {
@@ -172,13 +172,13 @@ public class EventListModel extends AbstractListModel {
 	}
 	
 	/**
-	 * Adds the given array of requirements to the list
+	 * Adds the given array of events to the list
 	 * 
-	 * @param requirements the array of requirements to add
+	 * @param events the array of events to add
 	 */
-	public void addEvents(Event[] requirements) {
-		for (int i = 0; i < requirements.length; i++) {
-			this.events.add(requirements[i]);
+	public void addEvents(Event[] events) {
+		for (int i = 0; i < events.length; i++) {
+			this.events.add(events[i]);
 		}
 		this.fireIntervalAdded(this, 0, Math.max(getSize() - 1, 0));
 		/*ViewEventController.getInstance().refreshTable();
@@ -186,9 +186,9 @@ public class EventListModel extends AbstractListModel {
 	}
 
 	/**
-	 * Returns the list of the requirements
+	 * Returns the list of the events
 	
-	 * @return the requirements held within the requirementmodel. */
+	 * @return the events held within the eventmodel. */
 	public List<Event> getEvents() {
 		return events;
 	}	
@@ -196,6 +196,8 @@ public class EventListModel extends AbstractListModel {
 	/**
 	 * Returns the list of requirements that are assigned to the given iteration
 	 * @param name the iteration name
+	 * 
+	 * THIS CAN BE USEFUL LATER
 	
 	 * @return the list of requirements */
 	/*public List<Requirement> getRequirementsForIteration(String name) {

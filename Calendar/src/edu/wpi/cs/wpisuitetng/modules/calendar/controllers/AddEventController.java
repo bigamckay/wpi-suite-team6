@@ -13,7 +13,7 @@ public class AddEventController {
 	private static AddEventController instance; 
 	
 	/**
-	 * Construct an AddRequirementController for the given model, view pair
+	 * Construct an AddEventController for the given model, view pair
 	 */
 	private AddEventController() {
 		observer = new AddEventRequestObserver(this);
@@ -30,13 +30,13 @@ public class AddEventController {
 	}
 
 	/**
-	 * This method adds a requirement to the server.
-	 * @param newRequirement is the requirement to be added to the server.
+	 * This method adds a event to the server.
+	 * @param newEvent is the event to be added to the server.
 	 */
-	public void addEvent(Event newRequirement) 
+	public void addEvent(Event newEvent) 
 	{
 		final Request request = Network.getInstance().makeRequest("calander/eventmessage", HttpMethod.PUT); // PUT == create
-		request.setBody(newRequirement.toJSON()); // put the new requirement in the body of the request
+		request.setBody(newEvent.toJSON()); // put the new event in the body of the request
 		request.addObserver(observer); // add an observer to process the response
 		request.send(); 
 	}
