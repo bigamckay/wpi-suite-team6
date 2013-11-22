@@ -34,7 +34,7 @@ public class GetCommitmentRequestObserver implements RequestObserver{
 	@Override
 	public void responseSuccess(IRequest iReq) {
 		// Convert the JSON array of requirements to a Commitments object array
-		Commitment[] commitments = Commitment.fromJsonArray(iReq.getResponse().getBody());
+		Commitment[] commitments = Commitment.fromJSONArray(iReq.getResponse().getBody(), Commitment[].class);
 		
 		// Pass these Commitments to the controller
 		controller.receivedCommitments(commitments);
