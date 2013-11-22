@@ -276,6 +276,19 @@ public class EventTest {
 	/* TEST NAME EXCEPTIONS */
 	
 	@Test
+	public void testException_SetName_SPACES(){
+		try{
+			basicEvent.setName("     ");
+			assertTrue("Exception not thrown when should have.", false);
+		}catch (WPISuiteException e){
+			assertEquals("Exception thrown that event's name can't be empty.", e.getMessage(), "Name must contain at least alpha/numeric character.");
+		}
+	}
+	
+	
+	
+	
+	@Test
 	// Test that exception is thrown when entering a null name
 	public void testException_SetName_NULL() {
 		try{
