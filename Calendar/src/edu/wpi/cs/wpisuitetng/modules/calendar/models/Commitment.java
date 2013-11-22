@@ -182,7 +182,6 @@ public class Commitment extends AbstractModel{
 	public Calendar setDueDate(Calendar to) throws WPISuiteException{
 		try{
 			ValidationUtils.isValidDate(to);
-			ValidationUtils.isValidDateOrder(to, this.duedate);
 		} catch (WPISuiteException e){
 			throw e;
 		}

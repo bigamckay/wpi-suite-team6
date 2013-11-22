@@ -281,7 +281,8 @@ public class EventTest {
 			basicEvent.setName("     ");
 			assertTrue("Exception not thrown when should have.", false);
 		}catch (WPISuiteException e){
-			assertEquals("Exception thrown that event's name can't be empty.", e.getMessage(), "Name must contain at least one alphanumeric character.");
+			assertEquals("Exception thrown that event's name should contain alphanumeric character.", 
+					e.getMessage(), "Name must contain at least one alphanumeric character.");
 		}
 	}
 	
@@ -291,7 +292,8 @@ public class EventTest {
 			basicEvent.setName("Event Name");
 			assertTrue("Exception not thrown when should have.", false);
 		}catch(WPISuiteException e){
-			assertEquals("Exception thrown that event's name can't be empty.", e.getMessage(), "Name cannot be 'Event Name'");
+			assertEquals("Exception thrown that event's name shouldn't be Event Name.", 
+					e.getMessage(), "Please do not enter default name prompt  of \"Event Name\" as event name.");
 		}
 	}
 	
@@ -434,6 +436,7 @@ public class EventTest {
 		}
 	}
 	
+	/* We dont care about date in the past
 	@Test
 	// Test that exception is thrown when trying to set an invalid date
 	public void testException_SetEndDate_DateInPast() {
@@ -446,6 +449,7 @@ public class EventTest {
 			assertEquals("Exception thrown that events must occur in the future.", e.getMessage(), "Events must occur in the future.");
 		}
 	}
+	*/
 	
 	/* TEST START DATE EXCEPTIONS */
 	@Test
@@ -460,7 +464,7 @@ public class EventTest {
 			assertEquals("Exception thrown that event must start before it ends.", e.getMessage(), "Events must end after they begin.");
 		}
 	}
-	
+	/* We now allow dates in the past
 	@Test
 	// Test that exception is thrown when trying to set an invalid date
 	public void testException_SetEStartDate_DateInPast() {
@@ -472,7 +476,7 @@ public class EventTest {
 			// confirm that the cause of exception is a date in the past
 			assertEquals("Exception thrown that events must occur in the future.", e.getMessage(), "Events must occur in the future.");
 		}
-	}
+	}*/
 
 	@Test
 	public void testFromJson() {
