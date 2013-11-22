@@ -32,6 +32,8 @@ public class AddCommitmentController {
 		
 		return instance;
 	}
+	
+	// test comment
 
 	/**
 	 * This method adds a requirement to the server.
