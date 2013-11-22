@@ -21,16 +21,19 @@ public class DateTimeUtils {
 	public static Calendar dateTimeParser(String date, String time) throws WPISuiteException{
 		//hoping to receive date input in mm/dd/yyyy form: check for correct length and placement of /'s
 		int[] dateArray = new int[10];
+		
+		
+		if(date.length() != 10 || date.charAt(2) != '/' || date.charAt(5) != '/'){
+			throw new WPISuiteException("Date must be in form mm/dd/yyyy");
+		}
+		
 		for(int i = 0; i < 10; i++){
-			if(i != 2 && i !=5){
-				dateArray[i] = (int) date.charAt(i);
-				if(dateArray[i] < 48 || dateArray[i] > 57){
+			if(i != 2 && i !=5){ //ignore /'s
+				dateArray[i] = (int) date.charAt(i); //cast to int to get ascii number
+				if(dateArray[i] < 48 || dateArray[i] > 57){ //allow only digits
 					throw new WPISuiteException("Month, day, and year must be numbers.");
 				}
 			}
-		}
-		if(date.length() != 10 || date.charAt(2) != '/' || date.charAt(5) != '/'){
-			throw new WPISuiteException("Date must be in form mm/dd/yyyy");
 		}
 		//convert to int and place first two characters of string into month, 3rd and 4th into day, and 6-9 into year
 		int year = Integer.parseInt(date.substring(6, 10));
@@ -39,17 +42,18 @@ public class DateTimeUtils {
 		
 		//hoping to receive time input in hh:mm form: check for correct length and placement of :
 		int[] timeArray = new int[5];
+		
+		if(time.length() != 5 || time.charAt(2) != ':'){
+			throw new WPISuiteException("Time must be in form hh:mm");
+		}
+		
 		for(int i=0; i<5; i++){
-			if(i != 2){
-				timeArray[i] = (int) time.charAt(i);
-				if(timeArray[i] < 48 || timeArray[i] > 57){
+			if(i != 2){ //ignore :
+				timeArray[i] = (int) time.charAt(i); //cast to int to get ascii number
+				if(timeArray[i] < 48 || timeArray[i] > 57){ //only allow digits
 					throw new WPISuiteException("Hour and minute must be numbers.");
 				}
 			}
-		}
-		if(time.length() != 5 || time.charAt(2) != ':'){
-			System.out.println("We caught you being silly");
-			throw new WPISuiteException("Time must be in form hh:mm");
 		}
 		//convert to int and place first two characters of string into hour, last two into minute
 		System.out.println("but we continued anyway");

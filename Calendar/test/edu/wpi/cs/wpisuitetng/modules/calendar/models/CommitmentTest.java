@@ -24,15 +24,23 @@ public class CommitmentTest {
 	Calendar testDueDate1 = new GregorianCalendar(2015, Calendar.NOVEMBER, 15, 17, 0);
 	Calendar testDueDate2 = new GregorianCalendar(2199, Calendar.NOVEMBER, 17, 18, 0);
 	
-	// set up example user
+	
+	// create test users for the events
 	User testUser = new User("Jean Valjean", "jvaljean", "mynameisjeanvaljean", 42601);
+	User testUser2 = new User("Spongebob", "ssquarepants", "iheartpatrick", 12345);
+	User testUser3 = new User("Golem", "smeagol", "myprecious", 98765);
+	
 	
 		
 	@Before
 	public void setUp() throws WPISuiteException {
-		testCommitment = new Commitment("thisIsATest", testDueDate, testUser);
-		testCommitment1 = new Commitment("thisIsAlsoATest",testDueDate2, testUser);
-		testCommitment2 = new Commitment("thisIsATest", testDueDate1, testUser);	
+		try{
+			testCommitment = new Commitment("This Is A Test", testDueDate, testUser,"A Descriptive Description");
+			testCommitment1 = new Commitment("This Is Also A Test",  testDueDate2, testUser, "Prologue");
+			testCommitment2 = new Commitment("The Test of the Test", testDueDate1, testUser, "For the Glory of the Tests");
+		}catch(WPISuiteException e){
+			
+		}
 	}	
 	
 	@Test
@@ -77,57 +85,137 @@ public class CommitmentTest {
 		assertEquals(testUser, testCommitment.getOwner());
 	}
 
+	
+	// TEST VALID INPUTS
 	@Test
 	public void testSetName(){
 		assertNotNull(testCommitment.getName());
-		testCommitment.setName("This is a new test!");
-		
-		assertEquals(testCommitment.getName(), "This is a new test!");
+		try{
+			testCommitment.setName("This is a new test!");
+			assertEquals(testCommitment.getName(), "This is a new test!");
+		} catch(WPISuiteException e){
+			fail("Received Exception with a valid entry");
+		}
 	}
-	
-	@Test
-	// Test that exception is thrown when entering a null name
-	public void testException_SetName_NULL() {
-		testCommitment.setName("");
-		// Should throw exception and not execute the following line
-		assertTrue("Exception not thrown when shouled have.", false);
-	}
-	
-	@Test
-	// Test that exception is thrown when entering an invalid character
-	public void testException_SetName_InvalidCharacter() {
-		testCommitment.setName("myNameis	");
-		// Should throw exception and not execute the following line
-		assertTrue("Exception not thrown when shouled have.", false);
-	}
-	
-	@Test
-	// Test that exception is thrown when entering a really long name
-	public void testException_SetName_NameTooLong() {
-		testCommitment.setName("1234567890 1234567890 1234567890 1234567980");
-		// Should throw exception and not execute the following line
-		assertTrue("Exception not thrown when shouled have.", false);
-	}
-	
 	
 	
 	@Test
 	public void testSetDueDate() {
 		assertNotNull(testCommitment.getDueDate());
+		try{
 		testCommitment.setDueDate(testDueDate1);
-		
 		assertEquals(testCommitment.getDueDate(), testDueDate1);
+		} catch(WPISuiteException e){
+			fail("Received Exception with a valid entry");
+		}
 	}
 	
 	
-	/* TEST DATE EXCEPTIONS */
+	
+	
 
+	/* TEST NAME EXCEPTIONS */
+	
+	@Test
+	// Test that exception is thrown when entering a null name
+	public void testException_SetName_NULL() {
+		try{
+			testCommitment.setName("");
+			// Should throw exception and not execute the following line
+			fail("Exception not thrown when shouled have.");
+		}catch(WPISuiteException e){
+			// confirm that the cause of exception is that the name must exist
+			assertEquals("Exception thrown that event's name can't be empty.", e.getMessage(), "Name cannot be empty.");
+		}
+	}
+	
+	@Test
+	// Test that exception is thrown when entering an invalid character
+	public void testException_SetName_InvalidCharacter() {
+		try{
+			testCommitment.setName("myNameis	");
+			// Should throw exception and not execute the following line
+			fail("Exception not thrown when shouled have.");
+		}catch(WPISuiteException e){
+			// confirm that the cause of exception is existence of tab
+			assertEquals("Exception thrown that event's name must have valid character.", e.getMessage(), "Name cannot contain character 	");
+		}
+	}
+	
+	@Test
+	// Test that exception is thrown when entering a really long name
+	public void testException_SetName_NameTooLong() {
+		try{
+			testCommitment.setName("1234567890 1234567890 1234567890 1234567980");
+			// Should throw exception and not execute the following line
+			fail("Exception not thrown when shouled have.");
+		}catch(WPISuiteException e){
+			// confirm that the cause of exception is length
+			assertEquals("Exception thrown that event's name has a size limit.", e.getMessage(), "Name too long.");
+		}
+	}
+	
+	
+
+	
+/* TEST DESCRIPTION EXCEPTIONS */
+	
+	@Test
+	// Test that exception is thrown when entering an invalid character
+	public void testException_SetDescription_InvalidCharacter() {
+		try{
+			testCommitment.setDescription("I like to tab!		");
+			// Should throw exception and not execute the following line
+			fail("Exception not thrown when shouled have.");
+		}catch(WPISuiteException e){
+			// confirm that the cause of exception is existence of tab
+			assertEquals("Exception thrown that Description must have valid character.", e.getMessage(), "Description cannot contain character 	");
+		}
+	}
+	
+	@Test
+	// Test that exception is thrown when entering a really long name
+	public void testException_SetDescription_NameTooLong() {
+		try{
+			testCommitment.setDescription("1234567890 1234567890 1234567890 1234567980 1234567980"
+					+ "1234567890 1234567890 1234567890 1234567980 1234567980"
+					+ "1234567890 1234567890 1234567890 1234567980 1234567980"
+					+ "1234567890 1234567890 1234567890 1234567980 1234567980");
+			// Should throw exception and not execute the following line
+			fail("Exception not thrown when shouled have.");
+		}catch(WPISuiteException e){
+			// confirm that the cause of exception is length
+			assertEquals("Exception thrown that event's description is too long.", e.getMessage(), "Description too long.");
+		}
+	}
+	
+	@Test
+	// Test that exception is NOT thrown when changing name to empty
+	public void testException_SetDescription_NULL() {
+		try{
+			testCommitment.setDescription("");
+			// confirm changes 
+			assertEquals("Exception not thrown when event's description is NULL", testCommitment.getDescription(), "");
+		}catch(WPISuiteException e){
+			fail("Exception thrown by changing to Null. This should not have happened");
+		}
+	}
+	
+	
+
+	/* TEST DUEDATE EXCEPTIONS */
+	
 	@Test
 	// Test that exception is thrown when trying to set an invalid date
-	public void testException_SetDueDate_DateInPast() {
-		testCommitment.setDueDate(new GregorianCalendar(2012, Calendar.JUNE, 10, 18, 0));
-		// Should throw exception and not execute the following line
-		assertTrue("Exception not thrown when shouled have.", false);
+	public void testException_SetEndDate_DateInPast() {
+		try{
+			testCommitment.setDueDate(new GregorianCalendar(2012, Calendar.JUNE, 10, 18, 0));
+			// Should throw exception and not execute the following line
+			fail("Exception not thrown when shouled have.");
+		}catch(WPISuiteException e){
+			// confirm that the cause of exception is a date in the past
+			assertEquals("Exception thrown that events must occur in the future.", e.getMessage(), "Events must occur in the future.");
+		}
 	}
 	
 	
