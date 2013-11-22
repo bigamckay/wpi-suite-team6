@@ -31,4 +31,8 @@ public class MainView extends JPanel {
 		
 	}
 	
+	public CalendarCalendarView getCalendar() {
+		return calendarPanel;
+	}
+	
 }
