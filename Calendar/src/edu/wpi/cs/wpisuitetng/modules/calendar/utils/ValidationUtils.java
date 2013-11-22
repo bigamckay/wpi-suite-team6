@@ -26,10 +26,13 @@ public class ValidationUtils {
 	 */
 	public static int isValidName(String name) throws WPISuiteException{
 		//restriction on field length
+		
 		if(name.length() > SHORT_MAX)
 			throw new WPISuiteException("Name too long.");
+		
 		if(name.length() == 0)
 			throw new WPISuiteException("Name cannot be empty."); 
+		
 		// restrictions on characters (ascii 32 - 126 inclusive)
 		for(int i = 1; i<32; i++){
 			String j = "" + (char) i; //cast as char to convert ascii value to character
@@ -37,10 +40,25 @@ public class ValidationUtils {
 			if(name.contains(j))
 				throw new WPISuiteException("Name cannot contain character " + j);
 		}
+		
+		// check for the backspace (ASCII 127)
 		String j = "" + (char) 127;
 		if(name.contains(j))
 			throw new WPISuiteException("Name cannot contain character " + j); //also check for ascii 127
 		//if method hasn't thrown exception by this point, name should be valid. return
+		
+		// Ensure that the name contains an alphanumeric character
+		boolean alphanumeric = false;
+		for (int i = 0; i < name.length() && !alphanumeric; i++){
+			int thisChar = (int) name.charAt(i);
+			if( (thisChar >= 48 && thisChar <= 57) || (thisChar >= 65 && thisChar <= 90) || (thisChar >= 97 && thisChar <= 122)){
+				alphanumeric = true;
+			}
+		}
+		if (!alphanumeric){
+			throw new WPISuiteException("Name must contain ");
+		}
+		
 		return 0;
 	}
 	
