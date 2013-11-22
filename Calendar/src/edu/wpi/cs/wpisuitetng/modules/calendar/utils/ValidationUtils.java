@@ -56,7 +56,11 @@ public class ValidationUtils {
 			}
 		}
 		if (!alphanumeric){
-			throw new WPISuiteException("Name must contain ");
+			throw new WPISuiteException("Name must contain at least one alphanumeric character.");
+		}
+		
+		if (name.equals(new String("Event Name"))){
+			throw new WPISuiteException("Please do not enter default name prompt  of \"Event Name\" as event name.");
 		}
 		
 		return 0;

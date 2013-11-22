@@ -281,7 +281,7 @@ public class EventTest {
 			basicEvent.setName("     ");
 			assertTrue("Exception not thrown when should have.", false);
 		}catch (WPISuiteException e){
-			assertEquals("Exception thrown that event's name can't be empty.", e.getMessage(), "Name must contain at least alpha/numeric character.");
+			assertEquals("Exception thrown that event's name can't be empty.", e.getMessage(), "Name must contain at least one alphanumeric character.");
 		}
 	}
 	
