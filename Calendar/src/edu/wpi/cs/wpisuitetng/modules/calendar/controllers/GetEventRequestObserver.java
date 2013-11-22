@@ -34,7 +34,7 @@ public class GetEventRequestObserver implements RequestObserver{
 	@Override
 	public void responseSuccess(IRequest iReq) {
 		// Convert the JSON array of requirements to a Requirement object array
-		Event[] events = Event.fromJsonArray(iReq.getResponse().getBody());
+		Event[] events = Event.fromJSONArray(iReq.getResponse().getBody(), Event[].class);
 		
 		// Pass these Requirements to the controller
 		controller.receivedEvents(events);

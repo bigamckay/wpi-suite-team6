@@ -481,7 +481,7 @@ public class EventTest {
 	@Test
 	public void testToFromJson() {
 		String jsonbasicevent = basicEvent.toJSON();
-		Event returned = Event.fromJson(jsonbasicevent);
+		Event returned = Event.fromJSON(jsonbasicevent, Event.class);
 		assertEquals(returned.getId(), basicEvent.getId());
 		assertEquals(returned.getName(), basicEvent.getName());
 	}

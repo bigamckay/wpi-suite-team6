@@ -153,7 +153,7 @@ public class CommitmentTest {
 	@Test
 	public void testToFromJson() {
 		String jsoncom = testCommitment.toJSON();
-		Commitment returned = Commitment.fromJson(jsoncom);
+		Commitment returned = Commitment.fromJSON(jsoncom, Commitment.class);
 		assertEquals(returned.getId(), testCommitment.getId());
 		assertEquals(returned.getName(), testCommitment.getName());
 	}
