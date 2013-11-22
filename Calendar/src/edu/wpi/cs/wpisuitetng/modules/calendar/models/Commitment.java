@@ -1,6 +1,7 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.models;
 
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.UUID;
 
 import com.google.gson.Gson;
@@ -8,30 +9,31 @@ import com.google.gson.Gson;
 
 
 
+
+
+
+
+
+
+import edu.wpi.cs.wpisuitetng.exceptions.WPISuiteException;
 import edu.wpi.cs.wpisuitetng.modules.AbstractModel;
+import edu.wpi.cs.wpisuitetng.modules.calendar.utils.ValidationUtils;
 import edu.wpi.cs.wpisuitetng.modules.core.models.User;
 
 public class Commitment extends AbstractModel{
 	
 	public static String ID_FIELD_NAME = "id";
 	private final UUID id; //ID for database storage.
-
-	/** the name of the commitment */
-	private String name;
-		
-	/** start and end date associated with the commitment */
-	private Calendar duedate;
+	private String name; //commitment name
+	private String location; //commitment location
+	private String description; //commitment description
+	private Calendar duedate; //when the commitment starts
+	private User owner; //person who owns the commitment
 	
-	private User owner;
 
-	public User getOwner() {
-		return owner;
-	}
-
-	public void setOwner(User owner) {
-		this.owner = owner;
-	}
-
+	
+	
+	
 	/**
 	 * Dummy Commitment constructor
 	 * SHOULD NOT BE USED except by the CommitmentManager
@@ -41,64 +43,160 @@ public class Commitment extends AbstractModel{
 	}
 
 	/**
-	 * Construct a Commitment.
-	 * 
-	 * @param id The ID number of the Commitment
-	 * @param name The name of the Commitment
-	 * @param due The start of the Commitment
+	 * constructor for Commitment. Checks for invalid input and throws exception if invalid input is found
+	 * @param name the name of the commitment, limited to SHORT_MAX characters
+	 * @param location where the commitment is taking place, limited to SHORT_MAX characters
+	 * @param start stores the date/time of the start of the commitment
+	 * @param owner the user who created the commitment, who should have sole rights to delete or edit it
+	 * @param description a description of the commitment, optional field
+	 * @param invited a list of users invited to the commitment
+	 * @param attending a list of users who have committed to attending the commitment
 	 */
-	public Commitment(String name, Calendar due, User owner) {
-		id = UUID.randomUUID();
+	public Commitment(String name, Calendar duedate, User owner,
+			String description) throws WPISuiteException{
+		
+		// Why is the ID random? And what do we need it for?
+		this.id = UUID.randomUUID();
+		
+		// validate all input before assigning values
+		try{
+			ValidationUtils.isValidName(name);
+			ValidationUtils.isValidDescription(description);
+			ValidationUtils.isValidDate(duedate);
+		} catch(WPISuiteException e){
+			throw e;
+		}
+		
+		// assign values
 		this.name = name;
-		if (name.trim().length() == 0)
-			this.name = "Backlog";
-		this.duedate = due;
+		this.duedate = duedate;
+		this.owner = owner;
+		this.description = description;
+
+	}
+
+
+	/*GETTERS*/
+	
+	/**
+	 * returns the ID field of a commitment; necessary because this is a private variable
+	 * @return the UUID of the commitment
+	 */
+	public UUID getId(){
+		return this.id;
+	}
+	
+	/**
+	 * returns the name field of a commitment; necessary because this is a private variable
+	 * @return the name of the commitment
+	 */
+	public String getName(){
+		return this.name;
+	}
+	
+	/**
+	 * returns the location field of a commitment; necessary because this is a private variable
+	 * @return the location of the commitment
+	 */
+	public String getLocation(){
+		return this.location;
+	}
+	
+	/**
+	 * returns the description field of a commitment; necessary because this is a private variable
+	 * @return the description of the commitment
+	 */
+	public String getDescription(){
+		return this.description;
+	}
+	
+	/**
+	 * returns the start field of a commitment; necessary because this is a private variable
+	 * @return the start of the commitment
+	 */
+	public Calendar getDueDate(){
+		return this.duedate;
+	}
+	
+	
+	
+	/**
+	 * returns the owner field of a commitment; necessary because this is a private variable
+	 * @return the owner of the commitment
+	 */
+	public User getOwner() {
+		return owner;
+	}
+	
+	/* SETTERS*/
+	//setters - returns previous value of the variable (whatever was just overwritten)
+	
+	/**
+	 * updates the name field of the event, necessary because this is a private variable
+	 * @param to the new name for the event
+	 * @return the old name of the event
+	 */
+	public String setName(String to) throws WPISuiteException{
+		try{
+			ValidationUtils.isValidName(to);
+		} catch (WPISuiteException e){
+			throw e;
+		}
+		String previous = this.name;
+		this.name = to;
+		return previous;
+	}
+	
+	
+	// needs to be further addressed
+	/**
+	 * Changes the owner of this event
+	 * @param owner The new owner
+	 */
+	public void setOwner(User owner) {
 		this.owner = owner;
 	}
 	
-	/**
-	 * Sets the due date for the commitment
-	 * @param start start date
-	 */
-	public void setDueDate(Calendar due) {
-		this.duedate = due;
-	}
-
-	/**
-	 * Getter for the id
-	 * 
 	
-	 * @return the id */
-	public UUID getId() {
-		return id;
-	}
-
 	/**
-	 * getter for the name
-	 * 
-	
-	 * @return the name */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * setter for the name
-	 * 
-	 * @param name the name to set
+	 * updates the description field of the event, necessary because this is a private variable
+	 * @param to the new description for the event
+	 * @return the old description of the event
 	 */
-	public void setName(String name) {
-		this.name = name;
+	public String setDescription(String to) throws WPISuiteException{
+		try{
+			ValidationUtils.isValidDescription(to);
+		} catch (WPISuiteException e){
+			throw e;
+		}
+		String previous = this.description;
+		this.description = to;
+		return previous;
 	}
-
+	
+	/**
+	 * updates the start field of the event, necessary because this is a private variable
+	 * @param to the new start for the event
+	 * @return the old start of the event
+	 */
+	public Calendar setDueDate(Calendar to) throws WPISuiteException{
+		try{
+			ValidationUtils.isValidDate(to);
+		} catch (WPISuiteException e){
+			throw e;
+		}
+		Calendar previous = this.duedate;
+		this.duedate = to;
+		return previous;
+	}
 	
 
-	/**
-	 * @return the duedate of the commitment
-	 */
-	public Calendar getDueDate() {
-		return duedate;
-	}
+
+	
+	
+	
+
+	
 
 	/**
 	 * Returns an array of Commitments parsed from the given JSON-encoded
@@ -134,6 +232,7 @@ public class Commitment extends AbstractModel{
 		return test;
 	}
 
+	
 	@Override
 	public void save() {
 
