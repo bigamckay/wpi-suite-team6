@@ -41,7 +41,7 @@ public class AddCommitmentController {
 	 */
 	public void addCommitment(Commitment newCommitment) 
 	{
-		final Request request = Network.getInstance().makeRequest("calander/commitmentmessage", HttpMethod.PUT); // PUT == create
+		final Request request = Network.getInstance().makeRequest("calander/commitment", HttpMethod.PUT); // PUT == create
 		request.setBody(newCommitment.toJSON()); // put the new requirement in the body of the request
 		request.addObserver(observer); // add an observer to process the response
 		request.send(); 
