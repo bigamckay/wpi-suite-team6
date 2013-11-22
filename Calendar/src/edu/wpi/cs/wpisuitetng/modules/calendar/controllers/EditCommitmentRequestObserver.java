@@ -4,21 +4,21 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.controllers;
  * Author: Andrew McKay
  */
 
-import edu.wpi.cs.wpisuitetng.modules.calendar.controllers.AddCommitmentController;
+import edu.wpi.cs.wpisuitetng.modules.calendar.controllers.EditCommitmentController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
 import edu.wpi.cs.wpisuitetng.network.RequestObserver;
 import edu.wpi.cs.wpisuitetng.network.models.IRequest;
 import edu.wpi.cs.wpisuitetng.network.models.ResponseModel;
 
-public class AddCommitmentRequestObserver implements RequestObserver {
+public class EditCommitmentRequestObserver implements RequestObserver {
 	
-	private AddCommitmentController controller;
+	private EditCommitmentController controller;
 	
 	/**
-	 * Constructs the observer given an AddCommitmentController
-	 * @param controller the controller used to add commitments
+	 * Constructs the observer given an EditCommitmentController
+	 * @param controller the controller used to edit commitments
 	 */
-	public AddCommitmentRequestObserver(AddCommitmentController controller) {
+	public EditCommitmentRequestObserver(EditCommitmentController controller) {
 		this.controller = controller;
 	}
 	
@@ -45,7 +45,7 @@ public class AddCommitmentRequestObserver implements RequestObserver {
 	 * @see edu.wpi.cs.wpisuitetng.network.RequestObserver#responseError(IRequest) */
 	@Override
 	public void responseError(IRequest iReq) {
-		System.err.println("The request to add a commitment failed");
+		System.err.println("The request to edit a commitment failed");
 	}
 
 	/**
@@ -57,7 +57,7 @@ public class AddCommitmentRequestObserver implements RequestObserver {
 	 * @see edu.wpi.cs.wpisuitetng.network.RequestObserver#fail(IRequest, Exception) */
 	@Override
 	public void fail(IRequest iReq, Exception exception) {
-		System.err.println("The request to add a commitment failed spectacularly");
+		System.err.println("The request to edit a commitment failed spectacularly");
 	}
 
 }

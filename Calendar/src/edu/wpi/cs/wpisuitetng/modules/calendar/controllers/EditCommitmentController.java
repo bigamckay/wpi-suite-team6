@@ -10,24 +10,24 @@ import edu.wpi.cs.wpisuitetng.network.Network;
 import edu.wpi.cs.wpisuitetng.network.Request;
 import edu.wpi.cs.wpisuitetng.network.models.HttpMethod;
 
-public class AddCommitmentController {
+public class EditCommitmentController {
 		
-	private AddCommitmentRequestObserver observer;
+	private EditCommitmentRequestObserver observer;
 	
-	private static AddCommitmentController instance; 
+	private static EditCommitmentController instance; 
 	
 	/**
-	 * Construct an AddCommitmentController for the given model, view pair
+	 * Construct an EditCommitmentController for the given model, view pair
 	 */
-	private AddCommitmentController() {
-		observer = new AddCommitmentRequestObserver(this);
+	private EditCommitmentController() {
+		observer = new EditCommitmentRequestObserver(this);
 	}
 	
-	public static AddCommitmentController getInstance()
+	public static EditCommitmentController getInstance()
 	{
 		if(instance == null)
 		{
-			instance = new AddCommitmentController();
+			instance = new EditCommitmentController();
 		}
 		
 		return instance;
@@ -36,10 +36,10 @@ public class AddCommitmentController {
 	// test comment
 
 	/**
-	 * This method adds a commitment to the server.
-	 * @param newCommitment is the commitment to be added to the server.
+	 * This method adds a requirement to the server.
+	 * @param newRequirement is the requirement to be added to the server.
 	 */
-	public void addCommitment(Commitment newCommitment) 
+	public void editCommitment(Commitment newCommitment) 
 	{
 		final Request request = Network.getInstance().makeRequest("calander/commitmentmessage", HttpMethod.PUT); // PUT == create
 		request.setBody(newCommitment.toJSON()); // put the new requirement in the body of the request
