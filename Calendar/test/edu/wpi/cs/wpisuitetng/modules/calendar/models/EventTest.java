@@ -276,12 +276,35 @@ public class EventTest {
 	/* TEST NAME EXCEPTIONS */
 	
 	@Test
+	public void testException_SetName_SPACES(){
+		try{
+			basicEvent.setName("     ");
+			assertTrue("Exception not thrown when should have.", false);
+		}catch (WPISuiteException e){
+			assertEquals("Exception thrown that event's name should contain alphanumeric character.", 
+					e.getMessage(), "Name must contain at least one alphanumeric character.");
+		}
+	}
+	
+	@Test
+	public void testException_SetName_EventName(){
+		try{
+			basicEvent.setName("Event Name");
+			assertTrue("Exception not thrown when should have.", false);
+		}catch(WPISuiteException e){
+			assertEquals("Exception thrown that event's name shouldn't be Event Name.", 
+					e.getMessage(), "Please do not enter default name prompt  of \"Event Name\" as event name.");
+		}
+	}
+	
+	
+	@Test
 	// Test that exception is thrown when entering a null name
 	public void testException_SetName_NULL() {
 		try{
 			basicEvent.setName("");
 			// Should throw exception and not execute the following line
-			assertTrue("Exception not thrown when shouled have.", false);
+			fail("Exception not thrown when shouled have.");
 		}catch(WPISuiteException e){
 			// confirm that the cause of exception is that the name must exist
 			assertEquals("Exception thrown that event's name can't be empty.", e.getMessage(), "Name cannot be empty.");
@@ -294,7 +317,7 @@ public class EventTest {
 		try{
 			basicEvent.setName("myNameis	");
 			// Should throw exception and not execute the following line
-			assertTrue("Exception not thrown when shouled have.", false);
+			fail("Exception not thrown when shouled have.");
 		}catch(WPISuiteException e){
 			// confirm that the cause of exception is existence of tab
 			assertEquals("Exception thrown that event's name must have valid character.", e.getMessage(), "Name cannot contain character 	");
@@ -307,7 +330,7 @@ public class EventTest {
 		try{
 			basicEvent.setName("1234567890 1234567890 1234567890 1234567980");
 			// Should throw exception and not execute the following line
-			assertTrue("Exception not thrown when shouled have.", false);
+			fail("Exception not thrown when shouled have.");
 		}catch(WPISuiteException e){
 			// confirm that the cause of exception is length
 			assertEquals("Exception thrown that event's name has a size limit.", e.getMessage(), "Name too long.");
@@ -322,7 +345,7 @@ public class EventTest {
 		try{
 			basicEvent.setLocation("Located at 		");
 			// Should throw exception and not execute the following line
-			assertTrue("Exception not thrown when shouled have.", false);
+			fail("Exception not thrown when shouled have.");
 		}catch(WPISuiteException e){
 			// confirm that the cause of exception is existence of tab
 			assertEquals("Exception thrown that event's location must have valid character.", e.getMessage(), "Location name cannot contain character 	");
@@ -335,7 +358,7 @@ public class EventTest {
 		try{
 			basicEvent.setLocation("1234567890 1234567890 1234567890 1234567980");
 			// Should throw exception and not execute the following line
-			assertTrue("Exception not thrown when shouled have.", false);
+			fail("Exception not thrown when shouled have.");
 		}catch(WPISuiteException e){
 			// confirm that the cause of exception is length
 			assertEquals("Exception thrown that event's location has a size limit.", e.getMessage(), "Location name too long.");
@@ -350,7 +373,7 @@ public class EventTest {
 			// confirm changes 
 			assertEquals("Exception not thrown when event's location is NULL", basicEvent.getLocation(), "");
 		}catch(WPISuiteException e){
-			assertTrue("Exception thrown by changing to Null. This should not have happened", false);
+			fail("Exception thrown by changing to Null. This should not have happened");
 		}
 	}
 	
@@ -362,7 +385,7 @@ public class EventTest {
 		try{
 			basicEvent.setDescription("I like to tab!		");
 			// Should throw exception and not execute the following line
-			assertTrue("Exception not thrown when shouled have.", false);
+			fail("Exception not thrown when shouled have.");
 		}catch(WPISuiteException e){
 			// confirm that the cause of exception is existence of tab
 			assertEquals("Exception thrown that Description must have valid character.", e.getMessage(), "Description cannot contain character 	");
@@ -378,7 +401,7 @@ public class EventTest {
 					+ "1234567890 1234567890 1234567890 1234567980 1234567980"
 					+ "1234567890 1234567890 1234567890 1234567980 1234567980");
 			// Should throw exception and not execute the following line
-			assertTrue("Exception not thrown when shouled have.", false);
+			fail("Exception not thrown when shouled have.");
 		}catch(WPISuiteException e){
 			// confirm that the cause of exception is length
 			assertEquals("Exception thrown that event's description is too long.", e.getMessage(), "Description too long.");
@@ -393,7 +416,7 @@ public class EventTest {
 			// confirm changes 
 			assertEquals("Exception not thrown when event's description is NULL", basicEvent.getDescription(), "");
 		}catch(WPISuiteException e){
-			assertTrue("Exception thrown by changing to Null. This should not have happened", false);
+			fail("Exception thrown by changing to Null. This should not have happened");
 		}
 	}
 	
@@ -406,25 +429,27 @@ public class EventTest {
 		try{
 			basicEvent.setEnd(new GregorianCalendar(2014, Calendar.JUNE, 10, 18, 0));
 			// Should throw exception and not execute the following line
-			assertTrue("Exception not thrown when shouled have.", false);
+			fail("Exception not thrown when shouled have.");
 		}catch(WPISuiteException e){
 			// confirm that the cause of exception is a date in the past
 			assertEquals("Exception thrown that events end after they start", e.getMessage(), "Events must end after they begin.");
 		}
 	}
 	
+	/* We dont care about date in the past
 	@Test
 	// Test that exception is thrown when trying to set an invalid date
 	public void testException_SetEndDate_DateInPast() {
 		try{
 			basicEvent.setEnd(new GregorianCalendar(2012, Calendar.JUNE, 10, 18, 0));
 			// Should throw exception and not execute the following line
-			assertTrue("Exception not thrown when shouled have.", false);
+			fail("Exception not thrown when shouled have.");
 		}catch(WPISuiteException e){
 			// confirm that the cause of exception is a date in the past
 			assertEquals("Exception thrown that events must occur in the future.", e.getMessage(), "Events must occur in the future.");
 		}
 	}
+	*/
 	
 	/* TEST START DATE EXCEPTIONS */
 	@Test
@@ -433,25 +458,25 @@ public class EventTest {
 		try{
 			basicEvent.setStart(new GregorianCalendar(2015, Calendar.JUNE, 10, 18, 0));
 			// Should throw exception and not execute the following line
-			assertTrue("Exception not thrown when shouled have.", false);
+			fail("Exception not thrown when shouled have.");
 		}catch(WPISuiteException e){
 			// confirm that the cause of exception is a date in the past
 			assertEquals("Exception thrown that event must start before it ends.", e.getMessage(), "Events must end after they begin.");
 		}
 	}
-	
+	/* We now allow dates in the past
 	@Test
 	// Test that exception is thrown when trying to set an invalid date
 	public void testException_SetEStartDate_DateInPast() {
 		try{
 			basicEvent.setStart(new GregorianCalendar(2012, Calendar.JUNE, 10, 18, 0));
 			// Should throw exception and not execute the following line
-			assertTrue("Exception not thrown when shouled have.", false);
+			fail("Exception not thrown when shouled have.");
 		}catch(WPISuiteException e){
 			// confirm that the cause of exception is a date in the past
 			assertEquals("Exception thrown that events must occur in the future.", e.getMessage(), "Events must occur in the future.");
 		}
-	}
+	}*/
 
 	@Test
 	public void testFromJson() {
