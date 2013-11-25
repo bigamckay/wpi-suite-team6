@@ -22,7 +22,7 @@ public class GetEventController implements ActionListener{
 	private static GetEventController instance;
 
 	/**
-	 * Constructs the controller given a RequirementModel
+	 * Constructs the controller given a EventModel
 	 */
 	private GetEventController() {
 		
@@ -31,7 +31,7 @@ public class GetEventController implements ActionListener{
 	
 	/**
 	
-	 * @return the instance of the GetRequirementController or creates one if it does not
+	 * @return the instance of the GetEventController or creates one if it does not
 	 * exist. */
 	public static GetEventController getInstance()
 	{
@@ -44,44 +44,44 @@ public class GetEventController implements ActionListener{
 	}
 
 	/**
-	 * Sends an HTTP request to store a requirement when the
+	 * Sends an HTTP request to store a event when the
 	 * update button is pressed
 	 * @param e ActionEvent
 	
 	 * @see java.awt.event.ActionListener#actionPerformed(ActionEvent) */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// Send a request to the core to save this requirement
-		final Request request = Network.getInstance().makeRequest("requirementmanager/requirement", HttpMethod.GET); // GET == read
+		// Send a request to the core to save this event
+		final Request request = Network.getInstance().makeRequest("calendar/event", HttpMethod.GET); // GET == read
 		request.addObserver(observer); // add an observer to process the response
 		request.send(); // send the request
 	}
 	
 	/**
-	 * Sends an HTTP request to retrieve all requirements
+	 * Sends an HTTP request to retrieve all events
 	 */
-	public void retrieveRequirements() {
-		final Request request = Network.getInstance().makeRequest("requirementmanager/requirement", HttpMethod.GET); // GET == read
+	public void retrieveEvents() {
+		final Request request = Network.getInstance().makeRequest("calendar/event", HttpMethod.GET); // GET == read
 		request.addObserver(observer); // add an observer to process the response
 		request.send(); // send the request
 	}
 
 	/**
-	 * Add the given requirements to the local model (they were received from the core).
-	 * This method is called by the GetRequirementsRequestObserver
+	 * Add the given events to the local model (they were received from the core).
+	 * This method is called by the GetEventsRequestObserver
 	 * 
-	 * @param requirements array of requirements received from the server
+	 * @param events array of events received from the server
 	 */
-	public void receivedEvents(Event[] requirements) {
+	public void receivedEvents(Event[] events) {
 		// Empty the local model to eliminate duplications
 
 		EventListModel.getInstance().emptyModel();
 		
 		// Make sure the response was not null
-		if (requirements != null) {
+		if (events != null) {
 			
-			// add the requirements to the local model
-			EventListModel.getInstance().addEvents(requirements);
+			// add the events to the local model
+			EventListModel.getInstance().addEvents(events);
 			
 		}
 	}

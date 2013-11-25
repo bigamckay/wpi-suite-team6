@@ -1,25 +1,29 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.controllers;
 
-import edu.wpi.cs.wpisuitetng.modules.calendar.controllers.AddEventController;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.Event;
+/*
+ * Author: Andrew McKay
+ */
+
+import edu.wpi.cs.wpisuitetng.modules.calendar.controllers.EditCommitmentController;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
 import edu.wpi.cs.wpisuitetng.network.RequestObserver;
 import edu.wpi.cs.wpisuitetng.network.models.IRequest;
 import edu.wpi.cs.wpisuitetng.network.models.ResponseModel;
 
-public class AddEventRequestObserver implements RequestObserver {
+public class EditCommitmentRequestObserver implements RequestObserver {
 	
-	private AddEventController controller;
+	private EditCommitmentController controller;
 	
 	/**
-	 * Constructs the observer given an AddRequirementController
-	 * @param controller the controller used to add requirements
+	 * Constructs the observer given an EditCommitmentController
+	 * @param controller the controller used to edit commitments
 	 */
-	public AddEventRequestObserver(AddEventController controller) {
+	public EditCommitmentRequestObserver(EditCommitmentController controller) {
 		this.controller = controller;
 	}
 	
 	/**
-	 * Parse the requirement that was received from the server then pass them to
+	 * Parse the commitment that was received from the server then pass them to
 	 * the controller.
 	 * 
 	 * @see edu.wpi.cs.wpisuitetng.network.RequestObserver#responseSuccess(edu.wpi.cs.wpisuitetng.network.models.IRequest)
@@ -30,7 +34,7 @@ public class AddEventRequestObserver implements RequestObserver {
 		final ResponseModel response = iReq.getResponse();
 		
 		// Parse the requirement out of the response body
-		final Event requirement = Event.fromJSON(response.getBody(), Event.class);		
+		final Commitment commitment = Commitment.fromJSON(response.getBody(), Commitment.class);		
 	}
 
 	/**
@@ -41,7 +45,7 @@ public class AddEventRequestObserver implements RequestObserver {
 	 * @see edu.wpi.cs.wpisuitetng.network.RequestObserver#responseError(IRequest) */
 	@Override
 	public void responseError(IRequest iReq) {
-		System.err.println("The request to add an event failed");
+		System.err.println("The request to edit a commitment failed");
 	}
 
 	/**
@@ -53,7 +57,7 @@ public class AddEventRequestObserver implements RequestObserver {
 	 * @see edu.wpi.cs.wpisuitetng.network.RequestObserver#fail(IRequest, Exception) */
 	@Override
 	public void fail(IRequest iReq, Exception exception) {
-		System.err.println("The request to add an event failed spectacularly");
+		System.err.println("The request to edit a commitment failed spectacularly");
 	}
 
 }

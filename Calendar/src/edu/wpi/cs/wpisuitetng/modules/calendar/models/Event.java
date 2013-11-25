@@ -13,11 +13,7 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.models;
 
 import java.util.Calendar;
 import java.util.Collection;
-import java.util.UUID;
-
 import com.google.gson.Gson;
-
-import edu.wpi.cs.wpisuitetng.modules.AbstractModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.utils.ValidationUtils;
 import edu.wpi.cs.wpisuitetng.modules.core.models.User;
 import edu.wpi.cs.wpisuitetng.exceptions.WPISuiteException;
@@ -30,10 +26,8 @@ import edu.wpi.cs.wpisuitetng.exceptions.WPISuiteException;
  *  bad input.
  */
 
-public class Event extends AbstractModel {
-	
-	public static String ID_FIELD_NAME = "id";
-	private final UUID id; //ID for database storage.
+public class Event extends AbstractCalendarModel {
+
 	private String name; //event name
 	private String location; //event location
 	private String description; //event description
@@ -52,7 +46,7 @@ public class Event extends AbstractModel {
 	 */
 	//TODO remove this constructor if possible (see notes in EventEntityManager)
 	public Event(){
-		this.id = new UUID(0, 0);
+		super(true);
 	}
 	
 	/**
@@ -69,8 +63,7 @@ public class Event extends AbstractModel {
 	public Event(String name, String location, Calendar start, Calendar end, User owner,
 			String description, Collection<User> invited, Collection<User> attending) throws WPISuiteException{
 		
-		// Why is the ID random? And what do we need it for?
-		this.id = UUID.randomUUID();
+		super(false);
 		
 		// validate all input before assigning values
 		try{
@@ -96,14 +89,6 @@ public class Event extends AbstractModel {
 	}
 	
 	/*GETTERS*/
-	
-	/**
-	 * returns the ID field of an Event; necessary because this is a private variable
-	 * @return the UUID of the event
-	 */
-	public UUID getId(){
-		return this.id;
-	}
 	
 	/**
 	 * returns the name field of an Event; necessary because this is a private variable
@@ -335,47 +320,9 @@ public class Event extends AbstractModel {
 		this.attending.remove(toRemove);
 		return previous;
 	}
-	
-	
-	
-	/*
-	 * JSON stuff!
-	 */
-	public static Event fromJson(String json) {
-		return new Gson().fromJson(json, Event.class);
-	}
-	
-	public static Event[] fromJsonArray(String json) {
-		return new Gson().fromJson(json, Event[].class);
-	}
 
-	/*
-	 * Here begin the methods for implementing the Model interface
-	 */
-	
-	//We don't need to implement save or delete right now
-	//TODO determine if actual implementation is needed
-	@Override
-	public void save() {}
-
-	//TODO determine if actual implementation is needed
-	@Override
-	public void delete() {}
-
-	//Serialize this event as JSON
 	@Override
 	public String toJSON() {
 		return new Gson().toJson(this, Event.class);
-	}
-
-	@Override
-	public Boolean identify(Object o) {
-		if(o instanceof UUID){
-			return o.equals(getId());
-		} else if(o instanceof Event){
-			return ((Event)o).getId().equals(getId());
-		} else {
-			return false;
-		}
 	}
 }

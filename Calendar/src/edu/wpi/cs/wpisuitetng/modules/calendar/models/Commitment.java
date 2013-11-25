@@ -1,45 +1,27 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.models;
 
 import java.util.Calendar;
-import java.util.Collection;
-import java.util.UUID;
 
 import com.google.gson.Gson;
-
-
-
-
-
-
-
-
-
-
 import edu.wpi.cs.wpisuitetng.exceptions.WPISuiteException;
-import edu.wpi.cs.wpisuitetng.modules.AbstractModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.utils.ValidationUtils;
 import edu.wpi.cs.wpisuitetng.modules.core.models.User;
 
-public class Commitment extends AbstractModel{
+public class Commitment extends AbstractCalendarModel{
 	
-	public static String ID_FIELD_NAME = "id";
-	private final UUID id; //ID for database storage.
 	private String name; //commitment name
 	private String location; //commitment location
 	private String description; //commitment description
 	private Calendar duedate; //when the commitment starts
 	private User owner; //person who owns the commitment
-	
 
-	
-	
 	
 	/**
 	 * Dummy Commitment constructor
 	 * SHOULD NOT BE USED except by the CommitmentManager
 	 */
 	public Commitment() {
-		id = new UUID(0l, 0l);
+		super(true);
 	}
 
 	/**
@@ -55,8 +37,7 @@ public class Commitment extends AbstractModel{
 	public Commitment(String name, Calendar duedate, User owner,
 			String description) throws WPISuiteException{
 		
-		// Why is the ID random? And what do we need it for?
-		this.id = UUID.randomUUID();
+		super(false);
 		
 		// validate all input before assigning values
 		try{
@@ -67,24 +48,10 @@ public class Commitment extends AbstractModel{
 			throw e;
 		}
 		
-		// assign values
-		this.name = name;
-		this.duedate = duedate;
-		this.owner = owner;
-		this.description = description;
-
 	}
 
 
 	/*GETTERS*/
-	
-	/**
-	 * returns the ID field of a commitment; necessary because this is a private variable
-	 * @return the UUID of the commitment
-	 */
-	public UUID getId(){
-		return this.id;
-	}
 	
 	/**
 	 * returns the name field of a commitment; necessary because this is a private variable
@@ -117,8 +84,6 @@ public class Commitment extends AbstractModel{
 	public Calendar getDueDate(){
 		return this.duedate;
 	}
-	
-	
 	
 	/**
 	 * returns the owner field of a commitment; necessary because this is a private variable
@@ -189,26 +154,6 @@ public class Commitment extends AbstractModel{
 		this.duedate = to;
 		return previous;
 	}
-	
-
-
-	
-	
-	
-
-	
-
-	/**
-	 * Returns an array of Commitments parsed from the given JSON-encoded
-	 * string.
-	 * 
-	 * @param body	string containing a JSON-encoded array of Commitments
-	 * @return an array of Commitment deserialized from the given JSON string
-	 */
-	public static Commitment[] fromJsonArray(String body) {
-		final Gson parser = new Gson();
-		return parser.fromJson(body, Commitment[].class);
-	}
 
 	/**
 	 * Encode a commitment to JSON.
@@ -241,16 +186,5 @@ public class Commitment extends AbstractModel{
 	@Override
 	public void delete() {
 
-	}
-
-	@Override
-	public Boolean identify(Object o) {
-		if(o instanceof UUID){
-			return o.equals(getId());
-		} else if(o instanceof Commitment){
-			return ((Commitment)o).getId().equals(getId());
-		} else {
-			return false;
-		}
 	}
 }

@@ -11,7 +11,7 @@ public class EditEventController {
 	private EditEventRequestObserver observer;
 	
 	/**
-	 * Construct an UpdateRequirementController for the given model, view pair
+	 * Construct an UpdateEventController for the given model, view pair
 	
 	
 	 */
@@ -21,7 +21,7 @@ public class EditEventController {
 	
 	/**
 	
-	 * @return the instance of the UpdateRequirementController or creates one if it does not
+	 * @return the instance of the UpdateEventController or creates one if it does not
 	 * exist. */
 	public static EditEventController getInstance()
 	{
@@ -34,13 +34,13 @@ public class EditEventController {
 	}
 
 	/**
-	 * This method updates a requirement to the server.
-	 * @param newRequirement is the requirement to be updated to the server.
+	 * This method updates a event to the server.
+	 * @param newEvent is the event to be updated to the server.
 	 */
-	public void updateRequirement(Event newRequirement) 
+	public void updateEvent(Event newEvent) 
 	{
-		Request request = Network.getInstance().makeRequest("requirementmanager/event", HttpMethod.POST); // POST == update
-		request.setBody(newRequirement.toJSON()); // put the new requirement in the body of the request
+		Request request = Network.getInstance().makeRequest("calendar/event", HttpMethod.POST); // POST == update
+		request.setBody(newEvent.toJSON()); // put the new event in the body of the request
 		request.addObserver(observer); // add an observer to process the response
 		request.send(); 
 	}

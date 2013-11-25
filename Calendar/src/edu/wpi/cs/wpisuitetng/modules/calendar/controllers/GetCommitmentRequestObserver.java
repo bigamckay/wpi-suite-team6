@@ -7,37 +7,37 @@ import java.util.Calendar;
 
 import edu.wpi.cs.wpisuitetng.network.RequestObserver;
 import edu.wpi.cs.wpisuitetng.network.models.IRequest;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.Event;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.core.models.User;
 
 /**
- * @author Eric Guleksen
+ * @author Andrew McKay
  *
  */
-public class GetEventRequestObserver implements RequestObserver{
+public class GetCommitmentRequestObserver implements RequestObserver{
 	
-	private GetEventController controller;
+	private GetCommitmentController controller;
 	
 	/**
-	 * Constructs the observer given a GetRequirementsController
-	 * @param controller the controller used to retrieve requirements
+	 * Constructs the observer given a GetCommitmentController
+	 * @param controller the controller used to retrieve commitments
 	 */
-	public GetEventRequestObserver(GetEventController controller) {
+	public GetCommitmentRequestObserver(GetCommitmentController controller) {
 		this.controller = controller;
 	}
 
 	/**
-	 * Parse the requirements out of the response body and pass them to the controller
+	 * Parse the commitments out of the response body and pass them to the controller
 	 * 
 	 * @see edu.wpi.cs.wpisuitetng.network.RequestObserver#responseSuccess(edu.wpi.cs.wpisuitetng.network.models.IRequest)
 	 */
 	@Override
 	public void responseSuccess(IRequest iReq) {
-		// Convert the JSON array of requirements to a Requirement object array
-		Event[] events = Event.fromJSONArray(iReq.getResponse().getBody(), Event[].class);
+		// Convert the JSON array of requirements to a Commitments object array
+		Commitment[] commitments = Commitment.fromJSONArray(iReq.getResponse().getBody(), Commitment[].class);
 		
-		// Pass these Requirements to the controller
-		controller.receivedEvents(events);
+		// Pass these Commitments to the controller
+		controller.receivedCommitments(commitments);
 	}
 
 	/**
@@ -49,14 +49,14 @@ public class GetEventRequestObserver implements RequestObserver{
 	}
 
 	/**
-	 * Put an error requirement in the PostBoardPanel if the request fails.
+	 * Put an error commitment in the PostBoardPanel if the request fails.
 	 * 
 	 * @see edu.wpi.cs.wpisuitetng.network.RequestObserver#fail(edu.wpi.cs.wpisuitetng.network.models.IRequest, java.lang.Exception)
 	 */
 	@Override
 	public void fail(IRequest iReq, Exception exception) {
-		Event[] errorEvent = { new Event() };
-		controller.receivedEvents(errorEvent);
+		Commitment[] errorCommitment = { new Commitment() };
+		controller.receivedCommitments(errorCommitment);
 	}
 
 }
