@@ -37,9 +37,9 @@ public class ToolbarView extends JSplitPane{
 		
 	}
 	
-	public String getCurrentMonth(int currentMonth)
+	public String getCurrentMonth(int currMonth)
 	{
-		switch(currentMonth)
+		switch(currMonth)
 		{
 			case 0:
 				month = "Jan";
@@ -77,8 +77,15 @@ public class ToolbarView extends JSplitPane{
 			case 11:
 				month = "Dec";
 				break;
+			case 12:
+				currentMonth = 0;
+				month = "Jan";
+				break;
+			case -1:
+				currentMonth = 11;
+				month = "Dec";
+				break;
 		}
-		
 		return month;
 	}
 	
@@ -209,7 +216,7 @@ public class ToolbarView extends JSplitPane{
 				String currentMonthStr;
 				calView.currentYear = startYear;
 	        	currentYearStr = String.valueOf(calView.currentYear);
-	        	currentMonthStr = getCurrentMonth(currentMonth);
+	        	currentMonthStr = getCurrentMonth(Calendar.getInstance().get(Calendar.MONTH));
 	        	currDay.setText(currentMonthStr + " 20, "+ currentYearStr);
 	        	//calView.populateYearNull();
 	        	calView.populateYear(calView.monthArray, calView.currentYear);
