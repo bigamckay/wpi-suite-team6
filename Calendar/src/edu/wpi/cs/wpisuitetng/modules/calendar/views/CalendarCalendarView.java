@@ -28,7 +28,7 @@ import javax.swing.table.DefaultTableModel;
  *  Contains the GUI elements of the Calendar Panel
  *
  */
-//@SuppressWarnings("serial")
+@SuppressWarnings("serial")
 public class CalendarCalendarView extends JTabbedPane{
 
 	private JTable monthDayHeaders;
