@@ -30,7 +30,7 @@ public class AddEventRequestObserver implements RequestObserver {
 		final ResponseModel response = iReq.getResponse();
 		
 		// Parse the requirement out of the response body
-		final Event requirement = Event.fromJson(response.getBody());		
+		final Event requirement = Event.fromJSON(response.getBody(), Event.class);		
 	}
 
 	/**
