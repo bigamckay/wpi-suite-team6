@@ -13,7 +13,9 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.models;
 
 import java.util.Calendar;
 import java.util.Collection;
+
 import com.google.gson.Gson;
+
 import edu.wpi.cs.wpisuitetng.modules.calendar.utils.ValidationUtils;
 import edu.wpi.cs.wpisuitetng.modules.core.models.User;
 import edu.wpi.cs.wpisuitetng.exceptions.WPISuiteException;
@@ -33,21 +35,7 @@ public class Event extends AbstractCalendarModel {
 	private String description; //event description
 	private Calendar start; //when the event starts
 	private Calendar end; //when the event ends
-	private User owner; //person who owns the event
-	
-	// not currently used
-	private Collection<User> invited; //invited people
-	private Collection<User> attending; //people who are attending
-	
-	/**
-	 * Empty constructor for creating dummy events objects because the Data object was written
-	 * by some idiot who'd never heard of the Class class (passing Event.class instead of
-	 * a dummy Event object). DO NOT USE for general use.
-	 */
-	//TODO remove this constructor if possible (see notes in EventEntityManager)
-	public Event(){
-		super(true);
-	}
+	private boolean personal; //is this a personal event? (or a team one)
 	
 	/**
 	 * constructor for Event. Checks for invalid input and throws exception if invalid input is found
@@ -55,15 +43,13 @@ public class Event extends AbstractCalendarModel {
 	 * @param location where the event is taking place, limited to SHORT_MAX characters
 	 * @param start stores the date/time of the start of the event
 	 * @param end stores the date/time of the end of the event
-	 * @param owner the user who created the event, who should have sole rights to delete or edit it
+	 * @param owner the username of the owner of this event
 	 * @param description a description of the event, optional field
-	 * @param invited a list of users invited to the event
-	 * @param attending a list of users who have committed to attending the event
+	 * @param personal true for personal events, false for project-wide events
 	 */
-	public Event(String name, String location, Calendar start, Calendar end, User owner,
-			String description, Collection<User> invited, Collection<User> attending) throws WPISuiteException{
+	public Event(String name, String location, Calendar start, Calendar end, String description, String owner, boolean personal) throws WPISuiteException{
 		
-		super(false);
+		super(owner, false);
 		
 		// validate all input before assigning values
 		try{
@@ -82,10 +68,9 @@ public class Event extends AbstractCalendarModel {
 		this.location = location;
 		this.start = start;
 		this.end = end;
-		this.owner = owner;
 		this.description = description;
-		this.invited = invited;
-		this.attending = attending;
+		this.setPersonal(personal);
+
 	}
 	
 	/*GETTERS*/
@@ -130,30 +115,6 @@ public class Event extends AbstractCalendarModel {
 		return this.end;
 	}
 	
-	/**
-	 * returns the invited field of an Event; necessary because this is a private variable
-	 * @return the invited of the event
-	 */
-	public Collection<User> getInvited(){
-		return this.invited;
-	}
-	
-	/**
-	 * returns the attending field of an Event; necessary because this is a private variable
-	 * @return the attending of the event
-	 */
-	public Collection<User> getAttending(){
-		return this.attending;
-	}
-	
-	/**
-	 * returns the owner field of an Event; necessary because this is a private variable
-	 * @return the owner of the event
-	 */
-	public User getOwner() {
-		return owner;
-	}
-	
 	/* SETTERS*/
 	//setters - returns previous value of the variable (whatever was just overwritten)
 	
@@ -171,14 +132,6 @@ public class Event extends AbstractCalendarModel {
 		String previous = this.name;
 		this.name = to;
 		return previous;
-	}
-	
-	/**
-	 * Changes the owner of this event
-	 * @param owner The new owner
-	 */
-	public void setOwner(User owner) {
-		this.owner = owner;
 	}
 	
 	/**
@@ -248,81 +201,17 @@ public class Event extends AbstractCalendarModel {
 		return previous;
 	}
 	
-	/**
-	 * replaces the entire list of invited people of the event, necessary because this is a private variable
-	 * @param to the new invited list for the event
-	 * @return the old invited list of the event
-	 */
-	public Collection<User> setInvited(Collection<User> to) throws WPISuiteException{
-		// exception stuffs
-		Collection<User> previous = this.invited;
-		this.invited = to;
-		return previous;
+	public boolean isPersonal() {
+		return personal;
 	}
-	
-	
-	/**
-	 * replaces the entire list of attending people of the event, necessary because this is a private variable
-	 * @param to the new attending list for the event
-	 * @return the old attending list of the event
-	 */
-	public Collection<User> setAttending(Collection<User> to) throws WPISuiteException{
-		// exception stuffs
-		Collection<User> previous = this.attending;
-		this.attending = to;
-		return previous;
-	}
-	
-	/**
-	 * appends a person to the list of invited people of the event, necessary because this is a private variable
-	 * @param to the addition to the invited list for the event
-	 * @return the old invited list of the event
-	 */
-	public Collection<User> addInvited(User toAdd) throws WPISuiteException{
-		// exception stuffs
-		Collection<User> previous = this.invited;
-		this.invited.add(toAdd);
-		return previous;
-	}
-	
-	/**
-	 * removes the given a person from the list of invited people of the event, necessary because this is a private variable
-	 * @param to the person to be removed from the invited list for the event
-	 * @return the old invited list of the event
-	 */
-	public Collection<User> removeInvited(User toRemove) throws WPISuiteException{
-		// exception stuffs
-		Collection<User> previous = this.invited;
-		this.invited.remove(toRemove);
-		return previous;
-	}	
-	
-	/**
-	 * appends a person to the list of attending people of the event, necessary because this is a private variable
-	 * @param to the addition to the attending list for the event
-	 * @return the old attending list of the event
-	 */
-	public Collection<User> addAttending(User toAdd) throws WPISuiteException{
-		// exception stuffs
-		Collection<User> previous = this.attending;
-		this.attending.add(toAdd);
-		return previous;
-	}
-		
-	/**
-	 * removes the given a person from the list of attending people of the event, necessary because this is a private variable
-	 * @param to the person to be removed from the attending list for the event
-	 * @return the old attending list of the event
-	 */
-	public Collection<User> removeAttending(User toRemove) throws WPISuiteException{
-		// exception stuffs
-		Collection<User> previous = this.attending;
-		this.attending.remove(toRemove);
-		return previous;
+
+	public void setPersonal(boolean personal) {
+		this.personal = personal;
 	}
 
 	@Override
 	public String toJSON() {
+		// TODO Auto-generated method stub
 		return new Gson().toJson(this, Event.class);
 	}
 }

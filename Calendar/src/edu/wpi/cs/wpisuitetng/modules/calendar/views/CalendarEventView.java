@@ -24,6 +24,7 @@ import javax.swing.UIManager;
 import javax.swing.border.EtchedBorder;
 
 import edu.wpi.cs.wpisuitetng.exceptions.WPISuiteException;
+import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Event;
 import edu.wpi.cs.wpisuitetng.modules.calendar.utils.DateTimeUtils;
 
@@ -282,7 +283,7 @@ public class CalendarEventView extends JTabbedPane {
 		btnCreateEvent.addFocusListener(new FocusListener(){
 	        @Override
 	        public void focusGained(FocusEvent e){
-	            	Event newEvent = new Event();
+	            	Event newEvent;
 	            	Calendar eventStart;
 	            	Calendar eventEnd;
 	            	try{
@@ -294,11 +295,14 @@ public class CalendarEventView extends JTabbedPane {
 	            		return;
 	            	}
 	            	try{
-	            		newEvent.setName(eventName.getText());
-	            		newEvent.setLocation(eventLocation.getText());
-	            		newEvent.setDescription(eventDescription.getText());
-	            		newEvent.setStart(eventStart);
-	            		newEvent.setEnd(eventEnd);
+	            		newEvent = new Event(
+	            				eventName.getText(),
+	            				eventLocation.getText(),
+	            				eventStart,
+	            				eventEnd,
+	            				eventDescription.getText(),
+	            				ConfigManager.getConfig().getUserName(),
+	            				true);
 	            	}
 	            	catch(WPISuiteException exception2){
 	            		eventFeedbackLabel.setText(exception2.getMessage());

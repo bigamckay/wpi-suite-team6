@@ -13,7 +13,6 @@ public class Commitment extends AbstractCalendarModel{
 	private String location; //commitment location
 	private String description; //commitment description
 	private Calendar duedate; //when the commitment starts
-	private User owner; //person who owns the commitment
 
 	
 	/**
@@ -21,7 +20,7 @@ public class Commitment extends AbstractCalendarModel{
 	 * SHOULD NOT BE USED except by the CommitmentManager
 	 */
 	public Commitment() {
-		super(true);
+		super("", true);
 	}
 
 	/**
@@ -29,15 +28,15 @@ public class Commitment extends AbstractCalendarModel{
 	 * @param name the name of the commitment, limited to SHORT_MAX characters
 	 * @param location where the commitment is taking place, limited to SHORT_MAX characters
 	 * @param start stores the date/time of the start of the commitment
-	 * @param owner the user who created the commitment, who should have sole rights to delete or edit it
+	 * @param owner the username of the owner of this event
 	 * @param description a description of the commitment, optional field
 	 * @param invited a list of users invited to the commitment
 	 * @param attending a list of users who have committed to attending the commitment
 	 */
-	public Commitment(String name, Calendar duedate, User owner,
+	public Commitment(String name, Calendar duedate, String owner,
 			String description) throws WPISuiteException{
 		
-		super(false);
+		super(owner, false);
 		
 		// validate all input before assigning values
 		try{
@@ -85,14 +84,6 @@ public class Commitment extends AbstractCalendarModel{
 		return this.duedate;
 	}
 	
-	/**
-	 * returns the owner field of a commitment; necessary because this is a private variable
-	 * @return the owner of the commitment
-	 */
-	public User getOwner() {
-		return owner;
-	}
-	
 	/* SETTERS*/
 	//setters - returns previous value of the variable (whatever was just overwritten)
 	
@@ -110,16 +101,6 @@ public class Commitment extends AbstractCalendarModel{
 		String previous = this.name;
 		this.name = to;
 		return previous;
-	}
-	
-	
-	// needs to be further addressed
-	/**
-	 * Changes the owner of this event
-	 * @param owner The new owner
-	 */
-	public void setOwner(User owner) {
-		this.owner = owner;
 	}
 	
 	
