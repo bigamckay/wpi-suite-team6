@@ -14,14 +14,6 @@ public class Commitment extends AbstractCalendarModel{
 	private String description; //commitment description
 	private Calendar duedate; //when the commitment starts
 
-	
-	/**
-	 * Dummy Commitment constructor
-	 * SHOULD NOT BE USED except by the CommitmentManager
-	 */
-	public Commitment() {
-		super("", true);
-	}
 
 	/**
 	 * constructor for Commitment. Checks for invalid input and throws exception if invalid input is found
