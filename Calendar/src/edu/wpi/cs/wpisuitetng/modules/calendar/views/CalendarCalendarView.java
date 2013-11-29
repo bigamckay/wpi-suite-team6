@@ -64,7 +64,6 @@ public class CalendarCalendarView extends JTabbedPane{
 			);
 	
 	public int currentYear = Calendar.getInstance().get(Calendar.YEAR);
-	public int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
 	
 	
 	public CalendarCalendarView() {
@@ -807,11 +806,11 @@ public class CalendarCalendarView extends JTabbedPane{
 			return;
 		}
 	
-	public int daysInMonth(int i, int year){
+	public int daysInMonth(int month, int year){
 		int result = 0;								// for the respective month value and prints that month and the year to console
 		boolean leapYear = isLeapYear(year);
 		
-		switch(i)
+		switch(month)
 		{
 		case 0:
 			result = 31;
@@ -861,7 +860,7 @@ public class CalendarCalendarView extends JTabbedPane{
 		return result;
 	}
 	
-	boolean isLeapYear(int year)		//takes an input year and checks to see if it's a leap year: 1 for true, 0 for false
+	public boolean isLeapYear(int year)		//takes an input year and checks to see if it's a leap year: 1 for true, 0 for false
 	{
 		boolean leapYear;
 

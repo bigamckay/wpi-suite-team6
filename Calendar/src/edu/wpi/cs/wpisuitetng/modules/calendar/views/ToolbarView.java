@@ -32,67 +32,19 @@ public class ToolbarView extends JSplitPane{
 	private int currentMonth;
 	private int currentDay;
 	private String month = new String();
+	private int daysInMonth;
 	
 	public ToolbarView() {
 		
 	}
 	
-	public String getCurrentMonth(int currMonth)
-	{
-		switch(currMonth)
-		{
-			case 0:
-				month = "Jan";
-				break;
-			case 1:
-				month = "Feb";
-				break;
-			case 2:
-				month = "Mar";
-				break;
-			case 3:
-				month = "Apr";
-				break;
-			case 4:
-				month = "May";
-				break;
-			case 5:
-				month = "Jun";
-				break;
-			case 6:
-				month = "Jul";
-				break;
-			case 7:
-				month = "Aug";
-				break;
-			case 8:
-				month = "Sep";
-				break;
-			case 9:
-				month = "Oct";
-				break;
-			case 10:
-				month = "Nov";
-				break;
-			case 11:
-				month = "Dec";
-				break;
-			case 12:
-				currentMonth = 0;
-				month = "Jan";
-				break;
-			case -1:
-				currentMonth = 11;
-				month = "Dec";
-				break;
-		}
-		return month;
-	}
-	
 	private void initialize() {	
 		
+		//initialize month and day to current month
+		//calculate number of days in current month
 		currentMonth = Calendar.getInstance().get(Calendar.MONTH);
 		currentDay = Calendar.getInstance().get(Calendar.DATE);
+		daysInMonth = calView.daysInMonth(currentMonth, calView.currentYear);
 		
 		// Create a JPanel to hold the toolbar
 		JPanel searchPanel = new JPanel();
@@ -165,13 +117,17 @@ public class ToolbarView extends JSplitPane{
 				String currentYearStr;
 				String currentMonthStr;
 				String currentDayStr;
+				
 				currentMonth--;
 	        	calView.currentYear--;
 	        	currentDay--;
+	        	
+	        	//convert integer values of days, months to strings to be displayed
 	        	currentDayStr = String.valueOf(currentDay);
 	        	currentYearStr = String.valueOf(calView.currentYear);
 	        	currentMonthStr = getCurrentMonth(currentMonth);
 	        	currDay.setText(currentMonthStr + " " + currentDayStr + ", " + currentYearStr);
+	        	
 	        	//calView.populateYearNull();
 	        	calView.populateYear(calView.monthArray, calView.currentYear);
 			}
@@ -194,13 +150,17 @@ public class ToolbarView extends JSplitPane{
 				String currentYearStr;
 				String currentMonthStr;
 				String currentDayStr;
+				
 				currentMonth++;
 	        	calView.currentYear++;
 	        	currentDay++;
+	        	
+	        	//convert integer values of days, months to strings to be displayed
 	        	currentDayStr = String.valueOf(currentDay);
 	        	currentYearStr = String.valueOf(calView.currentYear);
 	        	currentMonthStr = getCurrentMonth(currentMonth);
 	        	currDay.setText(currentMonthStr + " " + currentDayStr + ", "+ currentYearStr);
+	        	
 	        	//calView.populateYearNull();
 	        	calView.populateYear(calView.monthArray, calView.currentYear);
 			}
@@ -228,6 +188,7 @@ public class ToolbarView extends JSplitPane{
 				currentDay = Calendar.getInstance().get(Calendar.DATE);
 				currentMonth = Calendar.getInstance().get(Calendar.MONTH);
 	        	
+	        	//convert integer values of days, months to strings to be displayed
 				currentDayStr = String.valueOf(currentDay);
 	        	currentYearStr = String.valueOf(calView.currentYear);
 	        	currentMonthStr = getCurrentMonth(currentMonth);
@@ -261,5 +222,57 @@ public class ToolbarView extends JSplitPane{
 	@Override
 	public int getLastDividerLocation(){
 		return location;
+	}
+	
+	public String getCurrentMonth(int currMonth)
+	{
+		switch(currMonth)
+		{
+			case 0:
+				month = "Jan";
+				break;
+			case 1:
+				month = "Feb";
+				break;
+			case 2:
+				month = "Mar";
+				break;
+			case 3:
+				month = "Apr";
+				break;
+			case 4:
+				month = "May";
+				break;
+			case 5:
+				month = "Jun";
+				break;
+			case 6:
+				month = "Jul";
+				break;
+			case 7:
+				month = "Aug";
+				break;
+			case 8:
+				month = "Sep";
+				break;
+			case 9:
+				month = "Oct";
+				break;
+			case 10:
+				month = "Nov";
+				break;
+			case 11:
+				month = "Dec";
+				break;
+			case 12:
+				currentMonth = 0;
+				month = "Jan";
+				break;
+			case -1:
+				currentMonth = 11;
+				month = "Dec";
+				break;
+		}
+		return month;
 	}
 }
