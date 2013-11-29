@@ -29,8 +29,8 @@ public class ToolbarView extends JSplitPane{
 	private int startYear;
 	private JLabel currDay;
 	private JTextField searchField;
-	private int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
-	private int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+	private int currentMonth;
+	private int currentDay;
 	private String month = new String();
 	
 	public ToolbarView() {
@@ -91,6 +91,8 @@ public class ToolbarView extends JSplitPane{
 	
 	private void initialize() {	
 		
+		currentMonth = Calendar.getInstance().get(Calendar.MONTH);
+		currentDay = Calendar.getInstance().get(Calendar.DATE);
 		
 		// Create a JPanel to hold the toolbar
 		JPanel searchPanel = new JPanel();
@@ -135,7 +137,7 @@ public class ToolbarView extends JSplitPane{
 		
 		JPanel currDayPanel = new JPanel(new BorderLayout());
 		//currDayPanel.setBorder(BorderFactory.createLineBorder(Color.black));
-		currDay = new JLabel(getCurrentMonth(currentMonth) + " 20, 2013");
+		currDay = new JLabel(getCurrentMonth(currentMonth) + " " + String.valueOf(currentDay) + ", " + String.valueOf(calView.currentYear));
 		currDayPanel.add(currDay);
 		currDayPanel.add(new JLabel(), BorderLayout.SOUTH);
 		currDayPanel.add(new JLabel(), BorderLayout.NORTH);
@@ -162,11 +164,14 @@ public class ToolbarView extends JSplitPane{
 			public void actionPerformed(ActionEvent e) {
 				String currentYearStr;
 				String currentMonthStr;
+				String currentDayStr;
 				currentMonth--;
 	        	calView.currentYear--;
+	        	currentDay--;
+	        	currentDayStr = String.valueOf(currentDay);
 	        	currentYearStr = String.valueOf(calView.currentYear);
 	        	currentMonthStr = getCurrentMonth(currentMonth);
-	        	currDay.setText(currentMonthStr + " 20, " + currentYearStr);
+	        	currDay.setText(currentMonthStr + " " + currentDayStr + ", " + currentYearStr);
 	        	//calView.populateYearNull();
 	        	calView.populateYear(calView.monthArray, calView.currentYear);
 			}
@@ -188,11 +193,14 @@ public class ToolbarView extends JSplitPane{
 			public void actionPerformed(ActionEvent e) {
 				String currentYearStr;
 				String currentMonthStr;
+				String currentDayStr;
 				currentMonth++;
 	        	calView.currentYear++;
+	        	currentDay++;
+	        	currentDayStr = String.valueOf(currentDay);
 	        	currentYearStr = String.valueOf(calView.currentYear);
 	        	currentMonthStr = getCurrentMonth(currentMonth);
-	        	currDay.setText(currentMonthStr + " 20, "+ currentYearStr);
+	        	currDay.setText(currentMonthStr + " " + currentDayStr + ", "+ currentYearStr);
 	        	//calView.populateYearNull();
 	        	calView.populateYear(calView.monthArray, calView.currentYear);
 			}
@@ -214,10 +222,17 @@ public class ToolbarView extends JSplitPane{
 			public void actionPerformed(ActionEvent e) {
 				String currentYearStr;
 				String currentMonthStr;
+				String currentDayStr;
+				
 				calView.currentYear = startYear;
+				currentDay = Calendar.getInstance().get(Calendar.DATE);
+				currentMonth = Calendar.getInstance().get(Calendar.MONTH);
+	        	
+				currentDayStr = String.valueOf(currentDay);
 	        	currentYearStr = String.valueOf(calView.currentYear);
-	        	currentMonthStr = getCurrentMonth(Calendar.getInstance().get(Calendar.MONTH));
-	        	currDay.setText(currentMonthStr + " 20, "+ currentYearStr);
+	        	currentMonthStr = getCurrentMonth(currentMonth);
+	        	
+	        	currDay.setText(currentMonthStr + " " + currentDayStr + ", "+ currentYearStr);
 	        	//calView.populateYearNull();
 	        	calView.populateYear(calView.monthArray, calView.currentYear);
 			}
