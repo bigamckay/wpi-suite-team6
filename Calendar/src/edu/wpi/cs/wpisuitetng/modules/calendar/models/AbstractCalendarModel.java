@@ -11,6 +11,7 @@ import edu.wpi.cs.wpisuitetng.modules.core.models.User;
 public abstract class AbstractCalendarModel extends AbstractModel {
 	
 	//Name of ID field
+	public static final String OWNER_FIELD_NAME = "owner";
 	public static String ID_FIELD_NAME = "id";
 
 	//ID used for database stuff

@@ -29,6 +29,10 @@ public abstract class AbstractCalendarEntityManager<T extends AbstractCalendarMo
 	//database
 	private final Data db;
 	
+	protected Data getData(){
+		return db;
+	}
+	
 	//class of T
 	private final Class<T> tClass;
 	
@@ -57,6 +61,7 @@ public abstract class AbstractCalendarEntityManager<T extends AbstractCalendarMo
 		
 		UUID idAsUUID = UUID.fromString(id);
 		
+		@SuppressWarnings("unchecked")
 		T[] ts = (T[]) db.retrieve(tClass, T.ID_FIELD_NAME, idAsUUID).toArray();
 		
 		//if there are no ts in the array throw an exception

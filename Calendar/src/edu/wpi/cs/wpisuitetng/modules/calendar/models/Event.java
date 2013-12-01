@@ -35,6 +35,7 @@ public class Event extends AbstractCalendarModel {
 	private String description; //event description
 	private Calendar start; //when the event starts
 	private Calendar end; //when the event ends
+	public static final String PERSONAL_FIELD_NAME = "personal"; //name of the 'personal' field
 	private boolean personal; //is this a personal event? (or a team one)
 	
 	/**
