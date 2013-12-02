@@ -1,6 +1,15 @@
-/**
- * 
- */
+/*******************************************************************************
+ * Copyright (c) 2013 -- WPI Suite
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Seal Team 6
+ ******************************************************************************/
+
 package edu.wpi.cs.wpisuitetng.modules.calendar.views;
 
 import java.awt.BorderLayout;
@@ -285,7 +294,7 @@ public class CalendarEventView extends JTabbedPane {
 		btnCreateEvent.addFocusListener(new FocusListener(){
 	        @Override
 	        public void focusGained(FocusEvent e){
-	            	Event newEvent = new Event();
+	            	Event newEvent;
 	            	Calendar eventStart;
 	            	Calendar eventEnd;
 	            	try{
@@ -297,13 +306,14 @@ public class CalendarEventView extends JTabbedPane {
 	            		return;
 	            	}
 	            	try{
-	            		newEvent.setName(eventName.getText());
-	            		newEvent.setLocation(eventLocation.getText());
-	            		newEvent.setDescription(eventDescription.getText());
-	            		newEvent.setStart(eventStart);
-	            		newEvent.setEnd(eventEnd);
-	            		newEvent.setOwner(new User(null, ConfigManager.getConfig().getUserName(), null, 0)); //can only access username on client-side, server-side must fill in the rest of the information
-	            		System.out.println(newEvent.getOwner().getUsername());
+	            		newEvent = new Event(
+	            				eventName.getText(),
+	            				eventLocation.getText(),
+	            				eventStart,
+	            				eventEnd,
+	            				eventDescription.getText(),
+	            				ConfigManager.getConfig().getUserName(),
+	            				true);
 	            	}
 	            	catch(WPISuiteException exception2){
 	            		eventFeedbackLabel.setText(exception2.getMessage());
