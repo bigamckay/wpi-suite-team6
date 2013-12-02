@@ -285,7 +285,7 @@ public class CalendarEventView extends JTabbedPane {
 		btnCreateEvent.addFocusListener(new FocusListener(){
 	        @Override
 	        public void focusGained(FocusEvent e){
-	            	Event newEvent = new Event();
+	            	Event newEvent;
 	            	Calendar eventStart;
 	            	Calendar eventEnd;
 	            	try{
@@ -297,13 +297,14 @@ public class CalendarEventView extends JTabbedPane {
 	            		return;
 	            	}
 	            	try{
-	            		newEvent.setName(eventName.getText());
-	            		newEvent.setLocation(eventLocation.getText());
-	            		newEvent.setDescription(eventDescription.getText());
-	            		newEvent.setStart(eventStart);
-	            		newEvent.setEnd(eventEnd);
-	            		newEvent.setOwner(new User(null, ConfigManager.getConfig().getUserName(), null, 0)); //can only access username on client-side, server-side must fill in the rest of the information
-	            		System.out.println(newEvent.getOwner().getUsername());
+	            		newEvent = new Event(
+	            				eventName.getText(),
+	            				eventLocation.getText(),
+	            				eventStart,
+	            				eventEnd,
+	            				eventDescription.getText(),
+	            				ConfigManager.getConfig().getUserName(),
+	            				true);
 	            	}
 	            	catch(WPISuiteException exception2){
 	            		eventFeedbackLabel.setText(exception2.getMessage());

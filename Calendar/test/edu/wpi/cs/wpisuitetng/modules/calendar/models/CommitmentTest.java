@@ -26,9 +26,9 @@ public class CommitmentTest {
 	
 	
 	// create test users for the events
-	User testUser = new User("Jean Valjean", "jvaljean", "mynameisjeanvaljean", 42601);
-	User testUser2 = new User("Spongebob", "ssquarepants", "iheartpatrick", 12345);
-	User testUser3 = new User("Golem", "smeagol", "myprecious", 98765);
+	String testUser = "jvaljean";
+	String testUser2 = "ssquarepants";
+	String testUser3 = "smeagol";
 	
 	
 		

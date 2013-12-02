@@ -49,14 +49,13 @@ public class GetCommitmentRequestObserver implements RequestObserver{
 	}
 
 	/**
-	 * Put an error commitment in the PostBoardPanel if the request fails.
-	 * 
+	 * Handle request failure.
 	 * @see edu.wpi.cs.wpisuitetng.network.RequestObserver#fail(edu.wpi.cs.wpisuitetng.network.models.IRequest, java.lang.Exception)
 	 */
 	@Override
 	public void fail(IRequest iReq, Exception exception) {
-		Commitment[] errorCommitment = { new Commitment() };
-		controller.receivedCommitments(errorCommitment);
+		Commitment[] noCommitments = { };
+		controller.receivedCommitments(noCommitments);
 	}
 
 }

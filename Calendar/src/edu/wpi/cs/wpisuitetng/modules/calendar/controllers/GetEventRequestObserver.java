@@ -8,7 +8,6 @@ import java.util.Calendar;
 import edu.wpi.cs.wpisuitetng.network.RequestObserver;
 import edu.wpi.cs.wpisuitetng.network.models.IRequest;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Event;
-import edu.wpi.cs.wpisuitetng.modules.core.models.User;
 
 /**
  * @author Eric Guleksen
@@ -49,14 +48,20 @@ public class GetEventRequestObserver implements RequestObserver{
 	}
 
 	/**
-	 * Put an error requirement in the PostBoardPanel if the request fails.
+	 * handle the request failing.
 	 * 
 	 * @see edu.wpi.cs.wpisuitetng.network.RequestObserver#fail(edu.wpi.cs.wpisuitetng.network.models.IRequest, java.lang.Exception)
 	 */
 	@Override
 	public void fail(IRequest iReq, Exception exception) {
-		Event[] errorEvent = { new Event() };
-		controller.receivedEvents(errorEvent);
+		/*
+		 * I modified this to send a blank list of events because there is no longer
+		 * a dummy Event constructor. Hopefully this doesn't break things.
+		 * (I am fairly sure it will be fine.)
+		 * -John French
+		 */
+		Event[] noEvents = { };
+		controller.receivedEvents(noEvents);
 	}
 
 }

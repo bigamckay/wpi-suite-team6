@@ -29,6 +29,10 @@ public abstract class AbstractCalendarEntityManager<T extends AbstractCalendarMo
 	//database
 	private final Data db;
 	
+	protected Data getData(){
+		return db;
+	}
+	
 	//class of T
 	private final Class<T> tClass;
 	
@@ -57,6 +61,7 @@ public abstract class AbstractCalendarEntityManager<T extends AbstractCalendarMo
 		
 		UUID idAsUUID = UUID.fromString(id);
 		
+		@SuppressWarnings("unchecked")
 		T[] ts = (T[]) db.retrieve(tClass, T.ID_FIELD_NAME, idAsUUID).toArray();
 		
 		//if there are no ts in the array throw an exception
@@ -119,12 +124,6 @@ public abstract class AbstractCalendarEntityManager<T extends AbstractCalendarMo
 	}
 
 	@Override
-	public String advancedGet(Session s, String[] args)
-			throws WPISuiteException {
-		throw new NotImplementedException();
-	}
-
-	@Override
 	public void deleteAll(Session s) throws WPISuiteException {
 		try {
 			db.deleteAll(tClass.newInstance());
@@ -143,7 +142,7 @@ public abstract class AbstractCalendarEntityManager<T extends AbstractCalendarMo
 			throw new WPISuiteException("Failed to instantiate dummy object!");
 		}
 	}
-
+	
 	@Override
 	public String advancedPut(Session s, String[] args, String content)
 			throws WPISuiteException {
@@ -156,4 +155,9 @@ public abstract class AbstractCalendarEntityManager<T extends AbstractCalendarMo
 		throw new NotImplementedException();
 	}
 
+	@Override
+	public String advancedGet(Session s, String[] args)
+			throws WPISuiteException {
+		throw new NotImplementedException();
+	}
 }
