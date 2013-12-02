@@ -6,7 +6,8 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
- * Contributors: Seal Team Six
+ * Contributors:
+ *    Seal Team 6
  ******************************************************************************/
 
 package edu.wpi.cs.wpisuitetng.modules.calendar.models;
@@ -21,9 +22,6 @@ import edu.wpi.cs.wpisuitetng.modules.core.models.User;
 import edu.wpi.cs.wpisuitetng.exceptions.WPISuiteException;
 
 /** 
- *  @author Rachel Wigell
- *  @author Craig Nesbitt
- *  
  *  Events are user-created objects. As a result, their creation must be very secure and able to handle
  *  bad input.
  */

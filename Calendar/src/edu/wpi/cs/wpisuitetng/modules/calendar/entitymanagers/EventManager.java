@@ -7,7 +7,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    John French
+ *    Seal Team 6
  ******************************************************************************/
 
 package edu.wpi.cs.wpisuitetng.modules.calendar.entitymanagers;
@@ -23,7 +23,6 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.Event;
 /**
  * The entity manager for the Event in the Calendar module.
  * 
- * @author John French
  */
 public class EventManager extends AbstractCalendarEntityManager<Event> {
 	
