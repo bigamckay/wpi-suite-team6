@@ -27,8 +27,6 @@ import edu.wpi.cs.wpisuitetng.exceptions.WPISuiteException;
 import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Event;
 import edu.wpi.cs.wpisuitetng.modules.calendar.utils.DateTimeUtils;
-import edu.wpi.cs.wpisuitetng.modules.calendar.controllers.*;
-import edu.wpi.cs.wpisuitetng.modules.core.models.User;
 
 /**
  * Contains the GUI elements of the Event Panel
@@ -310,10 +308,6 @@ public class CalendarEventView extends JTabbedPane {
 	            		eventFeedbackLabel.setText(exception2.getMessage());
 	            		return;
 	            	}
-	            	
-	            	//Inject server request code to add event here
-	            	AddEventController.getInstance().addEvent(newEvent);
-	            	
 	            	eventName.setText("Event Name");
 	            	eventLocation.setText("Location Location Location");
 	            	eventDescription.setText("Description...");

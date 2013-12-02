@@ -35,7 +35,7 @@ public class AddEventController {
 	 */
 	public void addEvent(Event newEvent) 
 	{
-		final Request request = Network.getInstance().makeRequest("calendar/event", HttpMethod.PUT); // PUT == create
+		final Request request = Network.getInstance().makeRequest("calander/eventmessage", HttpMethod.PUT); // PUT == create
 		request.setBody(newEvent.toJSON()); // put the new event in the body of the request
 		request.addObserver(observer); // add an observer to process the response
 		request.send(); 
