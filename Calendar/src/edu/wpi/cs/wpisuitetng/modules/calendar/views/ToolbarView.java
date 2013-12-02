@@ -46,7 +46,7 @@ public class ToolbarView extends JSplitPane{
 		currentDay = Calendar.getInstance().get(Calendar.DATE);
 		daysInMonth = calView.daysInMonth(currentMonth, calView.currentYear);
 		
-		// Create a JPanel to hold the toolbar
+		// Create a JPanel to hold the search side
 		JPanel searchPanel = new JPanel();
 		//searchPanel.setBorder(BorderFactory.createLineBorder(Color.black));
 		searchPanel.setLayout(new BorderLayout());
@@ -74,6 +74,13 @@ public class ToolbarView extends JSplitPane{
 		searchField.setColumns(20);
 		JPanel topper = new JPanel();
 		topper.setPreferredSize(new Dimension(10, 35));
+		JButton btnTeamView = new JButton("Team View");
+		JButton btnPersonalView = new JButton("Private View");
+		btnTeamView.setBounds(10, 203, 112, 23);
+		btnPersonalView.setBounds(10, 203, 112, 23);
+		topper.add(btnTeamView, BorderLayout.WEST);
+		topper.add(btnPersonalView, BorderLayout.CENTER);
+		
 		JPanel bottomer = new JPanel();
 		bottomer.setPreferredSize(new Dimension(10,35));
 		searchPanel.add(topper, BorderLayout.NORTH);
