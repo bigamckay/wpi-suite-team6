@@ -24,8 +24,11 @@ import javax.swing.UIManager;
 import javax.swing.border.EtchedBorder;
 
 import edu.wpi.cs.wpisuitetng.exceptions.WPISuiteException;
+import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Event;
 import edu.wpi.cs.wpisuitetng.modules.calendar.utils.DateTimeUtils;
+import edu.wpi.cs.wpisuitetng.modules.calendar.controllers.*;
+import edu.wpi.cs.wpisuitetng.modules.core.models.User;
 
 /**
  * Contains the GUI elements of the Event Panel
@@ -299,11 +302,17 @@ public class CalendarEventView extends JTabbedPane {
 	            		newEvent.setDescription(eventDescription.getText());
 	            		newEvent.setStart(eventStart);
 	            		newEvent.setEnd(eventEnd);
+	            		newEvent.setOwner(new User(null, ConfigManager.getConfig().getUserName(), null, 0)); //can only access username on client-side, server-side must fill in the rest of the information
+	            		System.out.println(newEvent.getOwner().getUsername());
 	            	}
 	            	catch(WPISuiteException exception2){
 	            		eventFeedbackLabel.setText(exception2.getMessage());
 	            		return;
 	            	}
+	            	
+	            	//Inject server request code to add event here
+	            	AddEventController.getInstance().addEvent(newEvent);
+	            	
 	            	eventName.setText("Event Name");
 	            	eventLocation.setText("Location Location Location");
 	            	eventDescription.setText("Description...");

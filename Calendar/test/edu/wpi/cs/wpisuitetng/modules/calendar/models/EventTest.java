@@ -12,6 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import edu.wpi.cs.wpisuitetng.exceptions.WPISuiteException;
+import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.core.models.User;
 import edu.wpi.cs.wpisuitetng.modules.calendar.MockNetwork;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Event;
@@ -510,6 +511,12 @@ public class EventTest {
 		assertEquals(returned.getId(), basicEvent.getId());
 		assertEquals(returned.getName(), basicEvent.getName());
 	}
+	
+	/*@Test
+	public void testSetOwnerToCurrentUser(){
+		basicEvent.setOwner(new User(null, ConfigManager.getConfig().getUserName(), null, 0));
+		System.out.println(basicEvent.getOwner().getUsername());
+	}*/
 	
 //	@Test
 //	public void testIdentify() {
