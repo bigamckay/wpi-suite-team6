@@ -113,7 +113,8 @@ public abstract class AbstractCalendarEntityManager<T extends AbstractCalendarMo
 	public void save(Session s, T model) throws WPISuiteException {
 		if(!db.save(model, s.getProject())){
 			throw new WPISuiteException("Could not save to database");
-		}
+		} else System.out.println("Saved a model to the database: " + model.toJSON());
+		//TODO remove preceding else once no longer required for testing
 	}
 
 	@Override
