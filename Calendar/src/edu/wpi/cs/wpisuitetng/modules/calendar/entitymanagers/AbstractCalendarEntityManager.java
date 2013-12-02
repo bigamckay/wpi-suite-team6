@@ -1,3 +1,15 @@
+/*******************************************************************************
+ * Copyright (c) 2013 -- WPI Suite
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Seal Team 6
+ ******************************************************************************/
+
 package edu.wpi.cs.wpisuitetng.modules.calendar.entitymanagers;
 
 import java.lang.reflect.Field;
@@ -19,8 +31,6 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.AbstractCalendarModel;
  * A generic EntityManager implementation for Calendar objects (such as Commitments or Events).
  * 
  * Provides reasonable default implementations for EntityManager methods.
- * 
- * @author John French
  *
  * @param <T> The Model which this CalendarEntityManager manages.
  */
