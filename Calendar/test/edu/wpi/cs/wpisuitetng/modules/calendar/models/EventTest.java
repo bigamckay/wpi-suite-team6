@@ -1,3 +1,15 @@
+/*******************************************************************************
+ * Copyright (c) 2013 -- WPI Suite
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Seal Team 6
+ ******************************************************************************/
+
 package edu.wpi.cs.wpisuitetng.modules.calendar.models;
 
 import static org.junit.Assert.*;
@@ -25,9 +37,9 @@ public class EventTest {
 	Event basicEvent3;
 	
 	// create test users for the events
-	User testUser = new User("Jean Valjean", "jvaljean", "mynameisjeanvaljean", 42601);
-	User testUser2 = new User("Spongebob", "ssquarepants", "iheartpatrick", 12345);
-	User testUser3 = new User("Golem", "smeagol", "myprecious", 98765);
+	String testUser = "jvaljean";
+	String testUser2 = "ssquarepants";
+	String testUser3 = "smeagol";
 	
 	// create test dates for the events
 	Calendar testStart = new GregorianCalendar(2014, Calendar.NOVEMBER, 14, 18, 0);
@@ -35,25 +47,11 @@ public class EventTest {
 	Calendar testEnd = new GregorianCalendar(2014, Calendar.NOVEMBER, 14, 22, 0);
 	Calendar testEnd2 = new GregorianCalendar(2014, Calendar.JANUARY, 21, 20, 0);
 	
-	//create test events
-	LinkedList<User> users = new LinkedList<User>();
-	LinkedList<User> users2 = new LinkedList<User>();
-	LinkedList<User> users3 = new LinkedList<User>();
-	
 	@Before
 	public void setup() {
-		// add users to the user lists for invited and attending
-		users.add(testUser);
-		users.add(testUser2);
 		
-		users2.add(testUser2);
-		users2.add(testUser3);
-		
-		users3.add(testUser3);
-		
-		dummyEvent = new Event();
 		try{
-			basicEvent = new Event("Team 6 Meeting", "Flower", testStart, testEnd, testUser,"Funtimes!", users, users);
+			basicEvent = new Event("Team 6 Meeting", "Flower", testStart, testEnd, testUser,"Funtimes!", true);
 		} catch(WPISuiteException e){
 			// does this if throws exception
 			// compare e.getMessage() to expected
@@ -61,22 +59,16 @@ public class EventTest {
 		// does this if it works
 		
 		try{
-			basicEvent2 = new Event("PlayDate", "Bancroft Towers", testStart2, testEnd2, testUser3, "Ring Toss", users2, users2);
+			basicEvent2 = new Event("PlayDate", "Bancroft Towers", testStart2, testEnd2, testUser3, "Ring Toss", true);
 		}catch(WPISuiteException e){
 			
 		}
 		
 		try{
-			basicEvent3 = new Event("Another Event","Somewhere", testStart2,testEnd2,testUser2,"Doing something?",users3,users3);
+			basicEvent3 = new Event("Another Event","Somewhere", testStart2,testEnd2,testUser2,"Doing something?", true);
 		}catch(WPISuiteException e){}
 		
 		
-	}
-
-	// test the dummy constructor
-	@Test
-	public void testDummyConstructor() {
-		assertNotNull(dummyEvent);
 	}
 	
 	
@@ -134,20 +126,6 @@ public class EventTest {
 		assertNotNull(basicEvent.getDescription());
 		assertEquals("Funtimes!", basicEvent.getDescription());
 	}
-	
-	// tests the getter for the list of invited people
-	@Test
-	public void testGetInvited() {
-		assertNotNull(basicEvent.getInvited());
-		assertEquals(users, basicEvent.getInvited());
-	}
-
-	// tests the getter for the list of attending people
-	@Test
-	public void testGetAttending() {
-		assertNotNull(basicEvent.getAttending());
-		assertEquals(users, basicEvent.getAttending());
-	}
 
 	// tests the setter for the name
 	@Test
@@ -195,83 +173,6 @@ public class EventTest {
 			basicEvent.setDescription("You don't want to know.");
 		}catch(WPISuiteException e){}
 		assertEquals("You don't want to know.", basicEvent.getDescription());
-	}
-
-	// tests the setter for the list of invited people
-	@Test
-	public void testSetInvited() {
-		try{
-		basicEvent.setInvited(users2);
-		}catch(WPISuiteException e){}
-		assertEquals(users2, basicEvent.getInvited());
-	}
-
-	// tests the setter for the list of attending people
-	@Test
-	public void testSetAttending() {
-
-		try{
-			basicEvent.setAttending(users3);
-			assertEquals("Attending users of basic event should be users3.", users3, basicEvent.getAttending());
-		}catch(WPISuiteException e){
-			assertTrue("Exception was encountered", false);
-			return;
-		}
-		
-	}
-
-	// test for adding a user to the invited users list
-	@Test
-	public void testAddInvited() {
-		try{
-		basicEvent.setInvited(users3);
-		}catch(WPISuiteException e){}
-		try{
-		basicEvent.addInvited(testUser2);
-		}catch(WPISuiteException e){}
-		
-		assertEquals(users3,basicEvent.getInvited());
-	}
-
-	
-	// tests for removing a user from the invited users list
-	@Test
-	public void testRemoveInvited() {
-		try{
-			basicEvent2.removeInvited(testUser2);
-		}catch(WPISuiteException e){
-			System.out.println("EXCEPTION");
-		}
-		
-		assertEquals(basicEvent3.getInvited(),basicEvent2.getInvited());
-	}
-
-	
-	// tests the adding of a user to the attending users list
-	@Test
-	public void testAddAttending() {
-		try{
-			basicEvent3.addAttending(testUser2);
-		}catch(WPISuiteException e){}
-	
-		LinkedList<User> testUsers = new LinkedList<User>();
-		testUsers.add(testUser3);
-		testUsers.add(testUser2);
-		
-		assertEquals(basicEvent3.getAttending(), testUsers);
-		
-	}
-
-	// tests the removal of a user from the list of attending users
-	@Test
-	public void testRemoveAttending() {
-		
-		try{
-			basicEvent2.removeAttending(testUser2);
-		}catch(WPISuiteException e){}
-		
-		
-		assertEquals(basicEvent3.getAttending(), basicEvent2.getAttending());
 	}
 	
 	/* TEST NAME EXCEPTIONS */

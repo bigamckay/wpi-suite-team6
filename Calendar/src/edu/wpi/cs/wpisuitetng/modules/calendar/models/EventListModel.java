@@ -1,3 +1,15 @@
+/*******************************************************************************
+ * Copyright (c) 2013 -- WPI Suite
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Seal Team 6
+ ******************************************************************************/
+
 package edu.wpi.cs.wpisuitetng.modules.calendar.models;
 
 import java.util.ArrayList;
@@ -14,8 +26,6 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.controllers.AddEventController;
  * This is a model for the post board. It contains all of the messages
  * to be displayed on the board. It extends AbstractListModel so that
  * it can provide the model data to the JList component in the BoardPanel.
- * 
- * @author Eric Guleksen
  *
  */
 @SuppressWarnings({"serial"})

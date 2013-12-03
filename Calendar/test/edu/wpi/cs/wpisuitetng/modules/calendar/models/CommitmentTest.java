@@ -1,3 +1,15 @@
+/*******************************************************************************
+ * Copyright (c) 2013 -- WPI Suite
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Seal Team 6
+ ******************************************************************************/
+
 package edu.wpi.cs.wpisuitetng.modules.calendar.models;
 
 import java.util.Calendar;
@@ -26,9 +38,9 @@ public class CommitmentTest {
 	
 	
 	// create test users for the events
-	User testUser = new User("Jean Valjean", "jvaljean", "mynameisjeanvaljean", 42601);
-	User testUser2 = new User("Spongebob", "ssquarepants", "iheartpatrick", 12345);
-	User testUser3 = new User("Golem", "smeagol", "myprecious", 98765);
+	String testUser = "jvaljean";
+	String testUser2 = "ssquarepants";
+	String testUser3 = "smeagol";
 	
 	
 		
