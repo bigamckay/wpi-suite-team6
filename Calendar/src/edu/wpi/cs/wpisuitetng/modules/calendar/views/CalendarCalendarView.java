@@ -612,8 +612,8 @@ public class CalendarCalendarView extends JTabbedPane{
 
 		//populateMonth(monthArray[0], 2, 31);
 		//populateMonth(monthArray[1], 6, 28);
-		populateYear(monthArray, currentYear);
 		simulateYear(currentYear);
+		populateYear(monthArray, currentYear);
 	}
 	
 	public int populateMonth(JTable month, int startDay, int daysInMonth){
