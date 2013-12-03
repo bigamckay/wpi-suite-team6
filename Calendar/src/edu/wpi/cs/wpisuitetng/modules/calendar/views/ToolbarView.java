@@ -16,6 +16,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JTextField;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 @SuppressWarnings("serial")
 public class ToolbarView extends JSplitPane{
@@ -30,6 +32,7 @@ public class ToolbarView extends JSplitPane{
 	private int currentDay;
 	private String month = new String();
 	private int daysInMonth;
+	private String currentFocus = new String();
 	
 	public ToolbarView() {
 		
@@ -42,6 +45,24 @@ public class ToolbarView extends JSplitPane{
 		currentMonth = Calendar.getInstance().get(Calendar.MONTH);
 		currentDay = Calendar.getInstance().get(Calendar.DATE);
 		daysInMonth = calView.daysInMonth(currentMonth, calView.currentYear);
+		currentFocus = "week";
+		
+		calView.addChangeListener(new ChangeListener() {
+	        public void stateChanged(ChangeEvent e) {
+	            if(calView.getTitleAt(calView.getSelectedIndex()).equals("Week View"))
+	            {
+	            	currentFocus = "week";
+	            }
+	            else if(calView.getTitleAt(calView.getSelectedIndex()).equals("Year View"))
+	            {
+	            	currentFocus = "year";
+	            }
+	            else if(calView.getTitleAt(calView.getSelectedIndex()).equals("Month View"))
+	            {
+	            	currentFocus = "month";
+	            }
+	        }
+	    });
 		
 		// Create a JPanel to hold the search side
 		JPanel searchPanel = new JPanel();
@@ -122,9 +143,36 @@ public class ToolbarView extends JSplitPane{
 				String currentMonthStr;
 				String currentDayStr;
 				
-				currentMonth--;
-	        	calView.currentYear--;
-	        	currentDay--;
+				if(currentFocus == "week")
+				{
+					currentDay--;
+					
+					if(currentDay < 1)
+					{
+						currentMonth--;
+						currentDay = calView.daysInMonth(currentMonth, calView.currentYear);
+					}
+					if(currentDay < 1 && currentMonth < 0)
+					{
+						currentMonth = 11;
+						calView.currentYear--;
+						currentDay = calView.daysInMonth(currentMonth, calView.currentYear);
+					}
+					
+				}
+				else if(currentFocus == "month")
+				{
+					currentMonth--;
+					
+					if(currentMonth < 0)
+					{
+						calView.currentYear--;
+					}
+				}
+				else if(currentFocus == "year")
+				{
+					calView.currentYear--;
+				}				
 	        	
 	        	//convert integer values of days, months to strings to be displayed
 	        	currentDayStr = String.valueOf(currentDay);
@@ -147,6 +195,7 @@ public class ToolbarView extends JSplitPane{
 		c.anchor = GridBagConstraints.LINE_END; //right center
 		c.insets = new Insets(0,0,0,100);  //right padding
 		
+		
 		btnNext.addActionListener(new ActionListener(){
 
 			@Override
@@ -155,9 +204,36 @@ public class ToolbarView extends JSplitPane{
 				String currentMonthStr;
 				String currentDayStr;
 				
-				currentMonth++;
-	        	calView.currentYear++;
-	        	currentDay++;
+				if(currentFocus == "week")
+				{
+					currentDay++;
+					
+					if(currentDay > calView.daysInMonth(currentMonth, calView.currentYear))
+					{
+						currentMonth++;
+						currentDay = 1;
+					}
+					if(currentDay > calView.daysInMonth(currentMonth, calView.currentYear) && currentMonth > 11)
+					{
+						currentMonth = 0;
+						calView.currentYear++;
+						currentDay = 1;
+					}
+					
+				}
+				else if(currentFocus == "month")
+				{
+					currentMonth++;
+					
+					if(currentMonth > 11)
+					{
+						calView.currentYear++;
+					}
+				}
+				else if(currentFocus == "year")
+				{
+					calView.currentYear++;
+				}
 	        	
 	        	//convert integer values of days, months to strings to be displayed
 	        	currentDayStr = String.valueOf(currentDay);
