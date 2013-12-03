@@ -17,10 +17,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.util.List;
 import java.util.Calendar;
-import java.util.Arrays;
-import java.util.ArrayList;
 import java.lang.Math;
 
 import javax.swing.JButton;
@@ -44,7 +41,6 @@ import javax.swing.table.DefaultTableModel;
 public class CalendarCalendarView extends JTabbedPane{
 
 	private JTable monthView;
-	private JTable monthDayHeaders;
 	private JTable weekDayHeaders;
 	private JTable JanDayTable;
 	private JTable MarDayTable;

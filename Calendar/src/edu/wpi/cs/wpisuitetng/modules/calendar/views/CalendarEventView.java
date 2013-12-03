@@ -12,37 +12,32 @@
 
 package edu.wpi.cs.wpisuitetng.modules.calendar.views;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Point;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.Calendar;
 
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
-import javax.swing.border.EtchedBorder;
 
 import edu.wpi.cs.wpisuitetng.exceptions.WPISuiteException;
 import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Event;
 import edu.wpi.cs.wpisuitetng.modules.calendar.utils.DateTimeUtils;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controllers.*;
-import edu.wpi.cs.wpisuitetng.modules.core.models.User;
 
 /**
  * Contains the GUI elements of the Event Panel
  *
  */
+
+@SuppressWarnings("serial")
 public class CalendarEventView extends JTabbedPane {
 	
 	private JTextField eventDescription;

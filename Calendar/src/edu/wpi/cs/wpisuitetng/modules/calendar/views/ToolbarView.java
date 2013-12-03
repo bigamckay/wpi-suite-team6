@@ -15,10 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
-
-import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarModule;
 
 @SuppressWarnings("serial")
 public class ToolbarView extends JSplitPane{
