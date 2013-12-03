@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.util.GregorianCalendar;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Calendar;
 import java.util.Arrays;
@@ -22,6 +24,11 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.UIManager;
 import javax.swing.border.EtchedBorder;
 import javax.swing.table.DefaultTableModel;
+
+import edu.wpi.cs.wpisuitetng.exceptions.WPISuiteException;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.Event;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.EventListModel;
+import edu.wpi.cs.wpisuitetng.modules.core.models.User;
 
 
 /**
@@ -818,11 +825,30 @@ public class CalendarCalendarView extends JTabbedPane{
 		populateYear(monthArray, currentYear);
 	}
 	
-	public int populateMonth(JTable month, int startDay, int daysInMonth){
+	public int populateMonth(JTable month, int startDay, int daysInMonth, int whatMonth){
+		List<Event> testList = new ArrayList<Event>();
+		
+		Calendar testStart = new GregorianCalendar(2013, Calendar.NOVEMBER, 14, 18, 0);
+		Calendar testStart2 = new GregorianCalendar(2013, Calendar.JANUARY, 21, 18, 0);
+		User testUser = new User("Jean Valjean", "jvaljean", "mynameisjeanvaljean", 42601);
+		LinkedList<User> users = new LinkedList<User>();
+		
+		try{
+			Event testEvent1 = new Event("Team 6 Meeting", "Flower", testStart, testStart, testUser,"Funtimes!", users, users);
+			Event testEvent2 = new Event("PlayDate", "Bancroft Towers", testStart2, testStart2, testUser, "Ring Toss", users, users);
+			testList.add(testEvent1);
+			testList.add(testEvent2);
+		}
+		catch(WPISuiteException e){
+			System.out.println("What are you doing");
+		}
 		Integer dayCounter = 1;
 		int j=startDay;
 		for(int i=0; i<6; i++){
 			for(; j<7; j++){
+				if(isThereAnEventOnThisDate(/*EventListModel.getInstance().getEvents(),*/testList, currentYear, whatMonth, dayCounter)){
+					month.getColumnModel().getColumn(j).setCellRenderer(new MyCellRenderer());
+				}
 				month.getModel().setValueAt(dayCounter.toString(), i, j);
 				if (dayCounter == daysInMonth){
 					return j+1;
@@ -839,6 +865,7 @@ public class CalendarCalendarView extends JTabbedPane{
 		for(int i=0; i<6; i++){
 			for(; j<7; j++){
 				month.getModel().setValueAt(null, i, j);
+				//default background color
 			}
 			j =0;
 		}
@@ -862,9 +889,10 @@ public class CalendarCalendarView extends JTabbedPane{
 		for(int i=0; i<12; i++){
 			populateMonthNull(monthArray[i]);
 			if(i==0)
-				startDay = populateMonth(monthArray[i], determineStartingDay(year), daysInMonth(i,year));
+				//i is month
+				startDay = populateMonth(monthArray[i], determineStartingDay(year), daysInMonth(i,year), i);
 			else
-				startDay = populateMonth(monthArray[i], startDay, daysInMonth(i,year));
+				startDay = populateMonth(monthArray[i], startDay, daysInMonth(i,year), i);
 		}
 		return;
 	}
@@ -954,6 +982,28 @@ public class CalendarCalendarView extends JTabbedPane{
 		}
 
 		return leapYear;
+	}
+	
+	//method to take in list of events (received from server) and populate year view
+			//year view indicates event presence by color code on that day
+			
+	public boolean isThereAnEventOnThisDate(List<Event> eventList, int year, int month, int day){
+		//eventList.quickSort();
+		Calendar date = new GregorianCalendar(year, month, day);
+		for(Event e: eventList){
+			if(e.getStart().after(date)){
+				return false;
+			}
+			if(e.getStart().get(Calendar.YEAR) == date.get(Calendar.YEAR)
+					&& e.getStart().get(Calendar.MONTH) == date.get(Calendar.MONTH)
+					&& e.getStart().get(Calendar.DATE) == date.get(Calendar.DATE)){
+
+				//System.out.println("IN CUSTOM RENDERER"); THE CODE NEVER GETS HERE!!!!!!!!!
+				return true;
+			}
+				
+		}
+		return false;
 	}
 	
 }
