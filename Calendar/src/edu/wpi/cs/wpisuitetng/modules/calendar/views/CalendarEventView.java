@@ -1,6 +1,15 @@
-/**
- * 
- */
+/*******************************************************************************
+ * Copyright (c) 2013 -- WPI Suite
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Seal Team 6
+ ******************************************************************************/
+
 package edu.wpi.cs.wpisuitetng.modules.calendar.views;
 
 import java.awt.BorderLayout;
@@ -24,8 +33,11 @@ import javax.swing.UIManager;
 import javax.swing.border.EtchedBorder;
 
 import edu.wpi.cs.wpisuitetng.exceptions.WPISuiteException;
+import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Event;
 import edu.wpi.cs.wpisuitetng.modules.calendar.utils.DateTimeUtils;
+import edu.wpi.cs.wpisuitetng.modules.calendar.controllers.*;
+import edu.wpi.cs.wpisuitetng.modules.core.models.User;
 
 /**
  * Contains the GUI elements of the Event Panel
@@ -282,7 +294,7 @@ public class CalendarEventView extends JTabbedPane {
 		btnCreateEvent.addFocusListener(new FocusListener(){
 	        @Override
 	        public void focusGained(FocusEvent e){
-	            	Event newEvent = new Event();
+	            	Event newEvent;
 	            	Calendar eventStart;
 	            	Calendar eventEnd;
 	            	try{
@@ -294,16 +306,23 @@ public class CalendarEventView extends JTabbedPane {
 	            		return;
 	            	}
 	            	try{
-	            		newEvent.setName(eventName.getText());
-	            		newEvent.setLocation(eventLocation.getText());
-	            		newEvent.setDescription(eventDescription.getText());
-	            		newEvent.setStart(eventStart);
-	            		newEvent.setEnd(eventEnd);
+	            		newEvent = new Event(
+	            				eventName.getText(),
+	            				eventLocation.getText(),
+	            				eventStart,
+	            				eventEnd,
+	            				eventDescription.getText(),
+	            				ConfigManager.getConfig().getUserName(),
+	            				true);
 	            	}
 	            	catch(WPISuiteException exception2){
 	            		eventFeedbackLabel.setText(exception2.getMessage());
 	            		return;
 	            	}
+	            	
+	            	//Inject server request code to add event here
+	            	AddEventController.getInstance().addEvent(newEvent);
+	            	
 	            	eventName.setText("Event Name");
 	            	eventLocation.setText("Location Location Location");
 	            	eventDescription.setText("Description...");
