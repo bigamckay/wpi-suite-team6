@@ -991,7 +991,7 @@ public class CalendarCalendarView extends JTabbedPane{
 		//eventList.quickSort();
 		Calendar date = new GregorianCalendar(year, month, day);
 		for(Event e: eventList){
-			if(e.getStart().after(date)){
+			if(e.getStart().before(date)){
 				return false;
 			}
 			if(e.getStart().get(Calendar.YEAR) == date.get(Calendar.YEAR)
