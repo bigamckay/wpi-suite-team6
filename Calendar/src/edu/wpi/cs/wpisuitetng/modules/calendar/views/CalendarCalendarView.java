@@ -17,6 +17,8 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.util.List;
 import java.util.Calendar;
 import java.util.Arrays;
@@ -33,6 +35,7 @@ import javax.swing.JTable;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.UIManager;
 import javax.swing.border.EtchedBorder;
+import javax.swing.event.ChangeEvent;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -57,6 +60,7 @@ public class CalendarCalendarView extends JTabbedPane{
 	private JTable OctDayTable;
 	private JTable NovDayTable;
 	private JTable DecDayTable;
+	private String currentFocus = "someBullShitString";
 	
 	public int yearNullRan = 0;
 	
@@ -90,6 +94,7 @@ public class CalendarCalendarView extends JTabbedPane{
 		
 		JPanel weekPanel = new JPanel();
 		weekPanel.setBackground(UIManager.getColor("InternalFrame.borderShadow"));
+		weekPanel.setFocusable(true);
 		addTab("Week View", null, weekPanel, null);
 		weekPanel.setLayout(null);
 		
@@ -894,6 +899,11 @@ public class CalendarCalendarView extends JTabbedPane{
 		}
 
 		return leapYear;
+	}
+	
+	public String getCurrentFocus()
+	{
+		return this.currentFocus;
 	}
 	
 }
