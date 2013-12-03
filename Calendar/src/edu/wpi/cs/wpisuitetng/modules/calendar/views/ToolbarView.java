@@ -30,9 +30,7 @@ public class ToolbarView extends JSplitPane{
 	private JTextField searchField;
 	private int currentDay;
 	private String month = new String();
-	private int daysInMonth;
 	private String currentFocus = new String();
-	
 	public ToolbarView() {
 		
 	}
@@ -42,7 +40,6 @@ public class ToolbarView extends JSplitPane{
 		//initialize month and day to current month
 		//calculate number of days in current month
 		currentDay = Calendar.getInstance().get(Calendar.DATE);
-		daysInMonth = calView.daysInMonth(calView.currentMonth, calView.currentYear);
 		currentFocus = "week";
 		
 		calView.addChangeListener(new ChangeListener() {
@@ -164,6 +161,7 @@ public class ToolbarView extends JSplitPane{
 					
 					if(calView.currentMonth < 0)
 					{
+						calView.currentMonth = 11;
 						calView.currentYear--;
 					}
 					calView.populateMonthNull(calView.getMonthView());
@@ -227,6 +225,7 @@ public class ToolbarView extends JSplitPane{
 					
 					if(calView.currentMonth > 11)
 					{
+						calView.currentMonth = 0;
 						calView.currentYear++;
 					}
 					calView.populateMonthNull(calView.getMonthView());
@@ -277,6 +276,8 @@ public class ToolbarView extends JSplitPane{
 	        	
 	        	currDay.setText(currentMonthStr + " " + currentDayStr + ", "+ currentYearStr);
 	        	//calView.populateYearNull();
+	        	calView.populateMonthNull(calView.getMonthView());
+				calView.simulateYear(calView.currentYear);
 	        	calView.populateYear(calView.monthArray, calView.currentYear);
 			}
 		});

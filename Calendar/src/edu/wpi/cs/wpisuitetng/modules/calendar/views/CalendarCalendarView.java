@@ -602,8 +602,8 @@ public class CalendarCalendarView extends JTabbedPane{
 	public int simulateMonth(int startDay, int daysInMonth) {
 		Integer dayCounter = 1;
 		int j=startDay;
-		for(int i=0; i<6; i++){
-			for(; j<7; j++){
+		for(int i=0; i<6; ++i){
+			for(; j<7; ++j){
 				if (dayCounter == daysInMonth){
 					return j+1;
 				}
@@ -616,8 +616,8 @@ public class CalendarCalendarView extends JTabbedPane{
 	
 	public void populateMonthNull(JTable month){
 		int j=0;
-		for(int i=0; i<6; i++){
-			for(; j<7; j++){
+		for(int i=0; i<6; ++i){
+			for(; j<7; ++j){
 				month.getModel().setValueAt(null, i, j);
 			}
 			j =0;
@@ -651,10 +651,16 @@ public class CalendarCalendarView extends JTabbedPane{
 	
 	public void simulateYear(int year) {
 		int startDay = 0;
-		for(int i=0; i<12; i++){
-			if(i==0)
+		for(int i=0; i<12; ++i){
+			if(i==0) {
 				startDay = simulateMonth(determineStartingDay(year), daysInMonth(i,year));
-			if (i==currentMonth) {
+				
+				if(currentMonth == 0) {
+					startDay = determineStartingDay(year);
+					populateMonth(monthView, startDay, daysInMonth(i,year));
+				}
+			}
+			else if (i==currentMonth) {
 				populateMonth(monthView, startDay, daysInMonth(i,year));
 				return;
 			}
