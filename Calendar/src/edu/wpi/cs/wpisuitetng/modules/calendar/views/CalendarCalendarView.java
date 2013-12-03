@@ -92,9 +92,9 @@ public class CalendarCalendarView extends JTabbedPane{
 		weekPanel.add(monthDownButtonWV);
 		monthDownButtonWV.setFont(new Font("Segoe UI", Font.PLAIN, 16));*/
 		
-		JButton weekPrevButton = new JButton("Previous Week");
-		weekPrevButton.setBounds(10, 15, 133, 26);
-		weekPanel.add(weekPrevButton);
+		//JButton weekPrevButton = new JButton("Previous Week");
+		//weekPrevButton.setBounds(10, 15, 133, 26);
+		//weekPanel.add(weekPrevButton);
 		
 		JPanel weekName = new JPanel();
 		weekName.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
@@ -163,9 +163,9 @@ public class CalendarCalendarView extends JTabbedPane{
 		
 		weekScrollPane.setViewportView(weekDayHeaders);
 		
-		JButton weekNextButton = new JButton("Next Week");
-		weekNextButton.setBounds(568, 15, 133, 26);
-		weekPanel.add(weekNextButton);
+		//JButton weekNextButton = new JButton("Next Week");
+		//weekNextButton.setBounds(568, 15, 133, 26);
+		//weekPanel.add(weekNextButton);
 		
 		JPanel monthPanel = new JPanel();
 		monthPanel.setLayout(null);
