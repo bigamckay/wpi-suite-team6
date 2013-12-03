@@ -2,16 +2,26 @@ package edu.wpi.cs.wpisuitetng.modules.calendar;
 
 import static org.junit.Assert.*;
 
+
+import java.awt.Robot;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import java.lang.Object;
+import junit.framework.TestCase;
+//import junit.extensions.abbot;
+
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Event;
 import edu.wpi.cs.wpisuitetng.modules.core.models.User;
+//import 
+//import abbot.tester
 
 public class CalendarTest {
+	
+	//Robot bot = new Robot();
 	
 	Calendar dummyCalendar;
 	Calendar dummyCalendar2;
@@ -24,6 +34,9 @@ public class CalendarTest {
 	
 	@Test
 	public void testDummyCalendar() {
+		
+		
+		
 		assertNotNull(dummyCalendar);
 	}
 

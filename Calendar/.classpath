@@ -7,5 +7,45 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/Network"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/WPISuite-Interfaces"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="/WPISuite/WebContent/WEB-INF/lib/Calendar.jar"/>
+	<classpathentry kind="lib" path="/WPISuite/WebContent/WEB-INF/lib/commons-codec-1.6.jar"/>
+	<classpathentry kind="lib" path="/WPISuite/WebContent/WEB-INF/lib/commons-codec-1.7.jar"/>
+	<classpathentry kind="lib" path="/WPISuite/WebContent/WEB-INF/lib/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="/WPISuite/WebContent/WEB-INF/lib/db4o-8.0.249.16098-all-java5.jar"/>
+	<classpathentry kind="lib" path="/WPISuite/WebContent/WEB-INF/lib/DefectTracker.jar"/>
+	<classpathentry kind="lib" path="/WPISuite/WebContent/WEB-INF/lib/gson-2.2.2.jar"/>
+	<classpathentry kind="lib" path="/WPISuite/WebContent/WEB-INF/lib/httpclient-4.2.2.jar"/>
+	<classpathentry kind="lib" path="/WPISuite/WebContent/WEB-INF/lib/httpcore-4.2.2.jar"/>
+	<classpathentry kind="lib" path="/WPISuite/WebContent/WEB-INF/lib/jackson-annotations-2.1.1.jar"/>
+	<classpathentry kind="lib" path="/WPISuite/WebContent/WEB-INF/lib/jackson-core-2.1.2.jar"/>
+	<classpathentry kind="lib" path="/WPISuite/WebContent/WEB-INF/lib/jackson-databind-2.1.0.jar"/>
+	<classpathentry kind="lib" path="/WPISuite/WebContent/WEB-INF/lib/PostBoard.jar"/>
+	<classpathentry kind="lib" path="/WPISuite/WebContent/WEB-INF/lib/RequirementManager.jar"/>
+	<classpathentry kind="lib" path="/WPISuite/WebContent/WEB-INF/lib/servlet-api.jar"/>
+	<classpathentry kind="lib" path="/WPISuite/WebContent/WEB-INF/lib/WPISuite-Interfaces.jar" sourcepath="/WPISuite-Interfaces"/>
+	<classpathentry kind="lib" path="/Users/robynlindsay/Desktop/Computer Science/Software Engineering/WPISuiteTeam6/wpi-suite-team6/Core/WPISuite/WebContent/WEB-INF/lib/ant4eclipse.jar"/>
+	<classpathentry kind="lib" path="/Users/robynlindsay/Desktop/Computer Science/Software Engineering/WPISuiteTeam6/wpi-suite-team6/Core/WPISuite/WebContent/WEB-INF/lib/junit-4.8.2.jar"/>
+	<classpathentry kind="lib" path="/Users/robynlindsay/Desktop/Computer Science/Software Engineering/WPISuiteTeam6/wpi-suite-team6/Core/WPISuite/WebContent/WEB-INF/lib/costello.jar"/>
+	<classpathentry kind="lib" path="/Users/robynlindsay/Desktop/Computer Science/Software Engineering/WPISuiteTeam6/wpi-suite-team6/Core/WPISuite/WebContent/WEB-INF/lib/example.jar"/>
+	<classpathentry kind="lib" path="/Users/robynlindsay/Desktop/Computer Science/Software Engineering/WPISuiteTeam6/wpi-suite-team6/Core/WPISuite/WebContent/WEB-INF/lib/gnu-regexp-1.1.4.jar"/>
+	<classpathentry kind="lib" path="/Users/robynlindsay/Desktop/Computer Science/Software Engineering/WPISuiteTeam6/wpi-suite-team6/Core/WPISuite/WebContent/WEB-INF/lib/groovy-all-1.8.1.jar"/>
+	<classpathentry kind="lib" path="/Users/robynlindsay/Desktop/Computer Science/Software Engineering/WPISuiteTeam6/wpi-suite-team6/Core/WPISuite/WebContent/WEB-INF/lib/jdom-1.1.1.jar"/>
+	<classpathentry kind="lib" path="/Users/robynlindsay/Desktop/Computer Science/Software Engineering/WPISuiteTeam6/wpi-suite-team6/Core/WPISuite/WebContent/WEB-INF/lib/abbot.jar"/>
+	<classpathentry kind="lib" path="/Users/robynlindsay/Desktop/Computer Science/Software Engineering/WPISuiteTeam6/wpi-suite-team6/Core/WPISuite/WebContent/WEB-INF/lib/Calendar.jar"/>
+	<classpathentry kind="lib" path="/Users/robynlindsay/Desktop/Computer Science/Software Engineering/WPISuiteTeam6/wpi-suite-team6/Core/WPISuite/WebContent/WEB-INF/lib/DefectTracker.jar"/>
+	<classpathentry kind="lib" path="/Users/robynlindsay/Desktop/Computer Science/Software Engineering/WPISuiteTeam6/wpi-suite-team6/Core/WPISuite/WebContent/WEB-INF/lib/PostBoard.jar"/>
+	<classpathentry kind="lib" path="/Users/robynlindsay/Desktop/Computer Science/Software Engineering/WPISuiteTeam6/wpi-suite-team6/Core/WPISuite/WebContent/WEB-INF/lib/RequirementManager.jar"/>
+	<classpathentry kind="lib" path="/Users/robynlindsay/Desktop/Computer Science/Software Engineering/WPISuiteTeam6/wpi-suite-team6/Core/WPISuite/WebContent/WEB-INF/lib/WPISuite-Interfaces.jar"/>
+	<classpathentry kind="lib" path="/Users/robynlindsay/Desktop/Computer Science/Software Engineering/WPISuiteTeam6/wpi-suite-team6/Core/WPISuite/WebContent/WEB-INF/lib/commons-codec-1.6.jar"/>
+	<classpathentry kind="lib" path="/Users/robynlindsay/Desktop/Computer Science/Software Engineering/WPISuiteTeam6/wpi-suite-team6/Core/WPISuite/WebContent/WEB-INF/lib/commons-codec-1.7.jar"/>
+	<classpathentry kind="lib" path="/Users/robynlindsay/Desktop/Computer Science/Software Engineering/WPISuiteTeam6/wpi-suite-team6/Core/WPISuite/WebContent/WEB-INF/lib/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="/Users/robynlindsay/Desktop/Computer Science/Software Engineering/WPISuiteTeam6/wpi-suite-team6/Core/WPISuite/WebContent/WEB-INF/lib/db4o-8.0.249.16098-all-java5.jar"/>
+	<classpathentry kind="lib" path="/Users/robynlindsay/Desktop/Computer Science/Software Engineering/WPISuiteTeam6/wpi-suite-team6/Core/WPISuite/WebContent/WEB-INF/lib/gson-2.2.2.jar"/>
+	<classpathentry kind="lib" path="/Users/robynlindsay/Desktop/Computer Science/Software Engineering/WPISuiteTeam6/wpi-suite-team6/Core/WPISuite/WebContent/WEB-INF/lib/httpclient-4.2.2.jar"/>
+	<classpathentry kind="lib" path="/Users/robynlindsay/Desktop/Computer Science/Software Engineering/WPISuiteTeam6/wpi-suite-team6/Core/WPISuite/WebContent/WEB-INF/lib/httpcore-4.2.2.jar"/>
+	<classpathentry kind="lib" path="/Users/robynlindsay/Desktop/Computer Science/Software Engineering/WPISuiteTeam6/wpi-suite-team6/Core/WPISuite/WebContent/WEB-INF/lib/jackson-annotations-2.1.1.jar"/>
+	<classpathentry kind="lib" path="/Users/robynlindsay/Desktop/Computer Science/Software Engineering/WPISuiteTeam6/wpi-suite-team6/Core/WPISuite/WebContent/WEB-INF/lib/jackson-core-2.1.2.jar"/>
+	<classpathentry kind="lib" path="/Users/robynlindsay/Desktop/Computer Science/Software Engineering/WPISuiteTeam6/wpi-suite-team6/Core/WPISuite/WebContent/WEB-INF/lib/jackson-databind-2.1.0.jar"/>
+	<classpathentry kind="lib" path="/Users/robynlindsay/Desktop/Computer Science/Software Engineering/WPISuiteTeam6/wpi-suite-team6/Core/WPISuite/WebContent/WEB-INF/lib/servlet-api.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
