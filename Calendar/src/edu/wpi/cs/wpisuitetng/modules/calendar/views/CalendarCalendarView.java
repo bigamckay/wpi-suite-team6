@@ -136,6 +136,7 @@ public class CalendarCalendarView extends JTabbedPane{
 		weekDays.add(weekScrollPane, "name_37189630620584");
 		
 		weekDayHeaders = new JTable();
+		weekDayHeaders.getTableHeader().setReorderingAllowed(false);
 		weekDayHeaders.setModel(new DefaultTableModel(
 			new Object[][] {
 				{"12:00 AM", null, null, null, null, null, null, null},
@@ -164,7 +165,7 @@ public class CalendarCalendarView extends JTabbedPane{
 				{"11:00 PM", null, null, null, null, null, null, null},
 			},
 			new String[] {
-				"Time", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
+				"Time", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
 			}
 		));
 		
@@ -200,6 +201,7 @@ public class CalendarCalendarView extends JTabbedPane{
 		
 		monthView = new JTable();
 		monthView.setBounds(1, 1, 684, 402);
+		monthView.getTableHeader().setReorderingAllowed(false);
 		monthView.setModel(new DefaultTableModel(
 			new Object[][] {
 				{null, null, null, null, null, null, null},
@@ -253,6 +255,7 @@ public class CalendarCalendarView extends JTabbedPane{
 		
 		JanDayTable = new JTable();
 		JanDayTable.setRowSelectionAllowed(false);
+		JanDayTable.getTableHeader().setReorderingAllowed(false);
 		JanDayTable.setModel(new DefaultTableModel(
 			new Object[][] {
 				{null, null, null, null, null, null, null},
@@ -286,6 +289,7 @@ public class CalendarCalendarView extends JTabbedPane{
 		
 		FebDayTable = new JTable();
 		FebDayTable.setRowSelectionAllowed(false);
+		FebDayTable.getTableHeader().setReorderingAllowed(false);
 		FebDayTable.setModel(new DefaultTableModel(
 			new Object[][] {
 				{null, null, null, null, null, null, null},
@@ -309,6 +313,7 @@ public class CalendarCalendarView extends JTabbedPane{
 		
 		MarDayTable = new JTable();
 		MarDayTable.setRowSelectionAllowed(false);
+		MarDayTable.getTableHeader().setReorderingAllowed(false);
 		MarDayTable.setModel(new DefaultTableModel(
 			new Object[][] {
 				{null, null, null, null, null, null, null},
@@ -334,6 +339,7 @@ public class CalendarCalendarView extends JTabbedPane{
 		
 		AprDayTable = new JTable();
 		AprDayTable.setRowSelectionAllowed(false);
+		AprDayTable.getTableHeader().setReorderingAllowed(false);
 		AprDayTable.setModel(new DefaultTableModel(
 				new Object[][] {
 					{null, null, null, null, null, null, null},
@@ -359,6 +365,7 @@ public class CalendarCalendarView extends JTabbedPane{
 		
 		MayDayTable = new JTable();
 		MayDayTable.setRowSelectionAllowed(false);
+		MayDayTable.getTableHeader().setReorderingAllowed(false);
 		MayDayTable.setModel(new DefaultTableModel(
 				new Object[][] {
 					{null, null, null, null, null, null, null},
@@ -384,6 +391,7 @@ public class CalendarCalendarView extends JTabbedPane{
 		
 		JunDayTable = new JTable();
 		JunDayTable.setRowSelectionAllowed(false);
+		JunDayTable.getTableHeader().setReorderingAllowed(false);
 		JunDayTable.setModel(new DefaultTableModel(
 				new Object[][] {
 					{null, null, null, null, null, null, null},
@@ -407,6 +415,7 @@ public class CalendarCalendarView extends JTabbedPane{
 		
 		JulDayTable = new JTable();
 		JulDayTable.setRowSelectionAllowed(false);
+		JulDayTable.getTableHeader().setReorderingAllowed(false);
 		JulDayTable.setModel(new DefaultTableModel(
 				new Object[][] {
 					{null, null, null, null, null, null, null},
@@ -432,6 +441,7 @@ public class CalendarCalendarView extends JTabbedPane{
 		
 		AugDayTable = new JTable();
 		AugDayTable.setRowSelectionAllowed(false);
+		AugDayTable.getTableHeader().setReorderingAllowed(false);
 		AugDayTable.setModel(new DefaultTableModel(
 				new Object[][] {
 					{null, null, null, null, null, null, null},
@@ -457,6 +467,7 @@ public class CalendarCalendarView extends JTabbedPane{
 		
 		SepDayTable = new JTable();
 		SepDayTable.setRowSelectionAllowed(false);
+		SepDayTable.getTableHeader().setReorderingAllowed(false);
 		SepDayTable.setModel(new DefaultTableModel(
 				new Object[][] {
 					{null, null, null, null, null, null, null},
@@ -480,6 +491,7 @@ public class CalendarCalendarView extends JTabbedPane{
 		
 		OctDayTable = new JTable();
 		OctDayTable.setRowSelectionAllowed(false);
+		OctDayTable.getTableHeader().setReorderingAllowed(false);
 		OctDayTable.setModel(new DefaultTableModel(
 				new Object[][] {
 					{null, null, null, null, null, null, null},
@@ -505,6 +517,7 @@ public class CalendarCalendarView extends JTabbedPane{
 		
 		NovDayTable = new JTable();
 		NovDayTable.setRowSelectionAllowed(false);
+		NovDayTable.getTableHeader().setReorderingAllowed(false);
 		NovDayTable.setModel(new DefaultTableModel(
 				new Object[][] {
 					{null, null, null, null, null, null, null},
@@ -530,6 +543,7 @@ public class CalendarCalendarView extends JTabbedPane{
 		
 		DecDayTable = new JTable();
 		DecDayTable.setRowSelectionAllowed(false);
+		DecDayTable.getTableHeader().setReorderingAllowed(false);
 		DecDayTable.setModel(new DefaultTableModel(
 				new Object[][] {
 					{null, null, null, null, null, null, null},
