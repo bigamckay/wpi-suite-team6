@@ -406,6 +406,12 @@ public class CalendarCalendarView extends JTabbedPane{
 		JanScrollPane.setBounds(10, 10, 224, 118);
 		layeredPane.setLayer(JanScrollPane, 0);
 		JanScrollPane.setAlignmentY(Component.TOP_ALIGNMENT);
+		// Add JAN label
+		JLabel lblJAN = new JLabel("JAN", CENTER);
+		lblJAN.setBounds(10, 10, 224, 118);
+		lblJAN.setFont(new Font("Helvetica", Font.BOLD, 100));
+		lblJAN.setForeground(new Color(0.0f, 0.0f, 0.0f, 0.2f));
+		layeredPane.add(lblJAN, new Integer(10));
 		layeredPane.add(JanScrollPane);
 		
 		JanDayTable = new JTable();
@@ -439,6 +445,12 @@ public class CalendarCalendarView extends JTabbedPane{
 		FebScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 		FebScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		FebScrollPane.setBounds(244, 10, 224, 118);
+		// Add FEB label
+		JLabel lblFEB = new JLabel("FEB", CENTER);
+		lblFEB.setBounds(244, 10, 224, 118);
+		lblFEB.setFont(new Font("Helvetica", Font.BOLD, 100));
+		lblFEB.setForeground(new Color(0.0f, 0.0f, 0.0f, 0.2f));
+		layeredPane.add(lblFEB, new Integer(10));
 		layeredPane.add(FebScrollPane);
 		
 		FebDayTable = new JTable();
@@ -462,6 +474,12 @@ public class CalendarCalendarView extends JTabbedPane{
 		MarScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 		MarScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		MarScrollPane.setBounds(478, 10, 224, 118);
+		// Add MAR label
+		JLabel lblMAR = new JLabel("MAR", CENTER);
+		lblMAR.setBounds(478, 10, 224, 118);
+		lblMAR.setFont(new Font("Helvetica", Font.BOLD, 100));
+		lblMAR.setForeground(new Color(0.0f, 0.0f, 0.0f, 0.2f));
+		layeredPane.add(lblMAR, new Integer(10));
 		layeredPane.add(MarScrollPane);
 		
 		MarDayTable = new JTable();
@@ -487,6 +505,12 @@ public class CalendarCalendarView extends JTabbedPane{
 		AprScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		AprScrollPane.setAlignmentY(0.0f);
 		AprScrollPane.setBounds(10, 138, 224, 118);
+		// Add APR label
+		JLabel lblAPR = new JLabel("APR", CENTER);
+		lblAPR.setBounds(10, 138, 224, 118);
+		lblAPR.setFont(new Font("Helvetica", Font.BOLD, 100));
+		lblAPR.setForeground(new Color(0.0f, 0.0f, 0.0f, 0.2f));
+		layeredPane.add(lblAPR, new Integer(10));
 		layeredPane.add(AprScrollPane);
 		
 		AprDayTable = new JTable();
@@ -512,6 +536,12 @@ public class CalendarCalendarView extends JTabbedPane{
 		MayScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		MayScrollPane.setAlignmentY(0.0f);
 		MayScrollPane.setBounds(244, 138, 224, 118);
+		// Add MAY label
+		JLabel lblMAY = new JLabel("MAY", CENTER);
+		lblMAY.setBounds(244, 138, 224, 118);
+		lblMAY.setFont(new Font("Helvetica", Font.BOLD, 100));
+		lblMAY.setForeground(new Color(0.0f, 0.0f, 0.0f, 0.2f));
+		layeredPane.add(lblMAY, new Integer(10));
 		layeredPane.add(MayScrollPane);
 		
 		MayDayTable = new JTable();
@@ -537,6 +567,12 @@ public class CalendarCalendarView extends JTabbedPane{
 		JunScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		JunScrollPane.setAlignmentY(0.0f);
 		JunScrollPane.setBounds(478, 138, 224, 118);
+		// Add JUN label
+		JLabel lblJUN = new JLabel("JUN", CENTER);
+		lblJUN.setBounds(478, 138, 224, 118);
+		lblJUN.setFont(new Font("Helvetica", Font.BOLD, 100));
+		lblJUN.setForeground(new Color(0.0f, 0.0f, 0.0f, 0.2f));
+		layeredPane.add(lblJUN, new Integer(10));
 		layeredPane.add(JunScrollPane);
 		
 		JunDayTable = new JTable();
@@ -560,6 +596,12 @@ public class CalendarCalendarView extends JTabbedPane{
 		JulScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 		JulScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		JulScrollPane.setBounds(10, 266, 224, 118);
+		// Add JUL label
+		JLabel lblJUL = new JLabel("JUL", CENTER);
+		lblJUL.setBounds(10, 266, 224, 118);
+		lblJUL.setFont(new Font("Helvetica", Font.BOLD, 100));
+		lblJUL.setForeground(new Color(0.0f, 0.0f, 0.0f, 0.2f));
+		layeredPane.add(lblJUL, new Integer(10));
 		layeredPane.add(JulScrollPane);
 		
 		JulDayTable = new JTable();
@@ -585,6 +627,12 @@ public class CalendarCalendarView extends JTabbedPane{
 		AugScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		AugScrollPane.setAlignmentY(0.0f);
 		AugScrollPane.setBounds(244, 266, 224, 118);
+		// Add AUG label
+		JLabel lblAUG = new JLabel("AUG", CENTER);
+		lblAUG.setBounds(244, 266, 224, 118);
+		lblAUG.setFont(new Font("Helvetica", Font.BOLD, 100));
+		lblAUG.setForeground(new Color(0.0f, 0.0f, 0.0f, 0.2f));
+		layeredPane.add(lblAUG, new Integer(10));
 		layeredPane.add(AugScrollPane);
 		
 		AugDayTable = new JTable();
@@ -610,6 +658,12 @@ public class CalendarCalendarView extends JTabbedPane{
 		SepScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		SepScrollPane.setAlignmentY(0.0f);
 		SepScrollPane.setBounds(478, 266, 224, 118);
+		// Add SEP label
+		JLabel lblSEP = new JLabel("SEP", CENTER);
+		lblSEP.setBounds(478, 266, 224, 118);
+		lblSEP.setFont(new Font("Helvetica", Font.BOLD, 100));
+		lblSEP.setForeground(new Color(0.0f, 0.0f, 0.0f, 0.2f));
+		layeredPane.add(lblSEP, new Integer(10));
 		layeredPane.add(SepScrollPane);
 		
 		SepDayTable = new JTable();
@@ -633,6 +687,12 @@ public class CalendarCalendarView extends JTabbedPane{
 		OctScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 		OctScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		OctScrollPane.setBounds(10, 394, 224, 118);
+		// Add OCT label
+		JLabel lblOCT = new JLabel("OCT", CENTER);
+		lblOCT.setBounds(10, 394, 224, 118);
+		lblOCT.setFont(new Font("Helvetica", Font.BOLD, 100));
+		lblOCT.setForeground(new Color(0.0f, 0.0f, 0.0f, 0.2f));
+		layeredPane.add(lblOCT, new Integer(10));
 		layeredPane.add(OctScrollPane);
 		
 		OctDayTable = new JTable();
@@ -658,6 +718,12 @@ public class CalendarCalendarView extends JTabbedPane{
 		NovScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		NovScrollPane.setAlignmentY(0.0f);
 		NovScrollPane.setBounds(244, 394, 224, 118);
+		// Add NOV label
+		JLabel lblNOV = new JLabel("NOV", CENTER);
+		lblNOV.setBounds(244, 394, 224, 118);
+		lblNOV.setFont(new Font("Helvetica", Font.BOLD, 100));
+		lblNOV.setForeground(new Color(0.0f, 0.0f, 0.0f, 0.2f));
+		layeredPane.add(lblNOV, new Integer(10));
 		layeredPane.add(NovScrollPane);
 		
 		NovDayTable = new JTable();
@@ -683,6 +749,12 @@ public class CalendarCalendarView extends JTabbedPane{
 		DecScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		DecScrollPane.setAlignmentY(0.0f);
 		DecScrollPane.setBounds(478, 394, 224, 118);
+		// Add DEC label
+		JLabel lblDEC = new JLabel("DEC", CENTER);
+		lblDEC.setBounds(478, 394, 224, 118);
+		lblDEC.setFont(new Font("Helvetica", Font.BOLD, 100));
+		lblDEC.setForeground(new Color(0.0f, 0.0f, 0.0f, 0.2f));
+		layeredPane.add(lblDEC, new Integer(10));
 		layeredPane.add(DecScrollPane);
 		
 		DecDayTable = new JTable();
