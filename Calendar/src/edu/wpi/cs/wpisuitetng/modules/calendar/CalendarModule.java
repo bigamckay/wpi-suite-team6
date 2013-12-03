@@ -25,6 +25,8 @@ import javax.swing.JTextField;
 
 import edu.wpi.cs.wpisuitetng.janeway.modules.IJanewayModule;
 import edu.wpi.cs.wpisuitetng.janeway.modules.JanewayTabModel;
+import edu.wpi.cs.wpisuitetng.modules.calendar.controllers.GetEventController;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.EventListModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.views.CalendarCalendarView;
 import edu.wpi.cs.wpisuitetng.modules.calendar.views.MainView;
 
@@ -43,7 +45,6 @@ public class CalendarModule extends CalendarCalendarView implements IJanewayModu
 		//CalendarGUI gui = new CalendarGUI();
 		MainView mainView = new MainView();
 
-		
 		// Create a JPanel to hold the toolbar
 		JPanel searchPanel = new JPanel();
 		//searchPanel.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -144,6 +145,7 @@ public class CalendarModule extends CalendarCalendarView implements IJanewayModu
 	        	currDay.setText("Nov 20, "+ currentYearStr);
 	        	populateYearNull(currentMonthArray);
 	        	//populateYear(monthArray, displayYear);
+	        	System.out.println("The size of events in the server is " + EventListModel.getInstance().getEvents().size());
 			}
 		});
 		
@@ -204,7 +206,7 @@ public class CalendarModule extends CalendarCalendarView implements IJanewayModu
 
 		// Add the tab to the list of tabs owned by this module
 		tabs.add(tab1);
-		
+
 		
 		
 	}

@@ -6,6 +6,8 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.views;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
+import edu.wpi.cs.wpisuitetng.modules.calendar.controllers.GetEventController;
+
 /**
  * This panel fills the main content area of the tab for the calendar module.
  *
