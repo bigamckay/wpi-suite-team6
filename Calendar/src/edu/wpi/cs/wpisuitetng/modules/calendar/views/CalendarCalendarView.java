@@ -17,9 +17,6 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.util.List;
 import java.util.Calendar;
 import java.lang.Math;
 
@@ -33,7 +30,6 @@ import javax.swing.JTable;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.UIManager;
 import javax.swing.border.EtchedBorder;
-import javax.swing.event.ChangeEvent;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -78,7 +74,7 @@ public class CalendarCalendarView extends JTabbedPane{
 			);
 	
 	public int currentYear = Calendar.getInstance().get(Calendar.YEAR);
-	private int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
+	public int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
 	private String month = new String();
 	
 	
@@ -92,7 +88,7 @@ public class CalendarCalendarView extends JTabbedPane{
 		setPreferredSize(new Dimension(716,550));
 		setLocation(302, 54);
 		
-		/*
+		/**
 		 * Week View
 		 */
 		
@@ -101,17 +97,6 @@ public class CalendarCalendarView extends JTabbedPane{
 		weekPanel.setFocusable(true);
 		addTab("Week View", null, weekPanel, null);
 		weekPanel.setLayout(null);
-		
-		/*JButton monthUpButtonWV = new JButton("UP");
-		monthUpButtonWV.setBounds(10, 0, 691, 32);
-		weekPanel.add(monthUpButtonWV);
-		monthUpButtonWV.setForeground(UIManager.getColor("Button.foreground"));
-		monthUpButtonWV.setFont(new Font("Segoe UI", Font.PLAIN, 16));
-		
-		JButton monthDownButtonWV = new JButton("DOWN");
-		monthDownButtonWV.setBounds(10, 617, 691, 32);
-		weekPanel.add(monthDownButtonWV);
-		monthDownButtonWV.setFont(new Font("Segoe UI", Font.PLAIN, 16));*/
 		
 		JButton weekPrevButton = new JButton("Previous Week");
 		weekPrevButton.setBounds(10, 15, 133, 26);
@@ -128,17 +113,6 @@ public class CalendarCalendarView extends JTabbedPane{
 		weekLabel.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 20));
 		weekName.add(weekLabel);
 		
-		/*JPanel monthNameWV = new JPanel();
-		monthNameWV.setBounds(10, 39, 691, 40);
-		weekPanel.add(monthNameWV);
-		monthNameWV.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		monthNameWV.setBackground((Color) null);
-		
-		JLabel monthLabelWV = new JLabel("Month");
-		monthLabelWV.setForeground(UIManager.getColor("Button.darkShadow"));
-		monthLabelWV.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 20));
-		monthNameWV.add(monthLabelWV);*/
-		
 		JPanel weekDays = new JPanel();
 		weekDays.setBounds(10, 58, 691, 411);
 		weekPanel.add(weekDays);
@@ -150,6 +124,7 @@ public class CalendarCalendarView extends JTabbedPane{
 		weekDays.add(weekScrollPane, "name_37189630620584");
 		
 		weekDayHeaders = new JTable();
+		weekDayHeaders.setRowSelectionAllowed(false);
 		weekDayHeaders.getTableHeader().setReorderingAllowed(false);
 		weekDayHeaders.setModel(new DefaultTableModel(
 			new Object[][] {
@@ -189,7 +164,7 @@ public class CalendarCalendarView extends JTabbedPane{
 		weekNextButton.setBounds(568, 15, 133, 26);
 		weekPanel.add(weekNextButton);
 		
-		/*
+		/**
 		 * Month View
 		 */
 		
@@ -199,22 +174,12 @@ public class CalendarCalendarView extends JTabbedPane{
 		monthPanel.setBackground(UIManager.getColor("Button.select"));
 		addTab("Month View", null, monthPanel, null);
 		
-		/*JButton monthUpButton = new JButton("UP");
-		monthUpButton.setForeground(UIManager.getColor("Button.foreground"));
-		monthUpButton.setFont(new Font("Segoe UI", Font.PLAIN, 16));
-		monthUpButton.setBounds(10, 0, 691, 32);
-		monthPanel.add(monthUpButton);
-		
-		JButton monthDownButton = new JButton("DOWN");
-		monthDownButton.setFont(new Font("Segoe UI", Font.PLAIN, 16));
-		monthDownButton.setBounds(10, 617, 691, 32);
-		monthPanel.add(monthDownButton);*/
-		
 		JScrollPane monthDays = new JScrollPane();
 		monthDays.setBounds(12, 50, 685, 425);
 		
 		monthView = new JTable();
 		monthView.setBounds(1, 1, 684, 402);
+		monthView.setRowSelectionAllowed(false);
 		monthView.getTableHeader().setReorderingAllowed(false);
 		monthView.setModel(new DefaultTableModel(
 			new Object[][] {
@@ -244,7 +209,7 @@ public class CalendarCalendarView extends JTabbedPane{
 		monthLabel.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 20));
 		monthName.add(monthLabel);
 		
-		/*
+		/**
 		 * Year View
 		 */
 		
@@ -687,10 +652,9 @@ public class CalendarCalendarView extends JTabbedPane{
 	public void simulateYear(int year) {
 		int startDay = 0;
 		for(int i=0; i<12; i++){
-			populateMonthNull(monthArray[i]);
 			if(i==0)
 				startDay = simulateMonth(determineStartingDay(year), daysInMonth(i,year));
-			else if (i==currentMonth) {
+			if (i==currentMonth) {
 				populateMonth(monthView, startDay, daysInMonth(i,year));
 				return;
 			}
@@ -843,4 +807,8 @@ public class CalendarCalendarView extends JTabbedPane{
 	{
 		return this.currentFocus;
 	}	
+	
+	public JTable getMonthView() {
+		return monthView;
+	}
 }
