@@ -1,3 +1,15 @@
+/*******************************************************************************
+ * Copyright (c) 2013 -- WPI Suite
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Seal Team 6
+ ******************************************************************************/
+
 package edu.wpi.cs.wpisuitetng.modules.calendar.entitymanagers;
 
 import java.lang.reflect.Field;
@@ -19,8 +31,6 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.AbstractCalendarModel;
  * A generic EntityManager implementation for Calendar objects (such as Commitments or Events).
  * 
  * Provides reasonable default implementations for EntityManager methods.
- * 
- * @author John French
  *
  * @param <T> The Model which this CalendarEntityManager manages.
  */
@@ -28,6 +38,10 @@ public abstract class AbstractCalendarEntityManager<T extends AbstractCalendarMo
 
 	//database
 	private final Data db;
+	
+	protected Data getData(){
+		return db;
+	}
 	
 	//class of T
 	private final Class<T> tClass;
@@ -57,6 +71,7 @@ public abstract class AbstractCalendarEntityManager<T extends AbstractCalendarMo
 		
 		UUID idAsUUID = UUID.fromString(id);
 		
+		@SuppressWarnings("unchecked")
 		T[] ts = (T[]) db.retrieve(tClass, T.ID_FIELD_NAME, idAsUUID).toArray();
 		
 		//if there are no ts in the array throw an exception
@@ -119,12 +134,6 @@ public abstract class AbstractCalendarEntityManager<T extends AbstractCalendarMo
 	}
 
 	@Override
-	public String advancedGet(Session s, String[] args)
-			throws WPISuiteException {
-		throw new NotImplementedException();
-	}
-
-	@Override
 	public void deleteAll(Session s) throws WPISuiteException {
 		try {
 			db.deleteAll(tClass.newInstance());
@@ -143,7 +152,7 @@ public abstract class AbstractCalendarEntityManager<T extends AbstractCalendarMo
 			throw new WPISuiteException("Failed to instantiate dummy object!");
 		}
 	}
-
+	
 	@Override
 	public String advancedPut(Session s, String[] args, String content)
 			throws WPISuiteException {
@@ -156,4 +165,9 @@ public abstract class AbstractCalendarEntityManager<T extends AbstractCalendarMo
 		throw new NotImplementedException();
 	}
 
+	@Override
+	public String advancedGet(Session s, String[] args)
+			throws WPISuiteException {
+		throw new NotImplementedException();
+	}
 }

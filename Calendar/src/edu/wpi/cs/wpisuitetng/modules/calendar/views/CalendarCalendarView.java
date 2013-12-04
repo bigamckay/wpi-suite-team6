@@ -1,3 +1,15 @@
+/*******************************************************************************
+ * Copyright (c) 2013 -- WPI Suite
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Seal Team 6
+ ******************************************************************************/
+
 package edu.wpi.cs.wpisuitetng.modules.calendar.views;
 
 import java.awt.CardLayout;
@@ -32,7 +44,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.EventListModel;
  *  Contains the GUI elements of the Calendar Panel
  *
  */
-//@SuppressWarnings("serial")
+@SuppressWarnings("serial")
 public class CalendarCalendarView extends JTabbedPane{
 
 	private JTable monthDayHeaders;
@@ -50,8 +62,22 @@ public class CalendarCalendarView extends JTabbedPane{
 	private JTable NovDayTable;
 	private JTable DecDayTable;
 	
+	public int yearNullRan = 0;
+	
 	public JTable[] monthArray;
-	public DefaultTableModel nullModel;
+	private final DefaultTableModel clearedModel = new DefaultTableModel(
+			new Object[][] {
+					{null, null, null, null, null, null, null},
+					{null, null, null, null, null, null, null},
+					{null, null, null, null, null, null, null},
+					{null, null, null, null, null, null, null},
+					{null, null, null, null, null, null, null},
+					{null, null, null, null, null, null, null},
+				},
+				new String[] {
+					"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"
+				}
+			);
 	
 	public int currentYear = Calendar.getInstance().get(Calendar.YEAR);
 	
@@ -716,20 +742,6 @@ public class CalendarCalendarView extends JTabbedPane{
 		calendarPanel.add(calendarDayButtons);
 		calendarDayButtons.setLayout(null);*/
 		
-		nullModel = new DefaultTableModel(
-				new Object[][] {
-						{null, null, null, null, null, null, null},
-						{null, null, null, null, null, null, null},
-						{null, null, null, null, null, null, null},
-						{null, null, null, null, null, null, null},
-						{null, null, null, null, null, null, null},
-						{null, null, null, null, null, null, null},
-					},
-					new String[] {
-						"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"
-					}
-				);
-		
 		monthArray = new JTable[]{
 				JanDayTable,
 				FebDayTable,
@@ -765,6 +777,17 @@ public class CalendarCalendarView extends JTabbedPane{
 		}
 		return j+1;
 	}
+	
+	public void populateMonthNull(JTable month){
+		int j=0;
+		for(int i=0; i<6; i++){
+			for(; j<7; j++){
+				month.getModel().setValueAt(null, i, j);
+			}
+			j =0;
+		}
+		return;
+	}
 
 	int determineStartingDay(int year) 	// taken from http://mathforum.org/library/drmath/view/55837.html
 	{									// modified specifically to find the first day of the year
@@ -781,6 +804,7 @@ public class CalendarCalendarView extends JTabbedPane{
 	public void populateYear(JTable[] monthArray, int year){
 		int startDay = 0;
 		for(int i=0; i<12; i++){
+			populateMonthNull(monthArray[i]);
 			if(i==0)
 				startDay = populateMonth(monthArray[i], determineStartingDay(year), daysInMonth(i,year));
 			else
@@ -789,18 +813,20 @@ public class CalendarCalendarView extends JTabbedPane{
 		return;
 	}
 	
-	public void populateYearNull(JTable[] monthArray){
+	public void populateYearNull(){
 			for(int i=0; i<12; i++){
-				monthArray[i].setModel(nullModel);
+				monthArray[i].setModel(clearedModel);
 			}
+			yearNullRan++;
+			System.out.println("Worked!" + yearNullRan);
 			return;
 		}
 	
-	public int daysInMonth(int i, int year){
+	public int daysInMonth(int month, int year){
 		int result = 0;								// for the respective month value and prints that month and the year to console
 		boolean leapYear = isLeapYear(year);
 		
-		switch(i)
+		switch(month)
 		{
 		case 0:
 			result = 31;
@@ -850,7 +876,7 @@ public class CalendarCalendarView extends JTabbedPane{
 		return result;
 	}
 	
-	boolean isLeapYear(int year)		//takes an input year and checks to see if it's a leap year: 1 for true, 0 for false
+	public boolean isLeapYear(int year)		//takes an input year and checks to see if it's a leap year: 1 for true, 0 for false
 	{
 		boolean leapYear;
 
