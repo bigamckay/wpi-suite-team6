@@ -65,9 +65,9 @@ public class CalendarCalendarView extends JTabbedPane{
 	private JTable OctDayTable;
 	private JTable NovDayTable;
 	private JTable DecDayTable;
-	private String currentFocus = "someBullShitString";
-	private JLabel monthLabel;
+	private String currentFocus = "week";
 	
+	public JLabel monthLabel;
 	public int yearNullRan = 0;
 	
 	public JTable[] monthArray;
