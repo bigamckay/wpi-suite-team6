@@ -847,7 +847,10 @@ public class CalendarCalendarView extends JTabbedPane{
 		for(int i=0; i<6; i++){
 			for(; j<7; j++){
 				if(isThereAnEventOnThisDate(/*EventListModel.getInstance().getEvents(),*/testList, currentYear, whatMonth, dayCounter)){
-					month.getColumnModel().getColumn(j).setCellRenderer(new MyCellRenderer());
+					MyCellRenderer cellRender = new MyCellRenderer(i);
+					//System.out.println("row passed in " + i);
+					cellRender.getTableCellRendererComponent(month, dayCounter, false, false, i, j);
+					month.getColumnModel().getColumn(j).setCellRenderer(cellRender);
 				}
 				month.getModel().setValueAt(dayCounter.toString(), i, j);
 				if (dayCounter == daysInMonth){
