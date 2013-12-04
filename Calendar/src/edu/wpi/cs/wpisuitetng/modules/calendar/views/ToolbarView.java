@@ -167,6 +167,9 @@ public class ToolbarView extends JSplitPane{
 					}
 					calView.populateMonthNull(calView.getMonthView());
 					calView.simulateYear(calView.currentYear);
+					
+					calView.monthLabel.setText(calView.getCurrentMonth(calView.currentMonth));
+					
 				}
 				else if(currentFocus == "year")
 				{
@@ -231,6 +234,8 @@ public class ToolbarView extends JSplitPane{
 					}
 					calView.populateMonthNull(calView.getMonthView());
 					calView.simulateYear(calView.currentYear);
+					
+					calView.monthLabel.setText(calView.getCurrentMonth(calView.currentMonth));
 				}
 				else if(currentFocus == "year")
 				{
@@ -280,6 +285,11 @@ public class ToolbarView extends JSplitPane{
 	        	calView.populateMonthNull(calView.getMonthView());
 				calView.simulateYear(calView.currentYear);
 	        	calView.populateYear(calView.monthArray, calView.currentYear);
+	        	
+	        	if(currentFocus == "month")
+				{	
+					calView.monthLabel.setText(calView.getCurrentMonth(calView.currentMonth));
+				}
 			}
 		});
 		
