@@ -18,6 +18,7 @@ import javax.swing.JSplitPane;
 import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.JTextField;
 
 @SuppressWarnings("serial")
 public class ToolbarView extends JSplitPane{
