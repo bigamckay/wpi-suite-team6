@@ -428,7 +428,7 @@ public class CalendarCalendarView extends JTabbedPane{
 		// Add JAN label
 		JLabel lblJAN = new JLabel("JAN", CENTER);
 		lblJAN.setBounds(10, 10, 224, 118);
-		lblJAN.setFont(new Font("Helvetica", Font.BOLD, 100));
+		lblJAN.setFont(new Font("Helvetica", Font.BOLD, 80));
 		lblJAN.setForeground(new Color(0.0f, 0.0f, 0.0f, 0.2f));
 		layeredPane.add(lblJAN, new Integer(10));
 		layeredPane.add(JanScrollPane);
@@ -467,7 +467,7 @@ public class CalendarCalendarView extends JTabbedPane{
 		// Add FEB label
 		JLabel lblFEB = new JLabel("FEB", CENTER);
 		lblFEB.setBounds(244, 10, 224, 118);
-		lblFEB.setFont(new Font("Helvetica", Font.BOLD, 100));
+		lblFEB.setFont(new Font("Helvetica", Font.BOLD, 80));
 		lblFEB.setForeground(new Color(0.0f, 0.0f, 0.0f, 0.2f));
 		layeredPane.add(lblFEB, new Integer(10));
 		layeredPane.add(FebScrollPane);
@@ -496,7 +496,7 @@ public class CalendarCalendarView extends JTabbedPane{
 		// Add MAR label
 		JLabel lblMAR = new JLabel("MAR", CENTER);
 		lblMAR.setBounds(478, 10, 224, 118);
-		lblMAR.setFont(new Font("Helvetica", Font.BOLD, 100));
+		lblMAR.setFont(new Font("Helvetica", Font.BOLD, 80));
 		lblMAR.setForeground(new Color(0.0f, 0.0f, 0.0f, 0.2f));
 		layeredPane.add(lblMAR, new Integer(10));
 		layeredPane.add(MarScrollPane);
@@ -527,7 +527,7 @@ public class CalendarCalendarView extends JTabbedPane{
 		// Add APR label
 		JLabel lblAPR = new JLabel("APR", CENTER);
 		lblAPR.setBounds(10, 138, 224, 118);
-		lblAPR.setFont(new Font("Helvetica", Font.BOLD, 100));
+		lblAPR.setFont(new Font("Helvetica", Font.BOLD, 80));
 		lblAPR.setForeground(new Color(0.0f, 0.0f, 0.0f, 0.2f));
 		layeredPane.add(lblAPR, new Integer(10));
 		layeredPane.add(AprScrollPane);
@@ -558,7 +558,7 @@ public class CalendarCalendarView extends JTabbedPane{
 		// Add MAY label
 		JLabel lblMAY = new JLabel("MAY", CENTER);
 		lblMAY.setBounds(244, 138, 224, 118);
-		lblMAY.setFont(new Font("Helvetica", Font.BOLD, 100));
+		lblMAY.setFont(new Font("Helvetica", Font.BOLD, 80));
 		lblMAY.setForeground(new Color(0.0f, 0.0f, 0.0f, 0.2f));
 		layeredPane.add(lblMAY, new Integer(10));
 		layeredPane.add(MayScrollPane);
@@ -589,7 +589,7 @@ public class CalendarCalendarView extends JTabbedPane{
 		// Add JUN label
 		JLabel lblJUN = new JLabel("JUN", CENTER);
 		lblJUN.setBounds(478, 138, 224, 118);
-		lblJUN.setFont(new Font("Helvetica", Font.BOLD, 100));
+		lblJUN.setFont(new Font("Helvetica", Font.BOLD, 80));
 		lblJUN.setForeground(new Color(0.0f, 0.0f, 0.0f, 0.2f));
 		layeredPane.add(lblJUN, new Integer(10));
 		layeredPane.add(JunScrollPane);
@@ -618,7 +618,7 @@ public class CalendarCalendarView extends JTabbedPane{
 		// Add JUL label
 		JLabel lblJUL = new JLabel("JUL", CENTER);
 		lblJUL.setBounds(10, 266, 224, 118);
-		lblJUL.setFont(new Font("Helvetica", Font.BOLD, 100));
+		lblJUL.setFont(new Font("Helvetica", Font.BOLD, 80));
 		lblJUL.setForeground(new Color(0.0f, 0.0f, 0.0f, 0.2f));
 		layeredPane.add(lblJUL, new Integer(10));
 		layeredPane.add(JulScrollPane);
@@ -649,7 +649,7 @@ public class CalendarCalendarView extends JTabbedPane{
 		// Add AUG label
 		JLabel lblAUG = new JLabel("AUG", CENTER);
 		lblAUG.setBounds(244, 266, 224, 118);
-		lblAUG.setFont(new Font("Helvetica", Font.BOLD, 100));
+		lblAUG.setFont(new Font("Helvetica", Font.BOLD, 80));
 		lblAUG.setForeground(new Color(0.0f, 0.0f, 0.0f, 0.2f));
 		layeredPane.add(lblAUG, new Integer(10));
 		layeredPane.add(AugScrollPane);
@@ -680,7 +680,7 @@ public class CalendarCalendarView extends JTabbedPane{
 		// Add SEP label
 		JLabel lblSEP = new JLabel("SEP", CENTER);
 		lblSEP.setBounds(478, 266, 224, 118);
-		lblSEP.setFont(new Font("Helvetica", Font.BOLD, 100));
+		lblSEP.setFont(new Font("Helvetica", Font.BOLD, 80));
 		lblSEP.setForeground(new Color(0.0f, 0.0f, 0.0f, 0.2f));
 		layeredPane.add(lblSEP, new Integer(10));
 		layeredPane.add(SepScrollPane);
@@ -709,7 +709,7 @@ public class CalendarCalendarView extends JTabbedPane{
 		// Add OCT label
 		JLabel lblOCT = new JLabel("OCT", CENTER);
 		lblOCT.setBounds(10, 394, 224, 118);
-		lblOCT.setFont(new Font("Helvetica", Font.BOLD, 100));
+		lblOCT.setFont(new Font("Helvetica", Font.BOLD, 80));
 		lblOCT.setForeground(new Color(0.0f, 0.0f, 0.0f, 0.2f));
 		layeredPane.add(lblOCT, new Integer(10));
 		layeredPane.add(OctScrollPane);
@@ -740,7 +740,7 @@ public class CalendarCalendarView extends JTabbedPane{
 		// Add NOV label
 		JLabel lblNOV = new JLabel("NOV", CENTER);
 		lblNOV.setBounds(244, 394, 224, 118);
-		lblNOV.setFont(new Font("Helvetica", Font.BOLD, 100));
+		lblNOV.setFont(new Font("Helvetica", Font.BOLD, 80));
 		lblNOV.setForeground(new Color(0.0f, 0.0f, 0.0f, 0.2f));
 		layeredPane.add(lblNOV, new Integer(10));
 		layeredPane.add(NovScrollPane);
@@ -771,7 +771,7 @@ public class CalendarCalendarView extends JTabbedPane{
 		// Add DEC label
 		JLabel lblDEC = new JLabel("DEC", CENTER);
 		lblDEC.setBounds(478, 394, 224, 118);
-		lblDEC.setFont(new Font("Helvetica", Font.BOLD, 100));
+		lblDEC.setFont(new Font("Helvetica", Font.BOLD, 80));
 		lblDEC.setForeground(new Color(0.0f, 0.0f, 0.0f, 0.2f));
 		layeredPane.add(lblDEC, new Integer(10));
 		layeredPane.add(DecScrollPane);
@@ -838,27 +838,25 @@ public class CalendarCalendarView extends JTabbedPane{
 	}
 	
 	public int populateMonth(JTable month, int startDay, int daysInMonth, int whatMonth){
-		/*List<Event> testList = new ArrayList<Event>();
+		List<Event> testList = new ArrayList<Event>();
 		
 		Calendar testStart = new GregorianCalendar(2013, Calendar.NOVEMBER, 14, 18, 0);
 		Calendar testStart2 = new GregorianCalendar(2013, Calendar.JANUARY, 21, 18, 0);
-		User testUser = new User("Jean Valjean", "jvaljean", "mynameisjeanvaljean", 42601);
-		LinkedList<User> users = new LinkedList<User>();
 		
 		try{
-			Event testEvent1 = new Event("Team 6 Meeting", "Flower", testStart, testStart, testUser,"Funtimes!", users, users);
-			Event testEvent2 = new Event("PlayDate", "Bancroft Towers", testStart2, testStart2, testUser, "Ring Toss", users, users);
+			Event testEvent1 = new Event("Team 6 Meeting", "Flower", testStart, testStart,"Funtimes!", "hi", false);
+			Event testEvent2 = new Event("PlayDate", "Bancroft Towers", testStart2, testStart2, "Ring Toss", "sup", false);
 			testList.add(testEvent1);
 			testList.add(testEvent2);
 		}
 		catch(WPISuiteException e){
 			System.out.println("What are you doing");
-		}*/
+		}
 		Integer dayCounter = 1;
 		int j=startDay;
 		for(int i=0; i<6; i++){
 			for(; j<7; j++){
-				if(isThereAnEventOnThisDate(EventListModel.getInstance().getEvents(), currentYear, whatMonth, dayCounter)){
+				if(isThereAnEventOnThisDate(/*EventListModel.getInstance().getEvents(),*/testList, currentYear, whatMonth, dayCounter)){
 					MyCellRenderer cellRender = new MyCellRenderer(i);
 					//System.out.println("row passed in " + i);
 					cellRender.getTableCellRendererComponent(month, dayCounter, false, false, i, j);
