@@ -18,6 +18,7 @@ public class MyCellRenderer extends DefaultTableCellRenderer{
 	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
 		Component cellComponent = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 		if (table.getValueAt(row,column) == null) {
+			cellComponent.setBackground(Color.WHITE);
 			//System.out.println("empty");
 		}
 		else if(this.row == row){

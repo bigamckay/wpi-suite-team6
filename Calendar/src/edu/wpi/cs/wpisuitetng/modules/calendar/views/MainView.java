@@ -31,6 +31,8 @@ public class MainView extends JPanel {
 		tabPanel = new CalendarTabView();
 		calendarPanel = new CalendarCalendarView();
 		
+		eventPanel.getCalendar(calendarPanel);
+		
 		JPanel LeftPanel = new JPanel();
 		LeftPanel.setLayout(new BoxLayout(LeftPanel, BoxLayout.Y_AXIS));
 		LeftPanel.add(eventPanel);
