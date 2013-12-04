@@ -17,12 +17,12 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Font;
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Calendar;
-import java.util.Arrays;
-import java.util.ArrayList;
 import java.lang.Math;
 
 import javax.swing.JButton;
@@ -50,7 +50,7 @@ import edu.wpi.cs.wpisuitetng.modules.core.models.User;
 @SuppressWarnings("serial")
 public class CalendarCalendarView extends JTabbedPane{
 
-	private JTable monthDayHeaders;
+	private JTable monthView;
 	private JTable weekDayHeaders;
 	private JTable JanDayTable;
 	private JTable MarDayTable;
@@ -64,6 +64,7 @@ public class CalendarCalendarView extends JTabbedPane{
 	private JTable OctDayTable;
 	private JTable NovDayTable;
 	private JTable DecDayTable;
+	private String currentFocus = "someBullShitString";
 	
 	public int yearNullRan = 0;
 	
@@ -83,6 +84,8 @@ public class CalendarCalendarView extends JTabbedPane{
 			);
 	
 	public int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+	public int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
+	private String month = new String();
 	
 	
 	public CalendarCalendarView() {
@@ -95,21 +98,15 @@ public class CalendarCalendarView extends JTabbedPane{
 		setPreferredSize(new Dimension(716,550));
 		setLocation(302, 54);
 		
+		/**
+		 * Week View
+		 */
+		
 		JPanel weekPanel = new JPanel();
 		weekPanel.setBackground(UIManager.getColor("InternalFrame.borderShadow"));
+		weekPanel.setFocusable(true);
 		addTab("Week View", null, weekPanel, null);
 		weekPanel.setLayout(null);
-		
-		/*JButton monthUpButtonWV = new JButton("UP");
-		monthUpButtonWV.setBounds(10, 0, 691, 32);
-		weekPanel.add(monthUpButtonWV);
-		monthUpButtonWV.setForeground(UIManager.getColor("Button.foreground"));
-		monthUpButtonWV.setFont(new Font("Segoe UI", Font.PLAIN, 16));
-		
-		JButton monthDownButtonWV = new JButton("DOWN");
-		monthDownButtonWV.setBounds(10, 617, 691, 32);
-		weekPanel.add(monthDownButtonWV);
-		monthDownButtonWV.setFont(new Font("Segoe UI", Font.PLAIN, 16));*/
 		
 		//JButton weekPrevButton = new JButton("Previous Week");
 		//weekPrevButton.setBounds(10, 15, 133, 26);
@@ -126,17 +123,6 @@ public class CalendarCalendarView extends JTabbedPane{
 		weekLabel.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 20));
 		weekName.add(weekLabel);
 		
-		/*JPanel monthNameWV = new JPanel();
-		monthNameWV.setBounds(10, 39, 691, 40);
-		weekPanel.add(monthNameWV);
-		monthNameWV.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		monthNameWV.setBackground((Color) null);
-		
-		JLabel monthLabelWV = new JLabel("Month");
-		monthLabelWV.setForeground(UIManager.getColor("Button.darkShadow"));
-		monthLabelWV.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 20));
-		monthNameWV.add(monthLabelWV);*/
-		
 		JPanel weekDays = new JPanel();
 		weekDays.setBounds(10, 58, 691, 411);
 		weekPanel.add(weekDays);
@@ -148,6 +134,8 @@ public class CalendarCalendarView extends JTabbedPane{
 		weekDays.add(weekScrollPane, "name_37189630620584");
 		
 		weekDayHeaders = new JTable();
+		weekDayHeaders.setRowSelectionAllowed(false);
+		weekDayHeaders.getTableHeader().setReorderingAllowed(false);
 		weekDayHeaders.setModel(new DefaultTableModel(
 			new Object[][] {
 				{"12:00 AM", null, null, null, null, null, null, null},
@@ -176,7 +164,7 @@ public class CalendarCalendarView extends JTabbedPane{
 				{"11:00 PM", null, null, null, null, null, null, null},
 			},
 			new String[] {
-				"Time", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
+				"Time", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
 			}
 		));
 		
@@ -186,227 +174,54 @@ public class CalendarCalendarView extends JTabbedPane{
 		//weekNextButton.setBounds(568, 15, 133, 26);
 		//weekPanel.add(weekNextButton);
 		
+		/**
+		 * Month View
+		 */
+		
 		JPanel monthPanel = new JPanel();
 		monthPanel.setLayout(null);
 		monthPanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		monthPanel.setBackground(UIManager.getColor("Button.select"));
 		addTab("Month View", null, monthPanel, null);
 		
-		/*JButton monthUpButton = new JButton("UP");
-		monthUpButton.setForeground(UIManager.getColor("Button.foreground"));
-		monthUpButton.setFont(new Font("Segoe UI", Font.PLAIN, 16));
-		monthUpButton.setBounds(10, 0, 691, 32);
-		monthPanel.add(monthUpButton);
+		JScrollPane monthDays = new JScrollPane();
+		monthDays.setBounds(12, 50, 685, 425);
 		
-		JButton monthDownButton = new JButton("DOWN");
-		monthDownButton.setFont(new Font("Segoe UI", Font.PLAIN, 16));
-		monthDownButton.setBounds(10, 617, 691, 32);
-		monthPanel.add(monthDownButton);*/
-		
-		JPanel monthViewButtons = new JPanel();
-		monthViewButtons.setLayout(null);
-		monthViewButtons.setBounds(12, 45, 685, 402);
-		monthPanel.add(monthViewButtons);
-		
-		JButton sunday_0 = new JButton("");
-		sunday_0.setBounds(0, 0, 98, 67);
-		monthViewButtons.add(sunday_0);
-		
-		JButton sunday_1 = new JButton("");
-		sunday_1.setBounds(0, 67, 98, 67);
-		monthViewButtons.add(sunday_1);
-		
-		JButton sunday_2 = new JButton("");
-		sunday_2.setBounds(0, 134, 98, 67);
-		monthViewButtons.add(sunday_2);
-		
-		JButton sunday_3 = new JButton("");
-		sunday_3.setBounds(0, 201, 98, 67);
-		monthViewButtons.add(sunday_3);
-		
-		JButton sunday_4 = new JButton("");
-		sunday_4.setBounds(0, 268, 98, 67);
-		monthViewButtons.add(sunday_4);
-		
-		JButton sunday_5 = new JButton("");
-		sunday_5.setBounds(0, 335, 98, 67);
-		monthViewButtons.add(sunday_5);
-		
-		JButton monday_0 = new JButton("");
-		monday_0.setBounds(98, 0, 98, 67);
-		monthViewButtons.add(monday_0);
-		
-		JButton monday_1 = new JButton("");
-		monday_1.setBounds(98, 67, 98, 67);
-		monthViewButtons.add(monday_1);
-		
-		JButton monday_2 = new JButton("");
-		monday_2.setBounds(98, 134, 98, 67);
-		monthViewButtons.add(monday_2);
-		
-		JButton monday_3 = new JButton("");
-		monday_3.setBounds(98, 201, 98, 67);
-		monthViewButtons.add(monday_3);
-		
-		JButton monday_4 = new JButton("");
-		monday_4.setBounds(98, 268, 98, 67);
-		monthViewButtons.add(monday_4);
-		
-		JButton monday_5 = new JButton("");
-		monday_5.setBounds(98, 335, 98, 67);
-		monthViewButtons.add(monday_5);
-		
-		JButton tuesday_0 = new JButton("");
-		tuesday_0.setBounds(196, 0, 98, 67);
-		monthViewButtons.add(tuesday_0);
-		
-		JButton tuesday_1 = new JButton("");
-		tuesday_1.setBounds(196, 67, 98, 67);
-		monthViewButtons.add(tuesday_1);
-		
-		JButton tuesday_2 = new JButton("");
-		tuesday_2.setBounds(196, 134, 98, 67);
-		monthViewButtons.add(tuesday_2);
-		
-		JButton tuesday_3 = new JButton("");
-		tuesday_3.setBounds(196, 201, 98, 67);
-		monthViewButtons.add(tuesday_3);
-		
-		JButton tuesday_4 = new JButton("");
-		tuesday_4.setBounds(196, 268, 98, 67);
-		monthViewButtons.add(tuesday_4);
-		
-		JButton tuesday_5 = new JButton("");
-		tuesday_5.setBounds(196, 335, 98, 67);
-		monthViewButtons.add(tuesday_5);
-		
-		JButton wednesday_0 = new JButton("");
-		wednesday_0.setBounds(294, 0, 98, 67);
-		monthViewButtons.add(wednesday_0);
-		
-		JButton wednesday_1 = new JButton("");
-		wednesday_1.setBounds(294, 67, 98, 67);
-		monthViewButtons.add(wednesday_1);
-		
-		JButton wednesday_2 = new JButton("");
-		wednesday_2.setBounds(294, 134, 98, 67);
-		monthViewButtons.add(wednesday_2);
-		
-		JButton wednesday_3 = new JButton("");
-		wednesday_3.setBounds(294, 201, 98, 67);
-		monthViewButtons.add(wednesday_3);
-		
-		JButton wednesday_4 = new JButton("");
-		wednesday_4.setBounds(294, 268, 98, 67);
-		monthViewButtons.add(wednesday_4);
-		
-		JButton wednesday_5 = new JButton("");
-		wednesday_5.setBounds(294, 335, 98, 67);
-		monthViewButtons.add(wednesday_5);
-		
-		JButton thursday_0 = new JButton("");
-		thursday_0.setBounds(392, 0, 98, 67);
-		monthViewButtons.add(thursday_0);
-		
-		JButton thursday_1 = new JButton("");
-		thursday_1.setBounds(392, 67, 98, 67);
-		monthViewButtons.add(thursday_1);
-		
-		JButton thursday_2 = new JButton("");
-		thursday_2.setBounds(392, 134, 98, 67);
-		monthViewButtons.add(thursday_2);
-		
-		JButton thursday_3 = new JButton("");
-		thursday_3.setBounds(392, 201, 98, 67);
-		monthViewButtons.add(thursday_3);
-		
-		JButton thursday_4 = new JButton("");
-		thursday_4.setBounds(392, 268, 98, 67);
-		monthViewButtons.add(thursday_4);
-		
-		JButton thursday_5 = new JButton("");
-		thursday_5.setBounds(392, 335, 98, 67);
-		monthViewButtons.add(thursday_5);
-		
-		JButton friday_0 = new JButton("");
-		friday_0.setBounds(490, 0, 98, 67);
-		monthViewButtons.add(friday_0);
-		
-		JButton friday_1 = new JButton("");
-		friday_1.setBounds(490, 67, 98, 67);
-		monthViewButtons.add(friday_1);
-		
-		JButton friday_2 = new JButton("");
-		friday_2.setBounds(490, 134, 98, 67);
-		monthViewButtons.add(friday_2);
-		
-		JButton friday_3 = new JButton("");
-		friday_3.setBounds(490, 201, 98, 67);
-		monthViewButtons.add(friday_3);
-		
-		JButton friday_4 = new JButton("");
-		friday_4.setBounds(490, 268, 98, 67);
-		monthViewButtons.add(friday_4);
-		
-		JButton friday_5 = new JButton("");
-		friday_5.setBounds(490, 335, 98, 67);
-		monthViewButtons.add(friday_5);
-		
-		JButton saturday_0 = new JButton("");
-		saturday_0.setBounds(588, 0, 98, 67);
-		monthViewButtons.add(saturday_0);
-		
-		JButton saturday_1 = new JButton("");
-		saturday_1.setBounds(588, 67, 98, 67);
-		monthViewButtons.add(saturday_1);
-		
-		JButton saturday_2 = new JButton("");
-		saturday_2.setBounds(588, 134, 98, 67);
-		monthViewButtons.add(saturday_2);
-		
-		JButton saturday_3 = new JButton("");
-		saturday_3.setBounds(588, 201, 98, 67);
-		monthViewButtons.add(saturday_3);
-		
-		JButton saturday_4 = new JButton("");
-		saturday_4.setBounds(588, 268, 98, 67);
-		monthViewButtons.add(saturday_4);
-		
-		JButton saturday_5 = new JButton("");
-		saturday_5.setBounds(588, 335, 98, 67);
-		monthViewButtons.add(saturday_5);
-		
-		JPanel monthDays = new JPanel();
-		monthDays.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		monthDays.setBackground((Color) null);
-		monthDays.setBounds(10, 18, 691, 433);
-		monthPanel.add(monthDays);
-		monthDays.setLayout(new CardLayout(0, 0));
-		
-		JScrollPane monthScrollPane = new JScrollPane();
-		monthDays.add(monthScrollPane, "name_15573090932055");
-		
-		monthDayHeaders = new JTable();
-		monthDayHeaders.setModel(new DefaultTableModel(
+		monthView = new JTable();
+		monthView.setBounds(1, 1, 684, 402);
+		monthView.setRowSelectionAllowed(false);
+		monthView.getTableHeader().setReorderingAllowed(false);
+		monthView.setModel(new DefaultTableModel(
 			new Object[][] {
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
 			},
 			new String[] {
-				"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
+				"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"
 			}
 		));
-		monthDayHeaders.setBackground(UIManager.getColor("Button.select"));
-		monthScrollPane.setViewportView(monthDayHeaders);
+		monthView.setRowHeight(67);
+		monthDays.setViewportView(monthView);
+		monthPanel.add(monthDays);
 		
-		/*JPanel monthName = new JPanel();
+		JPanel monthName = new JPanel();
 		monthName.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		monthName.setBackground((Color) null);
 		monthName.setBounds(10, 7, 691, 40);
 		monthPanel.add(monthName);
 		
-		JLabel monthLabel = new JLabel("Month");
+		JLabel monthLabel = new JLabel(getCurrentMonth(currentMonth));
 		monthLabel.setForeground(UIManager.getColor("Button.darkShadow"));
 		monthLabel.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 20));
-		monthName.add(monthLabel);*/
+		monthName.add(monthLabel);
+		
+		/**
+		 * Year View
+		 */
 		
 		JPanel yearPanel = new JPanel();
 		yearPanel.setBackground(UIManager.getColor("InternalFrame.borderShadow"));
@@ -435,6 +250,7 @@ public class CalendarCalendarView extends JTabbedPane{
 		
 		JanDayTable = new JTable();
 		JanDayTable.setRowSelectionAllowed(false);
+		JanDayTable.getTableHeader().setReorderingAllowed(false);
 		JanDayTable.setModel(new DefaultTableModel(
 			new Object[][] {
 				{null, null, null, null, null, null, null},
@@ -474,6 +290,7 @@ public class CalendarCalendarView extends JTabbedPane{
 		
 		FebDayTable = new JTable();
 		FebDayTable.setRowSelectionAllowed(false);
+		FebDayTable.getTableHeader().setReorderingAllowed(false);
 		FebDayTable.setModel(new DefaultTableModel(
 			new Object[][] {
 				{null, null, null, null, null, null, null},
@@ -503,6 +320,7 @@ public class CalendarCalendarView extends JTabbedPane{
 		
 		MarDayTable = new JTable();
 		MarDayTable.setRowSelectionAllowed(false);
+		MarDayTable.getTableHeader().setReorderingAllowed(false);
 		MarDayTable.setModel(new DefaultTableModel(
 			new Object[][] {
 				{null, null, null, null, null, null, null},
@@ -534,6 +352,7 @@ public class CalendarCalendarView extends JTabbedPane{
 		
 		AprDayTable = new JTable();
 		AprDayTable.setRowSelectionAllowed(false);
+		AprDayTable.getTableHeader().setReorderingAllowed(false);
 		AprDayTable.setModel(new DefaultTableModel(
 				new Object[][] {
 					{null, null, null, null, null, null, null},
@@ -565,6 +384,7 @@ public class CalendarCalendarView extends JTabbedPane{
 		
 		MayDayTable = new JTable();
 		MayDayTable.setRowSelectionAllowed(false);
+		MayDayTable.getTableHeader().setReorderingAllowed(false);
 		MayDayTable.setModel(new DefaultTableModel(
 				new Object[][] {
 					{null, null, null, null, null, null, null},
@@ -596,6 +416,7 @@ public class CalendarCalendarView extends JTabbedPane{
 		
 		JunDayTable = new JTable();
 		JunDayTable.setRowSelectionAllowed(false);
+		JunDayTable.getTableHeader().setReorderingAllowed(false);
 		JunDayTable.setModel(new DefaultTableModel(
 				new Object[][] {
 					{null, null, null, null, null, null, null},
@@ -625,6 +446,7 @@ public class CalendarCalendarView extends JTabbedPane{
 		
 		JulDayTable = new JTable();
 		JulDayTable.setRowSelectionAllowed(false);
+		JulDayTable.getTableHeader().setReorderingAllowed(false);
 		JulDayTable.setModel(new DefaultTableModel(
 				new Object[][] {
 					{null, null, null, null, null, null, null},
@@ -656,6 +478,7 @@ public class CalendarCalendarView extends JTabbedPane{
 		
 		AugDayTable = new JTable();
 		AugDayTable.setRowSelectionAllowed(false);
+		AugDayTable.getTableHeader().setReorderingAllowed(false);
 		AugDayTable.setModel(new DefaultTableModel(
 				new Object[][] {
 					{null, null, null, null, null, null, null},
@@ -687,6 +510,7 @@ public class CalendarCalendarView extends JTabbedPane{
 		
 		SepDayTable = new JTable();
 		SepDayTable.setRowSelectionAllowed(false);
+		SepDayTable.getTableHeader().setReorderingAllowed(false);
 		SepDayTable.setModel(new DefaultTableModel(
 				new Object[][] {
 					{null, null, null, null, null, null, null},
@@ -716,6 +540,7 @@ public class CalendarCalendarView extends JTabbedPane{
 		
 		OctDayTable = new JTable();
 		OctDayTable.setRowSelectionAllowed(false);
+		OctDayTable.getTableHeader().setReorderingAllowed(false);
 		OctDayTable.setModel(new DefaultTableModel(
 				new Object[][] {
 					{null, null, null, null, null, null, null},
@@ -747,6 +572,7 @@ public class CalendarCalendarView extends JTabbedPane{
 		
 		NovDayTable = new JTable();
 		NovDayTable.setRowSelectionAllowed(false);
+		NovDayTable.getTableHeader().setReorderingAllowed(false);
 		NovDayTable.setModel(new DefaultTableModel(
 				new Object[][] {
 					{null, null, null, null, null, null, null},
@@ -778,6 +604,7 @@ public class CalendarCalendarView extends JTabbedPane{
 		
 		DecDayTable = new JTable();
 		DecDayTable.setRowSelectionAllowed(false);
+		DecDayTable.getTableHeader().setReorderingAllowed(false);
 		DecDayTable.setModel(new DefaultTableModel(
 				new Object[][] {
 					{null, null, null, null, null, null, null},
@@ -834,11 +661,12 @@ public class CalendarCalendarView extends JTabbedPane{
 
 		//populateMonth(monthArray[0], 2, 31);
 		//populateMonth(monthArray[1], 6, 28);
+		simulateYear(currentYear);
 		populateYear(monthArray, currentYear);
 	}
 	
 	public int populateMonth(JTable month, int startDay, int daysInMonth, int whatMonth){
-		List<Event> testList = new ArrayList<Event>();
+		/*List<Event> testList = new ArrayList<Event>();
 		
 		Calendar testStart = new GregorianCalendar(2013, Calendar.NOVEMBER, 14, 18, 0);
 		Calendar testStart2 = new GregorianCalendar(2013, Calendar.JANUARY, 21, 18, 0);
@@ -851,12 +679,12 @@ public class CalendarCalendarView extends JTabbedPane{
 		}
 		catch(WPISuiteException e){
 			System.out.println("What are you doing");
-		}
+		}*/
 		Integer dayCounter = 1;
 		int j=startDay;
 		for(int i=0; i<6; i++){
 			for(; j<7; j++){
-				if(isThereAnEventOnThisDate(/*EventListModel.getInstance().getEvents(),*/testList, currentYear, whatMonth, dayCounter)){
+				if(isThereAnEventOnThisDate(EventListModel.getInstance().getEvents(), currentYear, whatMonth, dayCounter)){
 					MyCellRenderer cellRender = new MyCellRenderer(i);
 					//System.out.println("row passed in " + i);
 					cellRender.getTableCellRendererComponent(month, dayCounter, false, false, i, j);
@@ -873,10 +701,25 @@ public class CalendarCalendarView extends JTabbedPane{
 		return j+1;
 	}
 	
+	public int simulateMonth(int startDay, int daysInMonth) {
+		Integer dayCounter = 1;
+		int j=startDay;
+		for(int i=0; i<6; ++i){
+			for(; j<7; ++j){
+				if (dayCounter == daysInMonth){
+					return j+1;
+				}
+				dayCounter++;
+			}
+			j =0;
+		}
+		return j+1;
+	}
+	
 	public void populateMonthNull(JTable month){
 		int j=0;
-		for(int i=0; i<6; i++){
-			for(; j<7; j++){
+		for(int i=0; i<6; ++i){
+			for(; j<7; ++j){
 				month.getModel().setValueAt(null, i, j);
 				//default background color
 			}
@@ -906,6 +749,27 @@ public class CalendarCalendarView extends JTabbedPane{
 				startDay = populateMonth(monthArray[i], determineStartingDay(year), daysInMonth(i,year), i);
 			else
 				startDay = populateMonth(monthArray[i], startDay, daysInMonth(i,year), i);
+		}
+		return;
+	}
+	
+	public void simulateYear(int year) {
+		int startDay = 0;
+		for(int i=0; i<12; ++i){
+			if(i==0) {
+				startDay = simulateMonth(determineStartingDay(year), daysInMonth(i,year));
+				
+				if(currentMonth == 0) {
+					startDay = determineStartingDay(year);
+					populateMonth(monthView, startDay, daysInMonth(i,year), i);
+				}
+			}
+			else if (i==currentMonth) {
+				populateMonth(monthView, startDay, daysInMonth(i,year), i);
+				return;
+			}
+			else
+				startDay = simulateMonth(startDay, daysInMonth(i,year));
 		}
 		return;
 	}
@@ -997,6 +861,66 @@ public class CalendarCalendarView extends JTabbedPane{
 		return leapYear;
 	}
 	
+	public String getCurrentMonth(int currMonth)
+	{
+		switch(currMonth)
+		{
+			case 0:
+				month = "January";
+				break;
+			case 1:
+				month = "Febuary";
+				break;
+			case 2:
+				month = "March";
+				break;
+			case 3:
+				month = "April";
+				break;
+			case 4:
+				month = "May";
+				break;
+			case 5:
+				month = "June";
+				break;
+			case 6:
+				month = "July";
+				break;
+			case 7:
+				month = "August";
+				break;
+			case 8:
+				month = "September";
+				break;
+			case 9:
+				month = "October";
+				break;
+			case 10:
+				month = "November";
+				break;
+			case 11:
+				month = "December";
+				break;
+			case 12:
+				currentMonth = 0;
+				month = "January";
+				break;
+			case -1:
+				currentMonth = 11;
+				month = "December";
+				break;
+		}
+		return month;
+	}
+
+	public String getCurrentFocus()
+	{
+		return this.currentFocus;
+	}	
+	
+	public JTable getMonthView() {
+		return monthView;
+	}
 	//method to take in list of events (received from server) and populate year view
 			//year view indicates event presence by color code on that day
 			
@@ -1018,5 +942,4 @@ public class CalendarCalendarView extends JTabbedPane{
 		}
 		return false;
 	}
-	
 }
