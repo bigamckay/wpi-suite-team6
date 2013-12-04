@@ -85,8 +85,6 @@ public class GetEventController implements ActionListener{
 		// Make sure the response was not null
 		if (events != null) {
 			
-			System.out.println("We have added something to the list!");
-			
 			// add the events to the local model
 			EventListModel.getInstance().addEvents(events);
 			

@@ -33,14 +33,12 @@ public class CalendarModule implements IJanewayModule {
 		tabs = new ArrayList<JanewayTabModel>();
 		
 		MainView mainView = new MainView();
-
 		ToolbarView tbView = new ToolbarView();
 		
 		// Give the toolbar access to the Calendar View
 		tbView.getCalendar(mainView.getCalendar());
 		
 		// Create a JPanel to hold the toolbar
-
 		JPanel toolbarPanel = new JPanel();
 		toolbarPanel.add(tbView);
 		
@@ -55,7 +53,7 @@ public class CalendarModule implements IJanewayModule {
 
 		// Add the tab to the list of tabs owned by this module
 		tabs.add(tab1);
-
+		
 		
 		
 	}
