@@ -50,6 +50,9 @@ import edu.wpi.cs.wpisuitetng.modules.core.models.User;
  */
 @SuppressWarnings("serial")
 public class CalendarCalendarView extends JTabbedPane{
+	
+	//TODO get rid of this it is a hack
+	public ArrayList<Event> testList;
 
 	private JTable monthView;
 	private JTable weekDayHeaders;
@@ -91,6 +94,7 @@ public class CalendarCalendarView extends JTabbedPane{
 	
 	
 	public CalendarCalendarView() {
+		testList = new ArrayList<Event>();
 		initialize();
 	}
 	
@@ -668,8 +672,7 @@ public class CalendarCalendarView extends JTabbedPane{
 	}
 	
 	public int populateMonth(JTable month, int startDay, int daysInMonth, int whatMonth){
-		List<Event> testList = new ArrayList<Event>();
-		
+		System.out.println("populateMonth is running");
 		Calendar testStart = new GregorianCalendar(2013, Calendar.NOVEMBER, 14, 18, 0);
 		Calendar testStart2 = new GregorianCalendar(2013, Calendar.JANUARY, 21, 18, 0);
 		
@@ -744,6 +747,7 @@ public class CalendarCalendarView extends JTabbedPane{
 	
 	public void populateYear(JTable[] monthArray, int year){
 		int startDay = 0;
+		System.out.println("populateYear is running");
 		for(int i=0; i<12; i++){
 			populateMonthNull(monthArray[i]);
 			if(i==0)
@@ -755,7 +759,7 @@ public class CalendarCalendarView extends JTabbedPane{
 		return;
 	}
 	
-	public void simulateYear(int year) {
+	public int simulateYear(int year) {
 		int startDay = 0;
 		for(int i=0; i<12; ++i){
 			if(i==0) {
@@ -768,12 +772,12 @@ public class CalendarCalendarView extends JTabbedPane{
 			}
 			else if (i==currentMonth) {
 				populateMonth(monthView, startDay, daysInMonth(i,year), i);
-				return;
+				return startDay;
 			}
 			else
 				startDay = simulateMonth(startDay, daysInMonth(i,year));
 		}
-		return;
+		return -1;
 	}
 	
 	public void populateYearNull(){
@@ -927,12 +931,14 @@ public class CalendarCalendarView extends JTabbedPane{
 			//year view indicates event presence by color code on that day
 			
 	public boolean isThereAnEventOnThisDate(List<Event> eventList, int year, int month, int day){
+		//TODO implement andrew's quicksort
 		//eventList.quickSort();
 		Calendar date = new GregorianCalendar(year, month, day);
 		for(Event e: eventList){
-			if(e.getStart().before(date)){
+			//TODO add back in for efficiency
+			/*if(e.getStart().before(date)){
 				return false;
-			}
+			}*/
 			if(e.getStart().get(Calendar.YEAR) == date.get(Calendar.YEAR)
 					&& e.getStart().get(Calendar.MONTH) == date.get(Calendar.MONTH)
 					&& e.getStart().get(Calendar.DATE) == date.get(Calendar.DATE)){
@@ -944,4 +950,13 @@ public class CalendarCalendarView extends JTabbedPane{
 		}
 		return false;
 	}
+	
+	public void displayNewEvent(Event anEvent){
+		System.out.println("display new event is running");
+		int month = anEvent.getStart().get(Calendar.MONTH);
+		int year = anEvent.getStart().get(Calendar.YEAR);
+		populateYear(monthArray, year);
+		populateMonth(monthView, simulateYear(year), daysInMonth(month, year), month);
+	}
+	
 }
