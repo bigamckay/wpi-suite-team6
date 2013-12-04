@@ -826,7 +826,7 @@ public class CalendarCalendarView extends JTabbedPane{
 	}
 	
 	public int populateMonth(JTable month, int startDay, int daysInMonth, int whatMonth){
-		List<Event> testList = new ArrayList<Event>();
+		/*List<Event> testList = new ArrayList<Event>();
 		
 		Calendar testStart = new GregorianCalendar(2013, Calendar.NOVEMBER, 14, 18, 0);
 		Calendar testStart2 = new GregorianCalendar(2013, Calendar.JANUARY, 21, 18, 0);
@@ -841,12 +841,12 @@ public class CalendarCalendarView extends JTabbedPane{
 		}
 		catch(WPISuiteException e){
 			System.out.println("What are you doing");
-		}
+		}*/
 		Integer dayCounter = 1;
 		int j=startDay;
 		for(int i=0; i<6; i++){
 			for(; j<7; j++){
-				if(isThereAnEventOnThisDate(/*EventListModel.getInstance().getEvents(),*/testList, currentYear, whatMonth, dayCounter)){
+				if(isThereAnEventOnThisDate(EventListModel.getInstance().getEvents(), currentYear, whatMonth, dayCounter)){
 					MyCellRenderer cellRender = new MyCellRenderer(i);
 					//System.out.println("row passed in " + i);
 					cellRender.getTableCellRendererComponent(month, dayCounter, false, false, i, j);
