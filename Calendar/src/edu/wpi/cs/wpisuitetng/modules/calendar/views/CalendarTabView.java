@@ -14,7 +14,6 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.views;
 
 import java.awt.Dimension;
 
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
@@ -31,7 +30,7 @@ public class CalendarTabView extends JTabbedPane {
 
 	private JTable dayTable;
 	private JTable eventTable;
-	private JTable comitTable;
+	private JTable commitTable;
 	
 	public CalendarTabView() {
 		initialize();
@@ -50,6 +49,7 @@ public class CalendarTabView extends JTabbedPane {
 		
 		dayTable = new JTable();
 		dayTable.setBackground(UIManager.getColor("InternalFrame.inactiveTitleGradient"));
+		dayTable.getTableHeader().setReorderingAllowed(false);
 		dayTable.setModel(new DefaultTableModel(
 			new Object[][] {
 				{"12:00 AM", null},
@@ -91,6 +91,7 @@ public class CalendarTabView extends JTabbedPane {
 		addTab("Events", null, eventScrollPane, null);
 		
 		eventTable = new JTable();
+		eventTable.getTableHeader().setReorderingAllowed(false);
 		eventTable.setModel(new DefaultTableModel(
 			new Object[][] {
 				{null, null},
@@ -108,8 +109,9 @@ public class CalendarTabView extends JTabbedPane {
 		JScrollPane scrollPane_2 = new JScrollPane();
 		addTab("Commitments", null, scrollPane_2, null);
 		
-		comitTable = new JTable();
-		comitTable.setModel(new DefaultTableModel(
+		commitTable = new JTable();
+		commitTable.getTableHeader().setReorderingAllowed(false);
+		commitTable.setModel(new DefaultTableModel(
 			new Object[][] {
 				{null, null},
 			},
@@ -117,10 +119,10 @@ public class CalendarTabView extends JTabbedPane {
 				"Date", "Commitment Name"
 			}
 		));
-		comitTable.getColumnModel().getColumn(0).setPreferredWidth(65);
-		comitTable.getColumnModel().getColumn(0).setMinWidth(65);
-		comitTable.getColumnModel().getColumn(1).setPreferredWidth(200);
-		comitTable.getColumnModel().getColumn(1).setMinWidth(200);
-		scrollPane_2.setViewportView(comitTable);
+		commitTable.getColumnModel().getColumn(0).setPreferredWidth(65);
+		commitTable.getColumnModel().getColumn(0).setMinWidth(65);
+		commitTable.getColumnModel().getColumn(1).setPreferredWidth(200);
+		commitTable.getColumnModel().getColumn(1).setMinWidth(200);
+		scrollPane_2.setViewportView(commitTable);
 	}
 }
