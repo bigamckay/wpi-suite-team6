@@ -1002,19 +1002,22 @@ public class CalendarCalendarView extends JTabbedPane{
 	public void updateWeekName(int currentDay, int currentMonth, int currentYear) { 
 		String month1, month2, startDayStr, endDayStr;
 		int currentDotw = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
+		
+		startDayStr = String.valueOf(currentDay + 1 - currentDotw);
+		endDayStr = String.valueOf(currentDay + 7 - currentDotw);
 
 		month1 = getShortMonth(currentMonth);
 		month2 = getShortMonth(currentMonth);
 		if (currentDay + 1 - currentDotw < 1) {
-			currentDay = daysInMonth(currentMonth - 1, currentYear) - currentDay;
+			currentDay = currentDay + 1 - currentDotw + daysInMonth(currentMonth - 1, currentYear);
+			startDayStr = String.valueOf(currentDay);
 			month1 = getShortMonth(currentMonth - 1);
 		}
 		if (currentDay + 7 - currentDotw > daysInMonth(currentMonth, currentYear)) {
-			currentDay = currentDay + currentDotw - daysInMonth(currentMonth + 1, currentYear);
+			currentDay = currentDay + 7 - currentDotw - daysInMonth(currentMonth, currentYear);
+			endDayStr = String.valueOf(currentDay);
 			month2 = getShortMonth(currentMonth + 1);
 		}
-		startDayStr = String.valueOf(currentDay + 1 - currentDotw);
-		endDayStr = String.valueOf(currentDay + 7 - currentDotw);
 
 		weekLabel.setText(month1 + " " + startDayStr + " to " + month2 + " " + endDayStr);
 	}
