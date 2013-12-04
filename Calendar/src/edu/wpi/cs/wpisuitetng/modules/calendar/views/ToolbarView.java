@@ -167,6 +167,7 @@ public class ToolbarView extends JSplitPane{
 					}
 					calView.populateMonthNull(calView.getMonthView());
 					calView.simulateYear(calView.currentYear);
+					
 				}
 				else if(currentFocus == "year")
 				{

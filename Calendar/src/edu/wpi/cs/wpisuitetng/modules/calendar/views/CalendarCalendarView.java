@@ -35,6 +35,7 @@ import javax.swing.JTable;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.UIManager;
 import javax.swing.border.EtchedBorder;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import edu.wpi.cs.wpisuitetng.exceptions.WPISuiteException;
@@ -65,6 +66,7 @@ public class CalendarCalendarView extends JTabbedPane{
 	private JTable NovDayTable;
 	private JTable DecDayTable;
 	private String currentFocus = "someBullShitString";
+	private JLabel monthLabel;
 	
 	public int yearNullRan = 0;
 	
@@ -214,7 +216,7 @@ public class CalendarCalendarView extends JTabbedPane{
 		monthName.setBounds(10, 7, 691, 40);
 		monthPanel.add(monthName);
 		
-		JLabel monthLabel = new JLabel(getCurrentMonth(currentMonth));
+		monthLabel = new JLabel(getCurrentMonth(currentMonth));
 		monthLabel.setForeground(UIManager.getColor("Button.darkShadow"));
 		monthLabel.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 20));
 		monthName.add(monthLabel);
@@ -666,7 +668,7 @@ public class CalendarCalendarView extends JTabbedPane{
 	}
 	
 	public int populateMonth(JTable month, int startDay, int daysInMonth, int whatMonth){
-		/*List<Event> testList = new ArrayList<Event>();
+		List<Event> testList = new ArrayList<Event>();
 		
 		Calendar testStart = new GregorianCalendar(2013, Calendar.NOVEMBER, 14, 18, 0);
 		Calendar testStart2 = new GregorianCalendar(2013, Calendar.JANUARY, 21, 18, 0);
@@ -679,12 +681,12 @@ public class CalendarCalendarView extends JTabbedPane{
 		}
 		catch(WPISuiteException e){
 			System.out.println("What are you doing");
-		}*/
+		}
 		Integer dayCounter = 1;
 		int j=startDay;
 		for(int i=0; i<6; i++){
 			for(; j<7; j++){
-				if(isThereAnEventOnThisDate(EventListModel.getInstance().getEvents(), currentYear, whatMonth, dayCounter)){
+				if(isThereAnEventOnThisDate(/*EventListModel.getInstance().getEvents(),*/testList, currentYear, whatMonth, dayCounter)){
 					MyCellRenderer cellRender = new MyCellRenderer(i);
 					//System.out.println("row passed in " + i);
 					cellRender.getTableCellRendererComponent(month, dayCounter, false, false, i, j);
@@ -721,7 +723,7 @@ public class CalendarCalendarView extends JTabbedPane{
 		for(int i=0; i<6; ++i){
 			for(; j<7; ++j){
 				month.getModel().setValueAt(null, i, j);
-				//default background color
+				month.getColumnModel().getColumn(j).setCellRenderer(new DefaultTableCellRenderer());
 			}
 			j =0;
 		}
