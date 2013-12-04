@@ -35,6 +35,7 @@ import javax.swing.border.EtchedBorder;
 import edu.wpi.cs.wpisuitetng.exceptions.WPISuiteException;
 import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Event;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.EventListModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.utils.DateTimeUtils;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controllers.*;
 import edu.wpi.cs.wpisuitetng.modules.core.models.User;
@@ -321,7 +322,7 @@ public class CalendarEventView extends JTabbedPane {
 	            	}
 	            	
 	            	//Inject server request code to add event here
-	            	AddEventController.getInstance().addEvent(newEvent);
+	            	EventListModel.getInstance().addEvent(newEvent);
 	            	
 	            	eventName.setText("Event Name");
 	            	eventLocation.setText("Location Location Location");
