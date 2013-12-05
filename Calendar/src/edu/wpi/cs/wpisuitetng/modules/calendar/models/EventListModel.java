@@ -20,6 +20,7 @@ import java.util.UUID;
 import javax.swing.AbstractListModel;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.controllers.AddEventController;
+import edu.wpi.cs.wpisuitetng.modules.calendar.controllers.GetEventController;
 
 /**
  * NOTE that this is a model in the swing sense, NOT the WPISuite sense
@@ -54,7 +55,10 @@ public class EventListModel extends AbstractListModel {
 	{
 		if(instance == null)
 		{
-			instance = new EventListModel();
+			//call the server for the first time if needed
+			GetEventController.getInstance().actionPerformed(null);
+			
+			instance = new EventListModel();			
 		}
 		
 		return instance;

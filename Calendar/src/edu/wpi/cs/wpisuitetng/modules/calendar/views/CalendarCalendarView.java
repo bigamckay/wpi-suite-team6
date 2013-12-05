@@ -684,17 +684,23 @@ public class CalendarCalendarView extends JTabbedPane{
 		int j=startDay;
 		for(int i=0; i<6; i++){
 			for(; j<7; j++){
-				if(isThereAnEventOnThisDate(EventListModel.getInstance().getEvents(), currentYear, whatMonth, dayCounter)){
-					MyCellRenderer cellRender = new MyCellRenderer(i);
-					//System.out.println("row passed in " + i);
-					cellRender.getTableCellRendererComponent(month, dayCounter, false, false, i, j);
-					month.getColumnModel().getColumn(j).setCellRenderer(cellRender);
+				try{
+					if(isThereAnEventOnThisDate(null/*EventListModel.getInstance().getEvents()*/, currentYear, whatMonth, dayCounter)){
+						MyCellRenderer cellRender = new MyCellRenderer(i);
+						//System.out.println("row passed in " + i);
+						cellRender.getTableCellRendererComponent(month, dayCounter, false, false, i, j);
+						month.getColumnModel().getColumn(j).setCellRenderer(cellRender);
+					}
+					month.getModel().setValueAt(dayCounter.toString(), i, j);
+					if (dayCounter == daysInMonth){
+						return j+1;
+					}
+					dayCounter++;
 				}
-				month.getModel().setValueAt(dayCounter.toString(), i, j);
-				if (dayCounter == daysInMonth){
-					return j+1;
+				catch(NullPointerException exep)
+				{
+					//System.out.println("CalendarCalendarView failed to reach server most likely, skipping");
 				}
-				dayCounter++;
 			}
 			j =0;
 		}

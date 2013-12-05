@@ -20,6 +20,8 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.JTextField;
 
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.EventListModel;
+
 @SuppressWarnings("serial")
 public class ToolbarView extends JSplitPane{
 	
@@ -138,6 +140,16 @@ public class ToolbarView extends JSplitPane{
 				String currentYearStr;
 				String currentMonthStr;
 				String currentDayStr;
+				
+				//attempt to get the events
+				try
+				{
+					System.out.println("Number of events in database is " + EventListModel.getInstance().getSize());
+				}
+				catch(Exception exe)
+				{
+					System.out.print("Failed to ping server");
+				}
 				
 				if(currentFocus == "week")
 				{
