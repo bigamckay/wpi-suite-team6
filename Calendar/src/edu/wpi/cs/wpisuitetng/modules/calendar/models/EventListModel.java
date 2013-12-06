@@ -55,11 +55,11 @@ public class EventListModel extends AbstractListModel {
 	{
 		if(instance == null)
 		{
-			//call the server for the first time if needed
-			GetEventController.getInstance().actionPerformed(null);
-			
 			instance = new EventListModel();			
 		}
+		
+		//call the server for the first time if needed
+		GetEventController.getInstance().actionPerformed(null);
 		
 		return instance;
 	}
