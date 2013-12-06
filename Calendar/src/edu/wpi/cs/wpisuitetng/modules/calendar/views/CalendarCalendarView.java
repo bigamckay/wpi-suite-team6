@@ -1007,28 +1007,32 @@ public class CalendarCalendarView extends JTabbedPane{
 		return false;
 	}
 	
-	public void updateWeekName(int currentDay, int currentMonth, int currentYear) { 
+	public void updateWeekName(int currDay, int currMonth, int currYear) { 
 		String month1, month2, startDayStr, endDayStr;
 		int currentDotw = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
 		
-		startDayStr = String.valueOf(currentDay + 1 - currentDotw);
-		endDayStr = String.valueOf(currentDay + 7 - currentDotw);
+		startDayStr = String.valueOf(currDay + 1 - currentDotw);
+		endDayStr = String.valueOf(currDay + 7 - currentDotw);
 
-		month1 = getShortMonth(currentMonth);
-		month2 = getShortMonth(currentMonth);
-		if (currentDay + 1 - currentDotw < 1) {
-			currentDay = currentDay + 1 - currentDotw + daysInMonth(currentMonth - 1, currentYear);
-			startDayStr = String.valueOf(currentDay);
-			month1 = getShortMonth(currentMonth - 1);
+		month1 = getCurrentMonth(currentMonth);
+		month2 = getCurrentMonth(currentMonth);
+		if (currDay + 1 - currentDotw <= 0) {
+			if (currentMonth <= 0) {
+				startDayStr = String.valueOf(currDay + 1 - currentDotw + daysInMonth(11, currentYear));
+				month1 = getCurrentMonth(11);
+			} else {
+				startDayStr = String.valueOf(currDay + 1 - currentDotw + daysInMonth(currentMonth - 1, currentYear));
+				month1 = getCurrentMonth(currentMonth - 1);
+			}
 		}
-		if (currentDay + 7 - currentDotw > daysInMonth(currentMonth, currentYear)) {
-			currentDay = currentDay + 7 - currentDotw - daysInMonth(currentMonth, currentYear);
-			endDayStr = String.valueOf(currentDay);
-			month2 = getShortMonth(currentMonth + 1);
+		if (currDay + 7 - currentDotw > daysInMonth(currentMonth, currentYear)) {
+			endDayStr = String.valueOf(currDay + 7 - currentDotw - daysInMonth(currentMonth, currentYear));
+			month2 = getCurrentMonth(currentMonth + 1);
 		}
 
 		weekLabel.setText(month1 + " " + startDayStr + " to " + month2 + " " + endDayStr);
 	}
+	
 	public void displayNewEvent(Event anEvent){
 		System.out.println("display new event is running");
 		int month = anEvent.getStart().get(Calendar.MONTH);
