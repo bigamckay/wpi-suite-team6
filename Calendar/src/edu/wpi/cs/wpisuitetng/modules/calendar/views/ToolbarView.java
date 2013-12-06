@@ -35,6 +35,8 @@ public class ToolbarView extends JSplitPane{
 	private int currentDay;
 	private String month = new String();
 	private String currentFocus = new String();
+	private JCheckBox btnTeamView = new JCheckBox("Team View");
+	private JCheckBox btnPersonalView = new JCheckBox("Personal View");
 	public ToolbarView() {
 		
 	}
@@ -92,11 +94,25 @@ public class ToolbarView extends JSplitPane{
 		searchField.setColumns(20);
 		JPanel topper = new JPanel();
 		topper.setPreferredSize(new Dimension(10, 35));
-		JCheckBox btnTeamView = new JCheckBox("Team View");
-		JCheckBox btnPersonalView = new JCheckBox("Personal View");
 		btnPersonalView.setSelected(true);
 		topper.add(btnTeamView, BorderLayout.CENTER);
 		topper.add(btnPersonalView, BorderLayout.CENTER);
+		
+		btnPersonalView.addActionListener(new ActionListener(){
+	        @Override
+	        public void actionPerformed(ActionEvent e){
+	        	calView.setPersonalViewSelected(btnPersonalView.isSelected());
+	        	calView.populateYear(calView.monthArray, calView.currentYear);
+	        }
+		});
+		
+		btnTeamView.addActionListener(new ActionListener(){
+	        @Override
+	        public void actionPerformed(ActionEvent e){
+	        	calView.setTeamViewSelected(btnTeamView.isSelected());
+	        	calView.populateYear(calView.monthArray, calView.currentYear);
+	        }
+		});
 		
 		JPanel bottomer = new JPanel();
 		bottomer.setPreferredSize(new Dimension(10,35));
@@ -378,5 +394,13 @@ public class ToolbarView extends JSplitPane{
 				break;
 		}
 		return month;
+	}
+	
+	public JCheckBox getBtnPersonalView(){
+		return this.btnPersonalView;
+	}
+	
+	public JCheckBox getBtnTeamView(){
+		return this.btnTeamView;
 	}
 }
