@@ -93,6 +93,8 @@ public abstract class AbstractCalendarEntityManager<T extends AbstractCalendarMo
 			throw new WPISuiteException("Failed to instantiate dummy object!");
 		}
 		
+		//TODO remove personal events which do not belong to this user
+		
 		//return the list as an array
 		return (T[]) ts.toArray();
 	}
@@ -154,19 +156,19 @@ public abstract class AbstractCalendarEntityManager<T extends AbstractCalendarMo
 	}
 	
 	@Override
-	public String advancedPut(Session s, String[] args, String content)
+	final public String advancedPut(Session s, String[] args, String content)
 			throws WPISuiteException {
 		throw new NotImplementedException();
 	}
 
 	@Override
-	public String advancedPost(Session s, String string, String content)
+	final public String advancedPost(Session s, String string, String content)
 			throws WPISuiteException {
 		throw new NotImplementedException();
 	}
 
 	@Override
-	public String advancedGet(Session s, String[] args)
+	final public String advancedGet(Session s, String[] args)
 			throws WPISuiteException {
 		throw new NotImplementedException();
 	}
