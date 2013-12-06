@@ -29,7 +29,7 @@ import javax.swing.table.DefaultTableModel;
 public class CalendarTabView extends JTabbedPane {
 
 	private JTable dayTable;
-	private JTable eventTable;
+	//private JTable eventTable;
 	private JTable commitTable;
 	
 	public CalendarTabView() {
@@ -90,7 +90,7 @@ public class CalendarTabView extends JTabbedPane {
 		JScrollPane eventScrollPane = new JScrollPane();
 		addTab("Events", null, eventScrollPane, null);
 		
-		eventTable = new JTable();
+		/*eventTable = new JTable();
 		eventTable.getTableHeader().setReorderingAllowed(false);
 		eventTable.setModel(new DefaultTableModel(
 			new Object[][] {
@@ -104,7 +104,7 @@ public class CalendarTabView extends JTabbedPane {
 		eventTable.getColumnModel().getColumn(0).setMinWidth(65);
 		eventTable.getColumnModel().getColumn(1).setPreferredWidth(200);
 		eventTable.getColumnModel().getColumn(1).setMinWidth(200);
-		eventScrollPane.setViewportView(eventTable);
+		eventScrollPane.setViewportView(eventTable);*/
 		
 		JScrollPane scrollPane_2 = new JScrollPane();
 		addTab("Commitments", null, scrollPane_2, null);

@@ -14,24 +14,29 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.views;
 
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.Calendar;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
+import javax.swing.border.EtchedBorder;
 
 import edu.wpi.cs.wpisuitetng.exceptions.WPISuiteException;
+import edu.wpi.cs.wpisuitetng.janeway.Janeway;
 import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Event;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.EventListModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.utils.DateTimeUtils;
-import edu.wpi.cs.wpisuitetng.modules.calendar.controllers.*;
 
 /**
  * Contains the GUI elements of the Event Panel
@@ -51,6 +56,17 @@ public class CalendarEventView extends JTabbedPane {
 	private JTextField dueDate;
 	private JTextField commitmentName;
 	private JLabel eventFeedbackLabel;
+	
+	private JPanel eventPane;
+	private JPanel commitmentPane;
+	private boolean eventTypeSwitch = true;  // true = personal, false = team
+	private JRadioButton radioBtnEventPersonal;
+	private JRadioButton radioBtnEventTeam;
+	
+	private boolean commitTypeSwitch = true;  // true = personal, false = team
+	private JRadioButton radioBtnCommitPersonal;
+	private JRadioButton radioBtnCommitTeam;
+	
 	private CalendarCalendarView calView;
 	
 	public CalendarEventView() {
@@ -67,18 +83,66 @@ public class CalendarEventView extends JTabbedPane {
 		//setBackground(UIManager.getColor("InternalFrame.inactiveTitleBackground"));
 		//setLayout(null);
 		
+		ImageIcon homeIcon = new ImageIcon(Janeway.class.getResource("/com/sun/java/swing/plaf/windows/icons/HomeFolder.gif"));
+		
+		JPanel defaultPane = new JPanel();
+		defaultPane.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		addTab("", homeIcon, defaultPane, null);
+		defaultPane.setLayout(null);
+		
+		JButton createEvent = new JButton("Create Event");
+		createEvent.setBounds(64, 40/*size().height/2 - (size().height/2)/2 - 36*/, 170, 36);
+		defaultPane.add(createEvent);
+		
+		
+		createEvent.addActionListener(
+			new ActionListener(){
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					if(indexOfTab("Create Commitment") == 1)
+						removeTabAt(1);
+					addTab("Create Event", null, eventPane, null);
+					eventPane.setLayout(null);
+					setSelectedIndex(1);
+				}
+				
+			});
+		
+		JButton createCommitment = new JButton("Create Commitment");
+		createCommitment.setBounds(64, 195/*size().height/2 + (size().height/2)/2 - 36*/, 170, 36);
+		defaultPane.add(createCommitment);
+		createCommitment.setEnabled(false);
+		
+		createCommitment.addActionListener(
+				new ActionListener(){
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						if(indexOfTab("Create Event") == 1)
+							removeTabAt(1);
+						addTab("Create Commitment", null, commitmentPane, null);
+						commitmentPane.setLayout(null);
+						setSelectedIndex(1);
+					}
+					
+				});
+		
 		// Event Tab
 		
-		JPanel eventPane = new JPanel();
-		addTab("Event Edit", null, eventPane, null);
-		eventPane.setLayout(null);
+		eventPane = new JPanel();
+		//addTab("Create Event", null, eventPane, null);
+		//eventPane.setLayout(null);
 		
 		JButton btnCreateEvent = new JButton("Create Event");
 		btnCreateEvent.setBounds(10, 203, 112, 23);
+		btnCreateEvent.setEnabled(true);  
 		eventPane.add(btnCreateEvent);
 		
 		JButton btnDeleteEvent = new JButton("Delete Event");
 		btnDeleteEvent.setBounds(170, 203, 112, 23);
+		btnDeleteEvent.setVisible(false);
+		btnDeleteEvent.setEnabled(false);  
 		eventPane.add(btnDeleteEvent);
 		
 		
@@ -155,7 +219,7 @@ public class CalendarEventView extends JTabbedPane {
 		    });
 		startTime.setHorizontalAlignment(SwingConstants.CENTER);
 		startTime.setText("hh:mm");
-		startTime.setBounds(10, 87, 112, 20);
+		startTime.setBounds(10, 87, 80, 20);
 		eventPane.add(startTime);
 		startTime.setColumns(10);
 		//
@@ -181,7 +245,7 @@ public class CalendarEventView extends JTabbedPane {
 		    });
 		startDay.setHorizontalAlignment(SwingConstants.CENTER);
 		startDay.setText("mm/dd/yyyy");
-		startDay.setBounds(10, 56, 112, 20);
+		startDay.setBounds(10, 56, 80, 20);
 		eventPane.add(startDay);
 		startDay.setColumns(10);
 		//
@@ -207,7 +271,7 @@ public class CalendarEventView extends JTabbedPane {
 		    });
 		endTime.setHorizontalAlignment(SwingConstants.CENTER);
 		endTime.setText("hh:mm");
-		endTime.setBounds(170, 87, 112, 20);
+		endTime.setBounds(102, 87, 80, 20);
 		eventPane.add(endTime);
 		endTime.setColumns(10);
 		//
@@ -233,7 +297,7 @@ public class CalendarEventView extends JTabbedPane {
 		    });
 		endDay.setHorizontalAlignment(SwingConstants.CENTER);
 		endDay.setText("mm/dd/yyyy");
-		endDay.setBounds(170, 56, 112, 20);
+		endDay.setBounds(102, 56, 80, 20);
 		eventPane.add(endDay);
 		endDay.setColumns(10);
 		//
@@ -243,14 +307,14 @@ public class CalendarEventView extends JTabbedPane {
 		lblStart.setForeground(UIManager.getColor("InternalFrame.borderDarkShadow"));
 		lblStart.setFont(new Font("Segoe UI", Font.PLAIN, 16));
 		lblStart.setHorizontalAlignment(SwingConstants.CENTER);
-		lblStart.setBounds(42, 38, 46, 14);
+		lblStart.setBounds(26, 38, 46, 14);
 		eventPane.add(lblStart);
 		
 		JLabel lblEnd = new JLabel("End");
 		lblEnd.setForeground(UIManager.getColor("InternalFrame.borderDarkShadow"));
 		lblEnd.setFont(new Font("Segoe UI", Font.PLAIN, 16));
 		lblEnd.setHorizontalAlignment(SwingConstants.CENTER);
-		lblEnd.setBounds(204, 38, 46, 14);
+		lblEnd.setBounds(119, 38, 46, 14);
 		eventPane.add(lblEnd);
 		
 		// User Feedback Label
@@ -284,7 +348,41 @@ public class CalendarEventView extends JTabbedPane {
 		eventName.setBounds(10, 11, 272, 20);
 		eventPane.add(eventName);
 		eventName.setColumns(10);
-		//
+		
+		radioBtnEventPersonal = new JRadioButton("Personal");
+		radioBtnEventPersonal.setSelected(true);
+		radioBtnEventPersonal.setBounds(200, 54, 81, 24);
+		eventPane.add(radioBtnEventPersonal);
+		
+		radioBtnEventTeam = new JRadioButton("Team");
+		radioBtnEventTeam.setBounds(200, 85, 64, 24);
+		eventPane.add(radioBtnEventTeam);
+		
+		radioBtnEventPersonal.addActionListener(
+				new ActionListener(){
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						if(eventTypeSwitch == false){
+							radioBtnEventTeam.setSelected(false);
+							eventTypeSwitch = true;
+						}
+					}
+					
+				});
+		
+		radioBtnEventTeam.addActionListener(
+				new ActionListener(){
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						if(eventTypeSwitch == true){
+							radioBtnEventPersonal.setSelected(false);
+							eventTypeSwitch = false;
+						}
+					}
+					
+				});
 		
 		//End Day Text Field Boxes
 		
@@ -311,8 +409,7 @@ public class CalendarEventView extends JTabbedPane {
 	            				eventEnd,
 	            				eventDescription.getText(),
 	            				ConfigManager.getConfig().getUserName(),
-	            				true);
-	            		
+	            				eventTypeSwitch);
 	            		calView.testList.add(newEvent);
 	            		System.out.println("added to list");
 	            		calView.displayNewEvent(newEvent);
@@ -343,16 +440,19 @@ public class CalendarEventView extends JTabbedPane {
 		
 		// Commitment Tab
 		
-		JPanel commitmentPane = new JPanel();
-		commitmentPane.setLayout(null);
-		addTab("Commitment Edit", null, commitmentPane, null);
+		commitmentPane = new JPanel();
+		//commitmentPane.setLayout(null);
+		//addTab("Commitment Edit", null, commitmentPane, null);
 				
 		JButton btnCreateCommitment = new JButton("Create Commitment");
 		btnCreateCommitment.setBounds(10, 165, 276, 23);
+		btnCreateCommitment.setEnabled(true);
 		commitmentPane.add(btnCreateCommitment);
 		
 		JButton btnDeleteCommitment = new JButton("Delete Commitment");
 		btnDeleteCommitment.setBounds(10, 203, 276, 23);
+		btnDeleteCommitment.setVisible(false);
+		btnDeleteCommitment.setEnabled(true);
 		commitmentPane.add(btnDeleteCommitment);
 		
 		dueDate = new JTextField();
@@ -414,6 +514,41 @@ public class CalendarEventView extends JTabbedPane {
 		commitFeedbackLabel.setForeground(UIManager.getColor("OptionPane.errorDialog.titlePane.shadow"));
 		commitFeedbackLabel.setBounds(10, 238, 270, 16);
 		commitmentPane.add(commitFeedbackLabel);
+		
+		radioBtnCommitTeam = new JRadioButton("Team");
+		radioBtnCommitTeam.setBounds(10, 120, 64, 24);
+		commitmentPane.add(radioBtnCommitTeam);
+		
+		radioBtnCommitPersonal = new JRadioButton("Personal");
+		radioBtnCommitPersonal.setSelected(true);
+		radioBtnCommitPersonal.setBounds(10, 92, 81, 24);
+		commitmentPane.add(radioBtnCommitPersonal);
+		
+		radioBtnCommitPersonal.addActionListener(
+				new ActionListener(){
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						if(commitTypeSwitch == false){
+							radioBtnCommitTeam.setSelected(false);
+							commitTypeSwitch = true;
+						}
+					}
+					
+				});
+		
+		radioBtnCommitTeam.addActionListener(
+				new ActionListener(){
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						if(commitTypeSwitch == true){
+							radioBtnCommitPersonal.setSelected(false);
+							commitTypeSwitch = false;
+						}
+					}
+					
+				});
 		
 	}
 	
