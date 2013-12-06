@@ -17,24 +17,18 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Font;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowStateListener;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Calendar;
 import java.lang.Math;
 
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.UIManager;
 import javax.swing.border.EtchedBorder;
@@ -43,8 +37,6 @@ import javax.swing.table.DefaultTableModel;
 
 import edu.wpi.cs.wpisuitetng.exceptions.WPISuiteException;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Event;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.EventListModel;
-import edu.wpi.cs.wpisuitetng.modules.core.models.User;
 
 
 /**

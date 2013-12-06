@@ -37,7 +37,6 @@ import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Event;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.EventListModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.utils.DateTimeUtils;
-import edu.wpi.cs.wpisuitetng.modules.calendar.controllers.*;
 
 /**
  * Contains the GUI elements of the Event Panel
@@ -74,7 +73,6 @@ public class CalendarEventView extends JTabbedPane {
 		
 	}
 	
-	@SuppressWarnings("deprecation")
 	private void initialize() {
 		
 		
