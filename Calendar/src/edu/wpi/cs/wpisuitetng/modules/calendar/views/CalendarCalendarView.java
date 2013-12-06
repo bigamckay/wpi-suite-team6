@@ -17,15 +17,12 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Font;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Calendar;
 import java.lang.Math;
 
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
@@ -58,7 +55,6 @@ public class CalendarCalendarView extends JTabbedPane{
 	private boolean personalViewSelected = true;
 	private boolean teamViewSelected = false;
 
-	private JTable monthView;
 	private JTable weekDayHeaders;
 	private JTable JanDayTable;
 	private JTable MarDayTable;
@@ -73,6 +69,8 @@ public class CalendarCalendarView extends JTabbedPane{
 	private JTable NovDayTable;
 	private JTable DecDayTable;
 	private String currentFocus = "week";
+	
+	private JTable monthView;
 	
 	public JLabel monthLabel;
 	public int yearNullRan = 0;
@@ -107,6 +105,7 @@ public class CalendarCalendarView extends JTabbedPane{
 		//viewTabbedPane.setBounds(302, 54, 716, 686);
 		setPreferredSize(new Dimension(716,550));
 		setLocation(302, 54);
+		
 		
 		/**
 		 * Week View
