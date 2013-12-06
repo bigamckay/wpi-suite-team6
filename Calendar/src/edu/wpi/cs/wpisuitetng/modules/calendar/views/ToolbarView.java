@@ -2,6 +2,7 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.views;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -17,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.JTextField;
@@ -160,20 +162,19 @@ public class ToolbarView extends JSplitPane{
 				
 				if(currentFocus == "week")
 				{
-					currentDay--;
+					currentDay -= 7;
 					
-					if(currentDay < 1)
+					if(currentDay < 1 && calView.currentMonth <= 0)
 					{
-						calView.currentMonth--;
-						currentDay = calView.daysInMonth(calView.currentMonth, calView.currentYear);
-					}
-					if(currentDay < 1 && calView.currentMonth < 0)
-					{
-						calView.currentMonth = 11;
 						calView.currentYear--;
-						currentDay = calView.daysInMonth(calView.currentMonth, calView.currentYear);
+						calView.currentMonth = 11;
+						currentDay = calView.daysInMonth(calView.currentMonth, calView.currentYear) + currentDay;
+					} else if(currentDay < 1) {
+						calView.currentMonth--;
+						currentDay = calView.daysInMonth(calView.currentMonth, calView.currentYear) + currentDay;
 					}
-					
+
+					calView.updateWeekName(currentDay, calView.currentMonth, calView.currentYear);
 				}
 				else if(currentFocus == "month")
 				{
@@ -227,20 +228,22 @@ public class ToolbarView extends JSplitPane{
 				
 				if(currentFocus == "week")
 				{
-					currentDay++;
+					currentDay+=7;
 					
-					if(currentDay > calView.daysInMonth(calView.currentMonth, calView.currentYear))
+
+					if(currentDay > calView.daysInMonth(calView.currentMonth, calView.currentYear) && calView.currentMonth >= 11)
 					{
-						calView.currentMonth++;
-						currentDay = 1;
-					}
-					if(currentDay > calView.daysInMonth(calView.currentMonth, calView.currentYear) && calView.currentMonth > 11)
-					{
+						currentDay = (currentDay - calView.daysInMonth(calView.currentMonth, calView.currentYear));
 						calView.currentMonth = 0;
 						calView.currentYear++;
-						currentDay = 1;
 					}
-					
+					if(currentDay > calView.daysInMonth(calView.currentMonth, calView.currentYear))
+					{
+						currentDay = (currentDay - calView.daysInMonth(calView.currentMonth, calView.currentYear));
+						calView.currentMonth++;
+					}
+
+					calView.updateWeekName(currentDay, calView.currentMonth, calView.currentYear);
 				}
 				else if(currentFocus == "month")
 				{
@@ -304,6 +307,10 @@ public class ToolbarView extends JSplitPane{
 	        	calView.populateMonthNull(calView.getMonthView());
 				calView.simulateYear(calView.currentYear);
 	        	calView.populateYear(calView.monthArray, calView.currentYear);
+	        	
+	        	if(currentFocus == "week") {
+	        			calView.updateWeekName(currentDay, calView.currentMonth, calView.currentYear);
+	    		}
 	        	
 	        	if(currentFocus == "month")
 				{	

@@ -72,6 +72,7 @@ public class CalendarCalendarView extends JTabbedPane{
 	private JTable OctDayTable;
 	private JTable NovDayTable;
 	private JTable DecDayTable;
+	public JLabel weekLabel;
 	private String currentFocus = "week";
 	
 	public JLabel monthLabel;
@@ -94,6 +95,8 @@ public class CalendarCalendarView extends JTabbedPane{
 	
 	public int currentYear = Calendar.getInstance().get(Calendar.YEAR);
 	public int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
+	public int currentDay = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+	public int currentDotw = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
 	private String month = new String();
 	
 	
@@ -127,8 +130,9 @@ public class CalendarCalendarView extends JTabbedPane{
 		weekName.setBackground((Color) null);
 		weekName.setBounds(155, 7, 400, 40);
 		weekPanel.add(weekName);
-		
-		JLabel weekLabel = new JLabel("Start Day / End Day");
+
+		weekLabel = new JLabel();
+		updateWeekName(currentDay, currentMonth, currentYear);
 		weekLabel.setForeground(UIManager.getColor("Button.darkShadow"));
 		weekLabel.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 20));
 		weekName.add(weekLabel);
@@ -881,6 +885,58 @@ public class CalendarCalendarView extends JTabbedPane{
 		return leapYear;
 	}
 	
+	public String getShortMonth(int currMonth) {
+		String month = "Jan";
+		
+		switch (currMonth) {
+		case 0:
+			month = "Jan";
+			break;
+		case 1:
+			month = "Feb";
+			break;
+		case 2:
+			month = "Mar";
+			break;
+		case 3:
+			month = "Apr";
+			break;
+		case 4:
+			month = "May";
+			break;
+		case 5:
+			month = "Jun";
+			break;
+		case 6:
+			month = "Jul";
+			break;
+		case 7:
+			month = "Aug";
+			break;
+		case 8:
+			month = "Sep";
+			break;
+		case 9:
+			month = "Oct";
+			break;
+		case 10:
+			month = "Nov";
+			break;
+		case 11:
+			month = "Dec";
+			break;
+		case 12:
+			currentMonth = 0;
+			month = "Jan";
+			break;
+		case -1:
+			currentMonth = 11;
+			month = "Dec";
+			break;
+		}
+		return month;
+	}
+	
 	public String getCurrentMonth(int currMonth)
 	{
 		switch(currMonth)
@@ -986,6 +1042,32 @@ public class CalendarCalendarView extends JTabbedPane{
 				
 		}
 		return false;
+	}
+	
+	public void updateWeekName(int currDay, int currMonth, int currYear) { 
+		String month1, month2, startDayStr, endDayStr;
+		int currentDotw = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
+		
+		startDayStr = String.valueOf(currDay + 1 - currentDotw);
+		endDayStr = String.valueOf(currDay + 7 - currentDotw);
+
+		month1 = getCurrentMonth(currentMonth);
+		month2 = getCurrentMonth(currentMonth);
+		if (currDay + 1 - currentDotw <= 0) {
+			if (currentMonth <= 0) {
+				startDayStr = String.valueOf(currDay + 1 - currentDotw + daysInMonth(11, currentYear));
+				month1 = getCurrentMonth(11);
+			} else {
+				startDayStr = String.valueOf(currDay + 1 - currentDotw + daysInMonth(currentMonth - 1, currentYear));
+				month1 = getCurrentMonth(currentMonth - 1);
+			}
+		}
+		if (currDay + 7 - currentDotw > daysInMonth(currentMonth, currentYear)) {
+			endDayStr = String.valueOf(currDay + 7 - currentDotw - daysInMonth(currentMonth, currentYear));
+			month2 = getCurrentMonth(currentMonth + 1);
+		}
+
+		weekLabel.setText(month1 + " " + startDayStr + " to " + month2 + " " + endDayStr);
 	}
 	
 	public void displayNewEvent(Event anEvent){
