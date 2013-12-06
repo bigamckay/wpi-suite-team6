@@ -18,6 +18,8 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Font;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowStateListener;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.LinkedList;
@@ -32,6 +34,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.UIManager;
 import javax.swing.border.EtchedBorder;
@@ -54,7 +57,6 @@ public class CalendarCalendarView extends JTabbedPane{
 	//TODO get rid of this it is a hack
 	public ArrayList<Event> testList;
 
-	private JTable monthView;
 	private JTable weekDayHeaders;
 	private JTable JanDayTable;
 	private JTable MarDayTable;
@@ -69,6 +71,8 @@ public class CalendarCalendarView extends JTabbedPane{
 	private JTable NovDayTable;
 	private JTable DecDayTable;
 	private String currentFocus = "week";
+	
+	private JTable monthView;
 	
 	public JLabel monthLabel;
 	public int yearNullRan = 0;
@@ -103,6 +107,7 @@ public class CalendarCalendarView extends JTabbedPane{
 		//viewTabbedPane.setBounds(302, 54, 716, 686);
 		setPreferredSize(new Dimension(716,550));
 		setLocation(302, 54);
+		
 		
 		/**
 		 * Week View
