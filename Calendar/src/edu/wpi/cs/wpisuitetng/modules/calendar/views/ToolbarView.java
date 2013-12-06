@@ -12,6 +12,7 @@ import java.awt.event.FocusListener;
 import java.util.Calendar;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
@@ -86,15 +87,15 @@ public class ToolbarView extends JSplitPane{
 		    });
 		searchField.setText("What are you looking for?");
 		searchField.setBounds(10, 10, 10, 3);
+		//searchField.setVisible(false);
 		searchPanel.add(searchField, BorderLayout.LINE_START);
 		searchField.setColumns(20);
 		JPanel topper = new JPanel();
 		topper.setPreferredSize(new Dimension(10, 35));
-		JButton btnTeamView = new JButton("Team View");
-		JButton btnPersonalView = new JButton("Private View");
-		btnTeamView.setBounds(10, 203, 112, 23);
-		btnPersonalView.setBounds(10, 203, 112, 23);
-		topper.add(btnTeamView, BorderLayout.WEST);
+		JCheckBox btnTeamView = new JCheckBox("Team View");
+		JCheckBox btnPersonalView = new JCheckBox("Personal View");
+		btnPersonalView.setSelected(true);
+		topper.add(btnTeamView, BorderLayout.CENTER);
 		topper.add(btnPersonalView, BorderLayout.CENTER);
 		
 		JPanel bottomer = new JPanel();
@@ -103,10 +104,12 @@ public class ToolbarView extends JSplitPane{
 		searchPanel.add(bottomer, BorderLayout.SOUTH);
 		JButton btnSearch = new JButton("Search");
 		btnSearch.setBounds(10, 203, 112, 23);
+		//btnSearch.setVisible(false);
 		searchPanel.add(btnSearch, BorderLayout.EAST);
 		
 		//Navigation Panel for moving around calendars using GridBagLayout
 		JPanel rightPanel = new JPanel(new GridBagLayout());
+		//searchPanel.setPreferredSize(new Dimension(10, 60));
 		//rightPanel.setBorder(BorderFactory.createLineBorder(Color.black));
 		GridBagConstraints c = new GridBagConstraints();
 		
@@ -179,6 +182,9 @@ public class ToolbarView extends JSplitPane{
 					}
 					calView.populateMonthNull(calView.getMonthView());
 					calView.simulateYear(calView.currentYear);
+					
+					calView.monthLabel.setText(calView.getCurrentMonth(calView.currentMonth));
+					
 				}
 				else if(currentFocus == "year")
 				{
@@ -243,6 +249,8 @@ public class ToolbarView extends JSplitPane{
 					}
 					calView.populateMonthNull(calView.getMonthView());
 					calView.simulateYear(calView.currentYear);
+					
+					calView.monthLabel.setText(calView.getCurrentMonth(calView.currentMonth));
 				}
 				else if(currentFocus == "year")
 				{
@@ -292,6 +300,11 @@ public class ToolbarView extends JSplitPane{
 	        	calView.populateMonthNull(calView.getMonthView());
 				calView.simulateYear(calView.currentYear);
 	        	calView.populateYear(calView.monthArray, calView.currentYear);
+	        	
+	        	if(currentFocus == "month")
+				{	
+					calView.monthLabel.setText(calView.getCurrentMonth(calView.currentMonth));
+				}
 			}
 		});
 		

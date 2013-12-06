@@ -51,9 +51,10 @@ public class CalendarEventView extends JTabbedPane {
 	private JTextField dueDate;
 	private JTextField commitmentName;
 	private JLabel eventFeedbackLabel;
+	private CalendarCalendarView calView;
 	
 	public CalendarEventView() {
-		initialize();
+		
 	}
 	
 	private void initialize() {
@@ -302,6 +303,7 @@ public class CalendarEventView extends JTabbedPane {
 	            		return;
 	            	}
 	            	try{
+	            		System.out.println("entered try");
 	            		newEvent = new Event(
 	            				eventName.getText(),
 	            				eventLocation.getText(),
@@ -310,6 +312,10 @@ public class CalendarEventView extends JTabbedPane {
 	            				eventDescription.getText(),
 	            				ConfigManager.getConfig().getUserName(),
 	            				true);
+	            		
+	            		calView.testList.add(newEvent);
+	            		System.out.println("added to list");
+	            		calView.displayNewEvent(newEvent);
 	            	}
 	            	catch(WPISuiteException exception2){
 	            		eventFeedbackLabel.setText(exception2.getMessage());
@@ -409,6 +415,11 @@ public class CalendarEventView extends JTabbedPane {
 		commitFeedbackLabel.setBounds(10, 238, 270, 16);
 		commitmentPane.add(commitFeedbackLabel);
 		
+	}
+	
+	public void getCalendar(CalendarCalendarView newCal) {
+		calView = newCal;
+		initialize();
 	}
 	
 }
