@@ -114,6 +114,10 @@ public class Event extends AbstractCalendarModel {
 		return this.end;
 	}
 	
+	public boolean getPersonal(){
+		return this.personal;
+	}
+	
 	/* SETTERS*/
 	//setters - returns previous value of the variable (whatever was just overwritten)
 	
