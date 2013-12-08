@@ -69,8 +69,15 @@ public abstract class AbstractCalendarEntityManager<T extends AbstractCalendarMo
 	public T[] getEntity(Session s, String id) throws NotFoundException,
 			WPISuiteException {
 		
+		System.out.println(id);
+		
+		//There is a bug on this line, invalid id (keeps coming in as project)
+		//Strings would work better with this. use this string to speed it up
 		UUID idAsUUID = UUID.fromString(id);
 		
+		//Try something like this:
+		//T[] ts = db.retrieve(tClass, T.ID_FIELD_NAME, idAsUUID).toArray(new T[0]);
+		//It allowsus to catch exceptions because the cast is not used. (not super critical, but do it anyway)
 		@SuppressWarnings("unchecked")
 		T[] ts = (T[]) db.retrieve(tClass, T.ID_FIELD_NAME, idAsUUID).toArray();
 		
@@ -92,6 +99,8 @@ public abstract class AbstractCalendarEntityManager<T extends AbstractCalendarMo
 			//This should not happen, but if somehow tClass.newInstance fails...
 			throw new WPISuiteException("Failed to instantiate dummy object!");
 		}
+		
+		//TODO remove personal events which do not belong to this user
 		
 		//return the list as an array
 		return (T[]) ts.toArray();
@@ -154,19 +163,19 @@ public abstract class AbstractCalendarEntityManager<T extends AbstractCalendarMo
 	}
 	
 	@Override
-	public String advancedPut(Session s, String[] args, String content)
+	final public String advancedPut(Session s, String[] args, String content)
 			throws WPISuiteException {
 		throw new NotImplementedException();
 	}
 
 	@Override
-	public String advancedPost(Session s, String string, String content)
+	final public String advancedPost(Session s, String string, String content)
 			throws WPISuiteException {
 		throw new NotImplementedException();
 	}
 
 	@Override
-	public String advancedGet(Session s, String[] args)
+	final public String advancedGet(Session s, String[] args)
 			throws WPISuiteException {
 		throw new NotImplementedException();
 	}
