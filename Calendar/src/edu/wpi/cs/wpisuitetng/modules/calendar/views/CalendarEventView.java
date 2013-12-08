@@ -145,6 +145,11 @@ public class CalendarEventView extends JTabbedPane {
 		btnDeleteEvent.setEnabled(false);  
 		eventPane.add(btnDeleteEvent);
 		
+		//Make a new Calendar with the current date and time
+		Calendar localTime = Calendar.getInstance();
+		localTime.getTime();
+		System.out.println(localTime.toString());
+		
 		
 		//Event Description Text Boxes
 		eventDescription = new JTextField();
