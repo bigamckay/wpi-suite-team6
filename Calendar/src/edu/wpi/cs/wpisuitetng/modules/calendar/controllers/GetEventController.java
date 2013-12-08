@@ -45,6 +45,9 @@ public class GetEventController implements ActionListener{
 			instance = new GetEventController();
 		}
 		
+		//Get events from the server here
+		//GetEventController.getInstance().actionPerformed(null);
+		
 		return instance;
 	}
 
