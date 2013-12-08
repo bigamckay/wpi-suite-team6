@@ -1,6 +1,19 @@
+/*******************************************************************************
+ * Copyright (c) 2013 -- WPI Suite
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Seal Team 6
+ ******************************************************************************/
+
 package edu.wpi.cs.wpisuitetng.modules.calendar.views;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -12,6 +25,7 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.Calendar;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -21,7 +35,6 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.JTextField;
 
 @SuppressWarnings("serial")
 public class ToolbarView extends JSplitPane{
@@ -70,7 +83,7 @@ public class ToolbarView extends JSplitPane{
 		//searchPanel.setBorder(BorderFactory.createLineBorder(Color.black));
 		searchPanel.setLayout(new BorderLayout());
 		//searchPanel.add(new JLabel("Calendar toolbar I edited"));
-		searchField = new JTextField();
+		/*searchField = new JTextField();
 			searchField.addFocusListener(new FocusListener(){
 		        @Override
 		        public void focusGained(FocusEvent e){
@@ -91,7 +104,8 @@ public class ToolbarView extends JSplitPane{
 		searchField.setBounds(10, 10, 10, 3);
 		//searchField.setVisible(false);
 		searchPanel.add(searchField, BorderLayout.LINE_START);
-		searchField.setColumns(20);
+		searchField.setColumns(20);*/		
+		
 		JPanel topper = new JPanel();
 		topper.setPreferredSize(new Dimension(10, 35));
 		btnPersonalView.setSelected(true);
@@ -117,15 +131,18 @@ public class ToolbarView extends JSplitPane{
 		JPanel bottomer = new JPanel();
 		bottomer.setPreferredSize(new Dimension(10,35));
 		searchPanel.add(topper, BorderLayout.NORTH);
+		
+		/*JPanel bottomer = new JPanel();
+		bottomer.setPreferredSize(new Dimension(10,35));
 		searchPanel.add(bottomer, BorderLayout.SOUTH);
 		JButton btnSearch = new JButton("Search");
 		btnSearch.setBounds(10, 203, 112, 23);
 		//btnSearch.setVisible(false);
-		searchPanel.add(btnSearch, BorderLayout.EAST);
+		searchPanel.add(btnSearch, BorderLayout.EAST);*/
 		
 		//Navigation Panel for moving around calendars using GridBagLayout
 		JPanel rightPanel = new JPanel(new GridBagLayout());
-		//searchPanel.setPreferredSize(new Dimension(10, 60));
+		searchPanel.setPreferredSize(new Dimension(300, 60));
 		//rightPanel.setBorder(BorderFactory.createLineBorder(Color.black));
 		GridBagConstraints c = new GridBagConstraints();
 		
