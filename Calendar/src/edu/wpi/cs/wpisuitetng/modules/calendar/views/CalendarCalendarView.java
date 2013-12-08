@@ -696,17 +696,37 @@ public class CalendarCalendarView extends JTabbedPane{
 		int j=startDay;
 		for(int i=0; i<6; i++){
 			for(; j<7; j++){
-				if(personalViewSelected){
-					if(isThereAPersonalEventOnThisDate(/*EventListModel.getInstance().getEvents(),*/testList, currentYear, whatMonth, dayCounter)){
-						MyCellRenderer cellRender = new MyCellRenderer(i, true);
+				if(personalViewSelected && teamViewSelected){
+					if(isThereAPersonalEventOnThisDate(testList, currentYear, whatMonth, dayCounter) && isThereATeamEventOnThisDate(testList, currentYear, whatMonth, dayCounter)){
+						MyCellRenderer cellRender = new MyCellRenderer(i, 2);
+						//System.out.println("row passed in " + i);
+						cellRender.getTableCellRendererComponent(month, dayCounter, false, false, i, j);
+						month.getColumnModel().getColumn(j).setCellRenderer(cellRender);
+					}
+					else if(isThereAPersonalEventOnThisDate(/*EventListModel.getInstance().getEvents(),*/testList, currentYear, whatMonth, dayCounter)){
+						MyCellRenderer cellRender = new MyCellRenderer(i, 0);
+						//System.out.println("row passed in " + i);
+						cellRender.getTableCellRendererComponent(month, dayCounter, false, false, i, j);
+						month.getColumnModel().getColumn(j).setCellRenderer(cellRender);
+					}
+					else if(isThereATeamEventOnThisDate(/*EventListModel.getInstance().getEvents(),*/testList, currentYear, whatMonth, dayCounter)){
+						MyCellRenderer cellRender = new MyCellRenderer(i, 1);
 						//System.out.println("row passed in " + i);
 						cellRender.getTableCellRendererComponent(month, dayCounter, false, false, i, j);
 						month.getColumnModel().getColumn(j).setCellRenderer(cellRender);
 					}
 				}
-				if(teamViewSelected){
+				else if(personalViewSelected){
+					if(isThereAPersonalEventOnThisDate(/*EventListModel.getInstance().getEvents(),*/testList, currentYear, whatMonth, dayCounter)){
+						MyCellRenderer cellRender = new MyCellRenderer(i, 0);
+						//System.out.println("row passed in " + i);
+						cellRender.getTableCellRendererComponent(month, dayCounter, false, false, i, j);
+						month.getColumnModel().getColumn(j).setCellRenderer(cellRender);
+					}
+				}
+				else if(teamViewSelected){
 					if(isThereATeamEventOnThisDate(/*EventListModel.getInstance().getEvents(),*/testList, currentYear, whatMonth, dayCounter)){
-						MyCellRenderer cellRender = new MyCellRenderer(i, false);
+						MyCellRenderer cellRender = new MyCellRenderer(i, 1);
 						//System.out.println("row passed in " + i);
 						cellRender.getTableCellRendererComponent(month, dayCounter, false, false, i, j);
 						month.getColumnModel().getColumn(j).setCellRenderer(cellRender);
