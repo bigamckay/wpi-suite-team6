@@ -694,18 +694,41 @@ public class CalendarCalendarView extends JTabbedPane{
 		}
 		Integer dayCounter = 1;
 		int j=startDay;
+		
 		for(int i=0; i<6; i++){
 			for(; j<7; j++){
-				try{
-					if(isThereAPersonalEventOnThisDate(testList/*EventListModel.getInstance().getEvents()*/, currentYear, whatMonth, dayCounter) &&
-							isThereATeamEventOnThisDate(testList/*EventListModel.getInstance().getEvents()*/, currentYear, whatMonth, dayCounter)){
+				if(personalViewSelected && teamViewSelected){
+					if(isThereAPersonalEventOnThisDate(testList, currentYear, whatMonth, dayCounter) && isThereATeamEventOnThisDate(testList, currentYear, whatMonth, dayCounter)){
 						MyCellRenderer cellRender = new MyCellRenderer(i, 2);
 						//System.out.println("row passed in " + i);
 						cellRender.getTableCellRendererComponent(month, dayCounter, false, false, i, j);
 						month.getColumnModel().getColumn(j).setCellRenderer(cellRender);
 					}
-					else if(isThereAPersonalEventOnThisDate(testList/*EventListModel.getInstance().getEvents()*/, currentYear, whatMonth, dayCounter)){
+					else if(isThereAPersonalEventOnThisDate(/*EventListModel.getInstance().getEvents(),*/testList, currentYear, whatMonth, dayCounter)){
 						MyCellRenderer cellRender = new MyCellRenderer(i, 0);
+						//System.out.println("row passed in " + i);
+						cellRender.getTableCellRendererComponent(month, dayCounter, false, false, i, j);
+						month.getColumnModel().getColumn(j).setCellRenderer(cellRender);
+					}
+					else if(isThereATeamEventOnThisDate(/*EventListModel.getInstance().getEvents(),*/testList, currentYear, whatMonth, dayCounter)){
+						MyCellRenderer cellRender = new MyCellRenderer(i, 1);
+						//System.out.println("row passed in " + i);
+						cellRender.getTableCellRendererComponent(month, dayCounter, false, false, i, j);
+						month.getColumnModel().getColumn(j).setCellRenderer(cellRender);
+					}
+
+				}
+				else if(personalViewSelected){
+					if(isThereAPersonalEventOnThisDate(/*EventListModel.getInstance().getEvents(),*/testList, currentYear, whatMonth, dayCounter)){
+						MyCellRenderer cellRender = new MyCellRenderer(i, 0);
+						//System.out.println("row passed in " + i);
+						cellRender.getTableCellRendererComponent(month, dayCounter, false, false, i, j);
+						month.getColumnModel().getColumn(j).setCellRenderer(cellRender);
+					}
+				}
+				else if(teamViewSelected){
+					if(isThereATeamEventOnThisDate(/*EventListModel.getInstance().getEvents(),*/testList, currentYear, whatMonth, dayCounter)){
+						MyCellRenderer cellRender = new MyCellRenderer(i, 1);
 						//System.out.println("row passed in " + i);
 						cellRender.getTableCellRendererComponent(month, dayCounter, false, false, i, j);
 						month.getColumnModel().getColumn(j).setCellRenderer(cellRender);
@@ -721,10 +744,6 @@ public class CalendarCalendarView extends JTabbedPane{
 						return j+1;
 					}
 					dayCounter++;
-				}
-				catch(NullPointerException exep)
-				{
-					//System.out.println("CalendarCalendarView failed to reach server most likely, skipping");
 				}
 			}
 			j =0;
