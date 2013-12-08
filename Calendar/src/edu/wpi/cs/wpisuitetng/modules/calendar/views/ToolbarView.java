@@ -1,7 +1,21 @@
+/*******************************************************************************
+ * Copyright (c) 2013 -- WPI Suite
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Seal Team 6
+ ******************************************************************************/
+
 package edu.wpi.cs.wpisuitetng.modules.calendar.views;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -11,15 +25,16 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.Calendar;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.JTextField;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.EventListModel;
 
@@ -35,6 +50,8 @@ public class ToolbarView extends JSplitPane{
 	private int currentDay;
 	private String month = new String();
 	private String currentFocus = new String();
+	private JCheckBox btnTeamView = new JCheckBox("Team View");
+	private JCheckBox btnPersonalView = new JCheckBox("Personal View");
 	public ToolbarView() {
 		
 	}
@@ -68,7 +85,7 @@ public class ToolbarView extends JSplitPane{
 		//searchPanel.setBorder(BorderFactory.createLineBorder(Color.black));
 		searchPanel.setLayout(new BorderLayout());
 		//searchPanel.add(new JLabel("Calendar toolbar I edited"));
-		searchField = new JTextField();
+		/*searchField = new JTextField();
 			searchField.addFocusListener(new FocusListener(){
 		        @Override
 		        public void focusGained(FocusEvent e){
@@ -89,27 +106,45 @@ public class ToolbarView extends JSplitPane{
 		searchField.setBounds(10, 10, 10, 3);
 		//searchField.setVisible(false);
 		searchPanel.add(searchField, BorderLayout.LINE_START);
-		searchField.setColumns(20);
+		searchField.setColumns(20);*/		
+		
 		JPanel topper = new JPanel();
 		topper.setPreferredSize(new Dimension(10, 35));
-		JCheckBox btnTeamView = new JCheckBox("Team View");
-		JCheckBox btnPersonalView = new JCheckBox("Personal View");
 		btnPersonalView.setSelected(true);
 		topper.add(btnTeamView, BorderLayout.CENTER);
 		topper.add(btnPersonalView, BorderLayout.CENTER);
 		
+		btnPersonalView.addActionListener(new ActionListener(){
+	        @Override
+	        public void actionPerformed(ActionEvent e){
+	        	calView.setPersonalViewSelected(btnPersonalView.isSelected());
+	        	calView.populateYear(calView.monthArray, calView.currentYear);
+	        }
+		});
+		
+		btnTeamView.addActionListener(new ActionListener(){
+	        @Override
+	        public void actionPerformed(ActionEvent e){
+	        	calView.setTeamViewSelected(btnTeamView.isSelected());
+	        	calView.populateYear(calView.monthArray, calView.currentYear);
+	        }
+		});
+		
 		JPanel bottomer = new JPanel();
 		bottomer.setPreferredSize(new Dimension(10,35));
 		searchPanel.add(topper, BorderLayout.NORTH);
+		
+		/*JPanel bottomer = new JPanel();
+		bottomer.setPreferredSize(new Dimension(10,35));
 		searchPanel.add(bottomer, BorderLayout.SOUTH);
 		JButton btnSearch = new JButton("Search");
 		btnSearch.setBounds(10, 203, 112, 23);
 		//btnSearch.setVisible(false);
-		searchPanel.add(btnSearch, BorderLayout.EAST);
+		searchPanel.add(btnSearch, BorderLayout.EAST);*/
 		
 		//Navigation Panel for moving around calendars using GridBagLayout
 		JPanel rightPanel = new JPanel(new GridBagLayout());
-		//searchPanel.setPreferredSize(new Dimension(10, 60));
+		searchPanel.setPreferredSize(new Dimension(300, 60));
 		//rightPanel.setBorder(BorderFactory.createLineBorder(Color.black));
 		GridBagConstraints c = new GridBagConstraints();
 		
@@ -156,20 +191,19 @@ public class ToolbarView extends JSplitPane{
 				
 				if(currentFocus == "week")
 				{
-					currentDay--;
+					currentDay -= 7;
 					
-					if(currentDay < 1)
+					if(currentDay < 1 && calView.currentMonth <= 0)
 					{
-						calView.currentMonth--;
-						currentDay = calView.daysInMonth(calView.currentMonth, calView.currentYear);
-					}
-					if(currentDay < 1 && calView.currentMonth < 0)
-					{
-						calView.currentMonth = 11;
 						calView.currentYear--;
-						currentDay = calView.daysInMonth(calView.currentMonth, calView.currentYear);
+						calView.currentMonth = 11;
+						currentDay = calView.daysInMonth(calView.currentMonth, calView.currentYear) + currentDay;
+					} else if(currentDay < 1) {
+						calView.currentMonth--;
+						currentDay = calView.daysInMonth(calView.currentMonth, calView.currentYear) + currentDay;
 					}
-					
+
+					calView.updateWeekName(currentDay, calView.currentMonth, calView.currentYear);
 				}
 				else if(currentFocus == "month")
 				{
@@ -223,20 +257,22 @@ public class ToolbarView extends JSplitPane{
 				
 				if(currentFocus == "week")
 				{
-					currentDay++;
+					currentDay+=7;
 					
-					if(currentDay > calView.daysInMonth(calView.currentMonth, calView.currentYear))
+
+					if(currentDay > calView.daysInMonth(calView.currentMonth, calView.currentYear) && calView.currentMonth >= 11)
 					{
-						calView.currentMonth++;
-						currentDay = 1;
-					}
-					if(currentDay > calView.daysInMonth(calView.currentMonth, calView.currentYear) && calView.currentMonth > 11)
-					{
+						currentDay = (currentDay - calView.daysInMonth(calView.currentMonth, calView.currentYear));
 						calView.currentMonth = 0;
 						calView.currentYear++;
-						currentDay = 1;
 					}
-					
+					if(currentDay > calView.daysInMonth(calView.currentMonth, calView.currentYear))
+					{
+						currentDay = (currentDay - calView.daysInMonth(calView.currentMonth, calView.currentYear));
+						calView.currentMonth++;
+					}
+
+					calView.updateWeekName(currentDay, calView.currentMonth, calView.currentYear);
 				}
 				else if(currentFocus == "month")
 				{
@@ -300,6 +336,10 @@ public class ToolbarView extends JSplitPane{
 	        	calView.populateMonthNull(calView.getMonthView());
 				calView.simulateYear(calView.currentYear);
 	        	calView.populateYear(calView.monthArray, calView.currentYear);
+	        	
+	        	if(currentFocus == "week") {
+	        			calView.updateWeekName(currentDay, calView.currentMonth, calView.currentYear);
+	    		}
 	        	
 	        	if(currentFocus == "month")
 				{	
@@ -383,5 +423,13 @@ public class ToolbarView extends JSplitPane{
 				break;
 		}
 		return month;
+	}
+	
+	public JCheckBox getBtnPersonalView(){
+		return this.btnPersonalView;
+	}
+	
+	public JCheckBox getBtnTeamView(){
+		return this.btnTeamView;
 	}
 }

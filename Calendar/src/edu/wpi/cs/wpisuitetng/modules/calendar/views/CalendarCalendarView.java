@@ -17,15 +17,12 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Font;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Calendar;
 import java.lang.Math;
 
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
@@ -41,6 +38,7 @@ import javax.swing.table.DefaultTableModel;
 import edu.wpi.cs.wpisuitetng.exceptions.WPISuiteException;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Event;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.EventListModel;
+import edu.wpi.cs.wpisuitetng.modules.calendar.utils.ListUtils;
 import edu.wpi.cs.wpisuitetng.modules.core.models.User;
 
 
@@ -53,8 +51,10 @@ public class CalendarCalendarView extends JTabbedPane{
 	
 	//TODO get rid of this it is a hack
 	public ArrayList<Event> testList;
+	
+	private boolean personalViewSelected = true;
+	private boolean teamViewSelected = false;
 
-	private JTable monthView;
 	private JTable weekDayHeaders;
 	private JTable JanDayTable;
 	private JTable MarDayTable;
@@ -68,7 +68,10 @@ public class CalendarCalendarView extends JTabbedPane{
 	private JTable OctDayTable;
 	private JTable NovDayTable;
 	private JTable DecDayTable;
+	public JLabel weekLabel;
 	private String currentFocus = "week";
+	
+	private JTable monthView;
 	
 	public JLabel monthLabel;
 	public int yearNullRan = 0;
@@ -90,6 +93,8 @@ public class CalendarCalendarView extends JTabbedPane{
 	
 	public int currentYear = Calendar.getInstance().get(Calendar.YEAR);
 	public int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
+	public int currentDay = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+	public int currentDotw = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
 	private String month = new String();
 	
 	
@@ -103,6 +108,7 @@ public class CalendarCalendarView extends JTabbedPane{
 		//viewTabbedPane.setBounds(302, 54, 716, 686);
 		setPreferredSize(new Dimension(716,550));
 		setLocation(302, 54);
+		
 		
 		/**
 		 * Week View
@@ -123,8 +129,9 @@ public class CalendarCalendarView extends JTabbedPane{
 		weekName.setBackground((Color) null);
 		weekName.setBounds(155, 7, 400, 40);
 		weekPanel.add(weekName);
-		
-		JLabel weekLabel = new JLabel("Start Day / End Day");
+
+		weekLabel = new JLabel();
+		updateWeekName(currentDay, currentMonth, currentYear);
 		weekLabel.setForeground(UIManager.getColor("Button.darkShadow"));
 		weekLabel.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 20));
 		weekName.add(weekLabel);
@@ -678,7 +685,7 @@ public class CalendarCalendarView extends JTabbedPane{
 		
 		try{
 			Event testEvent1 = new Event("Team 6 Meeting", "Flower", testStart, testStart,"Funtimes!", "hi", false);
-			Event testEvent2 = new Event("PlayDate", "Bancroft Towers", testStart2, testStart2, "Ring Toss", "sup", false);
+			Event testEvent2 = new Event("PlayDate", "Bancroft Towers", testStart2, testStart2, "Ring Toss", "sup", true);
 			testList.add(testEvent1);
 			testList.add(testEvent2);
 		}
@@ -689,18 +696,21 @@ public class CalendarCalendarView extends JTabbedPane{
 		int j=startDay;
 		for(int i=0; i<6; i++){
 			for(; j<7; j++){
-				try{
-					if(isThereAnEventOnThisDate(null/*EventListModel.getInstance().getEvents()*/, currentYear, whatMonth, dayCounter)){
-						MyCellRenderer cellRender = new MyCellRenderer(i);
+				if(personalViewSelected){
+					if(isThereAPersonalEventOnThisDate(/*EventListModel.getInstance().getEvents(),*/testList, currentYear, whatMonth, dayCounter)){
+						MyCellRenderer cellRender = new MyCellRenderer(i, true);
 						//System.out.println("row passed in " + i);
 						cellRender.getTableCellRendererComponent(month, dayCounter, false, false, i, j);
 						month.getColumnModel().getColumn(j).setCellRenderer(cellRender);
 					}
-					month.getModel().setValueAt(dayCounter.toString(), i, j);
-					if (dayCounter == daysInMonth){
-						return j+1;
+				}
+				if(teamViewSelected){
+					if(isThereATeamEventOnThisDate(/*EventListModel.getInstance().getEvents(),*/testList, currentYear, whatMonth, dayCounter)){
+						MyCellRenderer cellRender = new MyCellRenderer(i, false);
+						//System.out.println("row passed in " + i);
+						cellRender.getTableCellRendererComponent(month, dayCounter, false, false, i, j);
+						month.getColumnModel().getColumn(j).setCellRenderer(cellRender);
 					}
-					dayCounter++;
 				}
 				catch(NullPointerException exep)
 				{
@@ -873,6 +883,58 @@ public class CalendarCalendarView extends JTabbedPane{
 		return leapYear;
 	}
 	
+	public String getShortMonth(int currMonth) {
+		String month = "Jan";
+		
+		switch (currMonth) {
+		case 0:
+			month = "Jan";
+			break;
+		case 1:
+			month = "Feb";
+			break;
+		case 2:
+			month = "Mar";
+			break;
+		case 3:
+			month = "Apr";
+			break;
+		case 4:
+			month = "May";
+			break;
+		case 5:
+			month = "Jun";
+			break;
+		case 6:
+			month = "Jul";
+			break;
+		case 7:
+			month = "Aug";
+			break;
+		case 8:
+			month = "Sep";
+			break;
+		case 9:
+			month = "Oct";
+			break;
+		case 10:
+			month = "Nov";
+			break;
+		case 11:
+			month = "Dec";
+			break;
+		case 12:
+			currentMonth = 0;
+			month = "Jan";
+			break;
+		case -1:
+			currentMonth = 11;
+			month = "Dec";
+			break;
+		}
+		return month;
+	}
+	
 	public String getCurrentMonth(int currMonth)
 	{
 		switch(currMonth)
@@ -936,25 +998,74 @@ public class CalendarCalendarView extends JTabbedPane{
 	//method to take in list of events (received from server) and populate year view
 			//year view indicates event presence by color code on that day
 			
-	public boolean isThereAnEventOnThisDate(List<Event> eventList, int year, int month, int day){
-		//TODO implement andrew's quicksort
-		//eventList.quickSort();
+	public boolean isThereAPersonalEventOnThisDate(List<Event> eventList, int year, int month, int day){
+		//TODO get call to sort to work
+		//ListUtils.eventByDateListSort(eventList);
 		Calendar date = new GregorianCalendar(year, month, day);
 		for(Event e: eventList){
-			//TODO add back in for efficiency
-			/*if(e.getStart().before(date)){
-				return false;
-			}*/
-			if(e.getStart().get(Calendar.YEAR) == date.get(Calendar.YEAR)
-					&& e.getStart().get(Calendar.MONTH) == date.get(Calendar.MONTH)
-					&& e.getStart().get(Calendar.DATE) == date.get(Calendar.DATE)){
+			if(e.getPersonal()){
+				/*if(e.getStart().before(date)){
+					return false;
+				}*/
+				if(e.getStart().get(Calendar.YEAR) == year
+						&& e.getStart().get(Calendar.MONTH) == month
+						&& e.getStart().get(Calendar.DATE) == day){
 
-				//System.out.println("IN CUSTOM RENDERER"); THE CODE NEVER GETS HERE!!!!!!!!!
-				return true;
+					//System.out.println("IN CUSTOM RENDERER"); THE CODE NEVER GETS HERE!!!!!!!!!
+					return true;
+				}
 			}
 				
 		}
 		return false;
+	}
+	
+	public boolean isThereATeamEventOnThisDate(List<Event> eventList, int year, int month, int day){
+		//TODO get call to sort working
+		//ListUtils.eventByDateListSort(eventList);
+		Calendar date = new GregorianCalendar(year, month, day);
+		for(Event e: eventList){
+			if(!e.getPersonal()){
+				/*if(e.getStart().before(date)){
+					return false;
+				}*/
+				if(e.getStart().get(Calendar.YEAR) == year
+						&& e.getStart().get(Calendar.MONTH) == month
+						&& e.getStart().get(Calendar.DATE) == day){
+
+					//System.out.println("IN CUSTOM RENDERER"); THE CODE NEVER GETS HERE!!!!!!!!!
+					return true;
+				}
+			}
+				
+		}
+		return false;
+	}
+	
+	public void updateWeekName(int currDay, int currMonth, int currYear) { 
+		String month1, month2, startDayStr, endDayStr;
+		int currentDotw = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
+		
+		startDayStr = String.valueOf(currDay + 1 - currentDotw);
+		endDayStr = String.valueOf(currDay + 7 - currentDotw);
+
+		month1 = getCurrentMonth(currentMonth);
+		month2 = getCurrentMonth(currentMonth);
+		if (currDay + 1 - currentDotw <= 0) {
+			if (currentMonth <= 0) {
+				startDayStr = String.valueOf(currDay + 1 - currentDotw + daysInMonth(11, currentYear));
+				month1 = getCurrentMonth(11);
+			} else {
+				startDayStr = String.valueOf(currDay + 1 - currentDotw + daysInMonth(currentMonth - 1, currentYear));
+				month1 = getCurrentMonth(currentMonth - 1);
+			}
+		}
+		if (currDay + 7 - currentDotw > daysInMonth(currentMonth, currentYear)) {
+			endDayStr = String.valueOf(currDay + 7 - currentDotw - daysInMonth(currentMonth, currentYear));
+			month2 = getCurrentMonth(currentMonth + 1);
+		}
+
+		weekLabel.setText(month1 + " " + startDayStr + " to " + month2 + " " + endDayStr);
 	}
 	
 	public void displayNewEvent(Event anEvent){
@@ -963,6 +1074,14 @@ public class CalendarCalendarView extends JTabbedPane{
 		int year = anEvent.getStart().get(Calendar.YEAR);
 		populateYear(monthArray, year);
 		populateMonth(monthView, simulateYear(year), daysInMonth(month, year), month);
+	}
+	
+	public void setPersonalViewSelected(boolean to){
+		this.personalViewSelected = to;
+	}
+	
+	public void setTeamViewSelected(boolean to){
+		this.teamViewSelected = to;
 	}
 	
 }
