@@ -10,11 +10,11 @@ import javax.swing.table.DefaultTableCellRenderer;
 public class MyCellRenderer extends DefaultTableCellRenderer{
 	
 	private int row;
-	private boolean personal;
+	private int whatType;
 	
-	public MyCellRenderer(int row, boolean personal) {
+	public MyCellRenderer(int row, int whatType) {
 		this.row = row;
-		this.personal = personal;
+		this.whatType = whatType;
 	}
 	
 	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
@@ -26,11 +26,14 @@ public class MyCellRenderer extends DefaultTableCellRenderer{
 		else if(this.row == row){
 			//System.out.println("row " + row);
 			//System.out.println("RED");
-			if(this.personal){
-				cellComponent.setBackground(Color.CYAN);
+			if(this.whatType == 0){
+				cellComponent.setBackground(new Color(200, 0, 30));
 			}
-			if(!this.personal){
-				cellComponent.setBackground(Color.BLUE);
+			if(this.whatType == 1){
+				cellComponent.setBackground(new Color(30, 30, 200));
+			}
+			if(this.whatType == 2){
+				cellComponent.setBackground(new Color(200, 30, 200));
 			}
 		}
 		else{
