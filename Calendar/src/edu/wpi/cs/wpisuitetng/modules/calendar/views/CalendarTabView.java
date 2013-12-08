@@ -13,6 +13,8 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.views;
 
 import java.awt.Dimension;
+import java.util.ArrayList;
+import java.util.Calendar;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -21,6 +23,8 @@ import javax.swing.UIManager;
 import javax.swing.border.EtchedBorder;
 import javax.swing.table.DefaultTableModel;
 
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.Event;
+
 /**
  *  Contains the GUI elements of the Tab Panel
  *
@@ -28,7 +32,7 @@ import javax.swing.table.DefaultTableModel;
 @SuppressWarnings("serial")
 public class CalendarTabView extends JTabbedPane {
 
-	private JTable dayTable;
+	public JTable dayTable;
 	//private JTable eventTable;
 	private JTable commitTable;
 	
@@ -125,4 +129,12 @@ public class CalendarTabView extends JTabbedPane {
 		commitTable.getColumnModel().getColumn(1).setMinWidth(200);
 		scrollPane_2.setViewportView(commitTable);
 	}
+	/*@SuppressWarnings("static-access")
+	public void eventIterator(JTable day, ArrayList<Event> events){
+		int size = events.size();
+		for(Event e : events){
+			day.getModel().setValueAt(e.getStart().get(Calendar.HOUR) + ":" + e.getStart().get(Calendar.MINUTE), , is)
+		}
+	}*/
+	
 }

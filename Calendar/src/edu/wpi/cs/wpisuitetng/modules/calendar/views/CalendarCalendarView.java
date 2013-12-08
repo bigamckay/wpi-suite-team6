@@ -55,6 +55,8 @@ public class CalendarCalendarView extends JTabbedPane{
 	private boolean personalViewSelected = true;
 	private boolean teamViewSelected = false;
 
+	private CalendarTabView tabView;
+	
 	private JTable weekDayHeaders;
 	private JTable JanDayTable;
 	private JTable MarDayTable;
@@ -677,13 +679,15 @@ public class CalendarCalendarView extends JTabbedPane{
 		//populateMonth(monthArray[1], 6, 28);
 		simulateYear(currentYear);
 		populateYear(monthArray, currentYear);
+		populateDay(weekDayHeaders, testList);
 	}
 	
 	public int populateMonth(JTable month, int startDay, int daysInMonth, int whatMonth){
 		//System.out.println("populateMonth is running");
-		Calendar testStart = new GregorianCalendar(2013, Calendar.NOVEMBER, 14, 18, 0);
+		Calendar testStart = new GregorianCalendar(2013, Calendar.NOVEMBER, 14, 16, 0);
 		Calendar testStart2 = new GregorianCalendar(2013, Calendar.JANUARY, 21, 18, 0);
-		
+		//System.out.println(testStart.get(Calendar.HOUR_OF_DAY));
+		//System.out.println(testStart2.get(Calendar.HOUR_OF_DAY));
 		try{
 			Event testEvent1 = new Event("Team 6 Meeting", "Flower", testStart, testStart,"Funtimes!", "hi", false);
 			Event testEvent2 = new Event("PlayDate", "Bancroft Towers", testStart2, testStart2, "Ring Toss", "sup", true);
@@ -698,19 +702,19 @@ public class CalendarCalendarView extends JTabbedPane{
 		for(int i=0; i<6; i++){
 			for(; j<7; j++){
 				if(personalViewSelected && teamViewSelected){
-					if(isThereAPersonalEventOnThisDate(testList, currentYear, whatMonth, dayCounter) && isThereATeamEventOnThisDate(testList, currentYear, whatMonth, dayCounter)){
+					if(isThereAPersonalEventOnThisDate(testList, currentYear, whatMonth, dayCounter).size() != 0 && isThereATeamEventOnThisDate(testList, currentYear, whatMonth, dayCounter).size() != 0){
 						MyCellRenderer cellRender = new MyCellRenderer(i, 2);
 						//System.out.println("row passed in " + i);
 						cellRender.getTableCellRendererComponent(month, dayCounter, false, false, i, j);
 						month.getColumnModel().getColumn(j).setCellRenderer(cellRender);
 					}
-					else if(isThereAPersonalEventOnThisDate(/*EventListModel.getInstance().getEvents(),*/testList, currentYear, whatMonth, dayCounter)){
+					else if(isThereAPersonalEventOnThisDate(/*EventListModel.getInstance().getEvents(),*/testList, currentYear, whatMonth, dayCounter).size() != 0){
 						MyCellRenderer cellRender = new MyCellRenderer(i, 0);
 						//System.out.println("row passed in " + i);
 						cellRender.getTableCellRendererComponent(month, dayCounter, false, false, i, j);
 						month.getColumnModel().getColumn(j).setCellRenderer(cellRender);
 					}
-					else if(isThereATeamEventOnThisDate(/*EventListModel.getInstance().getEvents(),*/testList, currentYear, whatMonth, dayCounter)){
+					else if(isThereATeamEventOnThisDate(/*EventListModel.getInstance().getEvents(),*/testList, currentYear, whatMonth, dayCounter).size() != 0){
 						MyCellRenderer cellRender = new MyCellRenderer(i, 1);
 						//System.out.println("row passed in " + i);
 						cellRender.getTableCellRendererComponent(month, dayCounter, false, false, i, j);
@@ -718,7 +722,7 @@ public class CalendarCalendarView extends JTabbedPane{
 					}
 				}
 				else if(personalViewSelected){
-					if(isThereAPersonalEventOnThisDate(/*EventListModel.getInstance().getEvents(),*/testList, currentYear, whatMonth, dayCounter)){
+					if(isThereAPersonalEventOnThisDate(/*EventListModel.getInstance().getEvents(),*/testList, currentYear, whatMonth, dayCounter).size() != 0){
 						MyCellRenderer cellRender = new MyCellRenderer(i, 0);
 						//System.out.println("row passed in " + i);
 						cellRender.getTableCellRendererComponent(month, dayCounter, false, false, i, j);
@@ -726,7 +730,7 @@ public class CalendarCalendarView extends JTabbedPane{
 					}
 				}
 				else if(teamViewSelected){
-					if(isThereATeamEventOnThisDate(/*EventListModel.getInstance().getEvents(),*/testList, currentYear, whatMonth, dayCounter)){
+					if(isThereATeamEventOnThisDate(/*EventListModel.getInstance().getEvents(),*/testList, currentYear, whatMonth, dayCounter).size() != 0){
 						MyCellRenderer cellRender = new MyCellRenderer(i, 1);
 						//System.out.println("row passed in " + i);
 						cellRender.getTableCellRendererComponent(month, dayCounter, false, false, i, j);
@@ -1020,9 +1024,10 @@ public class CalendarCalendarView extends JTabbedPane{
 	//method to take in list of events (received from server) and populate year view
 			//year view indicates event presence by color code on that day
 			
-	public boolean isThereAPersonalEventOnThisDate(List<Event> eventList, int year, int month, int day){
+	public List<Event> isThereAPersonalEventOnThisDate(List<Event> eventList, int year, int month, int day){
 		//TODO get call to sort to work
 		//ListUtils.eventByDateListSort(eventList);
+		List<Event> eventsList = new ArrayList<Event>();
 		Calendar date = new GregorianCalendar(year, month, day);
 		for(Event e: eventList){
 			if(e.getPersonal()){
@@ -1034,17 +1039,18 @@ public class CalendarCalendarView extends JTabbedPane{
 						&& e.getStart().get(Calendar.DATE) == day){
 
 					//System.out.println("IN CUSTOM RENDERER"); THE CODE NEVER GETS HERE!!!!!!!!!
-					return true;
+					eventsList.add(e);
 				}
 			}
 				
 		}
-		return false;
+		return eventsList;
 	}
 	
-	public boolean isThereATeamEventOnThisDate(List<Event> eventList, int year, int month, int day){
+	public List<Event> isThereATeamEventOnThisDate(List<Event> eventList, int year, int month, int day){
 		//TODO get call to sort working
 		//ListUtils.eventByDateListSort(eventList);
+		List<Event> eventsList = new ArrayList<Event>();
 		Calendar date = new GregorianCalendar(year, month, day);
 		for(Event e: eventList){
 			if(!e.getPersonal()){
@@ -1056,12 +1062,13 @@ public class CalendarCalendarView extends JTabbedPane{
 						&& e.getStart().get(Calendar.DATE) == day){
 
 					//System.out.println("IN CUSTOM RENDERER"); THE CODE NEVER GETS HERE!!!!!!!!!
-					return true;
+					
+					eventsList.add(e);
 				}
 			}
 				
 		}
-		return false;
+		return eventsList;
 	}
 	
 	public void updateWeekName(int currDay, int currMonth, int currYear) { 
@@ -1104,6 +1111,18 @@ public class CalendarCalendarView extends JTabbedPane{
 	
 	public void setTeamViewSelected(boolean to){
 		this.teamViewSelected = to;
+	}
+	
+	public void populateWeek(JTable week){
+		populateDay(tabView.dayTable, isThereAPersonalEventOnThisDate(testList, currentYear, currentMonth, currentDay));
+	}
+	
+	public void populateDay(JTable day, List<Event> events){
+		for(Event e : events){
+			//DAY_OF_WEEK returns number 1-7 for Sunday - Saturday
+			//HOUR_OF_DAY returns number 0-23 for hours in day
+			day.getModel().setValueAt(e.getName(), e.getStart().get(Calendar.HOUR_OF_DAY), e.getStart().get(Calendar.DAY_OF_WEEK));
+		}
 	}
 	
 }
