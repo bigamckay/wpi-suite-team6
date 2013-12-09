@@ -69,17 +69,23 @@ public abstract class AbstractCalendarEntityManager<T extends AbstractCalendarMo
 	public T[] getEntity(Session s, String id) throws NotFoundException,
 			WPISuiteException {
 		
-		System.out.println(id);
+		//System.out.println(id);
 		
 		//There is a bug on this line, invalid id (keeps coming in as project)
 		//Strings would work better with this. use this string to speed it up
-		UUID idAsUUID = UUID.fromString(id);
+		//UUID idAsUUID = UUID.fromString(id);
 		
 		//Try something like this:
 		//T[] ts = db.retrieve(tClass, T.ID_FIELD_NAME, idAsUUID).toArray(new T[0]);
-		//It allowsus to catch exceptions because the cast is not used. (not super critical, but do it anyway)
+		//It allows us to catch exceptions because the cast is not used. (not super critical, but do it anyway)
+		//@SuppressWarnings("unchecked")
+		//T[] ts = (T[]) db.retrieve(tClass, T.ID_FIELD_NAME, idAsUUID).toArray();
+		
+		//START CHANGES HERE
+		int iID = Integer.parseInt(id);
+		
 		@SuppressWarnings("unchecked")
-		T[] ts = (T[]) db.retrieve(tClass, T.ID_FIELD_NAME, idAsUUID).toArray();
+		T[] ts = (T[]) db.retrieve(tClass, T.ID_FIELD_NAME, iID).toArray();
 		
 		//if there are no ts in the array throw an exception
 		if(ts.length < 1 || ts[0] == null) {

@@ -58,9 +58,6 @@ public class EventListModel extends AbstractListModel {
 			instance = new EventListModel();			
 		}
 		
-		//call the server for the first time if needed
-		GetEventController.getInstance().actionPerformed(null);
-		
 		return instance;
 	}
 	
@@ -89,7 +86,7 @@ public class EventListModel extends AbstractListModel {
 	 * @param id The ID number of the event to be returned
 	
 	 * @return the event for the id or null if the event is not found */
-	public Event getEvent(UUID id)
+	public Event getEvent(int id)
 	{
 		Event temp = null;
 		// iterate through list of events until id is found
@@ -106,7 +103,7 @@ public class EventListModel extends AbstractListModel {
 	 * 
 	 * @param removeId The ID number of the event to be removed from the list of events in the project
 	 */
-	public void removeEvent(UUID removeId){
+	public void removeEvent(int removeId){
 		// iterate through list of events until id of project is found
 		for (int i=0; i < this.events.size(); i++){
 			if (events.get(i).getId() == removeId){
@@ -133,6 +130,9 @@ public class EventListModel extends AbstractListModel {
 	 * @return the number of events in the project * @see javax.swing.ListModel#getSize() * @see javax.swing.ListModel#getSize() * @see javax.swing.ListModel#getSize()
 	 */
 	public int getSize() {
+		//call the server for the first time if needed
+		GetEventController.getInstance().actionPerformed(null);
+				
 		return events.size();
 	}
 	

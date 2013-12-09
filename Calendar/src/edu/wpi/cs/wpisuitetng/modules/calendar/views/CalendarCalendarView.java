@@ -684,12 +684,13 @@ public class CalendarCalendarView extends JTabbedPane{
 		Calendar testStart2 = new GregorianCalendar(2013, Calendar.JANUARY, 21, 18, 0);
 		
 		try{
-			Event testEvent1 = new Event("Team 6 Meeting", "Flower", testStart, testStart,"Funtimes!", "hi", false);
-			Event testEvent2 = new Event("PlayDate", "Bancroft Towers", testStart2, testStart2, "Ring Toss", "sup", true);
-			testList.add(testEvent1);
-			testList.add(testEvent2);
+			System.out.println("Not doing the test events");
+			//Event testEvent1 = new Event("Team 6 Meeting", "Flower", testStart, testStart,"Funtimes!", "hi", false);
+			//Event testEvent2 = new Event("PlayDate", "Bancroft Towers", testStart2, testStart2, "Ring Toss", "sup", true);
+			//testList.add(testEvent1);
+			//testList.add(testEvent2);
 		}
-		catch(WPISuiteException e){
+		catch(Exception e){
 			System.out.println("What are you doing");
 		}
 		Integer dayCounter = 1;
