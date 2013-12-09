@@ -43,7 +43,7 @@ public class EventManager extends AbstractCalendarEntityManager<Event> {
 		
 		switch(args[2]){
 		case "personal":
-			//get all personal events for this session's user's persional calendar
+			//get all personal events for this session's user's personal calendar
 			for(Event e : allEvents){
 				if(e.isPersonal() && e.getOwner().equals(s.getUsername())){
 					results.add(e);
