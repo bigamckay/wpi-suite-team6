@@ -37,6 +37,13 @@ public class Event extends AbstractCalendarModel {
 	private boolean personal; //is this a personal event? (or a team one)
 	
 	/**
+	 * Dummy constructor, used for database stuff. Not to be used otherwise.
+	 */
+	public Event(){
+		super("", true);
+	}
+	
+	/**
 	 * constructor for Event. Checks for invalid input and throws exception if invalid input is found
 	 * @param name the name of the event, limited to SHORT_MAX characters
 	 * @param location where the event is taking place, limited to SHORT_MAX characters
