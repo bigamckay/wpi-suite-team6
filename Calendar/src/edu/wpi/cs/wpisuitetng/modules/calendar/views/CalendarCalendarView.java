@@ -44,6 +44,7 @@ import edu.wpi.cs.wpisuitetng.modules.core.models.User;
 
 /**
  *  Contains the GUI elements of the Calendar Panel
+ *  Includes week, month, and year view
  *
  */
 @SuppressWarnings("serial")
@@ -108,7 +109,6 @@ public class CalendarCalendarView extends JTabbedPane{
 		//viewTabbedPane.setBounds(302, 54, 716, 686);
 		setPreferredSize(new Dimension(716,550));
 		setLocation(302, 54);
-		
 		
 		/**
 		 * Week View
@@ -678,6 +678,21 @@ public class CalendarCalendarView extends JTabbedPane{
 		populateYear(monthArray, currentYear);
 	}
 	
+	/**
+	 * Fills given month with days, starting from the appropriate date. 
+	 * Determines the day of the week of the starting day of the next month.
+	 * Used in both month and year views.
+	 * @param month - the JTable to populate
+	 * @param startDay - the day of the week the month begins
+	 * 		can be 0 to 6
+	 * @param daysInMonth - how many days are in the given month
+	 * 		can be 28 to 31 
+	 * @param whatMonth - which month in the year the given month is
+	 * 		can be 0 to 11
+	 * 		0 is January, 1 February, and so on
+	 * @return the starting day of the next month in the year
+	 * 		if December, returns the starting day of the next January
+	 */
 	public int populateMonth(JTable month, int startDay, int daysInMonth, int whatMonth){
 //		System.out.println("populateMonth is running");
 		Calendar testStart = new GregorianCalendar(2013, Calendar.NOVEMBER, 14, 18, 0);
@@ -788,6 +803,16 @@ public class CalendarCalendarView extends JTabbedPane{
 		return j+1;
 	}
 	
+	/**
+	 * Calculates the day of the week of the starting day of the next month.
+	 * Should never run on a December.
+	 * Used only in month view.
+	 * @param startDay - day of the week the given month begins on
+	 * 		can be 0 to 6
+	 * @param daysInMonth - how many days are in the given month
+	 * 		can be 28 to 31
+	 * @return the day of the week the next month starts on
+	 */
 	public int simulateMonth(int startDay, int daysInMonth) {
 		Integer dayCounter = 1;
 		int j=startDay;
@@ -803,6 +828,11 @@ public class CalendarCalendarView extends JTabbedPane{
 		return j+1;
 	}
 	
+	/**
+	 * Fills the given table with empty cells.
+	 * Used in both month and year views.
+	 * @param month - the JTable to clear
+	 */
 	public void populateMonthNull(JTable month){
 		int j=0;
 		for(int i=0; i<6; ++i){
@@ -815,8 +845,13 @@ public class CalendarCalendarView extends JTabbedPane{
 		return;
 	}
 
+	/**
+	 * Calculates the day of the week the given year begins on.
+	 * @param year - the year to determine the starting day of
+	 * @return day of the week January 1st falls on for the given year
+	 */
 	int determineStartingDay(int year) 	// taken from http://mathforum.org/library/drmath/view/55837.html
-	{									// modified specifically to find the first day of the year
+	{									// modified specifically to find the first day of the year		
 		double startDay;
 
 		year -= 1;
@@ -827,6 +862,14 @@ public class CalendarCalendarView extends JTabbedPane{
 		return (int)startDay;
 	}
 	
+	/**
+	 * Fills an array of 12 JTables with days, starting from the appropriate
+	 * 	day of the week for January 1st.
+	 * Used only in year view.
+	 * @param monthArray - 12 JTables representing the year's months
+	 * 		Individual tables are populated using populateMonth
+	 * @param year - used to determine the starting day
+	 */
 	public void populateYear(JTable[] monthArray, int year){
 		int startDay = 0;
 		System.out.println("populateYear is running");
@@ -841,6 +884,14 @@ public class CalendarCalendarView extends JTabbedPane{
 		return;
 	}
 	
+	/**
+	 * Calculates the day of the week the currently selected month 
+	 * 	starts on for the given year.
+	 * Current month determined by class variable currentMonth.
+	 * Used only in month view.
+	 * @param year - the year to simulate
+	 * @return the day of the week the current month begins on
+	 */
 	public int simulateYear(int year) {
 		int startDay = 0;
 		for(int i=0; i<12; ++i){
@@ -862,6 +913,10 @@ public class CalendarCalendarView extends JTabbedPane{
 		return -1;
 	}
 	
+	/**
+	 * Fills the array of JTables in the year view with empty cells.
+	 * Used only in year view.
+	 */
 	public void populateYearNull(){
 			for(int i=0; i<12; i++){
 				monthArray[i].setModel(clearedModel);
@@ -871,6 +926,16 @@ public class CalendarCalendarView extends JTabbedPane{
 			return;
 		}
 	
+	/**
+	 * Determines how many days are in the given month.
+	 * @param month - which month of the year the given month is
+	 * 		can be 0 to 11
+	 * 		0 is January, 1 is February, and so on
+	 * @param year - the year the given month is in
+	 * 		only changes the number of days in February if it
+	 * 		 is a leap year
+	 * @return the number of days in the given month
+	 */
 	public int daysInMonth(int month, int year){
 		int result = 0;								// for the respective month value and prints that month and the year to console
 		boolean leapYear = isLeapYear(year);
@@ -925,7 +990,13 @@ public class CalendarCalendarView extends JTabbedPane{
 		return result;
 	}
 	
-	public boolean isLeapYear(int year)		//takes an input year and checks to see if it's a leap year: 1 for true, 0 for false
+	/**
+	 * Determines if the given year is a leap year.
+	 * Helper function to daysInMonth.
+	 * @param year - the year to test
+	 * @return true if the given year is a leap year
+	 */
+	public boolean isLeapYear(int year)
 	{
 		boolean leapYear;
 
@@ -949,6 +1020,12 @@ public class CalendarCalendarView extends JTabbedPane{
 		return leapYear;
 	}
 	
+	/**
+	 * Gets the three-letter abbreviation of the current month's name as a string.
+	 * Used for the labels in year view.
+	 * @param currMonth - the month in question
+	 * @return current month's name as a three-letter string
+	 */
 	public String getShortMonth(int currMonth) {
 		String month = "Jan";
 		
@@ -1001,6 +1078,12 @@ public class CalendarCalendarView extends JTabbedPane{
 		return month;
 	}
 	
+	/**
+	 * Gets a string containing the current month's name.
+	 * Used for the label in month view.
+	 * @param currMonth - the month in question
+	 * @return string with the current month's name
+	 */
 	public String getCurrentMonth(int currMonth)
 	{
 		switch(currMonth)
@@ -1053,11 +1136,20 @@ public class CalendarCalendarView extends JTabbedPane{
 		return month;
 	}
 
+	/**
+	 * Gets the name of the tab that is currently in focus
+	 * @return name of the tab in focus
+	 * 		can be "week", "month", or "year"
+	 */
 	public String getCurrentFocus()
 	{
 		return this.currentFocus;
 	}	
 	
+	/**
+	 * Gets the table in the month view
+	 * @return the JTable shown in the month view
+	 */
 	public JTable getMonthView() {
 		return monthView;
 	}
