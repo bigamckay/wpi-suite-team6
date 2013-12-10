@@ -162,14 +162,5 @@ public class Commitment extends AbstractCalendarModel{
 		return test;
 	}
 
-	
-	@Override
-	public void save() {
-
-	}
-	
-	@Override
-	public void delete() {
-
-	}
+		
 }

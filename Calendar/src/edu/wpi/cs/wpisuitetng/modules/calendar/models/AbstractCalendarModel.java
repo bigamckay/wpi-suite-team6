@@ -49,25 +49,40 @@ public abstract class AbstractCalendarModel extends AbstractModel {
 		return id;
 	}
 	
+	/**
+	 * gets the owner of this object; necessary because this is  private variable 
+	 * @return the owner
+	 */
 	public final String getOwner() {
 		return owner;
 	}
 
+	/**
+	 * sets the owner of this project; necessary because this is a private variable
+	 * @param username
+	 */
 	public final void setOwner(String username) {
 		this.owner = username;
 	}
 
 	@Override
+	/**
+	 * saves the object
+	 */
 	public void save() {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
+	/**
+	 * deletes the object
+	 */
 	public void delete() {
 		// TODO Auto-generated method stub
 		
 	}
+	
 	
 	public static <T extends AbstractCalendarModel> T fromJSON(String jsonString, Class<T> cls){
 		return new Gson().fromJson(jsonString, cls);
