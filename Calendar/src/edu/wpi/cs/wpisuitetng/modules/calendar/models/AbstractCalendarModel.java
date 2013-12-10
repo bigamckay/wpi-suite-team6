@@ -27,25 +27,26 @@ public abstract class AbstractCalendarModel extends AbstractModel {
 	public static String ID_FIELD_NAME = "id";
 
 	//ID used for database stuff
-	private final UUID id;
+	private final int id;
 	
 	private String owner; //the username of the owner
-		
+
+	
 	/**
 	 * Default constructor for AbstractCalendarModel
-	 * Initializes id to a random UUID (unless isDummy is true, in which case id is just 0)
+	 * Initializes id to the next integer in the list
 	 * @param isDummy true if this is a dummy object (for passing into Data methods), false if it is a real one
 	 */
 	public AbstractCalendarModel(String username, boolean isDummy){
 		this.owner = username;
-		id = isDummy?new UUID(0l,0l):UUID.randomUUID();
+		id = isDummy ? -1:EventListModel.getInstance().getSize()+1; //to make absolutely sure we aren't touching
 	}
 	
 	/**
 	 * Gets the database ID of this object
 	 * @return the database ID
 	 */
-	public final UUID getId(){
+	public final int getId(){
 		return id;
 	}
 	
@@ -82,10 +83,10 @@ public abstract class AbstractCalendarModel extends AbstractModel {
 	//documentation from AbstractModel is fine, so we don't need a javadoc here
 	@Override
 	public final Boolean identify(Object o) {
-		if(o instanceof UUID){
+		if(o instanceof Integer){
 			return o.equals(getId());
 		} else if(o instanceof AbstractCalendarModel){
-			return ((AbstractCalendarModel)o).getId().equals(getId());
+			return ((AbstractCalendarModel)o).getId() == (getId()); //encapsulation will cover this
 		} else {
 			return false;
 		}

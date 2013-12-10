@@ -45,9 +45,6 @@ public class GetEventController implements ActionListener{
 			instance = new GetEventController();
 		}
 		
-		//Get events from the server here
-		//GetEventController.getInstance().actionPerformed(null);
-		
 		return instance;
 	}
 
@@ -59,10 +56,7 @@ public class GetEventController implements ActionListener{
 	 * @see java.awt.event.ActionListener#actionPerformed(ActionEvent) */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// Send a request to the core to save this event
-		final Request request = Network.getInstance().makeRequest("calendar/event/project", HttpMethod.GET); // GET == read
-		request.addObserver(observer); // add an observer to process the response
-		request.send(); // send the request
+		retrieveEvents();
 	}
 	
 	/**
@@ -70,7 +64,7 @@ public class GetEventController implements ActionListener{
 	 */
 	public void retrieveEvents() {
 		//Check this address for the database
-		final Request request = Network.getInstance().makeRequest("calendar/event/project", HttpMethod.GET); // GET == read
+		final Request request = Network.getInstance().makeRequest("calendar/event", HttpMethod.GET); // GET == read
 		request.addObserver(observer); // add an observer to process the response
 		request.send(); // send the request
 	}
