@@ -46,6 +46,8 @@ public class EventListModel extends AbstractListModel {
 	private EventListModel (){
 		events = new ArrayList<Event>();
 		nextID = 0;
+		
+		GetEventController.getInstance().retrieveEvents();
 	}
 	
 	/**
@@ -112,11 +114,6 @@ public class EventListModel extends AbstractListModel {
 				break;
 			}
 		}
-		/*try {
-			ViewEventController.getInstance().refreshTable();
-			ViewEventController.getInstance().refreshTree();
-		}
-		catch(Exception e) {}*/
 	}
 
 	/**
@@ -129,10 +126,7 @@ public class EventListModel extends AbstractListModel {
 	
 	 * @return the number of events in the project * @see javax.swing.ListModel#getSize() * @see javax.swing.ListModel#getSize() * @see javax.swing.ListModel#getSize()
 	 */
-	public int getSize() {
-		//call the server for the first time if needed
-		GetEventController.getInstance().actionPerformed(null);
-				
+	public int getSize() {				
 		return events.size();
 	}
 	
