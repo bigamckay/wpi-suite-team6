@@ -119,16 +119,22 @@ public class ToolbarView extends JSplitPane{
 		btnPersonalView.addActionListener(new ActionListener(){
 	        @Override
 	        public void actionPerformed(ActionEvent e){
+	        	calView.populateMonthNull(calView.getMonthView());
 	        	calView.setPersonalViewSelected(btnPersonalView.isSelected());
 	        	calView.populateYear(calView.monthArray, calView.currentYear);
+	        	System.out.println("calView.currentYear = " + calView.currentYear);
+	        	calView.populateMonth(calView.getMonthView(), calView.simulateYear(calView.currentYear), calView.daysInMonth(calView.currentMonth, calView.currentYear), calView.currentMonth);
 	        }
 		});
 		
 		btnTeamView.addActionListener(new ActionListener(){
 	        @Override
 	        public void actionPerformed(ActionEvent e){
+	        	calView.populateMonthNull(calView.getMonthView());
 	        	calView.setTeamViewSelected(btnTeamView.isSelected());
 	        	calView.populateYear(calView.monthArray, calView.currentYear);
+	        	System.out.println("calView.currentYear = " + calView.currentYear);
+	        	calView.populateMonth(calView.getMonthView(), calView.simulateYear(calView.currentYear), calView.daysInMonth(calView.currentMonth, calView.currentYear), calView.currentMonth);
 	        }
 		});
 		

@@ -694,7 +694,7 @@ public class CalendarCalendarView extends JTabbedPane{
 	 * 		if December, returns the starting day of the next January
 	 */
 	public int populateMonth(JTable month, int startDay, int daysInMonth, int whatMonth){
-		System.out.println("populateMonth is running");
+		//System.out.println("populateMonth is running");
 		Calendar testStart = new GregorianCalendar(2013, Calendar.NOVEMBER, 14, 18, 0);
 		Calendar testStart2 = new GregorianCalendar(2013, Calendar.JANUARY, 21, 18, 0);
 		
