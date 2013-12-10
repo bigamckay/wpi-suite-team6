@@ -679,15 +679,19 @@ public class CalendarCalendarView extends JTabbedPane{
 	}
 	
 	public int populateMonth(JTable month, int startDay, int daysInMonth, int whatMonth){
-		System.out.println("populateMonth is running");
+//		System.out.println("populateMonth is running");
 		Calendar testStart = new GregorianCalendar(2013, Calendar.NOVEMBER, 14, 18, 0);
 		Calendar testStart2 = new GregorianCalendar(2013, Calendar.JANUARY, 21, 18, 0);
+		String personalEventStr = new String();
+		String teamEventStr = new String();
+		int numOfEvents = 0;
 		
 		try{
 			Event testEvent1 = new Event("Team 6 Meeting", "Flower", testStart, testStart,"Funtimes!", "hi", false);
 			Event testEvent2 = new Event("PlayDate", "Bancroft Towers", testStart2, testStart2, "Ring Toss", "sup", true);
 			testList.add(testEvent1);
 			testList.add(testEvent2);
+			numOfEvents = testList.size();
 		}
 		catch(WPISuiteException e){
 			System.out.println("What are you doing");
@@ -698,10 +702,22 @@ public class CalendarCalendarView extends JTabbedPane{
 			for(; j<7; j++){
 				if(personalViewSelected && teamViewSelected){
 					if(isThereAPersonalEventOnThisDate(testList, currentYear, whatMonth, dayCounter) && isThereATeamEventOnThisDate(testList, currentYear, whatMonth, dayCounter)){
-						MyCellRenderer cellRender = new MyCellRenderer(i, 2);
+						MyCellRenderer cellRender = new MyCellRenderer(i, 2); 
 						//System.out.println("row passed in " + i);
 						cellRender.getTableCellRendererComponent(month, dayCounter, false, false, i, j);
 						month.getColumnModel().getColumn(j).setCellRenderer(cellRender);
+						
+						for(int z = 0; z < numOfEvents; z++)
+						{
+							if(testList.get(z).isPersonal())
+							{
+								personalEventStr.concat(testList.get(z).getName() + '\n');
+							}
+							else if(!testList.get(z).isPersonal())
+							{
+								teamEventStr.concat(testList.get(z).getName() + '\n');
+							}
+						}
 					}
 					else if(isThereAPersonalEventOnThisDate(/*EventListModel.getInstance().getEvents(),*/testList, currentYear, whatMonth, dayCounter)){
 						MyCellRenderer cellRender = new MyCellRenderer(i, 0);
@@ -732,13 +748,13 @@ public class CalendarCalendarView extends JTabbedPane{
 						month.getColumnModel().getColumn(j).setCellRenderer(cellRender);
 					}
 				}
-				month.getModel().setValueAt(dayCounter.toString(), i, j);
+				month.getModel().setValueAt(dayCounter.toString() + "hello", i, j);
 				if (dayCounter == daysInMonth){
 					return j+1;
 				}
 				dayCounter++;
 			}
-			j =0;
+			j = 0;
 		}
 		return j+1;
 	}
@@ -753,7 +769,7 @@ public class CalendarCalendarView extends JTabbedPane{
 				}
 				dayCounter++;
 			}
-			j =0;
+			j = 0;
 		}
 		return j+1;
 	}
@@ -765,7 +781,7 @@ public class CalendarCalendarView extends JTabbedPane{
 				month.getModel().setValueAt(null, i, j);
 				month.getColumnModel().getColumn(j).setCellRenderer(new DefaultTableCellRenderer());
 			}
-			j =0;
+			j = 0;
 		}
 		return;
 	}
