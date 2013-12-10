@@ -700,8 +700,8 @@ public class CalendarCalendarView extends JTabbedPane{
 		Calendar testStart3 = new GregorianCalendar(2013, Calendar.DECEMBER, 02, 14, 0);
 		
 		try{
-			Event testEvent1 = new Event("Team 6 Meeting", "Flower", testStart, testStart,"Funtimes!", "hi", false);
-			Event testEvent2 = new Event("PlayDate", "Bancroft Towers", testStart2, testStart2, "Ring Toss", "sup", true);
+			Event testEvent1 = new Event("Team 6 Meeting", "Flower", testStart, testStart,"Funtimes!", "hi", true);
+			Event testEvent2 = new Event("PlayDate", "Bancroft Towers", testStart2, testStart2, "Ring Toss", "sup", false);
 			Event testEvent3 = new Event("Something", "WPI", testStart3, testStart3, "something", "derp", true);
 			testList.add(testEvent1);
 			testList.add(testEvent2);
@@ -714,8 +714,8 @@ public class CalendarCalendarView extends JTabbedPane{
 		int j=startDay;
 		for(int i=0; i<6; i++){
 			for(; j<7; j++){
-				String personalEventStr = "\n";
-				String teamEventStr = "\n";
+				String personalEventStr = " ";
+				String teamEventStr = " ";
 				List<Event> personalEventList = isThereAPersonalEventOnThisDate(testList /*EventListModel.getInstance().getEvents()*/, currentYear, whatMonth, dayCounter);
 				List<Event> teamEventList = isThereATeamEventOnThisDate(testList, currentYear, whatMonth, dayCounter);
 				if(personalViewSelected && teamViewSelected){
@@ -728,10 +728,12 @@ public class CalendarCalendarView extends JTabbedPane{
 							for(Event z: personalEventList)
 							{
 								personalEventStr = personalEventStr + z.getName() + '\n';
+								break;
 							}
 							for(Event z: teamEventList)
 							{
 								teamEventStr = teamEventStr + z.getName() + '\n';
+								break;
 							}
 						}
 					}
@@ -744,6 +746,7 @@ public class CalendarCalendarView extends JTabbedPane{
 							for(Event z: personalEventList)
 							{
 									personalEventStr = personalEventStr + z.getName() + '\n';
+									break;
 							}
 						}
 					}
@@ -756,6 +759,7 @@ public class CalendarCalendarView extends JTabbedPane{
 							for(Event z: teamEventList)
 							{
 									teamEventStr = teamEventStr + z.getName() + '\n';
+									break;
 							}
 						}
 					}
@@ -770,6 +774,7 @@ public class CalendarCalendarView extends JTabbedPane{
 							for(Event z: personalEventList)
 							{
 									personalEventStr = personalEventStr + z.getName() + '\n';
+									break;
 							}
 						}
 					}
@@ -784,6 +789,7 @@ public class CalendarCalendarView extends JTabbedPane{
 							for(Event z: teamEventList)
 							{
 									teamEventStr = teamEventStr + z.getName() + '\n';
+									break;
 							}
 						}
 					}
@@ -904,6 +910,7 @@ public class CalendarCalendarView extends JTabbedPane{
 				}
 			}
 			else if (i==currentMonth) {
+				populateMonthNull(monthView);
 				populateMonth(monthView, startDay, daysInMonth(i,year), i);
 				return startDay;
 			}
@@ -1233,6 +1240,7 @@ public class CalendarCalendarView extends JTabbedPane{
 		int month = anEvent.getStart().get(Calendar.MONTH);
 		int year = anEvent.getStart().get(Calendar.YEAR);
 		populateYear(monthArray, year);
+		populateMonthNull(monthView);
 		populateMonth(monthView, simulateYear(year), daysInMonth(month, year), month);
 	}
 	
