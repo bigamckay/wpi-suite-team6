@@ -85,4 +85,33 @@ public class DateTimeUtils {
 		}
 		return dateTime;
 	}
+	
+	public static String reverseParser(boolean isDate, boolean isEnd){
+		Calendar today = Calendar.getInstance();
+		String toPrint = "";
+		if(isDate){
+			String month = Integer.toString(today.get(Calendar.MONTH) + 1);
+			if (month.length() < 2)
+				month = "0" + month;
+			String day = Integer.toString(today.get(Calendar.DAY_OF_MONTH));
+			if(day.length() < 2)
+				day = "0" + day;
+			String year = Integer.toString(today.get(Calendar.YEAR));
+			toPrint = month + "/" + day + "/" + year;
+		}
+		else if(!isDate && !isEnd){
+			String hour = Integer.toString(today.get(Calendar.HOUR_OF_DAY) + 1);
+			if(hour.length() < 2)
+				hour = "0" + hour;
+			toPrint = hour + ":00";
+		}
+		else if(!isDate && isEnd){
+			String hour = Integer.toString(today.get(Calendar.HOUR_OF_DAY) + 2);
+			if(hour.length() < 2)
+				hour = "0" + hour;
+			toPrint = hour + ":00";
+		}
+		return toPrint;
+	}
+	
 }
