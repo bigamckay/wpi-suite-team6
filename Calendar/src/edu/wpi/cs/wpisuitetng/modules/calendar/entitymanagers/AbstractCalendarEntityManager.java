@@ -137,6 +137,7 @@ public abstract class AbstractCalendarEntityManager<T extends AbstractCalendarMo
 
 	@Override
 	public void save(Session s, T model) throws WPISuiteException {
+		model.setId(Count()+1); //set id to next id available
 		if(!db.save(model, s.getProject())){
 			throw new WPISuiteException("Could not save to database");
 		} else System.out.println("Saved a model to the database: " + model.toJSON());

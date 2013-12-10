@@ -27,7 +27,7 @@ public abstract class AbstractCalendarModel extends AbstractModel {
 	public static String ID_FIELD_NAME = "id";
 
 	//ID used for database stuff
-	private final int id;
+	private int id;
 	
 	private String owner; //the username of the owner
 
@@ -39,7 +39,7 @@ public abstract class AbstractCalendarModel extends AbstractModel {
 	 */
 	public AbstractCalendarModel(String username, boolean isDummy){
 		this.owner = username;
-		id = isDummy ? -1:EventListModel.getInstance().getSize()+1; //to make absolutely sure we aren't touching
+		id = isDummy ? -1:0;
 	}
 	
 	/**
@@ -54,6 +54,19 @@ public abstract class AbstractCalendarModel extends AbstractModel {
 		return owner;
 	}
 
+	/**
+	 * Set the ID of this object (if it has never been set before!), otherwise leave it alone
+	 * @param id the new value for the id 
+	 * @return true if id change was successful, false if id was already nonzero and nothing was done
+	 */
+	public final boolean setId(int id){
+		if(this.id == 0){
+			this.id = id;
+			return true;
+		}
+		return false;
+	}
+	
 	public final void setOwner(String username) {
 		this.owner = username;
 	}
