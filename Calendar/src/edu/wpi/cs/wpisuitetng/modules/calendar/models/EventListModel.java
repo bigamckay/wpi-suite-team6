@@ -91,7 +91,7 @@ public class EventListModel extends AbstractListModel {
 	public void addEventFromObserver(Event response) throws WPISuiteException{
 		if(response.getId() != 0){
 			events.add(response);
-			System.out.println("Added Event to EventListModel.");
+			System.out.println("Added Event to EventListModel: " + response.getName() + ", ID: " + response.getId());
 		}
 		else{
 			throw new WPISuiteException("Cannot add an event with ID of zero as it is not stored on the detabase.");
