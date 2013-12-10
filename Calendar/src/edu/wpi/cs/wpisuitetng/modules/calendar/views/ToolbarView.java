@@ -36,6 +36,10 @@ import javax.swing.UIManager;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+/**
+ * This panel fills the toolbar content area of the tab for the calendar module.
+ * 
+ */
 @SuppressWarnings("serial")
 public class ToolbarView extends JSplitPane{
 	
@@ -44,7 +48,7 @@ public class ToolbarView extends JSplitPane{
 	private int location = 300;
 	private int startYear;
 	private JLabel currDay;
-	private JTextField searchField;
+	//private JTextField searchField;
 	private int currentDay;
 	private String month = new String();
 	private String currentFocus = new String();
@@ -346,6 +350,12 @@ public class ToolbarView extends JSplitPane{
 		setRightComponent(rightPanel);
 	}
 	
+	/**
+	 * Used in CalendarModule to get an instance of CalendarCalendarView and
+	 * 	sets it as a class variable.
+	 * Prevents the initialization of the panel until the calView is collected
+	 * @param newCal - the instance of the CalendarCalendarView
+	 */
 	public void getCalendar(CalendarCalendarView newCal) {
 		calView = newCal;
 		startYear = calView.currentYear;
@@ -361,6 +371,11 @@ public class ToolbarView extends JSplitPane{
 		return location;
 	}
 	
+	/**
+	 * Gets the three-letter abbreviation of the current month's name as a string.
+	 * @param currMonth - the month in question
+	 * @return current month's name as a three-letter string
+	 */
 	public String getCurrentMonth(int currMonth)
 	{
 		switch(currMonth)
