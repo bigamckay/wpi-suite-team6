@@ -23,18 +23,16 @@ public class EditEventController {
 	private EditEventRequestObserver observer;
 	
 	/**
-	 * Construct an UpdateEventController for the given model, view pair
-	
-	
+	 * Construct an UpdateEventController for the given model, view pair	
 	 */
 	private EditEventController() {
 		observer = new EditEventRequestObserver(this);
 	}
 	
-	/**
-	
+	/**	
 	 * @return the instance of the UpdateEventController or creates one if it does not
-	 * exist. */
+	 * exist. 
+	 */
 	public static EditEventController getInstance()
 	{
 		if(instance == null)
