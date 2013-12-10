@@ -682,16 +682,15 @@ public class CalendarCalendarView extends JTabbedPane{
 //		System.out.println("populateMonth is running");
 		Calendar testStart = new GregorianCalendar(2013, Calendar.NOVEMBER, 14, 18, 0);
 		Calendar testStart2 = new GregorianCalendar(2013, Calendar.JANUARY, 21, 18, 0);
-		String personalEventStr = new String();
-		String teamEventStr = new String();
-		int numOfEvents = 0;
+		Calendar testStart3 = new GregorianCalendar(2013, Calendar.DECEMBER, 02, 14, 0);
 		
 		try{
 			Event testEvent1 = new Event("Team 6 Meeting", "Flower", testStart, testStart,"Funtimes!", "hi", false);
 			Event testEvent2 = new Event("PlayDate", "Bancroft Towers", testStart2, testStart2, "Ring Toss", "sup", true);
+			Event testEvent3 = new Event("Something", "WPI", testStart3, testStart3, "something", "derp", true);
 			testList.add(testEvent1);
 			testList.add(testEvent2);
-			numOfEvents = testList.size();
+			testList.add(testEvent3);
 		}
 		catch(WPISuiteException e){
 			System.out.println("What are you doing");
@@ -700,55 +699,85 @@ public class CalendarCalendarView extends JTabbedPane{
 		int j=startDay;
 		for(int i=0; i<6; i++){
 			for(; j<7; j++){
+				String personalEventStr = "\n";
+				String teamEventStr = "\n";
+				List<Event> personalEventList = isThereAPersonalEventOnThisDate(testList /*EventListModel.getInstance().getEvents()*/, currentYear, whatMonth, dayCounter);
+				List<Event> teamEventList = isThereATeamEventOnThisDate(testList, currentYear, whatMonth, dayCounter);
 				if(personalViewSelected && teamViewSelected){
-					if(isThereAPersonalEventOnThisDate(testList, currentYear, whatMonth, dayCounter) && isThereATeamEventOnThisDate(testList, currentYear, whatMonth, dayCounter)){
+					if(personalEventList.size() != 0 && teamEventList.size() != 0){
 						MyCellRenderer cellRender = new MyCellRenderer(i, 2); 
 						//System.out.println("row passed in " + i);
 						cellRender.getTableCellRendererComponent(month, dayCounter, false, false, i, j);
 						month.getColumnModel().getColumn(j).setCellRenderer(cellRender);
-						
-						for(int z = 0; z < numOfEvents; z++)
-						{
-							if(testList.get(z).isPersonal())
+						if(month.equals(monthView)){
+							for(Event z: personalEventList)
 							{
-								personalEventStr.concat(testList.get(z).getName() + '\n');
+								personalEventStr = personalEventStr + z.getName() + '\n';
 							}
-							else if(!testList.get(z).isPersonal())
+							for(Event z: teamEventList)
 							{
-								teamEventStr.concat(testList.get(z).getName() + '\n');
+								teamEventStr = teamEventStr + z.getName() + '\n';
 							}
 						}
 					}
-					else if(isThereAPersonalEventOnThisDate(/*EventListModel.getInstance().getEvents(),*/testList, currentYear, whatMonth, dayCounter)){
+					else if(personalEventList.size() != 0){
 						MyCellRenderer cellRender = new MyCellRenderer(i, 0);
 						//System.out.println("row passed in " + i);
 						cellRender.getTableCellRendererComponent(month, dayCounter, false, false, i, j);
 						month.getColumnModel().getColumn(j).setCellRenderer(cellRender);
+						if(month.equals(monthView)){
+							for(Event z: personalEventList)
+							{
+									personalEventStr = personalEventStr + z.getName() + '\n';
+							}
+						}
 					}
-					else if(isThereATeamEventOnThisDate(/*EventListModel.getInstance().getEvents(),*/testList, currentYear, whatMonth, dayCounter)){
+					else if(teamEventList.size() != 0){
 						MyCellRenderer cellRender = new MyCellRenderer(i, 1);
 						//System.out.println("row passed in " + i);
 						cellRender.getTableCellRendererComponent(month, dayCounter, false, false, i, j);
 						month.getColumnModel().getColumn(j).setCellRenderer(cellRender);
+						if(month.equals(monthView)){
+							for(Event z: teamEventList)
+							{
+									teamEventStr = teamEventStr + z.getName() + '\n';
+							}
+						}
 					}
 				}
 				else if(personalViewSelected){
-					if(isThereAPersonalEventOnThisDate(/*EventListModel.getInstance().getEvents(),*/testList, currentYear, whatMonth, dayCounter)){
+					if(personalEventList.size() != 0){
 						MyCellRenderer cellRender = new MyCellRenderer(i, 0);
 						//System.out.println("row passed in " + i);
 						cellRender.getTableCellRendererComponent(month, dayCounter, false, false, i, j);
 						month.getColumnModel().getColumn(j).setCellRenderer(cellRender);
+						if(month.equals(monthView)){
+							for(Event z: personalEventList)
+							{
+									personalEventStr = personalEventStr + z.getName() + '\n';
+							}
+						}
 					}
 				}
 				else if(teamViewSelected){
-					if(isThereATeamEventOnThisDate(/*EventListModel.getInstance().getEvents(),*/testList, currentYear, whatMonth, dayCounter)){
+					if(teamEventList.size() != 0){
 						MyCellRenderer cellRender = new MyCellRenderer(i, 1);
 						//System.out.println("row passed in " + i);
 						cellRender.getTableCellRendererComponent(month, dayCounter, false, false, i, j);
 						month.getColumnModel().getColumn(j).setCellRenderer(cellRender);
+						if(month.equals(monthView)){
+							for(Event z: teamEventList)
+							{
+									teamEventStr = teamEventStr + z.getName() + '\n';
+							}
+						}
 					}
 				}
-				month.getModel().setValueAt(dayCounter.toString() + "hello", i, j);
+				if(month.equals(monthView))
+					month.getModel().setValueAt(dayCounter.toString() + personalEventStr + teamEventStr, i, j);
+				else
+					month.getModel().setValueAt(dayCounter, i, j);
+				//monthView.setValueAt(dayCounter.toString() + personalEventStr + teamEventStr, i, j);
 				if (dayCounter == daysInMonth){
 					return j+1;
 				}
@@ -1035,9 +1064,10 @@ public class CalendarCalendarView extends JTabbedPane{
 	//method to take in list of events (received from server) and populate year view
 			//year view indicates event presence by color code on that day
 			
-	public boolean isThereAPersonalEventOnThisDate(List<Event> eventList, int year, int month, int day){
+	public List<Event> isThereAPersonalEventOnThisDate(List<Event> eventList, int year, int month, int day){
 		//TODO get call to sort to work
 		//ListUtils.eventByDateListSort(eventList);
+		List<Event> personalEvents = new ArrayList<Event>();
 		Calendar date = new GregorianCalendar(year, month, day);
 		for(Event e: eventList){
 			if(e.getPersonal()){
@@ -1049,17 +1079,18 @@ public class CalendarCalendarView extends JTabbedPane{
 						&& e.getStart().get(Calendar.DATE) == day){
 
 					//System.out.println("IN CUSTOM RENDERER"); THE CODE NEVER GETS HERE!!!!!!!!!
-					return true;
+					personalEvents.add(e);
 				}
 			}
 				
 		}
-		return false;
+		return personalEvents;
 	}
 	
-	public boolean isThereATeamEventOnThisDate(List<Event> eventList, int year, int month, int day){
+	public List<Event> isThereATeamEventOnThisDate(List<Event> eventList, int year, int month, int day){
 		//TODO get call to sort working
 		//ListUtils.eventByDateListSort(eventList);
+		List<Event> teamEvents = new ArrayList<Event>();
 		Calendar date = new GregorianCalendar(year, month, day);
 		for(Event e: eventList){
 			if(!e.getPersonal()){
@@ -1071,12 +1102,12 @@ public class CalendarCalendarView extends JTabbedPane{
 						&& e.getStart().get(Calendar.DATE) == day){
 
 					//System.out.println("IN CUSTOM RENDERER"); THE CODE NEVER GETS HERE!!!!!!!!!
-					return true;
+					teamEvents.add(e);
 				}
 			}
 				
 		}
-		return false;
+		return teamEvents;
 	}
 	
 	public void updateWeekName(int currDay, int currMonth, int currYear) { 
