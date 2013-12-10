@@ -57,7 +57,7 @@ public class CalendarCalendarView extends JTabbedPane{
 
 	private CalendarTabView tabView;
 	
-	private JTable weekDayHeaders;
+	public JTable weekDayHeaders;
 	private JTable JanDayTable;
 	private JTable MarDayTable;
 	private JTable FebDayTable;
@@ -73,6 +73,9 @@ public class CalendarCalendarView extends JTabbedPane{
 
 	public JLabel weekLabel;
 	private String currentFocus = "week";
+	
+	public int weekStart;
+	public int weekEnd;
 	
 	private JTable monthView;
 	
@@ -679,18 +682,20 @@ public class CalendarCalendarView extends JTabbedPane{
 		//populateMonth(monthArray[1], 6, 28);
 		simulateYear(currentYear);
 		populateYear(monthArray, currentYear);
-		populateDay(weekDayHeaders, testList);
+		//populateDay(weekDayHeaders, testList);
 	}
 	
 	public int populateMonth(JTable month, int startDay, int daysInMonth, int whatMonth){
 		//System.out.println("populateMonth is running");
 		Calendar testStart = new GregorianCalendar(2013, Calendar.NOVEMBER, 14, 16, 0);
+		Calendar testEnd = new GregorianCalendar(2013, Calendar.NOVEMBER, 14, 17, 0);
 		Calendar testStart2 = new GregorianCalendar(2013, Calendar.JANUARY, 21, 18, 0);
+		Calendar testEnd2 = new GregorianCalendar(2013, Calendar.JANUARY, 21, 20, 0);
 		//System.out.println(testStart.get(Calendar.HOUR_OF_DAY));
 		//System.out.println(testStart2.get(Calendar.HOUR_OF_DAY));
 		try{
-			Event testEvent1 = new Event("Team 6 Meeting", "Flower", testStart, testStart,"Funtimes!", "hi", false);
-			Event testEvent2 = new Event("PlayDate", "Bancroft Towers", testStart2, testStart2, "Ring Toss", "sup", true);
+			Event testEvent1 = new Event("Team 6 Meeting", "Flower", testStart, testEnd,"Funtimes!", "hi", false);
+			Event testEvent2 = new Event("PlayDate", "Bancroft Towers", testStart2, testEnd2, "Ring Toss", "sup", true);
 			testList.add(testEvent1);
 			testList.add(testEvent2);
 		}
@@ -771,6 +776,17 @@ public class CalendarCalendarView extends JTabbedPane{
 				month.getColumnModel().getColumn(j).setCellRenderer(new DefaultTableCellRenderer());
 			}
 			j =0;
+		}
+		return;
+	}
+	
+	public void populateWeekNull(JTable week){
+		int j;
+		for(int i=0; i<24; ++i){
+			for(j=1; j<8; ++j){
+				week.getModel().setValueAt(null, i, j);
+				//week.getColumnModel().getColumn(j).setCellRenderer(new DefaultTableCellRenderer());
+			}
 		}
 		return;
 	}
@@ -1075,8 +1091,11 @@ public class CalendarCalendarView extends JTabbedPane{
 		String month1, month2, startDayStr, endDayStr;
 		int currentDotw = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
 		
-		startDayStr = String.valueOf(currDay + 1 - currentDotw);
-		endDayStr = String.valueOf(currDay + 7 - currentDotw);
+		weekStart = currDay + 1 - currentDotw;
+		weekEnd = currDay + 7 - currentDotw;
+		
+		startDayStr = String.valueOf(weekStart);
+		endDayStr = String.valueOf(weekEnd);
 
 		month1 = getCurrentMonth(currentMonth);
 		month2 = getCurrentMonth(currentMonth);
@@ -1118,10 +1137,16 @@ public class CalendarCalendarView extends JTabbedPane{
 	}
 	
 	public void populateDay(JTable day, List<Event> events){
+		populateWeekNull(weekDayHeaders);
 		for(Event e : events){
 			//DAY_OF_WEEK returns number 1-7 for Sunday - Saturday
 			//HOUR_OF_DAY returns number 0-23 for hours in day
-			day.getModel().setValueAt(e.getName(), e.getStart().get(Calendar.HOUR_OF_DAY), e.getStart().get(Calendar.DAY_OF_WEEK));
+			if (e.getStart().get(Calendar.MONTH) == currentMonth && (weekStart <= e.getStart().get(Calendar.DATE)) && (weekEnd >= e.getStart().get(Calendar.DATE))) {
+				day.getModel().setValueAt(e.getName(), e.getStart().get(Calendar.HOUR_OF_DAY), e.getStart().get(Calendar.DAY_OF_WEEK));
+				if (e.getEnd().get(Calendar.MONTH) == currentMonth) {
+					day.getModel().setValueAt("*", e.getEnd().get(Calendar.HOUR_OF_DAY), e.getEnd().get(Calendar.DAY_OF_WEEK));
+				}
+			}
 		}
 	}
 	

@@ -86,11 +86,4 @@ public class DateTimeUtils {
 		return dateTime;
 	}
 	
-	public String reverseParser(boolean isDate){
-		Calendar todaysDate = Calendar.getInstance();
-		if(isDate){
-			//String toPrint = 
-		}
-	}
-	
 }

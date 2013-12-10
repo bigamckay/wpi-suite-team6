@@ -50,6 +50,7 @@ public class ToolbarView extends JSplitPane{
 	private String currentFocus = new String();
 	private JCheckBox btnTeamView = new JCheckBox("Team View");
 	private JCheckBox btnPersonalView = new JCheckBox("Personal View");
+	
 	public ToolbarView() {
 		
 	}
@@ -192,6 +193,7 @@ public class ToolbarView extends JSplitPane{
 					}
 
 					calView.updateWeekName(currentDay, calView.currentMonth, calView.currentYear);
+					calView.populateDay(calView.weekDayHeaders, calView.testList);
 				}
 				else if(currentFocus == "month")
 				{
@@ -261,6 +263,8 @@ public class ToolbarView extends JSplitPane{
 					}
 
 					calView.updateWeekName(currentDay, calView.currentMonth, calView.currentYear);
+					calView.populateDay(calView.weekDayHeaders, calView.testList);
+					System.out.println("CurrentDay = "+ currentDay);
 				}
 				else if(currentFocus == "month")
 				{
@@ -327,6 +331,7 @@ public class ToolbarView extends JSplitPane{
 	        	
 	        	if(currentFocus == "week") {
 	        			calView.updateWeekName(currentDay, calView.currentMonth, calView.currentYear);
+						calView.populateDay(calView.weekDayHeaders, calView.testList);
 	    		}
 	        	
 	        	if(currentFocus == "month")
@@ -344,6 +349,8 @@ public class ToolbarView extends JSplitPane{
 		//setBorder(BorderFactory.createLineBorder(Color.black));
 		setLeftComponent(searchPanel);
 		setRightComponent(rightPanel);
+		
+		calView.populateDay(calView.weekDayHeaders, calView.testList);
 	}
 	
 	public void getCalendar(CalendarCalendarView newCal) {
