@@ -684,16 +684,18 @@ public class CalendarCalendarView extends JTabbedPane{
 		Calendar testStart2 = new GregorianCalendar(2013, Calendar.JANUARY, 21, 18, 0);
 		
 		try{
-			Event testEvent1 = new Event("Team 6 Meeting", "Flower", testStart, testStart,"Funtimes!", "hi", false);
-			Event testEvent2 = new Event("PlayDate", "Bancroft Towers", testStart2, testStart2, "Ring Toss", "sup", true);
-			testList.add(testEvent1);
-			testList.add(testEvent2);
+			System.out.println("Not doing the test events");
+			//Event testEvent1 = new Event("Team 6 Meeting", "Flower", testStart, testStart,"Funtimes!", "hi", false);
+			//Event testEvent2 = new Event("PlayDate", "Bancroft Towers", testStart2, testStart2, "Ring Toss", "sup", true);
+			//testList.add(testEvent1);
+			//testList.add(testEvent2);
 		}
-		catch(WPISuiteException e){
+		catch(Exception e){
 			System.out.println("What are you doing");
 		}
 		Integer dayCounter = 1;
 		int j=startDay;
+		
 		for(int i=0; i<6; i++){
 			for(; j<7; j++){
 				if(personalViewSelected && teamViewSelected){
@@ -715,6 +717,7 @@ public class CalendarCalendarView extends JTabbedPane{
 						cellRender.getTableCellRendererComponent(month, dayCounter, false, false, i, j);
 						month.getColumnModel().getColumn(j).setCellRenderer(cellRender);
 					}
+
 				}
 				else if(personalViewSelected){
 					if(isThereAPersonalEventOnThisDate(/*EventListModel.getInstance().getEvents(),*/testList, currentYear, whatMonth, dayCounter)){
@@ -731,12 +734,18 @@ public class CalendarCalendarView extends JTabbedPane{
 						cellRender.getTableCellRendererComponent(month, dayCounter, false, false, i, j);
 						month.getColumnModel().getColumn(j).setCellRenderer(cellRender);
 					}
+					else if(isThereATeamEventOnThisDate(testList/*EventListModel.getInstance().getEvents()*/, currentYear, whatMonth, dayCounter)){
+						MyCellRenderer cellRender = new MyCellRenderer(i, 1);
+						//System.out.println("row passed in " + i);
+						cellRender.getTableCellRendererComponent(month, dayCounter, false, false, i, j);
+						month.getColumnModel().getColumn(j).setCellRenderer(cellRender);
+					}
+					month.getModel().setValueAt(dayCounter.toString(), i, j);
+					if (dayCounter == daysInMonth){
+						return j+1;
+					}
+					dayCounter++;
 				}
-				month.getModel().setValueAt(dayCounter.toString(), i, j);
-				if (dayCounter == daysInMonth){
-					return j+1;
-				}
-				dayCounter++;
 			}
 			j =0;
 		}

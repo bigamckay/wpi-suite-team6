@@ -12,8 +12,10 @@
 
 package edu.wpi.cs.wpisuitetng.modules.calendar.controllers;
 
+import edu.wpi.cs.wpisuitetng.exceptions.WPISuiteException;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controllers.AddEventController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Event;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.EventListModel;
 import edu.wpi.cs.wpisuitetng.network.RequestObserver;
 import edu.wpi.cs.wpisuitetng.network.models.IRequest;
 import edu.wpi.cs.wpisuitetng.network.models.ResponseModel;
@@ -38,11 +40,19 @@ public class AddEventRequestObserver implements RequestObserver {
 	 */
 	@Override
 	public void responseSuccess(IRequest iReq) {
+		
 		// Get the response to the given request
 		final ResponseModel response = iReq.getResponse();
 		
 		// Parse the requirement out of the response body
-		final Event requirement = Event.fromJSON(response.getBody(), Event.class);		
+		final Event event = Event.fromJSON(response.getBody(), Event.class);
+		
+		// add the event to the EventListModel
+		try{
+			EventListModel.getInstance().addEventFromObserver(event);
+		} catch(WPISuiteException e){
+			fail(iReq, e);
+		}
 	}
 
 	/**
