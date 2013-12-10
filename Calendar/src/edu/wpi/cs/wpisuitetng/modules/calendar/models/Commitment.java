@@ -51,6 +51,10 @@ public class Commitment extends AbstractCalendarModel{
 			throw e;
 		}
 		
+		this.name = name;
+		this.duedate = duedate;
+		this.description = description;
+		
 	}
 
 
