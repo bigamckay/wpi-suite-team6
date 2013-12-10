@@ -12,6 +12,7 @@
 
 package edu.wpi.cs.wpisuitetng.modules.calendar.entitymanagers;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.UUID;
@@ -85,7 +86,7 @@ public abstract class AbstractCalendarEntityManager<T extends AbstractCalendarMo
 		int iID = Integer.parseInt(id);
 		
 		@SuppressWarnings("unchecked")
-		T[] ts = (T[]) db.retrieve(tClass, T.ID_FIELD_NAME, iID).toArray();
+		T[] ts = db.retrieve(tClass, T.ID_FIELD_NAME, iID).toArray((T[])Array.newInstance(tClass, 0));
 		
 		//if there are no ts in the array throw an exception
 		if(ts.length < 1 || ts[0] == null) {
@@ -103,13 +104,13 @@ public abstract class AbstractCalendarEntityManager<T extends AbstractCalendarMo
 			ts = db.retrieveAll(tClass.newInstance(), s.getProject());
 		} catch (InstantiationException | IllegalAccessException e) {
 			//This should not happen, but if somehow tClass.newInstance fails...
-			throw new WPISuiteException("Failed to instantiate dummy object!");
+			throw new WPISuiteException("Failed to instantiate dummy object: " + e.getMessage());
 		}
 		
 		//TODO remove personal events which do not belong to this user
 		
 		//return the list as an array
-		return (T[]) ts.toArray();
+		return ts.toArray((T[]) Array.newInstance(tClass, 0));
 	}
 
 	@Override
@@ -154,7 +155,7 @@ public abstract class AbstractCalendarEntityManager<T extends AbstractCalendarMo
 			db.deleteAll(tClass.newInstance());
 		} catch (InstantiationException | IllegalAccessException e) {
 			//This should not happen, but if somehow tClass.newInstance fails...
-			throw new WPISuiteException("Failed to instantiate dummy object!");
+			throw new WPISuiteException("Failed to instantiate dummy object: " + e.getMessage());
 		}
 	}
 
@@ -164,7 +165,7 @@ public abstract class AbstractCalendarEntityManager<T extends AbstractCalendarMo
 			return db.retrieveAll(tClass.newInstance()).size();
 		} catch (InstantiationException | IllegalAccessException e) {
 			//This should not happen, but if somehow tClass.newInstance fails...
-			throw new WPISuiteException("Failed to instantiate dummy object!");
+			throw new WPISuiteException("Failed to instantiate dummy object: " + e.getMessage());
 		}
 	}
 	

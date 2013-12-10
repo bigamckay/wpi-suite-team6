@@ -30,7 +30,8 @@ public abstract class AbstractCalendarModel extends AbstractModel {
 	private final int id;
 	
 	private String owner; //the username of the owner
-		
+
+	
 	/**
 	 * Default constructor for AbstractCalendarModel
 	 * Initializes id to the next integer in the list
@@ -38,7 +39,7 @@ public abstract class AbstractCalendarModel extends AbstractModel {
 	 */
 	public AbstractCalendarModel(String username, boolean isDummy){
 		this.owner = username;
-		id = isDummy ? 0:EventListModel.getInstance().getSize()+1; //to make absolutely sure we aren't touching
+		id = isDummy ? -1:EventListModel.getInstance().getSize()+1; //to make absolutely sure we aren't touching
 	}
 	
 	/**
