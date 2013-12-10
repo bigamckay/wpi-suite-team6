@@ -83,6 +83,13 @@ public class CalendarEventView extends JTabbedPane {
 		//setBackground(UIManager.getColor("InternalFrame.inactiveTitleBackground"));
 		//setLayout(null);
 		
+		//CODE FOR EVENT CREATION DEFAULT FIELD CONTENTS
+		//Make a new Calendar with the current date and time
+		Calendar localTime = Calendar.getInstance();
+		localTime.getTime();
+		System.out.println(localTime.toString());
+		
+		
 		ImageIcon homeIcon = new ImageIcon(Janeway.class.getResource("/com/sun/java/swing/plaf/windows/icons/HomeFolder.gif"));
 		
 		JPanel defaultPane = new JPanel();
@@ -144,12 +151,6 @@ public class CalendarEventView extends JTabbedPane {
 		btnDeleteEvent.setVisible(false);
 		btnDeleteEvent.setEnabled(false);  
 		eventPane.add(btnDeleteEvent);
-		
-		//Make a new Calendar with the current date and time
-		Calendar localTime = Calendar.getInstance();
-		localTime.getTime();
-		System.out.println(localTime.toString());
-		
 		
 		//Event Description Text Boxes
 		eventDescription = new JTextField();
