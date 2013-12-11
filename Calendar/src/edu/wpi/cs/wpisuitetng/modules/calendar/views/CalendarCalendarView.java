@@ -694,11 +694,11 @@ public class CalendarCalendarView extends JTabbedPane{
 	 * 		if December, returns the starting day of the next January
 	 */
 	public int populateMonth(JTable month, int startDay, int daysInMonth, int whatMonth){
-//		System.out.println("populateMonth is running");
+		//System.out.println("populateMonth is running");
 		//Calendar testStart = new GregorianCalendar(2013, Calendar.NOVEMBER, 14, 18, 0);
 		//Calendar testStart2 = new GregorianCalendar(2013, Calendar.JANUARY, 21, 18, 0);
 		//Calendar testStart3 = new GregorianCalendar(2013, Calendar.DECEMBER, 02, 14, 0);
-		
+
 		try{
 			System.out.println("Not doing the test events");
 			//Event testEvent1 = new Event("Team 6 Meeting", "Flower", testStart, testStart,"Funtimes!", "hi", false);
@@ -711,7 +711,7 @@ public class CalendarCalendarView extends JTabbedPane{
 		}
 		Integer dayCounter = 1;
 		int j=startDay;
-		
+
 		for(int i=0; i<6; i++){
 			for(; j<7; j++){
 				String personalEventStr = " ";
@@ -745,8 +745,8 @@ public class CalendarCalendarView extends JTabbedPane{
 						if(month.equals(monthView)){
 							for(Event z: personalEventList)
 							{
-									personalEventStr = personalEventStr + z.getName() + '\n';
-									break;
+								personalEventStr = personalEventStr + z.getName() + '\n';
+								break;
 							}
 						}
 					}
@@ -758,8 +758,8 @@ public class CalendarCalendarView extends JTabbedPane{
 						if(month.equals(monthView)){
 							for(Event z: teamEventList)
 							{
-									teamEventStr = teamEventStr + z.getName() + '\n';
-									break;
+								teamEventStr = teamEventStr + z.getName() + '\n';
+								break;
 							}
 						}
 					}
@@ -774,8 +774,8 @@ public class CalendarCalendarView extends JTabbedPane{
 						if(month.equals(monthView)){
 							for(Event z: personalEventList)
 							{
-									personalEventStr = personalEventStr + z.getName() + '\n';
-									break;
+								personalEventStr = personalEventStr + z.getName() + '\n';
+								break;
 							}
 						}
 					}
@@ -789,17 +789,18 @@ public class CalendarCalendarView extends JTabbedPane{
 						if(month.equals(monthView)){
 							for(Event z: teamEventList)
 							{
-									teamEventStr = teamEventStr + z.getName() + '\n';
-									break;
+								teamEventStr = teamEventStr + z.getName() + '\n';
+								break;
 							}
 						}
 					}
-					month.getModel().setValueAt(dayCounter.toString(), i, j);
-					if (dayCounter == daysInMonth){
-						return j+1;
-					}
-					dayCounter++;
 				}
+				/*month.getModel().setValueAt(dayCounter.toString(), i, j);
+				if (dayCounter == daysInMonth){
+					return j+1;
+				}
+				dayCounter++;*/
+
 				if(month.equals(monthView))
 					month.getModel().setValueAt(dayCounter.toString() + personalEventStr + teamEventStr, i, j);
 				else
