@@ -1101,8 +1101,8 @@ public class CalendarCalendarView extends JTabbedPane{
 		month2 = getCurrentMonth(currentMonth);
 		if (currDay + 1 - currentDotw <= 0) {
 			if (currentMonth <= 0) {
-				startDayStr = String.valueOf(currDay + 1 - currentDotw + daysInMonth(11, currentYear));
 				month1 = getCurrentMonth(11);
+				startDayStr = String.valueOf(currDay + 1 - currentDotw + daysInMonth(11, currentYear));
 			} else {
 				startDayStr = String.valueOf(currDay + 1 - currentDotw + daysInMonth(currentMonth - 1, currentYear));
 				month1 = getCurrentMonth(currentMonth - 1);
@@ -1110,8 +1110,8 @@ public class CalendarCalendarView extends JTabbedPane{
 		}
 		if (currDay + 7 - currentDotw > daysInMonth(currentMonth, currentYear)) {
 			if (currentMonth >= 11) {
-				endDayStr = String.valueOf(currDay + 7 - currentDotw - daysInMonth(0, currentYear));
 				month2 = getCurrentMonth(0);
+				endDayStr = String.valueOf(currDay + 7 - currentDotw - daysInMonth(0, currentYear));
 			} else {
 				endDayStr = String.valueOf(currDay + 7 - currentDotw - daysInMonth(currentMonth, currentYear));
 				month2 = getCurrentMonth(currentMonth + 1);
@@ -1175,8 +1175,5 @@ public class CalendarCalendarView extends JTabbedPane{
 				}
 			}
 		}
-	}
-	
+	}	
 }
-
-//WHY?!?
