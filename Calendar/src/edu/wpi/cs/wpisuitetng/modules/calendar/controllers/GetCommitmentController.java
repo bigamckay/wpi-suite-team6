@@ -35,9 +35,9 @@ public class GetCommitmentController implements ActionListener{
 	}
 	
 	/**
-	
 	 * @return the instance of the GetCommitmentController or creates one if it does not
-	 * exist. */
+	 * exist. 
+	 */
 	public static GetCommitmentController getInstance()
 	{
 		if(instance == null)
@@ -51,9 +51,9 @@ public class GetCommitmentController implements ActionListener{
 	/**
 	 * Sends an HTTP request to store a commitment when the
 	 * update button is pressed
-	 * @param e ActionEvent
-	
-	 * @see java.awt.event.ActionListener#actionPerformed(ActionEvent) */
+	 * @param e ActionEvent	
+	 * @see java.awt.event.ActionListener#actionPerformed(ActionEvent)
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// Send a request to the core to save this requirement
@@ -73,8 +73,7 @@ public class GetCommitmentController implements ActionListener{
 
 	/**
 	 * Add the given commitments to the local model (they were received from the core).
-	 * This method is called by the GetRequirementsRequestObserver
-	 * 
+	 * This method is called by the GetRequirementsRequestObserver	 * 
 	 * @param requirements array of commitments received from the server
 	 */
 	public void receivedCommitments(Commitment[] commitments) {

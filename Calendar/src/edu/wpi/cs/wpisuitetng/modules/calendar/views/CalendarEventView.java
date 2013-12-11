@@ -40,6 +40,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.utils.DateTimeUtils;
 
 /**
  * Contains the GUI elements of the Event Panel
+ * Includes tabs to create and update events and commitments,
+ *  as well as a default tab that allows users to access the others
  *
  */
 
@@ -552,6 +554,12 @@ public class CalendarEventView extends JTabbedPane {
 		
 	}
 	
+	/**
+	 * Used in MainView to get an instance of CalendarCalendarView and
+	 * 	sets it as a class variable.
+	 * Prevents the initialization of the pane until the calView is collected
+	 * @param newCal - the instance of the CalendarCalendarView
+	 */
 	public void getCalendar(CalendarCalendarView newCal) {
 		calView = newCal;
 		initialize();

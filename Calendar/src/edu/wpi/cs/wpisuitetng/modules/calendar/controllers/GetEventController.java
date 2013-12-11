@@ -34,10 +34,10 @@ public class GetEventController implements ActionListener{
 		observer = new GetEventRequestObserver(this);
 	}
 	
-	/**
-	
+	/**	
 	 * @return the instance of the GetEventController or creates one if it does not
-	 * exist. */
+	 * exist. 
+	 */
 	public static GetEventController getInstance()
 	{
 		if(instance == null)
@@ -51,9 +51,9 @@ public class GetEventController implements ActionListener{
 	/**
 	 * Sends an HTTP request to store a event when the
 	 * update button is pressed
-	 * @param e ActionEvent
-	
-	 * @see java.awt.event.ActionListener#actionPerformed(ActionEvent) */
+	 * @param e ActionEvent	
+	 * @see java.awt.event.ActionListener#actionPerformed(ActionEvent)
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		retrieveEvents();
@@ -71,8 +71,7 @@ public class GetEventController implements ActionListener{
 
 	/**
 	 * Add the given events to the local model (they were received from the core).
-	 * This method is called by the GetEventsRequestObserver
-	 * 
+	 * This method is called by the GetEventsRequestObserver 
 	 * @param events array of events received from the server
 	 */
 	public void receivedEvents(Event[] events) {

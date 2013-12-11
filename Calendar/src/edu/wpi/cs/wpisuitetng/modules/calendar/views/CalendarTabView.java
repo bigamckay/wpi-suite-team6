@@ -23,6 +23,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *  Contains the GUI elements of the Tab Panel
+ *  Includes the day view and the event and commitment lists
  *
  */
 @SuppressWarnings("serial")
