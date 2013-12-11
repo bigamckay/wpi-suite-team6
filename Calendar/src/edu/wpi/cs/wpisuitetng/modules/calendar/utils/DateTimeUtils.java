@@ -84,8 +84,6 @@ public class DateTimeUtils {
 		return dateTime;
 	}
 	
-<<<<<<< HEAD
-=======
 	public static String reverseParser(boolean isDate, boolean isEnd){
 		Calendar today = Calendar.getInstance();
 		String toPrint = "";
@@ -118,6 +116,4 @@ public class DateTimeUtils {
 		}
 		return toPrint;
 	}
-	
->>>>>>> refs/remotes/origin/dev
 }
