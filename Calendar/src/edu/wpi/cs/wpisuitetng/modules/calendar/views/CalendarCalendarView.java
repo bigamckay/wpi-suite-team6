@@ -1500,7 +1500,7 @@ public class CalendarCalendarView extends JTabbedPane{
 		populateMonth(getMonthView(), simulateYear(currentYear), 
     			daysInMonth(currentMonth, currentYear), currentMonth);
 		
-		populateWeek(weekDayHeaders, EventListModel.getInstance().getEvents());
+		//populateWeek(weekDayHeaders, EventListModel.getInstance().getEvents());
 		
 		//populateDay(tabView.dayTable, EventListModel.getInstance().getEvents());
 		
