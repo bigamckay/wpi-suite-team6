@@ -22,6 +22,7 @@ import javax.swing.AbstractListModel;
 import edu.wpi.cs.wpisuitetng.exceptions.WPISuiteException;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controllers.AddEventController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controllers.GetEventController;
+import edu.wpi.cs.wpisuitetng.modules.calendar.controllers.RemoveEventController;
 
 /**
  * NOTE that this is a model in the swing sense, NOT the WPISuite sense
@@ -118,20 +119,16 @@ public class EventListModel extends AbstractListModel {
 		return temp;
 	}
 	/**
-	 * Removes the event with the given ID
+	 * Sends request to the server to remove the event with the specified ID form the database.
+	 * On success, the RemoveEventRequestObserver sends request to the server to update the 
+	 * EventListModel by calling GetEventController.getInstance().retrieveEvents()
 	 * 
 	 * @param removeId The ID number of the event to be removed from the list of events in the project
 	 */
 	public void removeEvent(int removeId){
-		// iterate through list of events until id of project is found
-		for (int i=0; i < this.events.size(); i++){
-			if (events.get(i).getId() == removeId){
-				// remove the id
-				events.remove(i);
-				break;
-			}
-		}
+		RemoveEventController.getInstance().RemoveEvent(removeId);
 	}
+	
 
 	/**
 	 * Provides the number of elements in the list of events for the project. This
