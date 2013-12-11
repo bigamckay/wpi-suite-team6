@@ -12,6 +12,10 @@
 
 package edu.wpi.cs.wpisuitetng.modules.calendar.controllers;
 
+
+/**
+ * server request observer for adding events
+ */
 import edu.wpi.cs.wpisuitetng.modules.calendar.controllers.AddEventController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Event;
 import edu.wpi.cs.wpisuitetng.network.RequestObserver;

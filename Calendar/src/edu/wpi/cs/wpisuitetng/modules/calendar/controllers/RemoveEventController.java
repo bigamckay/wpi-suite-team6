@@ -12,6 +12,9 @@
 
 package edu.wpi.cs.wpisuitetng.modules.calendar.controllers;
 
+/**
+ * server controller for removing events
+ */
 public class RemoveEventController {
 
 }

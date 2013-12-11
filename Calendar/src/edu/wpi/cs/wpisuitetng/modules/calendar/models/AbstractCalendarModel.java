@@ -12,6 +12,11 @@
 
 package edu.wpi.cs.wpisuitetng.modules.calendar.models;
 
+
+/**
+ * this class contains parts of the constructors for events and commitments that are common between the two
+ * as well as the methods that are common between them
+ */
 import java.util.UUID;
 
 import com.google.gson.Gson;

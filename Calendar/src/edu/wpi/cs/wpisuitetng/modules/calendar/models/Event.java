@@ -23,7 +23,7 @@ import edu.wpi.cs.wpisuitetng.exceptions.WPISuiteException;
 
 /** 
  *  Events are user-created objects. As a result, their creation must be very secure and able to handle
- *  bad input.
+ *  bad input. this class contains the structure and methods for events
  */
 
 public class Event extends AbstractCalendarModel {

@@ -12,6 +12,10 @@
 
 package edu.wpi.cs.wpisuitetng.modules.calendar.controllers;
 
+
+/**
+ * request observer for adding commitments
+ */
 import edu.wpi.cs.wpisuitetng.modules.calendar.controllers.AddCommitmentController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
 import edu.wpi.cs.wpisuitetng.network.RequestObserver;
