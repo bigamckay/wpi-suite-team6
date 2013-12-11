@@ -24,7 +24,8 @@ import edu.wpi.cs.wpisuitetng.exceptions.WPISuiteException;
 
 public class DateTimeUtils {
 	/**
-	 * Takes in user's input for a date and a time, in string form, validates, and converts to a calendar object
+	 * Takes in user's input for a date and a time, in string form, 
+	 *  validates, and converts to a calendar object
 	 * - throws a WPI Suite Exception with description if date or time is not in correct form or is invalid
 	 * @param date the user's input for date
 	 * @param time the user's input for time
@@ -68,9 +69,6 @@ public class DateTimeUtils {
 			}
 		}
 		//convert to int and place first two characters of string into hour, last two into minute
-		System.out.println("but we continued anyway");
-		System.out.println(date.charAt(0));
-		System.out.println(time.charAt(0));
 		int hour = Integer.parseInt(time.substring(0, 2));
 		int minute = Integer.parseInt(time.substring(3, 5));
 		
@@ -85,4 +83,38 @@ public class DateTimeUtils {
 		}
 		return dateTime;
 	}
+	
+	public static String reverseParser(boolean isDate, boolean isEnd){
+		Calendar today = Calendar.getInstance();
+		String toPrint = "";
+		if(isDate){
+			String month = Integer.toString(today.get(Calendar.MONTH) + 1);
+			if (month.length() < 2)
+				month = "0" + month;
+			String day = Integer.toString(today.get(Calendar.DAY_OF_MONTH));
+			if(day.length() < 2)
+				day = "0" + day;
+			String year = Integer.toString(today.get(Calendar.YEAR));
+			toPrint = month + "/" + day + "/" + year;
+		}
+		else if(!isDate && !isEnd){
+			String hour = Integer.toString(today.get(Calendar.HOUR_OF_DAY) + 1);
+			if(hour.length() < 2)
+				hour = "0" + hour;
+			else if(hour.equals("24"))
+				hour = "23";
+			toPrint = hour + ":00";
+		}
+		else if(!isDate && isEnd){
+			String hour = Integer.toString(today.get(Calendar.HOUR_OF_DAY) + 2);
+			if(hour.length() < 2)
+				hour = "0" + hour;
+			else if(hour.equals("24") || hour.equals("25")){
+				hour = "23";
+			}
+			toPrint = hour + ":00";
+		}
+		return toPrint;
+	}
+	
 }

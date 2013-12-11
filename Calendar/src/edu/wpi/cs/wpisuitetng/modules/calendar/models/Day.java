@@ -12,6 +12,9 @@
 
 package edu.wpi.cs.wpisuitetng.modules.calendar.models;
 
+/**
+ * this class contains the methods for having a day with a collection of events on it
+ */
 import java.util.Calendar;
 import java.util.Collection;
 

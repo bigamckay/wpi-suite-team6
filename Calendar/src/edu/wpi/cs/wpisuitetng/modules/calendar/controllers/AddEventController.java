@@ -12,7 +12,9 @@
 
 package edu.wpi.cs.wpisuitetng.modules.calendar.controllers;
 
-
+/**
+ * server controller for adding events
+ */
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Event;
 import edu.wpi.cs.wpisuitetng.network.Network;
 import edu.wpi.cs.wpisuitetng.network.Request;
@@ -47,7 +49,7 @@ public class AddEventController {
 	 */
 	public void addEvent(Event newEvent) 
 	{
-		final Request request = Network.getInstance().makeRequest("calendar/event", HttpMethod.PUT); // PUT == create
+		final Request request = Network.getInstance().makeRequest("calendar/event/project", HttpMethod.PUT); // PUT == create
 		request.setBody(newEvent.toJSON()); // put the new event in the body of the request
 		request.addObserver(observer); // add an observer to process the response
 		request.send(); 

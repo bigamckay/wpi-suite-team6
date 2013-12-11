@@ -12,7 +12,9 @@
 
 package edu.wpi.cs.wpisuitetng.modules.calendar.controllers;
 
-
+/**
+ * server controller for adding commitments
+ */
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
 import edu.wpi.cs.wpisuitetng.network.Network;
 import edu.wpi.cs.wpisuitetng.network.Request;
@@ -49,7 +51,7 @@ public class AddCommitmentController {
 	 */
 	public void addCommitment(Commitment newCommitment) 
 	{
-		final Request request = Network.getInstance().makeRequest("calander/commitment", HttpMethod.PUT); // PUT == create
+		final Request request = Network.getInstance().makeRequest("calender/commitment/project", HttpMethod.PUT); // PUT == create
 		request.setBody(newCommitment.toJSON()); // put the new requirement in the body of the request
 		request.addObserver(observer); // add an observer to process the response
 		request.send(); 
