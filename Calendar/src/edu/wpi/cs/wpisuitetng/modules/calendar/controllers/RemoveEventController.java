@@ -49,7 +49,7 @@ public class RemoveEventController {
 	 */
 	public void RemoveEvent(int id) {
 		//Check this address for the database
-		final Request request = Network.getInstance().makeRequest("calendar/event/project/" + id, HttpMethod.DELETE);
+		final Request request = Network.getInstance().makeRequest("calendar/event/" + Integer.toString(id), HttpMethod.DELETE);
 		request.addObserver(observer); // add an observer to process the response
 		request.send(); // send the request
 	}

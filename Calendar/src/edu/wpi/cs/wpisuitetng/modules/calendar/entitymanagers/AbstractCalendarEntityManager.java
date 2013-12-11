@@ -70,7 +70,7 @@ public abstract class AbstractCalendarEntityManager<T extends AbstractCalendarMo
 	public T[] getEntity(Session s, String id) throws NotFoundException,
 			WPISuiteException {
 		
-		//System.out.println(id);
+		System.out.println(id);
 		
 		//There is a bug on this line, invalid id (keeps coming in as project)
 		//Strings would work better with this. use this string to speed it up

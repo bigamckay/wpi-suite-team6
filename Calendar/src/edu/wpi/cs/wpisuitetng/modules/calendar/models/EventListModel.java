@@ -125,7 +125,7 @@ public class EventListModel extends AbstractListModel {
 	 * 
 	 * @param removeId The ID number of the event to be removed from the list of events in the project
 	 */
-	public void removeEventFromObserver(int removeId){
+	public void removeEvent(int removeId){
 		RemoveEventController.getInstance().RemoveEvent(removeId);
 	}
 	

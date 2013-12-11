@@ -36,6 +36,7 @@ import javax.swing.UIManager;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import edu.wpi.cs.wpisuitetng.modules.calendar.controllers.RemoveEventController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.EventListModel;
 
 @SuppressWarnings("serial")
@@ -253,7 +254,7 @@ public class ToolbarView extends JSplitPane{
 			public void actionPerformed(ActionEvent e) {
 				String currentYearStr;
 				String currentMonthStr;
-				String currentDayStr;
+				String currentDayStr;				
 				
 				if(currentFocus == "week")
 				{
