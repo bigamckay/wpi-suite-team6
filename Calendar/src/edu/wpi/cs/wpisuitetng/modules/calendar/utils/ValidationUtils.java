@@ -72,7 +72,7 @@ public class ValidationUtils {
 		}
 		
 		if (name.equals(new String("Event Name"))){
-			throw new WPISuiteException("Please do not enter default name prompt  of \"Event Name\" as event name.");
+			throw new WPISuiteException("Please assign an Event Name.");
 		}
 		
 		return 0;
@@ -151,7 +151,7 @@ public class ValidationUtils {
 	 */
 	public static int isValidDateOrder(Calendar startDate, Calendar endDate) throws WPISuiteException{
 		// make sure end date is after start date
-		if (startDate.after(endDate))
+		if (!endDate.after(startDate))
 			throw new WPISuiteException("Events must end after they begin.");
 		// accept combinations of dates if and only if isValidDate(startDate) && isValidDate(endDate) && isValidDateOrder(startDate, endDate)
 		return 0;
