@@ -16,8 +16,9 @@ import java.util.List;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Event;
 
 /**
- * This class contains as of now only a quicksort implementation to sort the list of calendar event entries on date
- * @author Andrew McKay
+ * This class contains as of now only a quicksort implementation
+ *  to sort the list of calendar event entries on date
+ * 
  */
 
 public class ListUtils {

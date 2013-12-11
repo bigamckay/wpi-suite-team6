@@ -24,7 +24,8 @@ import edu.wpi.cs.wpisuitetng.exceptions.WPISuiteException;
 
 public class DateTimeUtils {
 	/**
-	 * Takes in user's input for a date and a time, in string form, validates, and converts to a calendar object
+	 * Takes in user's input for a date and a time, in string form, 
+	 *  validates, and converts to a calendar object
 	 * - throws a WPI Suite Exception with description if date or time is not in correct form or is invalid
 	 * @param date the user's input for date
 	 * @param time the user's input for time
