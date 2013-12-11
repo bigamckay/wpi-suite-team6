@@ -19,6 +19,8 @@ import edu.wpi.cs.wpisuitetng.exceptions.WPISuiteException;
 import edu.wpi.cs.wpisuitetng.modules.calendar.utils.ValidationUtils;
 import edu.wpi.cs.wpisuitetng.modules.core.models.User;
 
+
+
 public class Commitment extends AbstractCalendarModel{
 	
 	private String name; //commitment name
