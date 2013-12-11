@@ -737,7 +737,7 @@ public class CalendarCalendarView extends JTabbedPane{
 		//Calendar testStart3 = new GregorianCalendar(2013, Calendar.DECEMBER, 02, 14, 0);
 
 		try{
-			System.out.println("Not doing the test events");
+			//System.out.println("Not doing the test events");
 			//Event testEvent1 = new Event("Team 6 Meeting", "Flower", testStart, testStart,"Funtimes!", "hi", false);
 			//Event testEvent2 = new Event("PlayDate", "Bancroft Towers", testStart2, testStart2, "Ring Toss", "sup", true);
 			//EventListModel.getInstance().getEvents().add(testEvent1);
@@ -1488,5 +1488,26 @@ public class CalendarCalendarView extends JTabbedPane{
 			}
 		}
 	}	
+	
+	
+	// Craig being "Oh look its 5:30AM one of these will work"
+	
+	public void PopulateCalendarCalendarView(){
+		List<Event> eventlist = EventListModel.getInstance().getEvents();
+		
+		populateYear(monthArray, currentYear);
+		
+		populateMonth(getMonthView(), simulateYear(currentYear), 
+    			daysInMonth(currentMonth, currentYear), currentMonth);
+		
+		populateWeek(weekDayHeaders, EventListModel.getInstance().getEvents());
+		
+		//populateDay(tabView.dayTable, EventListModel.getInstance().getEvents());
+		
+	}
+	
+	
+	
+	
 	
 }

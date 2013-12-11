@@ -55,8 +55,6 @@ public class EventListModel extends AbstractListModel {
 	private EventListModel (){
 		events = new ArrayList<Event>();
 		
-		// too early!
-		//GetEventController.getInstance().retrieveEvents();
 		this.isSuccessfulLogin = false;
 		this.isInitialized = false;
 	}

@@ -20,6 +20,9 @@ import javax.swing.JPanel;
 
 import edu.wpi.cs.wpisuitetng.janeway.modules.IJanewayModule;
 import edu.wpi.cs.wpisuitetng.janeway.modules.JanewayTabModel;
+import edu.wpi.cs.wpisuitetng.modules.calendar.controllers.AddEventController;
+import edu.wpi.cs.wpisuitetng.modules.calendar.controllers.AddEventRequestObserver;
+import edu.wpi.cs.wpisuitetng.modules.calendar.controllers.GetEventController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.views.MainView;
 import edu.wpi.cs.wpisuitetng.modules.calendar.views.ToolbarView;
 
@@ -37,6 +40,13 @@ public class CalendarModule implements IJanewayModule {
 		// Give the toolbar access to the Calendar and Tab Views
 		tbView.getCalendar(mainView.getCalendar());
 		tbView.getTabView(mainView.getTabView());
+		
+		// Also Give calendar access to the controllers so they can push an update from server to GUI - Craig
+		GetEventController.getInstance().AssignCalendarView(mainView.getCalendar());
+		AddEventController.getInstance().AssignCalendarView(mainView.getCalendar());
+		
+		
+		
 		
 		// Create a JPanel to hold the toolbar
 		JPanel toolbarPanel = new JPanel();

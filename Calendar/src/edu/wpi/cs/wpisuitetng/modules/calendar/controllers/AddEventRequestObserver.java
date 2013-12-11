@@ -17,12 +17,13 @@ import edu.wpi.cs.wpisuitetng.exceptions.WPISuiteException;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controllers.AddEventController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Event;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.EventListModel;
+import edu.wpi.cs.wpisuitetng.modules.calendar.views.CalendarCalendarView;
 import edu.wpi.cs.wpisuitetng.network.RequestObserver;
 import edu.wpi.cs.wpisuitetng.network.models.IRequest;
 import edu.wpi.cs.wpisuitetng.network.models.ResponseModel;
 
 public class AddEventRequestObserver implements RequestObserver {
-	
+		
 	private AddEventController controller;
 	
 	/**
@@ -32,6 +33,7 @@ public class AddEventRequestObserver implements RequestObserver {
 	public AddEventRequestObserver(AddEventController controller) {
 		this.controller = controller;
 	}
+	
 	
 	/**
 	 * Parse the requirement that was received from the server then pass them to
@@ -56,6 +58,9 @@ public class AddEventRequestObserver implements RequestObserver {
 			fail(iReq, e);
 		}
 
+		// Send response to controller
+		controller.successfulAddition();
+		
 	}
 
 	/**
