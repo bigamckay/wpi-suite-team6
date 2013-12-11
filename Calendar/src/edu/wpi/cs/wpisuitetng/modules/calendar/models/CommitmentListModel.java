@@ -88,7 +88,7 @@ public class CommitmentListModel extends AbstractListModel {
 	 * @param id The ID number of the commitment to be returned
 	
 	 * @return the commitment for the id or null if the commitment is not found */
-	public Commitment getCommitment(UUID id)
+	public Commitment getCommitment(int id)
 	{
 		Commitment temp = null;
 		// iterate through list of events until id is found
@@ -105,7 +105,7 @@ public class CommitmentListModel extends AbstractListModel {
 	 * 
 	 * @param removeId The ID number of the commitment to be removed from the list of commitments
 	 */
-	public void remove(UUID removeId){
+	public void remove(int removeId){
 		// iterate through list of requirements until id of project is found
 		for (int i=0; i < this.commitments.size(); i++){
 			if (commitments.get(i).getId() == removeId){

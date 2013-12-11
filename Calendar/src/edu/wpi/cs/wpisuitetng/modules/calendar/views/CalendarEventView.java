@@ -40,6 +40,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.utils.DateTimeUtils;
 
 /**
  * Contains the GUI elements of the Event Panel
+ * Includes tabs to create and update events and commitments,
+ *  as well as a default tab that allows users to access the others
  *
  */
 
@@ -82,6 +84,13 @@ public class CalendarEventView extends JTabbedPane {
 		//setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		//setBackground(UIManager.getColor("InternalFrame.inactiveTitleBackground"));
 		//setLayout(null);
+		
+		//CODE FOR EVENT CREATION DEFAULT FIELD CONTENTS
+		//Make a new Calendar with the current date and time
+		Calendar localTime = Calendar.getInstance();
+		localTime.getTime();
+		System.out.println(localTime.toString());
+		
 		
 		ImageIcon homeIcon = new ImageIcon(Janeway.class.getResource("/com/sun/java/swing/plaf/windows/icons/HomeFolder.gif"));
 		
@@ -144,7 +153,6 @@ public class CalendarEventView extends JTabbedPane {
 		btnDeleteEvent.setVisible(false);
 		btnDeleteEvent.setEnabled(false);  
 		eventPane.add(btnDeleteEvent);
-		
 		
 		//Event Description Text Boxes
 		eventDescription = new JTextField();
@@ -218,7 +226,7 @@ public class CalendarEventView extends JTabbedPane {
 				}
 		    });
 		startTime.setHorizontalAlignment(SwingConstants.CENTER);
-		startTime.setText("hh:mm");
+		startTime.setText(DateTimeUtils.reverseParser(false, false));
 		startTime.setBounds(10, 87, 80, 20);
 		eventPane.add(startTime);
 		startTime.setColumns(10);
@@ -244,7 +252,7 @@ public class CalendarEventView extends JTabbedPane {
 				}
 		    });
 		startDay.setHorizontalAlignment(SwingConstants.CENTER);
-		startDay.setText("mm/dd/yyyy");
+		startDay.setText(DateTimeUtils.reverseParser(true, false));
 		startDay.setBounds(10, 56, 80, 20);
 		eventPane.add(startDay);
 		startDay.setColumns(10);
@@ -270,7 +278,7 @@ public class CalendarEventView extends JTabbedPane {
 				}
 		    });
 		endTime.setHorizontalAlignment(SwingConstants.CENTER);
-		endTime.setText("hh:mm");
+		endTime.setText(DateTimeUtils.reverseParser(false, true));
 		endTime.setBounds(102, 87, 80, 20);
 		eventPane.add(endTime);
 		endTime.setColumns(10);
@@ -296,7 +304,7 @@ public class CalendarEventView extends JTabbedPane {
 				}
 		    });
 		endDay.setHorizontalAlignment(SwingConstants.CENTER);
-		endDay.setText("mm/dd/yyyy");
+		endDay.setText(DateTimeUtils.reverseParser(true,  true));
 		endDay.setBounds(102, 56, 80, 20);
 		eventPane.add(endDay);
 		endDay.setColumns(10);
@@ -425,10 +433,10 @@ public class CalendarEventView extends JTabbedPane {
 	            	eventName.setText("Event Name");
 	            	eventLocation.setText("Location Location Location");
 	            	eventDescription.setText("Description...");
-	            	startTime.setText("hh:mm");
-	            	startDay.setText("mm/dd/yyyy");
-	            	endTime.setText("hh:mm");
-	            	endDay.setText("mm/dd/yyyy");
+	            	startTime.setText(DateTimeUtils.reverseParser(false, false));
+	            	startDay.setText(DateTimeUtils.reverseParser(true, false));
+	            	endTime.setText(DateTimeUtils.reverseParser(false, true));
+	            	endDay.setText(DateTimeUtils.reverseParser(true, true));
 	            	eventFeedbackLabel.setText("Event created.");
 	            	//do something with the event with the GUI here
 	        }
@@ -552,6 +560,12 @@ public class CalendarEventView extends JTabbedPane {
 		
 	}
 	
+	/**
+	 * Used in MainView to get an instance of CalendarCalendarView and
+	 * 	sets it as a class variable.
+	 * Prevents the initialization of the pane until the calView is collected
+	 * @param newCal - the instance of the CalendarCalendarView
+	 */
 	public void getCalendar(CalendarCalendarView newCal) {
 		calView = newCal;
 		initialize();

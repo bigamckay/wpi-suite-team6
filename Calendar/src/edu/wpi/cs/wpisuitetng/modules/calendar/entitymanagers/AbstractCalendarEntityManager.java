@@ -12,6 +12,7 @@
 
 package edu.wpi.cs.wpisuitetng.modules.calendar.entitymanagers;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.UUID;
@@ -69,10 +70,23 @@ public abstract class AbstractCalendarEntityManager<T extends AbstractCalendarMo
 	public T[] getEntity(Session s, String id) throws NotFoundException,
 			WPISuiteException {
 		
-		UUID idAsUUID = UUID.fromString(id);
+		System.out.println(id);
+		
+		//There is a bug on this line, invalid id (keeps coming in as project)
+		//Strings would work better with this. use this string to speed it up
+		//UUID idAsUUID = UUID.fromString(id);
+		
+		//Try something like this:
+		//T[] ts = db.retrieve(tClass, T.ID_FIELD_NAME, idAsUUID).toArray(new T[0]);
+		//It allows us to catch exceptions because the cast is not used. (not super critical, but do it anyway)
+		//@SuppressWarnings("unchecked")
+		//T[] ts = (T[]) db.retrieve(tClass, T.ID_FIELD_NAME, idAsUUID).toArray();
+		
+		//START CHANGES HERE
+		int iID = Integer.parseInt(id);
 		
 		@SuppressWarnings("unchecked")
-		T[] ts = (T[]) db.retrieve(tClass, T.ID_FIELD_NAME, idAsUUID).toArray();
+		T[] ts = db.retrieve(tClass, T.ID_FIELD_NAME, iID).toArray((T[])Array.newInstance(tClass, 0));
 		
 		//if there are no ts in the array throw an exception
 		if(ts.length < 1 || ts[0] == null) {
@@ -90,11 +104,13 @@ public abstract class AbstractCalendarEntityManager<T extends AbstractCalendarMo
 			ts = db.retrieveAll(tClass.newInstance(), s.getProject());
 		} catch (InstantiationException | IllegalAccessException e) {
 			//This should not happen, but if somehow tClass.newInstance fails...
-			throw new WPISuiteException("Failed to instantiate dummy object!");
+			throw new WPISuiteException("Failed to instantiate dummy object: " + e.getMessage());
 		}
 		
+		//TODO remove personal events which do not belong to this user
+		
 		//return the list as an array
-		return (T[]) ts.toArray();
+		return ts.toArray((T[]) Array.newInstance(tClass, 0));
 	}
 
 	@Override
@@ -121,6 +137,11 @@ public abstract class AbstractCalendarEntityManager<T extends AbstractCalendarMo
 
 	@Override
 	public void save(Session s, T model) throws WPISuiteException {
+		int biggestId = 0;
+		for(T t : getAll(s)){
+			biggestId = (t.getId() > biggestId) ? t.getId() : biggestId;
+		}
+		model.setId(biggestId+1); //set id to next id available
 		if(!db.save(model, s.getProject())){
 			throw new WPISuiteException("Could not save to database");
 		} else System.out.println("Saved a model to the database: " + model.toJSON());
@@ -139,7 +160,7 @@ public abstract class AbstractCalendarEntityManager<T extends AbstractCalendarMo
 			db.deleteAll(tClass.newInstance());
 		} catch (InstantiationException | IllegalAccessException e) {
 			//This should not happen, but if somehow tClass.newInstance fails...
-			throw new WPISuiteException("Failed to instantiate dummy object!");
+			throw new WPISuiteException("Failed to instantiate dummy object: " + e.getMessage());
 		}
 	}
 
@@ -149,24 +170,24 @@ public abstract class AbstractCalendarEntityManager<T extends AbstractCalendarMo
 			return db.retrieveAll(tClass.newInstance()).size();
 		} catch (InstantiationException | IllegalAccessException e) {
 			//This should not happen, but if somehow tClass.newInstance fails...
-			throw new WPISuiteException("Failed to instantiate dummy object!");
+			throw new WPISuiteException("Failed to instantiate dummy object: " + e.getMessage());
 		}
 	}
 	
 	@Override
-	public String advancedPut(Session s, String[] args, String content)
+	final public String advancedPut(Session s, String[] args, String content)
 			throws WPISuiteException {
 		throw new NotImplementedException();
 	}
 
 	@Override
-	public String advancedPost(Session s, String string, String content)
+	final public String advancedPost(Session s, String string, String content)
 			throws WPISuiteException {
 		throw new NotImplementedException();
 	}
 
 	@Override
-	public String advancedGet(Session s, String[] args)
+	final public String advancedGet(Session s, String[] args)
 			throws WPISuiteException {
 		throw new NotImplementedException();
 	}
