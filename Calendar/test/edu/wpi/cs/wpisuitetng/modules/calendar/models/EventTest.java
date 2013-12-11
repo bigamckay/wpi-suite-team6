@@ -17,7 +17,6 @@ import static org.junit.Assert.*;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.GregorianCalendar;
-import java.util.UUID;
 import java.util.LinkedList;
 
 import org.junit.Before;
@@ -28,6 +27,7 @@ import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.core.models.User;
 import edu.wpi.cs.wpisuitetng.modules.calendar.MockNetwork;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Event;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.AbstractCalendarModel;
 
 public class EventTest {
 		
@@ -51,7 +51,7 @@ public class EventTest {
 	public void setup() {
 		
 		try{
-			basicEvent = new Event("Team 6 Meeting", "Flower", testStart, testEnd, testUser,"Funtimes!", true);
+			basicEvent = new Event("Team 6 Meeting", "Flower", testStart, testEnd, "Funtimes!", testUser, true);
 		} catch(WPISuiteException e){
 			// does this if throws exception
 			// compare e.getMessage() to expected
@@ -59,13 +59,13 @@ public class EventTest {
 		// does this if it works
 		
 		try{
-			basicEvent2 = new Event("PlayDate", "Bancroft Towers", testStart2, testEnd2, testUser3, "Ring Toss", true);
+			basicEvent2 = new Event("PlayDate", "Bancroft Towers", testStart2, testEnd2, "Funtimes!", testUser3, true);
 		}catch(WPISuiteException e){
 			
 		}
 		
 		try{
-			basicEvent3 = new Event("Another Event","Somewhere", testStart2,testEnd2,testUser2,"Doing something?", true);
+			basicEvent3 = new Event("Another Event","Somewhere", testStart2,testEnd2,"Doing something?",testUser2, true);
 		}catch(WPISuiteException e){}
 		
 		
@@ -380,15 +380,15 @@ public class EventTest {
 		}
 	}*/
 
-	@Test
-	public void testFromJson() {
-		fail("Not yet implemented");
-	}
+//	@Test
+//	public void testFromJson() {
+//		fail("Not yet implemented");
+//	}
 
-	@Test
-	public void testFromJsonArray() {
-		fail("Not yet implemented");
-	}
+//	@Test
+//	public void testFromJsonArray() {
+//		fail("Not yet implemented");
+//	}
 
 //	@Test
 //	public void testSave() {
@@ -400,10 +400,10 @@ public class EventTest {
 //		fail("Not yet implemented");
 //	}
 
-	@Test
-	public void testToJSON() {
-		fail("Not yet implemented");
-	}
+//	@Test
+//	public void testToJSON() {
+//		fail("Not yet implemented");
+//	}
 
 	@Test
 	public void testToFromJson() {

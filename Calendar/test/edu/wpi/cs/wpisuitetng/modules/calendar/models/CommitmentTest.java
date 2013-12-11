@@ -82,7 +82,7 @@ public class CommitmentTest {
 	@Test
 	public void testGetName() {
 		assertNotNull(testCommitment.getName());
-		assertTrue(testCommitment.getName().equals("This Is A Test"));
+		assertEquals(testCommitment.getName(),"This Is A Test");
 	}
 
 	@Test
@@ -217,20 +217,6 @@ public class CommitmentTest {
 
 	/* TEST DUEDATE EXCEPTIONS */
 	
-	/* no longer checking for date in past
-	@Test
-	// Test that exception is thrown when trying to set an invalid date
-	public void testException_SetDueDate_DateInPast() {
-		try{
-			testCommitment.setDueDate(new GregorianCalendar(2012, Calendar.JUNE, 10, 18, 0));
-			// Should throw exception and not execute the following line
-			fail("Exception not thrown when shouled have.");
-		}catch(WPISuiteException e){
-			// confirm that the cause of exception is a date in the past
-			assertEquals("Exception thrown that events must occur in the future.", e.getMessage(), "Events must occur in the future.");
-		}
-	}
-	*/
 	
 	/* Not currently implemented
 	@Test
@@ -263,12 +249,13 @@ public class CommitmentTest {
 
 
 
-
-	@Test
-	public void testIdentify() {
-		//the identify method just returns null no matter what
-		assertNull(testCommitment.identify(testCommitment));
-	}
+// CHANGING HOW ID NUMBERS WORK, SO RE-IMPLEMENT THIS LATER
+	
+//	@Test
+//	public void testIdentify() {
+//		//the identify method just returns null no matter what
+//		assertNull(testCommitment.identify(testCommitment));
+//	}
 
 
 }
