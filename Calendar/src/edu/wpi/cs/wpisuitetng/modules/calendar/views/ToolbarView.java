@@ -36,6 +36,8 @@ import javax.swing.UIManager;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import edu.wpi.cs.wpisuitetng.janeway.gui.container.TabPanel;
+
 @SuppressWarnings("serial")
 public class ToolbarView extends JSplitPane{
 	
@@ -118,6 +120,7 @@ public class ToolbarView extends JSplitPane{
 	        public void actionPerformed(ActionEvent e){
 	        	calView.setPersonalViewSelected(btnPersonalView.isSelected());
 	        	calView.populateYear(calView.monthArray, calView.currentYear);
+	        	calView.populateDay(calView.weekDayHeaders, calView.testList);
 	        }
 		});
 		
@@ -126,6 +129,7 @@ public class ToolbarView extends JSplitPane{
 	        public void actionPerformed(ActionEvent e){
 	        	calView.setTeamViewSelected(btnTeamView.isSelected());
 	        	calView.populateYear(calView.monthArray, calView.currentYear);
+	        	calView.populateDay(calView.weekDayHeaders, calView.testList);
 	        }
 		});
 		
@@ -223,6 +227,8 @@ public class ToolbarView extends JSplitPane{
 	        	
 	        	//calView.populateYearNull();
 	        	calView.populateYear(calView.monthArray, calView.currentYear);
+	        	calView.populateDay(calView.weekDayHeaders, calView.testList);
+	        	calView.populateDay(tabPanel.)
 			}
 		});
 		
@@ -293,6 +299,7 @@ public class ToolbarView extends JSplitPane{
 	        	
 	        	//calView.populateYearNull();
 	        	calView.populateYear(calView.monthArray, calView.currentYear);
+	        	calView.populateDay(calView.weekDayHeaders, calView.testList);
 			}
 		});
 		
@@ -351,6 +358,7 @@ public class ToolbarView extends JSplitPane{
 		setRightComponent(rightPanel);
 		
 		calView.populateDay(calView.weekDayHeaders, calView.testList);
+    	calView.populateDay(calView.weekDayHeaders, calView.testList);
 	}
 	
 	public void getCalendar(CalendarCalendarView newCal) {
