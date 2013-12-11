@@ -52,19 +52,21 @@ public class CalendarTest {
 		assertNotNull(dummyCalendar);
 	}
 
-	@Test
-	public void testCalendar() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetName() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetTabs() {
-		fail("Not yet implemented");
-	}
+	// NEED TO IMPLEMENT
+	
+//	@Test
+//	public void testCalendar() {
+//		fail("Not yet implemented");
+//	}
+//
+//	@Test
+//	public void testGetName() {
+//		fail("Not yet implemented");
+//	}
+//
+//	@Test
+//	public void testGetTabs() {
+//		fail("Not yet implemented");
+//	}
 
 }

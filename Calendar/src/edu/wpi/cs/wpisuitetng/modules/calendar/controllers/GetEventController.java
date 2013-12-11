@@ -12,6 +12,10 @@
 
 package edu.wpi.cs.wpisuitetng.modules.calendar.controllers;
 
+
+/**
+ * server controller for getting events
+ */
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -34,10 +38,10 @@ public class GetEventController implements ActionListener{
 		observer = new GetEventRequestObserver(this);
 	}
 	
-	/**
-	
+	/**	
 	 * @return the instance of the GetEventController or creates one if it does not
-	 * exist. */
+	 * exist. 
+	 */
 	public static GetEventController getInstance()
 	{
 		if(instance == null)
@@ -51,21 +55,19 @@ public class GetEventController implements ActionListener{
 	/**
 	 * Sends an HTTP request to store a event when the
 	 * update button is pressed
-	 * @param e ActionEvent
-	
-	 * @see java.awt.event.ActionListener#actionPerformed(ActionEvent) */
+	 * @param e ActionEvent	
+	 * @see java.awt.event.ActionListener#actionPerformed(ActionEvent)
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// Send a request to the core to save this event
-		final Request request = Network.getInstance().makeRequest("calendar/event", HttpMethod.GET); // GET == read
-		request.addObserver(observer); // add an observer to process the response
-		request.send(); // send the request
+		retrieveEvents();
 	}
 	
 	/**
 	 * Sends an HTTP request to retrieve all events
 	 */
 	public void retrieveEvents() {
+		//Check this address for the database
 		final Request request = Network.getInstance().makeRequest("calendar/event", HttpMethod.GET); // GET == read
 		request.addObserver(observer); // add an observer to process the response
 		request.send(); // send the request
@@ -73,8 +75,7 @@ public class GetEventController implements ActionListener{
 
 	/**
 	 * Add the given events to the local model (they were received from the core).
-	 * This method is called by the GetEventsRequestObserver
-	 * 
+	 * This method is called by the GetEventsRequestObserver 
 	 * @param events array of events received from the server
 	 */
 	public void receivedEvents(Event[] events) {

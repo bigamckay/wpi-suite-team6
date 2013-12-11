@@ -12,6 +12,10 @@
 
 package edu.wpi.cs.wpisuitetng.modules.calendar.controllers;
 
+
+/**
+ * server controller for editing events
+ */
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Event;
 import edu.wpi.cs.wpisuitetng.network.Network;
 import edu.wpi.cs.wpisuitetng.network.Request;
@@ -23,18 +27,16 @@ public class EditEventController {
 	private EditEventRequestObserver observer;
 	
 	/**
-	 * Construct an UpdateEventController for the given model, view pair
-	
-	
+	 * Construct an UpdateEventController for the given model, view pair	
 	 */
 	private EditEventController() {
 		observer = new EditEventRequestObserver(this);
 	}
 	
-	/**
-	
+	/**	
 	 * @return the instance of the UpdateEventController or creates one if it does not
-	 * exist. */
+	 * exist. 
+	 */
 	public static EditEventController getInstance()
 	{
 		if(instance == null)

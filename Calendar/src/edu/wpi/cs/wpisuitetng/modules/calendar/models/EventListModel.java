@@ -12,6 +12,10 @@
 
 package edu.wpi.cs.wpisuitetng.modules.calendar.models;
 
+
+/**
+ * this class contains the structure and methods for commitments
+ */
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -19,7 +23,10 @@ import java.util.UUID;
 
 import javax.swing.AbstractListModel;
 
+import edu.wpi.cs.wpisuitetng.exceptions.WPISuiteException;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controllers.AddEventController;
+import edu.wpi.cs.wpisuitetng.modules.calendar.controllers.GetEventController;
+import edu.wpi.cs.wpisuitetng.modules.calendar.controllers.RemoveEventController;
 
 /**
  * NOTE that this is a model in the swing sense, NOT the WPISuite sense
@@ -34,7 +41,6 @@ public class EventListModel extends AbstractListModel {
 	 * The list in which all the events for a single project are contained
 	 */
 	private List<Event> events;
-	private int nextID; // the next available ID number for the events that are added.
 	
 	//the static object to allow the event model to be 
 	private static EventListModel instance; 
@@ -44,7 +50,8 @@ public class EventListModel extends AbstractListModel {
 	 */
 	private EventListModel (){
 		events = new ArrayList<Event>();
-		nextID = 0;
+		
+		GetEventController.getInstance().retrieveEvents();
 	}
 	
 	/**
@@ -54,7 +61,7 @@ public class EventListModel extends AbstractListModel {
 	{
 		if(instance == null)
 		{
-			instance = new EventListModel();
+			instance = new EventListModel();			
 		}
 		
 		return instance;
@@ -66,8 +73,6 @@ public class EventListModel extends AbstractListModel {
 	 * @param newReq The event to be added to the list of events in the project
 	 */
 	public void addEvent(Event newReq){
-		// add the event
-		events.add(newReq);
 		try 
 		{
 			AddEventController.getInstance().addEvent(newReq);
@@ -79,13 +84,33 @@ public class EventListModel extends AbstractListModel {
 			
 		}
 	}
+	
+	/** 
+	 * Adds an event to the private events class.
+	 * This should only be called by the AddEventRequestObserver
+	 * as the response from the server is the event with the ID field
+	 * filled in.
+	 * 
+	 * @param response : Event that was retrieved as a response from the server
+	 */
+	public void addEventFromObserver(Event response) throws WPISuiteException{
+		if(response.getId() != 0){
+			events.add(response);
+			System.out.println("Added Event to EventListModel: " + response.getName() + ", ID: " + response.getId());
+		}
+		else{
+			throw new WPISuiteException("Cannot add an event with ID of zero as it is not stored on the detabase.");
+		}
+	}
+	
+	
 	/**
 	 * Returns the Event with the given ID
 	 * 
 	 * @param id The ID number of the event to be returned
 	
 	 * @return the event for the id or null if the event is not found */
-	public Event getEvent(UUID id)
+	public Event getEvent(int id)
 	{
 		Event temp = null;
 		// iterate through list of events until id is found
@@ -98,25 +123,16 @@ public class EventListModel extends AbstractListModel {
 		return temp;
 	}
 	/**
-	 * Removes the event with the given ID
+	 * Sends request to the server to remove the event with the specified ID form the database.
+	 * On success, the RemoveEventRequestObserver sends request to the server to update the 
+	 * EventListModel by calling GetEventController.getInstance().retrieveEvents()
 	 * 
 	 * @param removeId The ID number of the event to be removed from the list of events in the project
 	 */
-	public void removeEvent(UUID removeId){
-		// iterate through list of events until id of project is found
-		for (int i=0; i < this.events.size(); i++){
-			if (events.get(i).getId() == removeId){
-				// remove the id
-				events.remove(i);
-				break;
-			}
-		}
-		/*try {
-			ViewEventController.getInstance().refreshTable();
-			ViewEventController.getInstance().refreshTree();
-		}
-		catch(Exception e) {}*/
+	public void removeEvent(int removeId){
+		RemoveEventController.getInstance().RemoveEvent(removeId);
 	}
+	
 
 	/**
 	 * Provides the number of elements in the list of events for the project. This
@@ -128,20 +144,8 @@ public class EventListModel extends AbstractListModel {
 	
 	 * @return the number of events in the project * @see javax.swing.ListModel#getSize() * @see javax.swing.ListModel#getSize() * @see javax.swing.ListModel#getSize()
 	 */
-	public int getSize() {
+	public int getSize() {				
 		return events.size();
-	}
-	
-	/**
-	 * 
-	 * Provides the next ID number that should be used for a new event that is created.
-	 * 
-	
-	 * @return the next open id number */
-	public int getNextID()
-	{
-		
-		return this.nextID++;
 	}
 
 	/**

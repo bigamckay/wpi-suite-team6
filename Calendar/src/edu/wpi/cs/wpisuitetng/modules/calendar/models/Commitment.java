@@ -12,12 +12,18 @@
 
 package edu.wpi.cs.wpisuitetng.modules.calendar.models;
 
+
+/**
+ * this class contains the structure and methods for commitments
+ */
 import java.util.Calendar;
 
 import com.google.gson.Gson;
 import edu.wpi.cs.wpisuitetng.exceptions.WPISuiteException;
 import edu.wpi.cs.wpisuitetng.modules.calendar.utils.ValidationUtils;
 import edu.wpi.cs.wpisuitetng.modules.core.models.User;
+
+
 
 public class Commitment extends AbstractCalendarModel{
 	
@@ -50,6 +56,10 @@ public class Commitment extends AbstractCalendarModel{
 		} catch(WPISuiteException e){
 			throw e;
 		}
+		
+		this.name = name;
+		this.duedate = duedate;
+		this.description = description;
 		
 	}
 
@@ -162,14 +172,5 @@ public class Commitment extends AbstractCalendarModel{
 		return test;
 	}
 
-	
-	@Override
-	public void save() {
-
-	}
-	
-	@Override
-	public void delete() {
-
-	}
+		
 }

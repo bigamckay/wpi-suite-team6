@@ -28,6 +28,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.Event;
 
 /**
  *  Contains the GUI elements of the Tab Panel
+ *  Includes the day view and the event and commitment lists
  *
  */
 @SuppressWarnings("serial")

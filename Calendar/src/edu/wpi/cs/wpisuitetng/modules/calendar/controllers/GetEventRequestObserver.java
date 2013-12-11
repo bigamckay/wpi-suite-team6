@@ -12,6 +12,10 @@
 
 package edu.wpi.cs.wpisuitetng.modules.calendar.controllers;
 
+
+/**
+ * server request observer for getting events
+ */
 import java.util.Calendar;
 
 import edu.wpi.cs.wpisuitetng.network.RequestObserver;
@@ -65,6 +69,7 @@ public class GetEventRequestObserver implements RequestObserver{
 		 * (I am fairly sure it will be fine.)
 		 * -John French
 		 */
+		//This is kind of silly, we should do something better (like print a fail statement)
 		Event[] noEvents = { };
 		controller.receivedEvents(noEvents);
 	}
