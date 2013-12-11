@@ -20,7 +20,6 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Calendar;
-
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -28,7 +27,6 @@ import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.EventListModel;
 
 /**
@@ -261,7 +259,7 @@ public class ToolbarView extends JSplitPane{
 			public void actionPerformed(ActionEvent e) {
 				String currentYearStr;
 				String currentMonthStr;
-				String currentDayStr;
+				String currentDayStr;				
 				
 				if(currentFocus == "week")
 				{

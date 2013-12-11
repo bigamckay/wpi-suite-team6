@@ -70,7 +70,7 @@ public abstract class AbstractCalendarEntityManager<T extends AbstractCalendarMo
 	public T[] getEntity(Session s, String id) throws NotFoundException,
 			WPISuiteException {
 		
-		//System.out.println(id);
+		System.out.println(id);
 		
 		//There is a bug on this line, invalid id (keeps coming in as project)
 		//Strings would work better with this. use this string to speed it up
@@ -137,7 +137,11 @@ public abstract class AbstractCalendarEntityManager<T extends AbstractCalendarMo
 
 	@Override
 	public void save(Session s, T model) throws WPISuiteException {
-		model.setId(Count()+1); //set id to next id available
+		int biggestId = 0;
+		for(T t : getAll(s)){
+			biggestId = (t.getId() > biggestId) ? t.getId() : biggestId;
+		}
+		model.setId(biggestId+1); //set id to next id available
 		if(!db.save(model, s.getProject())){
 			throw new WPISuiteException("Could not save to database");
 		} else System.out.println("Saved a model to the database: " + model.toJSON());
