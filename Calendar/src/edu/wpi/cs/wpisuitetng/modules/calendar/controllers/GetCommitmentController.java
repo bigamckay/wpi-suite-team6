@@ -12,6 +12,10 @@
 
 package edu.wpi.cs.wpisuitetng.modules.calendar.controllers;
 
+
+/**
+ * server controller for getting commitments
+ */
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 

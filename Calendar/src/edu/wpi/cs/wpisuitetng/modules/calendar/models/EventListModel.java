@@ -12,6 +12,10 @@
 
 package edu.wpi.cs.wpisuitetng.modules.calendar.models;
 
+
+/**
+ * this class contains the structure and methods for commitments
+ */
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;

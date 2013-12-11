@@ -12,6 +12,11 @@
 
 package edu.wpi.cs.wpisuitetng.modules.calendar.models;
 
+
+/**
+ * this class contains parts of the constructors for events and commitments that are common between the two
+ * as well as the methods that are common between them
+ */
 import java.util.UUID;
 
 import com.google.gson.Gson;
@@ -50,6 +55,10 @@ public abstract class AbstractCalendarModel extends AbstractModel {
 		return id;
 	}
 	
+	/**
+	 * gets the owner of this object; necessary because this is  private variable 
+	 * @return the owner
+	 */
 	public final String getOwner() {
 		return owner;
 	}
@@ -72,16 +81,23 @@ public abstract class AbstractCalendarModel extends AbstractModel {
 	}
 
 	@Override
+	/**
+	 * saves the object
+	 */
 	public void save() {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
+	/**
+	 * deletes the object
+	 */
 	public void delete() {
 		// TODO Auto-generated method stub
 		
 	}
+	
 	
 	public static <T extends AbstractCalendarModel> T fromJSON(String jsonString, Class<T> cls){
 		return new Gson().fromJson(jsonString, cls);

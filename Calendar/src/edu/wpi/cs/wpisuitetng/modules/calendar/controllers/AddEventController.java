@@ -12,7 +12,9 @@
 
 package edu.wpi.cs.wpisuitetng.modules.calendar.controllers;
 
-
+/**
+ * server controller for adding events
+ */
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Event;
 import edu.wpi.cs.wpisuitetng.network.Network;
 import edu.wpi.cs.wpisuitetng.network.Request;

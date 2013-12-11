@@ -12,6 +12,10 @@
 
 package edu.wpi.cs.wpisuitetng.modules.calendar.controllers;
 
+
+/**
+ * server request observer for getting events
+ */
 import java.util.Calendar;
 
 import edu.wpi.cs.wpisuitetng.network.RequestObserver;

@@ -23,7 +23,7 @@ import edu.wpi.cs.wpisuitetng.exceptions.WPISuiteException;
 
 /** 
  *  Events are user-created objects. As a result, their creation must be very secure and able to handle
- *  bad input.
+ *  bad input. this class contains the structure and methods for events
  */
 
 public class Event extends AbstractCalendarModel {
@@ -121,6 +121,10 @@ public class Event extends AbstractCalendarModel {
 		return this.end;
 	}
 	
+	/**
+	 * returns the boolean indicating if the event is personal or a team event; necessary because this is a private variable
+	 * @return true for personal, false for team
+	 */
 	public boolean getPersonal(){
 		return this.personal;
 	}
@@ -211,15 +215,27 @@ public class Event extends AbstractCalendarModel {
 		return previous;
 	}
 	
+	/**
+	 * returns true if the event is a personal event
+	 * @return true for personal event, false for team event
+	 */
 	public boolean isPersonal() {
 		return personal;
 	}
 
+	/**
+	 * updates the personal field of the event, necessary because this is a private variable
+	 * @param personal
+	 */
 	public void setPersonal(boolean personal) {
 		this.personal = personal;
 	}
 
+	
 	@Override
+	/**
+	 * uses json to communicate with server
+	 */
 	public String toJSON() {
 		// TODO Auto-generated method stub
 		return new Gson().toJson(this, Event.class);

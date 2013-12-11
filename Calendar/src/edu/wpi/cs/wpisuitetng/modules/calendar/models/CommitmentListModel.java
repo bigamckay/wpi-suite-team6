@@ -22,6 +22,9 @@ import javax.swing.AbstractListModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controllers.AddCommitmentController;
 
 /**
+ * this class contains the model for having a list of commitments
+ */
+/**
  * NOTE that this is a model in the swing sense, NOT the WPISuite sense
  * This is a model for the post board. It contains all of the messages
  * to be displayed on the board. It extends AbstractListModel so that
