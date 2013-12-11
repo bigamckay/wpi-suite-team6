@@ -13,33 +13,29 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.views;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.util.Calendar;
 
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
-import javax.swing.JTextField;
-import javax.swing.UIManager;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.EventListModel;
 
 /**
  * This panel fills the toolbar content area of the tab for the calendar module.
  * 
  */
+
 @SuppressWarnings("serial")
 public class ToolbarView extends JSplitPane{
 	
@@ -190,6 +186,16 @@ public class ToolbarView extends JSplitPane{
 				String currentYearStr;
 				String currentMonthStr;
 				String currentDayStr;
+				
+				//attempt to get the events
+				try
+				{
+					System.out.println("Number of events in database is " + EventListModel.getInstance().getSize());
+				}
+				catch(Exception exe)
+				{
+					System.out.print("Failed to ping server");
+				}
 				
 				if(currentFocus == "week")
 				{
