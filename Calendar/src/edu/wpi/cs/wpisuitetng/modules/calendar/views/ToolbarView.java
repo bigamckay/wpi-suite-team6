@@ -127,8 +127,8 @@ public class ToolbarView extends JSplitPane{
 	        	calView.populateMonthNull(calView.getMonthView());
 	        	calView.setPersonalViewSelected(btnPersonalView.isSelected());
 	        	calView.populateYear(calView.monthArray, calView.currentYear);
-	        	calView.populateWeek(calView.weekDayHeaders, calView.testList);
-	        	calView.populateDay(tabView.dayTable, calView.testList);
+	        	calView.populateWeek(calView.weekDayHeaders, EventListModel.getInstance().getEvents());
+	        	calView.populateDay(tabView.dayTable, EventListModel.getInstance().getEvents());
 	        	calView.populateMonth(calView.getMonthView(), 
 	        			calView.simulateYear(calView.currentYear), 
 	        			calView.daysInMonth(calView.currentMonth, calView.currentYear), 
@@ -142,8 +142,8 @@ public class ToolbarView extends JSplitPane{
 	        	calView.populateMonthNull(calView.getMonthView());
 	        	calView.setTeamViewSelected(btnTeamView.isSelected());
 	        	calView.populateYear(calView.monthArray, calView.currentYear);
-	        	calView.populateWeek(calView.weekDayHeaders, calView.testList);
-	        	calView.populateDay(tabView.dayTable, calView.testList);
+	        	calView.populateWeek(calView.weekDayHeaders, EventListModel.getInstance().getEvents());
+	        	calView.populateDay(tabView.dayTable, EventListModel.getInstance().getEvents());
 	        	calView.populateMonth(calView.getMonthView(), 
 	        			calView.simulateYear(calView.currentYear), 
 	        			calView.daysInMonth(calView.currentMonth, calView.currentYear), 
@@ -225,7 +225,7 @@ public class ToolbarView extends JSplitPane{
 					}
 
 					calView.updateWeekName(currentDay, calView.currentMonth, calView.currentYear);
-					calView.populateWeek(calView.weekDayHeaders, calView.testList);
+					calView.populateWeek(calView.weekDayHeaders, EventListModel.getInstance().getEvents());
 				}
 				else if(currentFocus == "month")
 				{
@@ -255,8 +255,8 @@ public class ToolbarView extends JSplitPane{
 	        	
 	        	//calView.populateYearNull();
 	        	calView.populateYear(calView.monthArray, calView.currentYear);
-	        	calView.populateWeek(calView.weekDayHeaders, calView.testList);
-	        	calView.populateDay(tabView.dayTable, calView.testList);
+	        	calView.populateWeek(calView.weekDayHeaders, EventListModel.getInstance().getEvents());
+	        	calView.populateDay(tabView.dayTable, EventListModel.getInstance().getEvents());
 			}
 		});
 		
@@ -297,7 +297,7 @@ public class ToolbarView extends JSplitPane{
 					}
 
 					calView.updateWeekName(currentDay, calView.currentMonth, calView.currentYear);
-					calView.populateWeek(calView.weekDayHeaders, calView.testList);
+					calView.populateWeek(calView.weekDayHeaders, EventListModel.getInstance().getEvents());
 					System.out.println("CurrentDay = "+ currentDay);
 				}
 				else if(currentFocus == "month")
@@ -327,8 +327,8 @@ public class ToolbarView extends JSplitPane{
 	        	
 	        	//calView.populateYearNull();
 	        	calView.populateYear(calView.monthArray, calView.currentYear);
-	        	calView.populateWeek(calView.weekDayHeaders, calView.testList);
-	        	calView.populateDay(tabView.dayTable, calView.testList);
+	        	calView.populateWeek(calView.weekDayHeaders, EventListModel.getInstance().getEvents());
+	        	calView.populateDay(tabView.dayTable, EventListModel.getInstance().getEvents());
 			}
 		});
 		
@@ -367,7 +367,7 @@ public class ToolbarView extends JSplitPane{
 	        	
 	        	if(currentFocus == "week") {
 	        			calView.updateWeekName(currentDay, calView.currentMonth, calView.currentYear);
-						calView.populateWeek(calView.weekDayHeaders, calView.testList);
+						calView.populateWeek(calView.weekDayHeaders, EventListModel.getInstance().getEvents());
 	    		}
 	        	
 	        	if(currentFocus == "month")
@@ -386,8 +386,8 @@ public class ToolbarView extends JSplitPane{
 		setLeftComponent(searchPanel);
 		setRightComponent(rightPanel);
 		
-		calView.populateWeek(calView.weekDayHeaders, calView.testList);
-    	calView.populateDay(tabView.dayTable, calView.testList);
+		calView.populateWeek(calView.weekDayHeaders, EventListModel.getInstance().getEvents());
+    	calView.populateDay(tabView.dayTable, EventListModel.getInstance().getEvents());
 	}
 	
 	/**

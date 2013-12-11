@@ -50,8 +50,6 @@ import edu.wpi.cs.wpisuitetng.modules.core.models.User;
 @SuppressWarnings("serial")
 public class CalendarCalendarView extends JTabbedPane{
 	
-	//TODO get rid of this it is a hack
-	public ArrayList<Event> testList;
 	
 	private boolean personalViewSelected = true;
 	private boolean teamViewSelected = false;
@@ -138,7 +136,6 @@ public class CalendarCalendarView extends JTabbedPane{
 	
 	
 	public CalendarCalendarView() {
-		testList = new ArrayList<Event>();
 		initialize();
 	}
 	
@@ -714,7 +711,7 @@ public class CalendarCalendarView extends JTabbedPane{
 		//populateMonth(monthArray[1], 6, 28);
 		simulateYear(currentYear);
 		populateYear(monthArray, currentYear);
-		//populateDay(weekDayHeaders, testList);
+		//populateDay(weekDayHeaders, EventListModel.getInstance().getEvents());
 	}
 	
 
@@ -743,8 +740,8 @@ public class CalendarCalendarView extends JTabbedPane{
 			System.out.println("Not doing the test events");
 			//Event testEvent1 = new Event("Team 6 Meeting", "Flower", testStart, testStart,"Funtimes!", "hi", false);
 			//Event testEvent2 = new Event("PlayDate", "Bancroft Towers", testStart2, testStart2, "Ring Toss", "sup", true);
-			//testList.add(testEvent1);
-			//testList.add(testEvent2);
+			//EventListModel.getInstance().getEvents().add(testEvent1);
+			//EventListModel.getInstance().getEvents().add(testEvent2);
 		}
 		catch(Exception e){
 			System.out.println("What are you doing");
@@ -756,8 +753,8 @@ public class CalendarCalendarView extends JTabbedPane{
 			for(; j<7; j++){
 				String personalEventStr = " ";
 				String teamEventStr = " ";
-				List<Event> personalEventList = isThereAPersonalEventOnThisDate(testList /*EventListModel.getInstance().getEvents()*/, currentYear, whatMonth, dayCounter);
-				List<Event> teamEventList = isThereATeamEventOnThisDate(testList, currentYear, whatMonth, dayCounter);
+				List<Event> personalEventList = isThereAPersonalEventOnThisDate(EventListModel.getInstance().getEvents() /*EventListModel.getInstance().getEvents()*/, currentYear, whatMonth, dayCounter);
+				List<Event> teamEventList = isThereATeamEventOnThisDate(EventListModel.getInstance().getEvents(), currentYear, whatMonth, dayCounter);
 				if(personalViewSelected && teamViewSelected){
 					if(personalEventList.size() != 0 && teamEventList.size() != 0){
 						MyCellRenderer cellRender = new MyCellRenderer(i, 2); 
@@ -1365,21 +1362,21 @@ public class CalendarCalendarView extends JTabbedPane{
 			
 			
 				if(personalViewSelected && teamViewSelected){
-					if(isThereAPersonalEventOnThisDate(testList, currentYear, e.getEnd().get(Calendar.MONTH), e.getEnd().get(Calendar.DATE)).size() != 0 && isThereATeamEventOnThisDate(testList, currentYear, e.getEnd().get(Calendar.MONTH), e.getEnd().get(Calendar.DATE)).size() != 0){
+					if(isThereAPersonalEventOnThisDate(EventListModel.getInstance().getEvents(), currentYear, e.getEnd().get(Calendar.MONTH), e.getEnd().get(Calendar.DATE)).size() != 0 && isThereATeamEventOnThisDate(EventListModel.getInstance().getEvents(), currentYear, e.getEnd().get(Calendar.MONTH), e.getEnd().get(Calendar.DATE)).size() != 0){
 						MyCellRenderer cellRender = new MyCellRenderer(e.getEnd().get(Calendar.HOUR_OF_DAY), 2);
 						//System.out.println("row passed in " + Calendar.e.getEnd().get(Calendar.HOUR_OF_DAY));
 						cellRender.getTableCellRendererComponent(day, e.getEnd().get(Calendar.DATE), false, false, e.getEnd().get(Calendar.HOUR_OF_DAY), e.getEnd().get(Calendar.DAY_OF_WEEK));
 						day.getColumnModel().getColumn(e.getEnd().get(Calendar.DAY_OF_WEEK)).setCellRenderer(cellRender);
 						day.getModel().setValueAt(e.getName(), e.getEnd().get(Calendar.HOUR_OF_DAY), e.getEnd().get(Calendar.DAY_OF_WEEK));
 					}
-					else if(isThereAPersonalEventOnThisDate(/*EventListModel.getInstance().getEvents(),*/testList, currentYear, e.getEnd().get(Calendar.MONTH), e.getEnd().get(Calendar.DATE)).size() != 0){
+					else if(isThereAPersonalEventOnThisDate(/*EventListModel.getInstance().getEvents(),*/EventListModel.getInstance().getEvents(), currentYear, e.getEnd().get(Calendar.MONTH), e.getEnd().get(Calendar.DATE)).size() != 0){
 						MyCellRenderer cellRender = new MyCellRenderer(e.getEnd().get(Calendar.HOUR_OF_DAY), 0);
 						//System.out.println("row passed in " + e.getEnd().get(Calendar.HOUR_OF_DAY));
 						cellRender.getTableCellRendererComponent(day, e.getEnd().get(Calendar.DATE), false, false, e.getEnd().get(Calendar.HOUR_OF_DAY), e.getEnd().get(Calendar.DAY_OF_WEEK));
 						day.getColumnModel().getColumn(e.getEnd().get(Calendar.DAY_OF_WEEK)).setCellRenderer(cellRender);
 						day.getModel().setValueAt(e.getName(), e.getEnd().get(Calendar.HOUR_OF_DAY), e.getEnd().get(Calendar.DAY_OF_WEEK));
 					}
-					else if(isThereATeamEventOnThisDate(/*EventListModel.getInstance().getEvents(),*/testList, currentYear, e.getEnd().get(Calendar.MONTH), e.getEnd().get(Calendar.DATE)).size() != 0){
+					else if(isThereATeamEventOnThisDate(/*EventListModel.getInstance().getEvents(),*/EventListModel.getInstance().getEvents(), currentYear, e.getEnd().get(Calendar.MONTH), e.getEnd().get(Calendar.DATE)).size() != 0){
 						MyCellRenderer cellRender = new MyCellRenderer(e.getEnd().get(Calendar.HOUR_OF_DAY), 1);
 						//System.out.println("row passed in " + e.getEnd().get(Calendar.HOUR_OF_DAY));
 						cellRender.getTableCellRendererComponent(day, e.getEnd().get(Calendar.DATE), false, false, e.getEnd().get(Calendar.HOUR_OF_DAY), e.getEnd().get(Calendar.DAY_OF_WEEK));
@@ -1388,7 +1385,7 @@ public class CalendarCalendarView extends JTabbedPane{
 					}
 				}
 				else if(personalViewSelected){
-					if(isThereAPersonalEventOnThisDate(/*EventListModel.getInstance().getEvents(),*/testList, currentYear, e.getEnd().get(Calendar.MONTH), e.getEnd().get(Calendar.DATE)).size() != 0){
+					if(isThereAPersonalEventOnThisDate(/*EventListModel.getInstance().getEvents(),*/EventListModel.getInstance().getEvents(), currentYear, e.getEnd().get(Calendar.MONTH), e.getEnd().get(Calendar.DATE)).size() != 0){
 						MyCellRenderer cellRender = new MyCellRenderer(e.getEnd().get(Calendar.HOUR_OF_DAY), 0);
 						//System.out.println("row passed in " + e.getEnd().get(Calendar.HOUR_OF_DAY));
 						cellRender.getTableCellRendererComponent(day, e.getEnd().get(Calendar.DATE), false, false, e.getEnd().get(Calendar.HOUR_OF_DAY), e.getEnd().get(Calendar.DAY_OF_WEEK));
@@ -1397,7 +1394,7 @@ public class CalendarCalendarView extends JTabbedPane{
 					}
 				}
 				else if(teamViewSelected){
-					if(isThereATeamEventOnThisDate(/*EventListModel.getInstance().getEvents(),*/testList, currentYear, e.getEnd().get(Calendar.MONTH), e.getEnd().get(Calendar.DATE)).size() != 0){
+					if(isThereATeamEventOnThisDate(/*EventListModel.getInstance().getEvents(),*/EventListModel.getInstance().getEvents(), currentYear, e.getEnd().get(Calendar.MONTH), e.getEnd().get(Calendar.DATE)).size() != 0){
 						MyCellRenderer cellRender = new MyCellRenderer(e.getEnd().get(Calendar.HOUR_OF_DAY), 1);
 						//System.out.println("row passed in " + i);
 						cellRender.getTableCellRendererComponent(day, e.getEnd().get(Calendar.DATE), false, false, e.getEnd().get(Calendar.HOUR_OF_DAY), e.getEnd().get(Calendar.DAY_OF_WEEK));
@@ -1447,21 +1444,21 @@ public class CalendarCalendarView extends JTabbedPane{
 			
 			
 				if(personalViewSelected && teamViewSelected){
-					if(isThereAPersonalEventOnThisDate(testList, currentYear, e.getEnd().get(Calendar.MONTH), e.getEnd().get(Calendar.DATE)).size() != 0 && isThereATeamEventOnThisDate(testList, currentYear, e.getEnd().get(Calendar.MONTH), e.getEnd().get(Calendar.DATE)).size() != 0){
+					if(isThereAPersonalEventOnThisDate(EventListModel.getInstance().getEvents(), currentYear, e.getEnd().get(Calendar.MONTH), e.getEnd().get(Calendar.DATE)).size() != 0 && isThereATeamEventOnThisDate(EventListModel.getInstance().getEvents(), currentYear, e.getEnd().get(Calendar.MONTH), e.getEnd().get(Calendar.DATE)).size() != 0){
 						MyCellRenderer cellRender = new MyCellRenderer(e.getEnd().get(Calendar.HOUR_OF_DAY), 2);
 						//System.out.println("row passed in " + Calendar.e.getEnd().get(Calendar.HOUR_OF_DAY));
 						cellRender.getTableCellRendererComponent(day, e.getEnd().get(Calendar.DATE), false, false, e.getEnd().get(Calendar.HOUR_OF_DAY),1);
 						day.getColumnModel().getColumn(1).setCellRenderer(cellRender);
 						day.getModel().setValueAt(e.getName(), e.getEnd().get(Calendar.HOUR_OF_DAY),1);
 					}
-					else if(isThereAPersonalEventOnThisDate(/*EventListModel.getInstance().getEvents(),*/testList, currentYear, e.getEnd().get(Calendar.MONTH), e.getEnd().get(Calendar.DATE)).size() != 0){
+					else if(isThereAPersonalEventOnThisDate(/*EventListModel.getInstance().getEvents(),*/EventListModel.getInstance().getEvents(), currentYear, e.getEnd().get(Calendar.MONTH), e.getEnd().get(Calendar.DATE)).size() != 0){
 						MyCellRenderer cellRender = new MyCellRenderer(e.getEnd().get(Calendar.HOUR_OF_DAY), 0);
 						//System.out.println("row passed in " + e.getEnd().get(Calendar.HOUR_OF_DAY));
 						cellRender.getTableCellRendererComponent(day, e.getEnd().get(Calendar.DATE), false, false, e.getEnd().get(Calendar.HOUR_OF_DAY),1);
 						day.getColumnModel().getColumn(1).setCellRenderer(cellRender);
 						day.getModel().setValueAt(e.getName(), e.getEnd().get(Calendar.HOUR_OF_DAY),1);
 					}
-					else if(isThereATeamEventOnThisDate(/*EventListModel.getInstance().getEvents(),*/testList, currentYear, e.getEnd().get(Calendar.MONTH), e.getEnd().get(Calendar.DATE)).size() != 0){
+					else if(isThereATeamEventOnThisDate(/*EventListModel.getInstance().getEvents(),*/EventListModel.getInstance().getEvents(), currentYear, e.getEnd().get(Calendar.MONTH), e.getEnd().get(Calendar.DATE)).size() != 0){
 						MyCellRenderer cellRender = new MyCellRenderer(e.getEnd().get(Calendar.HOUR_OF_DAY), 1);
 						//System.out.println("row passed in " + e.getEnd().get(Calendar.HOUR_OF_DAY));
 						cellRender.getTableCellRendererComponent(day, e.getEnd().get(Calendar.DATE), false, false, e.getEnd().get(Calendar.HOUR_OF_DAY),1);
@@ -1470,7 +1467,7 @@ public class CalendarCalendarView extends JTabbedPane{
 					}
 				}
 				else if(personalViewSelected){
-					if(isThereAPersonalEventOnThisDate(/*EventListModel.getInstance().getEvents(),*/testList, currentYear, e.getEnd().get(Calendar.MONTH), e.getEnd().get(Calendar.DATE)).size() != 0){
+					if(isThereAPersonalEventOnThisDate(/*EventListModel.getInstance().getEvents(),*/EventListModel.getInstance().getEvents(), currentYear, e.getEnd().get(Calendar.MONTH), e.getEnd().get(Calendar.DATE)).size() != 0){
 						MyCellRenderer cellRender = new MyCellRenderer(e.getEnd().get(Calendar.HOUR_OF_DAY), 0);
 						//System.out.println("row passed in " + e.getEnd().get(Calendar.HOUR_OF_DAY));
 						cellRender.getTableCellRendererComponent(day, e.getEnd().get(Calendar.DATE), false, false, e.getEnd().get(Calendar.HOUR_OF_DAY),1);
@@ -1479,7 +1476,7 @@ public class CalendarCalendarView extends JTabbedPane{
 					}
 				}
 				else if(teamViewSelected){
-					if(isThereATeamEventOnThisDate(/*EventListModel.getInstance().getEvents(),*/testList, currentYear, e.getEnd().get(Calendar.MONTH), e.getEnd().get(Calendar.DATE)).size() != 0){
+					if(isThereATeamEventOnThisDate(/*EventListModel.getInstance().getEvents(),*/EventListModel.getInstance().getEvents(), currentYear, e.getEnd().get(Calendar.MONTH), e.getEnd().get(Calendar.DATE)).size() != 0){
 						MyCellRenderer cellRender = new MyCellRenderer(e.getEnd().get(Calendar.HOUR_OF_DAY), 1);
 						//System.out.println("row passed in " + i);
 						cellRender.getTableCellRendererComponent(day, e.getEnd().get(Calendar.DATE), false, false, e.getEnd().get(Calendar.HOUR_OF_DAY),1);

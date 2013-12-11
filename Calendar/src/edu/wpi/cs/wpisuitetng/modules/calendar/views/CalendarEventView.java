@@ -418,7 +418,7 @@ public class CalendarEventView extends JTabbedPane {
 	            				eventDescription.getText(),
 	            				ConfigManager.getConfig().getUserName(),
 	            				eventTypeSwitch);
-	            		calView.testList.add(newEvent);
+	            		//calView.testList.add(newEvent);
 	            		System.out.println("added to list");
 	            		calView.displayNewEvent(newEvent);
 	            	}

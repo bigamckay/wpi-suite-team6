@@ -13,6 +13,7 @@
 
 package edu.wpi.cs.wpisuitetng.janeway.gui.login;
 
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.EventListModel;
 import edu.wpi.cs.wpisuitetng.network.Request;
 import edu.wpi.cs.wpisuitetng.network.RequestObserver;
 import edu.wpi.cs.wpisuitetng.network.models.IRequest;
@@ -36,6 +37,8 @@ public class LoginRequestObserver implements RequestObserver {
 
 		// check the response code
 		if (response.getStatusCode() == 200) {
+			System.out.println("JaneWay Login Successful");
+			EventListModel.getInstance().LoginSuccess();
 			controller.loginSuccessful(response);
 		}
 		else { // login failed
