@@ -34,8 +34,9 @@ public class CalendarModule implements IJanewayModule {
 		MainView mainView = new MainView();
 		ToolbarView tbView = new ToolbarView();
 		
-		// Give the toolbar access to the Calendar View
+		// Give the toolbar access to the Calendar and Tab Views
 		tbView.getCalendar(mainView.getCalendar());
+		tbView.getTabView(mainView.getTabView());
 		
 		// Create a JPanel to hold the toolbar
 		JPanel toolbarPanel = new JPanel();

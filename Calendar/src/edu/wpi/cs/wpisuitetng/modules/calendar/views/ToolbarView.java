@@ -40,6 +40,9 @@ import javax.swing.event.ChangeListener;
 public class ToolbarView extends JSplitPane{
 	
 	private CalendarCalendarView calView;
+	private CalendarTabView tabView;
+	private boolean calInit = false;
+	private boolean tabInit = false;
 	// location is the pixel value for the divider
 	private int location = 300;
 	private int startYear;
@@ -356,7 +359,16 @@ public class ToolbarView extends JSplitPane{
 	public void getCalendar(CalendarCalendarView newCal) {
 		calView = newCal;
 		startYear = calView.currentYear;
-		initialize();
+		calInit = true;
+		if (tabInit)
+			initialize();
+	}
+	
+	public void getTabView(CalendarTabView newTab) {
+		tabView = newTab;
+		tabInit = true;
+		if (calInit)
+			initialize();
 	}
 	
 	@Override
