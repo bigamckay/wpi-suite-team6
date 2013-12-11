@@ -68,9 +68,6 @@ public class DateTimeUtils {
 			}
 		}
 		//convert to int and place first two characters of string into hour, last two into minute
-		System.out.println("but we continued anyway");
-		System.out.println(date.charAt(0));
-		System.out.println(time.charAt(0));
 		int hour = Integer.parseInt(time.substring(0, 2));
 		int minute = Integer.parseInt(time.substring(3, 5));
 		
@@ -103,12 +100,17 @@ public class DateTimeUtils {
 			String hour = Integer.toString(today.get(Calendar.HOUR_OF_DAY) + 1);
 			if(hour.length() < 2)
 				hour = "0" + hour;
+			else if(hour.equals("24"))
+				hour = "23";
 			toPrint = hour + ":00";
 		}
 		else if(!isDate && isEnd){
 			String hour = Integer.toString(today.get(Calendar.HOUR_OF_DAY) + 2);
 			if(hour.length() < 2)
 				hour = "0" + hour;
+			else if(hour.equals("24") || hour.equals("25")){
+				hour = "23";
+			}
 			toPrint = hour + ":00";
 		}
 		return toPrint;
