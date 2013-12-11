@@ -252,14 +252,14 @@ public class ToolbarView extends JSplitPane{
 
 					if(currentDay > calView.daysInMonth(calView.currentMonth, calView.currentYear) && calView.currentMonth >= 11)
 					{
-						currentDay = (currentDay - calView.daysInMonth(calView.currentMonth, calView.currentYear));
-						calView.currentMonth = 0;
 						calView.currentYear++;
+						calView.currentMonth = 0;
+						currentDay = (currentDay - calView.daysInMonth(calView.currentMonth, calView.currentYear));
 					}
 					if(currentDay > calView.daysInMonth(calView.currentMonth, calView.currentYear))
 					{
-						currentDay = (currentDay - calView.daysInMonth(calView.currentMonth, calView.currentYear));
 						calView.currentMonth++;
+						currentDay = (currentDay - calView.daysInMonth(calView.currentMonth, calView.currentYear));
 					}
 
 					calView.updateWeekName(currentDay, calView.currentMonth, calView.currentYear);

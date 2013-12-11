@@ -1109,8 +1109,13 @@ public class CalendarCalendarView extends JTabbedPane{
 			}
 		}
 		if (currDay + 7 - currentDotw > daysInMonth(currentMonth, currentYear)) {
-			endDayStr = String.valueOf(currDay + 7 - currentDotw - daysInMonth(currentMonth, currentYear));
-			month2 = getCurrentMonth(currentMonth + 1);
+			if (currentMonth >= 11) {
+				endDayStr = String.valueOf(currDay + 7 - currentDotw - daysInMonth(0, currentYear));
+				month2 = getCurrentMonth(0);
+			} else {
+				endDayStr = String.valueOf(currDay + 7 - currentDotw - daysInMonth(currentMonth, currentYear));
+				month2 = getCurrentMonth(currentMonth + 1);
+			}
 		}
 
 		weekLabel.setText(month1 + " " + startDayStr + " to " + month2 + " " + endDayStr);
@@ -1137,8 +1142,30 @@ public class CalendarCalendarView extends JTabbedPane{
 	}
 	
 	public void populateDay(JTable day, List<Event> events){
+		int goflag = 0;
 		populateWeekNull(weekDayHeaders);
 		for(Event e : events){
+			if (e.getStart().get(Calendar.YEAR) != currentYear) {
+				if (currentMonth >= 11) {
+					if (e.getStart().get(Calendar.MONTH) <= 0) {
+						if (e.getStart().get(Calendar.YEAR) == (currentYear + 1)) {
+							goflag = 1;
+						}
+					}
+				} else if (currentMonth <= 0) {
+					if (e.getStart().get(Calendar.MONTH) >= 11) {
+						if (e.getStart().get(Calendar.YEAR) == (currentYear - 1)) {
+							goflag = 1;
+						}
+					}
+				}
+			} else {
+				goflag = 1;
+			}
+			
+			if (goflag != 1) {
+				continue;
+			}
 			//DAY_OF_WEEK returns number 1-7 for Sunday - Saturday
 			//HOUR_OF_DAY returns number 0-23 for hours in day
 			if (e.getStart().get(Calendar.MONTH) == currentMonth && (weekStart <= e.getStart().get(Calendar.DATE)) && (weekEnd >= e.getStart().get(Calendar.DATE))) {
