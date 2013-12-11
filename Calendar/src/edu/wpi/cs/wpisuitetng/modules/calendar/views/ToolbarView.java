@@ -13,30 +13,28 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.views;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.util.Calendar;
 
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
-import javax.swing.JTextField;
-import javax.swing.UIManager;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.EventListModel;
+
+/**
+ * This panel fills the toolbar content area of the tab for the calendar module.
+ * 
+ */
 
 @SuppressWarnings("serial")
 public class ToolbarView extends JSplitPane{
@@ -46,7 +44,7 @@ public class ToolbarView extends JSplitPane{
 	private int location = 300;
 	private int startYear;
 	private JLabel currDay;
-	private JTextField searchField;
+	//private JTextField searchField;
 	private int currentDay;
 	private String month = new String();
 	private String currentFocus = new String();
@@ -117,16 +115,26 @@ public class ToolbarView extends JSplitPane{
 		btnPersonalView.addActionListener(new ActionListener(){
 	        @Override
 	        public void actionPerformed(ActionEvent e){
+	        	calView.populateMonthNull(calView.getMonthView());
 	        	calView.setPersonalViewSelected(btnPersonalView.isSelected());
 	        	calView.populateYear(calView.monthArray, calView.currentYear);
+	        	calView.populateMonth(calView.getMonthView(), 
+	        			calView.simulateYear(calView.currentYear), 
+	        			calView.daysInMonth(calView.currentMonth, calView.currentYear), 
+	        			calView.currentMonth);
 	        }
 		});
 		
 		btnTeamView.addActionListener(new ActionListener(){
 	        @Override
 	        public void actionPerformed(ActionEvent e){
+	        	calView.populateMonthNull(calView.getMonthView());
 	        	calView.setTeamViewSelected(btnTeamView.isSelected());
 	        	calView.populateYear(calView.monthArray, calView.currentYear);
+	        	calView.populateMonth(calView.getMonthView(), 
+	        			calView.simulateYear(calView.currentYear), 
+	        			calView.daysInMonth(calView.currentMonth, calView.currentYear), 
+	        			calView.currentMonth);
 	        }
 		});
 		
@@ -358,6 +366,12 @@ public class ToolbarView extends JSplitPane{
 		setRightComponent(rightPanel);
 	}
 	
+	/**
+	 * Used in CalendarModule to get an instance of CalendarCalendarView and
+	 * 	sets it as a class variable.
+	 * Prevents the initialization of the panel until the calView is collected
+	 * @param newCal - the instance of the CalendarCalendarView
+	 */
 	public void getCalendar(CalendarCalendarView newCal) {
 		calView = newCal;
 		startYear = calView.currentYear;
@@ -373,6 +387,11 @@ public class ToolbarView extends JSplitPane{
 		return location;
 	}
 	
+	/**
+	 * Gets the three-letter abbreviation of the current month's name as a string.
+	 * @param currMonth - the month in question
+	 * @return current month's name as a three-letter string
+	 */
 	public String getCurrentMonth(int currMonth)
 	{
 		switch(currMonth)
