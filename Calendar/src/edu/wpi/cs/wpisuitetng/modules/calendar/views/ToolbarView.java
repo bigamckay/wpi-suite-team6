@@ -26,6 +26,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.event.ChangeEvent;
+
+import javax.swing.event.ChangeListener;
+
+import edu.wpi.cs.wpisuitetng.janeway.gui.container.TabPanel;
+
+
 import javax.swing.event.ChangeListener;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.EventListModel;
 
@@ -34,10 +40,14 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.EventListModel;
  * 
  */
 
+
 @SuppressWarnings("serial")
 public class ToolbarView extends JSplitPane{
 	
 	private CalendarCalendarView calView;
+	private CalendarTabView tabView;
+	private boolean calInit = false;
+	private boolean tabInit = false;
 	// location is the pixel value for the divider
 	private int location = 300;
 	private int startYear;
@@ -48,6 +58,7 @@ public class ToolbarView extends JSplitPane{
 	private String currentFocus = new String();
 	private JCheckBox btnTeamView = new JCheckBox("Team View");
 	private JCheckBox btnPersonalView = new JCheckBox("Personal View");
+	
 	public ToolbarView() {
 		
 	}
@@ -116,6 +127,8 @@ public class ToolbarView extends JSplitPane{
 	        	calView.populateMonthNull(calView.getMonthView());
 	        	calView.setPersonalViewSelected(btnPersonalView.isSelected());
 	        	calView.populateYear(calView.monthArray, calView.currentYear);
+	        	calView.populateWeek(calView.weekDayHeaders, calView.testList);
+	        	calView.populateDay(tabView.dayTable, calView.testList);
 	        	calView.populateMonth(calView.getMonthView(), 
 	        			calView.simulateYear(calView.currentYear), 
 	        			calView.daysInMonth(calView.currentMonth, calView.currentYear), 
@@ -129,6 +142,8 @@ public class ToolbarView extends JSplitPane{
 	        	calView.populateMonthNull(calView.getMonthView());
 	        	calView.setTeamViewSelected(btnTeamView.isSelected());
 	        	calView.populateYear(calView.monthArray, calView.currentYear);
+	        	calView.populateWeek(calView.weekDayHeaders, calView.testList);
+	        	calView.populateDay(tabView.dayTable, calView.testList);
 	        	calView.populateMonth(calView.getMonthView(), 
 	        			calView.simulateYear(calView.currentYear), 
 	        			calView.daysInMonth(calView.currentMonth, calView.currentYear), 
@@ -210,6 +225,7 @@ public class ToolbarView extends JSplitPane{
 					}
 
 					calView.updateWeekName(currentDay, calView.currentMonth, calView.currentYear);
+					calView.populateWeek(calView.weekDayHeaders, calView.testList);
 				}
 				else if(currentFocus == "month")
 				{
@@ -239,6 +255,8 @@ public class ToolbarView extends JSplitPane{
 	        	
 	        	//calView.populateYearNull();
 	        	calView.populateYear(calView.monthArray, calView.currentYear);
+	        	calView.populateWeek(calView.weekDayHeaders, calView.testList);
+	        	calView.populateDay(tabView.dayTable, calView.testList);
 			}
 		});
 		
@@ -268,17 +286,19 @@ public class ToolbarView extends JSplitPane{
 
 					if(currentDay > calView.daysInMonth(calView.currentMonth, calView.currentYear) && calView.currentMonth >= 11)
 					{
-						currentDay = (currentDay - calView.daysInMonth(calView.currentMonth, calView.currentYear));
-						calView.currentMonth = 0;
 						calView.currentYear++;
+						calView.currentMonth = 0;
+						currentDay = (currentDay - calView.daysInMonth(calView.currentMonth, calView.currentYear));
 					}
 					if(currentDay > calView.daysInMonth(calView.currentMonth, calView.currentYear))
 					{
-						currentDay = (currentDay - calView.daysInMonth(calView.currentMonth, calView.currentYear));
 						calView.currentMonth++;
+						currentDay = (currentDay - calView.daysInMonth(calView.currentMonth, calView.currentYear));
 					}
 
 					calView.updateWeekName(currentDay, calView.currentMonth, calView.currentYear);
+					calView.populateWeek(calView.weekDayHeaders, calView.testList);
+					System.out.println("CurrentDay = "+ currentDay);
 				}
 				else if(currentFocus == "month")
 				{
@@ -307,6 +327,8 @@ public class ToolbarView extends JSplitPane{
 	        	
 	        	//calView.populateYearNull();
 	        	calView.populateYear(calView.monthArray, calView.currentYear);
+	        	calView.populateWeek(calView.weekDayHeaders, calView.testList);
+	        	calView.populateDay(tabView.dayTable, calView.testList);
 			}
 		});
 		
@@ -345,6 +367,7 @@ public class ToolbarView extends JSplitPane{
 	        	
 	        	if(currentFocus == "week") {
 	        			calView.updateWeekName(currentDay, calView.currentMonth, calView.currentYear);
+						calView.populateWeek(calView.weekDayHeaders, calView.testList);
 	    		}
 	        	
 	        	if(currentFocus == "month")
@@ -362,6 +385,9 @@ public class ToolbarView extends JSplitPane{
 		//setBorder(BorderFactory.createLineBorder(Color.black));
 		setLeftComponent(searchPanel);
 		setRightComponent(rightPanel);
+		
+		calView.populateWeek(calView.weekDayHeaders, calView.testList);
+    	calView.populateDay(tabView.dayTable, calView.testList);
 	}
 	
 	/**
@@ -373,7 +399,16 @@ public class ToolbarView extends JSplitPane{
 	public void getCalendar(CalendarCalendarView newCal) {
 		calView = newCal;
 		startYear = calView.currentYear;
-		initialize();
+		calInit = true;
+		if (tabInit)
+			initialize();
+	}
+	
+	public void getTabView(CalendarTabView newTab) {
+		tabView = newTab;
+		tabInit = true;
+		if (calInit)
+			initialize();
 	}
 	
 	@Override

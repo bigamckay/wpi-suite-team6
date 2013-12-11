@@ -56,7 +56,9 @@ public class CalendarCalendarView extends JTabbedPane{
 	private boolean personalViewSelected = true;
 	private boolean teamViewSelected = false;
 
-	private JTable weekDayHeaders;
+	private CalendarTabView tabView;
+	
+	public JTable weekDayHeaders;
 	private JTable JanDayTable;
 	private JTable MarDayTable;
 	private JTable FebDayTable;
@@ -69,8 +71,12 @@ public class CalendarCalendarView extends JTabbedPane{
 	private JTable OctDayTable;
 	private JTable NovDayTable;
 	private JTable DecDayTable;
+
 	public JLabel weekLabel;
 	private String currentFocus = "week";
+	
+	public int weekStart;
+	public int weekEnd;
 	
 	private JTable monthView;
 	
@@ -89,6 +95,38 @@ public class CalendarCalendarView extends JTabbedPane{
 				},
 				new String[] {
 					"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"
+				}
+			);
+	
+	private final DefaultTableModel clearedWeekModel = new DefaultTableModel(
+			new Object[][] {
+					{"12:00 AM", null, null, null, null, null, null, null},
+					{"1:00 AM", null, null, null, null, null, null, null},
+					{"2:00 AM", null, null, null, null, null, null, null},
+					{"3:00 AM", null, null, null, null, null, null, null},
+					{"4:00 AM", null, null, null, null, null, null, null},
+					{"5:00 AM", null, null, null, null, null, null, null},
+					{"6:00 AM", null, null, null, null, null, null, null},
+					{"7:00 AM", null, null, null, null, null, null, null},
+					{"8:00 AM", null, null, null, null, null, null, null},
+					{"9:00 AM", null, null, null, null, null, null, null},
+					{"10:00 AM", null, null, null, null, null, null, null},
+					{"11:00 AM", null, null, null, null, null, null, null},
+					{"12:00 PM", null, null, null, null, null, null, null},
+					{"1:00 PM", null, null, null, null, null, null, null},
+					{"2:00 PM", null, null, null, null, null, null, null},
+					{"3:00 PM", null, null, null, null, null, null, null},
+					{"4:00 PM", null, null, null, null, null, null, null},
+					{"5:00 PM", null, null, null, null, null, null, null},
+					{"6:00 PM", null, null, null, null, null, null, null},
+					{"7:00 PM", null, null, null, null, null, null, null},
+					{"8:00 PM", null, null, null, null, null, null, null},
+					{"9:00 PM", null, null, null, null, null, null, null},
+					{"10:00 PM", null, null, null, null, null, null, null},
+					{"11:00 PM", null, null, null, null, null, null, null},
+				},
+				new String[] {
+					"Time", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
 				}
 			);
 	
@@ -676,8 +714,10 @@ public class CalendarCalendarView extends JTabbedPane{
 		//populateMonth(monthArray[1], 6, 28);
 		simulateYear(currentYear);
 		populateYear(monthArray, currentYear);
+		//populateDay(weekDayHeaders, testList);
 	}
 	
+
 	/**
 	 * Fills given month with days, starting from the appropriate date. 
 	 * Determines the day of the week of the starting day of the next month.
@@ -853,7 +893,27 @@ public class CalendarCalendarView extends JTabbedPane{
 				month.getModel().setValueAt(null, i, j);
 				month.getColumnModel().getColumn(j).setCellRenderer(new DefaultTableCellRenderer());
 			}
+			j =0;
+		}
+		return;
+	}
+	
+	public void populateWeekNull(JTable week){
+		int j;
+		for(int i=0; i<24; ++i){
+			for(j=1; j<8; ++j){
+				week.getModel().setValueAt(null, i, j);
+				//week.getColumnModel().getColumn(j).setCellRenderer(new DefaultTableCellRenderer());
+			}
 			j = 0;
+		}
+		return;
+	}
+	
+	public void populateDayNull(JTable day){
+		int j;
+		for(int i=0; i<24; ++i){
+			day.getModel().setValueAt(null, i, 1);
 		}
 		return;
 	}
@@ -1220,23 +1280,31 @@ public class CalendarCalendarView extends JTabbedPane{
 		String month1, month2, startDayStr, endDayStr;
 		int currentDotw = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
 		
-		startDayStr = String.valueOf(currDay + 1 - currentDotw);
-		endDayStr = String.valueOf(currDay + 7 - currentDotw);
+		weekStart = currDay + 1 - currentDotw;
+		weekEnd = currDay + 7 - currentDotw;
+		
+		startDayStr = String.valueOf(weekStart);
+		endDayStr = String.valueOf(weekEnd);
 
 		month1 = getCurrentMonth(currentMonth);
 		month2 = getCurrentMonth(currentMonth);
 		if (currDay + 1 - currentDotw <= 0) {
 			if (currentMonth <= 0) {
-				startDayStr = String.valueOf(currDay + 1 - currentDotw + daysInMonth(11, currentYear));
 				month1 = getCurrentMonth(11);
+				startDayStr = String.valueOf(currDay + 1 - currentDotw + daysInMonth(11, currentYear));
 			} else {
 				startDayStr = String.valueOf(currDay + 1 - currentDotw + daysInMonth(currentMonth - 1, currentYear));
 				month1 = getCurrentMonth(currentMonth - 1);
 			}
 		}
 		if (currDay + 7 - currentDotw > daysInMonth(currentMonth, currentYear)) {
-			endDayStr = String.valueOf(currDay + 7 - currentDotw - daysInMonth(currentMonth, currentYear));
-			month2 = getCurrentMonth(currentMonth + 1);
+			if (currentMonth >= 11) {
+				month2 = getCurrentMonth(0);
+				endDayStr = String.valueOf(currDay + 7 - currentDotw - daysInMonth(0, currentYear));
+			} else {
+				endDayStr = String.valueOf(currDay + 7 - currentDotw - daysInMonth(currentMonth, currentYear));
+				month2 = getCurrentMonth(currentMonth + 1);
+			}
 		}
 
 		weekLabel.setText(month1 + " " + startDayStr + " to " + month2 + " " + endDayStr);
@@ -1258,5 +1326,170 @@ public class CalendarCalendarView extends JTabbedPane{
 	public void setTeamViewSelected(boolean to){
 		this.teamViewSelected = to;
 	}
+	
+	public void populateWeek(JTable day, List<Event> events){
+		int goflag = 0;
+		populateWeekNull(day);
+		for(int i=1; i<7; i++)
+			day.getColumnModel().getColumn(i).setCellRenderer(new DefaultTableCellRenderer());
+		for(Event e : events){
+			if (e.getStart().get(Calendar.YEAR) != currentYear) {
+				if (currentMonth >= 11) {
+					if (e.getStart().get(Calendar.MONTH) <= 0) {
+						if (e.getStart().get(Calendar.YEAR) == (currentYear + 1)) {
+							goflag = 1;
+						}
+					}
+				} else if (currentMonth <= 0) {
+					if (e.getStart().get(Calendar.MONTH) >= 11) {
+						if (e.getStart().get(Calendar.YEAR) == (currentYear - 1)) {
+							goflag = 1;
+						}
+					}
+				}
+			} else {
+				goflag = 1;
+			}
+			
+			if (goflag != 1) {
+				continue;
+			}
+			//DAY_OF_WEEK returns number 1-7 for Sunday - Saturday
+			//HOUR_OF_DAY returns number 0-23 for hours in day
+			if (e.getStart().get(Calendar.MONTH) == currentMonth && (weekStart <= e.getStart().get(Calendar.DATE)) && (weekEnd >= e.getStart().get(Calendar.DATE))) {
+				/*day.getModel().setValueAt(e.getName(), e.getStart().get(Calendar.HOUR_OF_DAY), e.getStart().get(Calendar.DAY_OF_WEEK));
+				if (e.getEnd().get(Calendar.MONTH) == currentMonth) {
+					day.getModel().setValueAt("*", e.getEnd().get(Calendar.HOUR_OF_DAY), e.getEnd().get(Calendar.DAY_OF_WEEK));
+				}
+			}*/
+			
+			
+				if(personalViewSelected && teamViewSelected){
+					if(isThereAPersonalEventOnThisDate(testList, currentYear, e.getEnd().get(Calendar.MONTH), e.getEnd().get(Calendar.DATE)).size() != 0 && isThereATeamEventOnThisDate(testList, currentYear, e.getEnd().get(Calendar.MONTH), e.getEnd().get(Calendar.DATE)).size() != 0){
+						MyCellRenderer cellRender = new MyCellRenderer(e.getEnd().get(Calendar.HOUR_OF_DAY), 2);
+						//System.out.println("row passed in " + Calendar.e.getEnd().get(Calendar.HOUR_OF_DAY));
+						cellRender.getTableCellRendererComponent(day, e.getEnd().get(Calendar.DATE), false, false, e.getEnd().get(Calendar.HOUR_OF_DAY), e.getEnd().get(Calendar.DAY_OF_WEEK));
+						day.getColumnModel().getColumn(e.getEnd().get(Calendar.DAY_OF_WEEK)).setCellRenderer(cellRender);
+						day.getModel().setValueAt(e.getName(), e.getEnd().get(Calendar.HOUR_OF_DAY), e.getEnd().get(Calendar.DAY_OF_WEEK));
+					}
+					else if(isThereAPersonalEventOnThisDate(/*EventListModel.getInstance().getEvents(),*/testList, currentYear, e.getEnd().get(Calendar.MONTH), e.getEnd().get(Calendar.DATE)).size() != 0){
+						MyCellRenderer cellRender = new MyCellRenderer(e.getEnd().get(Calendar.HOUR_OF_DAY), 0);
+						//System.out.println("row passed in " + e.getEnd().get(Calendar.HOUR_OF_DAY));
+						cellRender.getTableCellRendererComponent(day, e.getEnd().get(Calendar.DATE), false, false, e.getEnd().get(Calendar.HOUR_OF_DAY), e.getEnd().get(Calendar.DAY_OF_WEEK));
+						day.getColumnModel().getColumn(e.getEnd().get(Calendar.DAY_OF_WEEK)).setCellRenderer(cellRender);
+						day.getModel().setValueAt(e.getName(), e.getEnd().get(Calendar.HOUR_OF_DAY), e.getEnd().get(Calendar.DAY_OF_WEEK));
+					}
+					else if(isThereATeamEventOnThisDate(/*EventListModel.getInstance().getEvents(),*/testList, currentYear, e.getEnd().get(Calendar.MONTH), e.getEnd().get(Calendar.DATE)).size() != 0){
+						MyCellRenderer cellRender = new MyCellRenderer(e.getEnd().get(Calendar.HOUR_OF_DAY), 1);
+						//System.out.println("row passed in " + e.getEnd().get(Calendar.HOUR_OF_DAY));
+						cellRender.getTableCellRendererComponent(day, e.getEnd().get(Calendar.DATE), false, false, e.getEnd().get(Calendar.HOUR_OF_DAY), e.getEnd().get(Calendar.DAY_OF_WEEK));
+						day.getColumnModel().getColumn(e.getEnd().get(Calendar.DAY_OF_WEEK)).setCellRenderer(cellRender);
+						day.getModel().setValueAt(e.getName(), e.getEnd().get(Calendar.HOUR_OF_DAY), e.getEnd().get(Calendar.DAY_OF_WEEK));
+					}
+				}
+				else if(personalViewSelected){
+					if(isThereAPersonalEventOnThisDate(/*EventListModel.getInstance().getEvents(),*/testList, currentYear, e.getEnd().get(Calendar.MONTH), e.getEnd().get(Calendar.DATE)).size() != 0){
+						MyCellRenderer cellRender = new MyCellRenderer(e.getEnd().get(Calendar.HOUR_OF_DAY), 0);
+						//System.out.println("row passed in " + e.getEnd().get(Calendar.HOUR_OF_DAY));
+						cellRender.getTableCellRendererComponent(day, e.getEnd().get(Calendar.DATE), false, false, e.getEnd().get(Calendar.HOUR_OF_DAY), e.getEnd().get(Calendar.DAY_OF_WEEK));
+						day.getColumnModel().getColumn(e.getEnd().get(Calendar.DAY_OF_WEEK)).setCellRenderer(cellRender);
+						day.getModel().setValueAt(e.getName(), e.getEnd().get(Calendar.HOUR_OF_DAY), e.getEnd().get(Calendar.DAY_OF_WEEK));
+					}
+				}
+				else if(teamViewSelected){
+					if(isThereATeamEventOnThisDate(/*EventListModel.getInstance().getEvents(),*/testList, currentYear, e.getEnd().get(Calendar.MONTH), e.getEnd().get(Calendar.DATE)).size() != 0){
+						MyCellRenderer cellRender = new MyCellRenderer(e.getEnd().get(Calendar.HOUR_OF_DAY), 1);
+						//System.out.println("row passed in " + i);
+						cellRender.getTableCellRendererComponent(day, e.getEnd().get(Calendar.DATE), false, false, e.getEnd().get(Calendar.HOUR_OF_DAY), e.getEnd().get(Calendar.DAY_OF_WEEK));
+						day.getColumnModel().getColumn(e.getEnd().get(Calendar.DAY_OF_WEEK)).setCellRenderer(cellRender);
+						day.getModel().setValueAt(e.getName(), e.getEnd().get(Calendar.HOUR_OF_DAY), e.getEnd().get(Calendar.DAY_OF_WEEK));
+					}
+				}
+				//day.getModel().setValueAt(e.getName(), e.getEnd().get(Calendar.HOUR_OF_DAY), e.getEnd().get(Calendar.DAY_OF_WEEK));
+			}
+		}
+	}	
+	
+	public void populateDay(JTable day, List<Event> events){
+		int goflag = 0;
+		populateDayNull(day);
+		day.getColumnModel().getColumn(1).setCellRenderer(new DefaultTableCellRenderer());
+		for(Event e : events){
+			if (e.getStart().get(Calendar.YEAR) != currentYear) {
+				if (currentMonth >= 11) {
+					if (e.getStart().get(Calendar.MONTH) <= 0) {
+						if (e.getStart().get(Calendar.YEAR) == (currentYear + 1)) {
+							goflag = 1;
+						}
+					}
+				} else if (currentMonth <= 0) {
+					if (e.getStart().get(Calendar.MONTH) >= 11) {
+						if (e.getStart().get(Calendar.YEAR) == (currentYear - 1)) {
+							goflag = 1;
+						}
+					}
+				}
+			} else {
+				goflag = 1;
+			}
+			
+			if (goflag != 1) {
+				continue;
+			}
+			//DAY_OF_WEEK returns number 1-7 for Sunday - Saturday
+			//HOUR_OF_DAY returns number 0-23 for hours in day
+			if (e.getStart().get(Calendar.MONTH) == currentMonth && (weekStart <= e.getStart().get(Calendar.DATE)) && (weekEnd >= e.getStart().get(Calendar.DATE))) {
+				/*day.getModel().setValueAt(e.getName(), e.getStart().get(Calendar.HOUR_OF_DAY), e.getStart().get(Calendar.DAY_OF_WEEK));
+				if (e.getEnd().get(Calendar.MONTH) == currentMonth) {
+					day.getModel().setValueAt("*", e.getEnd().get(Calendar.HOUR_OF_DAY), e.getEnd().get(Calendar.DAY_OF_WEEK));
+				}
+			}*/
+			
+			
+				if(personalViewSelected && teamViewSelected){
+					if(isThereAPersonalEventOnThisDate(testList, currentYear, e.getEnd().get(Calendar.MONTH), e.getEnd().get(Calendar.DATE)).size() != 0 && isThereATeamEventOnThisDate(testList, currentYear, e.getEnd().get(Calendar.MONTH), e.getEnd().get(Calendar.DATE)).size() != 0){
+						MyCellRenderer cellRender = new MyCellRenderer(e.getEnd().get(Calendar.HOUR_OF_DAY), 2);
+						//System.out.println("row passed in " + Calendar.e.getEnd().get(Calendar.HOUR_OF_DAY));
+						cellRender.getTableCellRendererComponent(day, e.getEnd().get(Calendar.DATE), false, false, e.getEnd().get(Calendar.HOUR_OF_DAY),1);
+						day.getColumnModel().getColumn(1).setCellRenderer(cellRender);
+						day.getModel().setValueAt(e.getName(), e.getEnd().get(Calendar.HOUR_OF_DAY),1);
+					}
+					else if(isThereAPersonalEventOnThisDate(/*EventListModel.getInstance().getEvents(),*/testList, currentYear, e.getEnd().get(Calendar.MONTH), e.getEnd().get(Calendar.DATE)).size() != 0){
+						MyCellRenderer cellRender = new MyCellRenderer(e.getEnd().get(Calendar.HOUR_OF_DAY), 0);
+						//System.out.println("row passed in " + e.getEnd().get(Calendar.HOUR_OF_DAY));
+						cellRender.getTableCellRendererComponent(day, e.getEnd().get(Calendar.DATE), false, false, e.getEnd().get(Calendar.HOUR_OF_DAY),1);
+						day.getColumnModel().getColumn(1).setCellRenderer(cellRender);
+						day.getModel().setValueAt(e.getName(), e.getEnd().get(Calendar.HOUR_OF_DAY),1);
+					}
+					else if(isThereATeamEventOnThisDate(/*EventListModel.getInstance().getEvents(),*/testList, currentYear, e.getEnd().get(Calendar.MONTH), e.getEnd().get(Calendar.DATE)).size() != 0){
+						MyCellRenderer cellRender = new MyCellRenderer(e.getEnd().get(Calendar.HOUR_OF_DAY), 1);
+						//System.out.println("row passed in " + e.getEnd().get(Calendar.HOUR_OF_DAY));
+						cellRender.getTableCellRendererComponent(day, e.getEnd().get(Calendar.DATE), false, false, e.getEnd().get(Calendar.HOUR_OF_DAY),1);
+						day.getColumnModel().getColumn(1).setCellRenderer(cellRender);
+						day.getModel().setValueAt(e.getName(), e.getEnd().get(Calendar.HOUR_OF_DAY),1);
+					}
+				}
+				else if(personalViewSelected){
+					if(isThereAPersonalEventOnThisDate(/*EventListModel.getInstance().getEvents(),*/testList, currentYear, e.getEnd().get(Calendar.MONTH), e.getEnd().get(Calendar.DATE)).size() != 0){
+						MyCellRenderer cellRender = new MyCellRenderer(e.getEnd().get(Calendar.HOUR_OF_DAY), 0);
+						//System.out.println("row passed in " + e.getEnd().get(Calendar.HOUR_OF_DAY));
+						cellRender.getTableCellRendererComponent(day, e.getEnd().get(Calendar.DATE), false, false, e.getEnd().get(Calendar.HOUR_OF_DAY),1);
+						day.getColumnModel().getColumn(1).setCellRenderer(cellRender);
+						day.getModel().setValueAt(e.getName(), e.getEnd().get(Calendar.HOUR_OF_DAY),1);
+					}
+				}
+				else if(teamViewSelected){
+					if(isThereATeamEventOnThisDate(/*EventListModel.getInstance().getEvents(),*/testList, currentYear, e.getEnd().get(Calendar.MONTH), e.getEnd().get(Calendar.DATE)).size() != 0){
+						MyCellRenderer cellRender = new MyCellRenderer(e.getEnd().get(Calendar.HOUR_OF_DAY), 1);
+						//System.out.println("row passed in " + i);
+						cellRender.getTableCellRendererComponent(day, e.getEnd().get(Calendar.DATE), false, false, e.getEnd().get(Calendar.HOUR_OF_DAY),1);
+						day.getColumnModel().getColumn(1).setCellRenderer(cellRender);
+						day.getModel().setValueAt(e.getName(), e.getEnd().get(Calendar.HOUR_OF_DAY),1);
+					}
+				}
+				//day.getModel().setValueAt(e.getName(), e.getEnd().get(Calendar.HOUR_OF_DAY),1);
+			}
+		}
+	}	
 	
 }

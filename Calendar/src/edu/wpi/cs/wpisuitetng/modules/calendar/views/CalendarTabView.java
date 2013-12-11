@@ -12,7 +12,10 @@
 
 package edu.wpi.cs.wpisuitetng.modules.calendar.views;
 
+import java.awt.Color;
 import java.awt.Dimension;
+import java.util.ArrayList;
+import java.util.Calendar;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -20,6 +23,8 @@ import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.border.EtchedBorder;
 import javax.swing.table.DefaultTableModel;
+
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.Event;
 
 /**
  *  Contains the GUI elements of the Tab Panel
@@ -29,7 +34,7 @@ import javax.swing.table.DefaultTableModel;
 @SuppressWarnings("serial")
 public class CalendarTabView extends JTabbedPane {
 
-	private JTable dayTable;
+	public JTable dayTable;
 	//private JTable eventTable;
 	private JTable commitTable;
 	
@@ -49,7 +54,7 @@ public class CalendarTabView extends JTabbedPane {
 		setBackgroundAt(0, UIManager.getColor("InternalFrame.inactiveTitleBackground"));
 		
 		dayTable = new JTable();
-		dayTable.setBackground(UIManager.getColor("InternalFrame.inactiveTitleGradient"));
+		dayTable.setBackground(Color.WHITE);
 		dayTable.getTableHeader().setReorderingAllowed(false);
 		dayTable.setModel(new DefaultTableModel(
 			new Object[][] {
@@ -89,7 +94,7 @@ public class CalendarTabView extends JTabbedPane {
 		dayScrollPane.setViewportView(dayTable);
 		
 		JScrollPane eventScrollPane = new JScrollPane();
-		addTab("Events", null, eventScrollPane, null);
+		//addTab("Events", null, eventScrollPane, null);
 		
 		/*eventTable = new JTable();
 		eventTable.getTableHeader().setReorderingAllowed(false);
@@ -126,4 +131,13 @@ public class CalendarTabView extends JTabbedPane {
 		commitTable.getColumnModel().getColumn(1).setMinWidth(200);
 		scrollPane_2.setViewportView(commitTable);
 	}
+	/*@SuppressWarnings("static-access")
+	public void eventIterator(JTable day, ArrayList<Event> events){
+		int size = events.size();
+		for(Event e : events){
+			day.getModel().setValueAt(e.getStart().get(Calendar.HOUR) + ":" + e.getStart().get(Calendar.MINUTE), , is)
+		}
+	}*/
+	
 }
+//LEROOOOY

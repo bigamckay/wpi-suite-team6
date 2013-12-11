@@ -62,7 +62,7 @@ public class IterationCalendarPanel extends JScrollPane {
 		nextMonth.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		
 		today = new JButton ("Today");
-		today.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		today.setBorder(BorderFactory.createLineBorder(Color.RED));
 
 		prevMonth = new JButton("<");
 		prevMonth.setBorder(BorderFactory.createLineBorder(Color.BLACK));

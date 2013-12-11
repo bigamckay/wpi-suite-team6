@@ -46,4 +46,8 @@ public class MainView extends JPanel {
 		return calendarPanel;
 	}
 	
+	public CalendarTabView getTabView() {
+		return tabPanel;
+	}
+	
 }
