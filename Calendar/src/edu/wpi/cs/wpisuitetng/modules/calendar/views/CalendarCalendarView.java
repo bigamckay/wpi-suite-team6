@@ -877,10 +877,11 @@ public class CalendarCalendarView extends JTabbedPane {
 				 * (dayCounter == daysInMonth){ return j+1; } dayCounter++;
 				 */
 
+				System.out.println("YOLO");
 				if (month.equals(monthView))
-					month.getModel().setValueAt(
-							dayCounter.toString() + personalEventStr
-									+ teamEventStr, i, j);
+					month.getModel().setValueAt("<html>Hello<br>World</html>", i, j);
+							/*dayCounter.toString() + "<html>Hello<br>World</html>", i, j);/*personalEventStr
+									+ teamEventStr, i, j);*/
 				else
 					month.getModel().setValueAt(dayCounter, i, j);
 				// monthView.setValueAt(dayCounter.toString() + personalEventStr
