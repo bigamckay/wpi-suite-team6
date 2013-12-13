@@ -17,6 +17,12 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -56,7 +62,7 @@ public class CalendarCalendarView extends JTabbedPane{
 	private boolean personalViewSelected = true;
 	private boolean teamViewSelected = false;
 
-	private CalendarTabView tabView;
+	public CalendarTabView tabView;
 	
 	public JTable weekDayHeaders;
 	private JTable JanDayTable;
@@ -258,6 +264,22 @@ public class CalendarCalendarView extends JTabbedPane{
 		monthView.setRowHeight(67);
 		monthDays.setViewportView(monthView);
 		monthPanel.add(monthDays);
+		
+		monthView.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				//if (e.getClickCount() >= 2) {
+					JTable target = (JTable)e.getSource();
+					int row = target.getSelectedRow();
+					int column = target.getSelectedColumn();
+					
+					String cellValue = (String)monthView.getValueAt(row, column);
+					cellValue = cellValue.substring(0, cellValue.length() - 2);
+					currentDay = Integer.parseInt(cellValue);
+					System.out.println(currentDay);
+					//populateDay(tabView.dayTable, testList);
+				//}
+			}
+		});
 		
 		JPanel monthName = new JPanel();
 		monthName.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
@@ -1438,7 +1460,7 @@ public class CalendarCalendarView extends JTabbedPane{
 			}
 			//DAY_OF_WEEK returns number 1-7 for Sunday - Saturday
 			//HOUR_OF_DAY returns number 0-23 for hours in day
-			if (e.getStart().get(Calendar.MONTH) == currentMonth && (weekStart <= e.getStart().get(Calendar.DATE)) && (weekEnd >= e.getStart().get(Calendar.DATE))) {
+			if (e.getStart().get(Calendar.MONTH) == currentMonth && (weekStart <= e.getStart().get(Calendar.DATE)) && (weekEnd >= e.getStart().get(Calendar.DATE)) && e.getStart().get(Calendar.DATE) == currentDay) {
 				/*day.getModel().setValueAt(e.getName(), e.getStart().get(Calendar.HOUR_OF_DAY), e.getStart().get(Calendar.DAY_OF_WEEK));
 				if (e.getEnd().get(Calendar.MONTH) == currentMonth) {
 					day.getModel().setValueAt("*", e.getEnd().get(Calendar.HOUR_OF_DAY), e.getEnd().get(Calendar.DAY_OF_WEEK));
