@@ -95,6 +95,7 @@ public class GetEventController implements ActionListener{
 
 		// tell the GUI to update the calendar
 		calView.PopulateCalendarCalendarView();
+		System.out.println("GetEventController populated gui!?");
 	}
 
 
