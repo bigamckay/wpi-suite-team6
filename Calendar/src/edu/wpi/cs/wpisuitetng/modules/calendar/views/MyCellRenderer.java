@@ -27,13 +27,13 @@ public class MyCellRenderer extends DefaultTableCellRenderer{
 			//System.out.println("row " + row);
 			//System.out.println("RED");
 			if(this.whatType == 0){
-				cellComponent.setBackground(new Color(200, 0, 30));
+				cellComponent.setBackground(new Color(255, 180, 204));
 			}
 			if(this.whatType == 1){
-				cellComponent.setBackground(new Color(30, 30, 200));
+				cellComponent.setBackground(new Color(180, 180, 255));
 			}
 			if(this.whatType == 2){
-				cellComponent.setBackground(new Color(200, 30, 200));
+				cellComponent.setBackground(new Color(204, 180, 204));
 			}
 		}
 		else{

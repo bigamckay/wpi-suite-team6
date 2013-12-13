@@ -13,6 +13,7 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.views;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -20,19 +21,21 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Calendar;
+
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.event.ChangeEvent;
-
 import javax.swing.event.ChangeListener;
 
 import edu.wpi.cs.wpisuitetng.janeway.gui.container.TabPanel;
 
 
+
 import javax.swing.event.ChangeListener;
+
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.EventListModel;
 
 /**
@@ -67,6 +70,8 @@ public class ToolbarView extends JSplitPane{
 		
 		//initialize month and day to current month
 		//calculate number of days in current month
+		btnPersonalView.setForeground(new Color(255, 180, 204));
+		btnTeamView.setForeground(new Color(180, 180, 255));
 		currentDay = Calendar.getInstance().get(Calendar.DATE);
 		currentFocus = "week";
 		
