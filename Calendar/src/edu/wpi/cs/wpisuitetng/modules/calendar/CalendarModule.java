@@ -12,11 +12,14 @@
 
 package edu.wpi.cs.wpisuitetng.modules.calendar;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 import edu.wpi.cs.wpisuitetng.janeway.modules.AbstractJanewayModule;
 import edu.wpi.cs.wpisuitetng.janeway.modules.IJanewayModule;
@@ -29,6 +32,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.views.MainView;
 import edu.wpi.cs.wpisuitetng.modules.calendar.views.ToolbarView;
 
 public class CalendarModule extends AbstractJanewayModule {
+	
+	private static final int REFRESH_SECONDS = 10; //time between autorefreshes
 	
 	List<JanewayTabModel> tabs;
 	
@@ -66,6 +71,17 @@ public class CalendarModule extends AbstractJanewayModule {
 		// Add the tab to the list of tabs owned by this module
 		tabs.add(tab1);
 		
+		//set up a timer to automatically refresh every REFRESH_TIME seconds
+		new Timer(REFRESH_SECONDS * 1000, new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Automatically refreshing calendar...");
+				GetEventController.getInstance().retrieveEvents();
+			}
+			
+		}).start();
+		
 	}
 
 
@@ -84,7 +100,7 @@ public class CalendarModule extends AbstractJanewayModule {
 	@Override
 	public void onLoginComplete(){
 		EventListModel.getInstance().LoginSuccess();
-		EventListModel.getInstance().getEvents();
+		GetEventController.getInstance().retrieveEvents();
 	}
 
 }

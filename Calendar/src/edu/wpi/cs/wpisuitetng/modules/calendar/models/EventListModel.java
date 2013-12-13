@@ -17,6 +17,7 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.models;
  * this class contains the structure and methods for commitments
  */
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
@@ -53,7 +54,7 @@ public class EventListModel extends AbstractListModel {
 	 * Constructs an empty list of events for the project
 	 */
 	private EventListModel (){
-		events = new ArrayList<Event>();
+		events = Collections.synchronizedList(new ArrayList<Event>());
 		
 		this.isSuccessfulLogin = false;
 		this.isInitialized = false;
