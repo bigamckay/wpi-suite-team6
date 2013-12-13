@@ -17,10 +17,12 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.models;
  * this class contains the structure and methods for commitments
  */
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
+import javax.naming.event.EventContext;
 import javax.swing.AbstractListModel;
 
 import edu.wpi.cs.wpisuitetng.exceptions.WPISuiteException;
@@ -44,14 +46,18 @@ public class EventListModel extends AbstractListModel {
 	
 	//the static object to allow the event model to be 
 	private static EventListModel instance; 
+	
+	private boolean isSuccessfulLogin;
+	private boolean isInitialized;
 
 	/**
 	 * Constructs an empty list of events for the project
 	 */
 	private EventListModel (){
-		events = new ArrayList<Event>();
+		events = Collections.synchronizedList(new ArrayList<Event>());
 		
-		GetEventController.getInstance().retrieveEvents();
+		this.isSuccessfulLogin = false;
+		this.isInitialized = false;
 	}
 	
 	/**
@@ -83,6 +89,14 @@ public class EventListModel extends AbstractListModel {
 		{
 			
 		}
+	}
+	
+	/**
+	 * Used by Janeway to declare that we can access the server
+	 */
+	public void LoginSuccess(){
+		this.isSuccessfulLogin = true;
+		getEvents();
 	}
 	
 	/** 
@@ -200,12 +214,17 @@ public class EventListModel extends AbstractListModel {
 	}
 
 	/**
-	 * Returns the list of the events
+	 * Returns the list of the events. If the list has not been requested from
+	 * the server, send that request.
 	
 	 * @return the events held within the eventmodel. */
 	public List<Event> getEvents() {
+		if (this.isSuccessfulLogin && !this.isInitialized){
+			GetEventController.getInstance().retrieveEvents();
+			this.isInitialized = true;
+		}
 		return events;
-	}	
+	}
 	
 	/**
 	 * Returns the list of requirements that are assigned to the given iteration

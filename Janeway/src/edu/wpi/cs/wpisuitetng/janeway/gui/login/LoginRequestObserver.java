@@ -36,6 +36,7 @@ public class LoginRequestObserver implements RequestObserver {
 
 		// check the response code
 		if (response.getStatusCode() == 200) {
+			System.out.println("JaneWay Login Successful");
 			controller.loginSuccessful(response);
 		}
 		else { // login failed

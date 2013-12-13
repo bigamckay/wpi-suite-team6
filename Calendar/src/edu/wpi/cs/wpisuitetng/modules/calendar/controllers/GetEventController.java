@@ -24,17 +24,19 @@ import edu.wpi.cs.wpisuitetng.network.Request;
 import edu.wpi.cs.wpisuitetng.network.models.HttpMethod;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Event;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.EventListModel;
+import edu.wpi.cs.wpisuitetng.modules.calendar.views.CalendarCalendarView;
 
 public class GetEventController implements ActionListener{
 	
 	private GetEventRequestObserver observer;
 	private static GetEventController instance;
+	private CalendarCalendarView calView;
 
 	/**
 	 * Constructs the controller given a EventModel
 	 */
 	private GetEventController() {
-		
+		this.calView = null;
 		observer = new GetEventRequestObserver(this);
 	}
 	
@@ -90,6 +92,21 @@ public class GetEventController implements ActionListener{
 			EventListModel.getInstance().addEvents(events);
 			
 		}
+
+		// tell the GUI to update the calendar
+		calView.PopulateCalendarCalendarView();
+		System.out.println("GetEventController populated gui!?");
 	}
 
+
+	/** Calendar Module provides access to the AddEventRequestObserver 
+	 * 
+	 * @param calView the CalendarCalendarView that the observer can pass its update
+	 */
+	public void AssignCalendarView(CalendarCalendarView calView){
+		if (this.calView == null){
+			this.calView = calView;
+		}
+	}
+	
 }
