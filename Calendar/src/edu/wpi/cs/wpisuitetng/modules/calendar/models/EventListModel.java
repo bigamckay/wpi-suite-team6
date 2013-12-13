@@ -172,10 +172,12 @@ public class EventListModel extends AbstractListModel {
 	 */
 	public void emptyModel() {
 		int oldSize = getSize();
-		Iterator<Event> iterator = events.iterator();
-		while (iterator.hasNext()) {
-			iterator.next();
-			iterator.remove();
+		synchronized(events){
+			Iterator<Event> iterator = events.iterator();
+			while (iterator.hasNext()) {
+				iterator.next();
+				iterator.remove();
+			}
 		}
 		this.fireIntervalRemoved(this, 0, Math.max(oldSize - 1, 0));
 		/*try{
