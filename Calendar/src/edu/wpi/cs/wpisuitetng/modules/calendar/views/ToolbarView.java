@@ -32,8 +32,6 @@ import javax.swing.event.ChangeListener;
 
 import edu.wpi.cs.wpisuitetng.janeway.gui.container.TabPanel;
 
-
-
 import javax.swing.event.ChangeListener;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.EventListModel;
@@ -398,8 +396,8 @@ public class ToolbarView extends JSplitPane{
 	/**
 	 * Used in CalendarModule to get an instance of CalendarCalendarView and
 	 * 	sets it as a class variable.
-	 * Prevents the initialization of the panel until the calView is collected
-	 * @param newCal - the instance of the CalendarCalendarView
+	 * Prevents the initialization of the panel until the calView is collected.
+	 * @param newCal - The instance of CalendarCalendarView
 	 */
 	public void getCalendar(CalendarCalendarView newCal) {
 		calView = newCal;
@@ -409,6 +407,12 @@ public class ToolbarView extends JSplitPane{
 			initialize();
 	}
 	
+	/**
+	 * Used in CalendarModule to get an instance of CalendarTabView and
+	 * 	sets it as a class variable.
+	 * Prevents the initialization of the panel until the tabView is collected.
+	 * @param newTab - The instance of CalendarTabView
+	 */
 	public void getTabView(CalendarTabView newTab) {
 		tabView = newTab;
 		tabInit = true;

@@ -77,7 +77,6 @@ public class CalendarEventView extends JTabbedPane {
 	
 	private void initialize() {
 		
-		
 		setPreferredSize(new Dimension(292,295));
 		setLocation(5, 0);
 		//setBounds(5, 86, 292, 234);
@@ -563,8 +562,8 @@ public class CalendarEventView extends JTabbedPane {
 	/**
 	 * Used in MainView to get an instance of CalendarCalendarView and
 	 * 	sets it as a class variable.
-	 * Prevents the initialization of the pane until the calView is collected
-	 * @param newCal - the instance of the CalendarCalendarView
+	 * Prevents the initialization of the pane until the calView is collected.
+	 * @param newCal - The instance of CalendarCalendarView.
 	 */
 	public void getCalendar(CalendarCalendarView newCal) {
 		calView = newCal;
