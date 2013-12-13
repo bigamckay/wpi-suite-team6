@@ -95,6 +95,7 @@ public class EventListModel extends AbstractListModel {
 	 */
 	public void LoginSuccess(){
 		this.isSuccessfulLogin = true;
+		getEvents();
 	}
 	
 	/** 

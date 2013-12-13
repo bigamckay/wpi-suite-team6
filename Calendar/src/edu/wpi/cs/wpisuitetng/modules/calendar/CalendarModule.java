@@ -18,15 +18,17 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
+import edu.wpi.cs.wpisuitetng.janeway.modules.AbstractJanewayModule;
 import edu.wpi.cs.wpisuitetng.janeway.modules.IJanewayModule;
 import edu.wpi.cs.wpisuitetng.janeway.modules.JanewayTabModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controllers.AddEventController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controllers.AddEventRequestObserver;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controllers.GetEventController;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.EventListModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.views.MainView;
 import edu.wpi.cs.wpisuitetng.modules.calendar.views.ToolbarView;
 
-public class CalendarModule implements IJanewayModule {
+public class CalendarModule extends AbstractJanewayModule {
 	
 	List<JanewayTabModel> tabs;
 	
@@ -77,6 +79,12 @@ public class CalendarModule implements IJanewayModule {
 	public List<JanewayTabModel> getTabs() {
 		// TODO Auto-generated method stub
 		return tabs;
+	}
+	
+	@Override
+	public void onLoginComplete(){
+		EventListModel.getInstance().LoginSuccess();
+		EventListModel.getInstance().getEvents();
 	}
 
 }
