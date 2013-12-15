@@ -20,9 +20,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.UUID;
 
-import javax.naming.event.EventContext;
 import javax.swing.AbstractListModel;
 
 import edu.wpi.cs.wpisuitetng.exceptions.WPISuiteException;
