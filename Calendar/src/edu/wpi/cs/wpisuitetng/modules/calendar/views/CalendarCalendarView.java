@@ -783,6 +783,7 @@ public class CalendarCalendarView extends JTabbedPane {
 			for (; j < 7; j++) {
 				String personalEventStr = " ";
 				String teamEventStr = " ";
+//				String htmlContainer = "<html>";
 				List<Event> personalEventList = isThereAPersonalEventOnThisDate(
 						testList /* EventListModel.getInstance().getEvents() */,
 						currentYear, whatMonth, dayCounter);
@@ -800,12 +801,12 @@ public class CalendarCalendarView extends JTabbedPane {
 						if (month.equals(monthView)) {
 							for (Event z : personalEventList) {
 								personalEventStr = personalEventStr
-										+ z.getName() + '\n';
+										+ z.getName() + "<br>";
 								break;
 							}
 							for (Event z : teamEventList) {
 								teamEventStr = teamEventStr + z.getName()
-										+ '\n';
+										+ "<br>";
 								break;
 							}
 						}
@@ -819,7 +820,7 @@ public class CalendarCalendarView extends JTabbedPane {
 						if (month.equals(monthView)) {
 							for (Event z : personalEventList) {
 								personalEventStr = personalEventStr
-										+ z.getName() + '\n';
+										+ z.getName() + "<br>";
 								break;
 							}
 						}
@@ -833,7 +834,7 @@ public class CalendarCalendarView extends JTabbedPane {
 						if (month.equals(monthView)) {
 							for (Event z : teamEventList) {
 								teamEventStr = teamEventStr + z.getName()
-										+ '\n';
+										+ "<br>";
 								break;
 							}
 						}
@@ -850,7 +851,7 @@ public class CalendarCalendarView extends JTabbedPane {
 						if (month.equals(monthView)) {
 							for (Event z : personalEventList) {
 								personalEventStr = personalEventStr
-										+ z.getName() + '\n';
+										+ z.getName() + "<br>";
 								break;
 							}
 						}
@@ -866,7 +867,7 @@ public class CalendarCalendarView extends JTabbedPane {
 						if (month.equals(monthView)) {
 							for (Event z : teamEventList) {
 								teamEventStr = teamEventStr + z.getName()
-										+ '\n';
+										+ "<br>";
 								break;
 							}
 						}
@@ -877,11 +878,14 @@ public class CalendarCalendarView extends JTabbedPane {
 				 * (dayCounter == daysInMonth){ return j+1; } dayCounter++;
 				 */
 
-				System.out.println("YOLO");
-				if (month.equals(monthView))
-					month.getModel().setValueAt("<html>Hello<br>World</html>", i, j);
+				if (month.equals(monthView)) {
+//					month.getModel().setValueAt("<html>Hello<br>World</html>", i, j);
+					System.out.println("Printing HTML for Events");
+					System.out.println(personalEventStr);
+					System.out.println("<html>" + dayCounter.toString() + personalEventStr + teamEventStr + "</html>");
+					month.getModel().setValueAt("<html>" + dayCounter.toString() + personalEventStr + teamEventStr + "</html>", i, j);
 							/*dayCounter.toString() + "<html>Hello<br>World</html>", i, j);/*personalEventStr
-									+ teamEventStr, i, j);*/
+									+ teamEventStr, i, j);*/}
 				else
 					month.getModel().setValueAt(dayCounter, i, j);
 				// monthView.setValueAt(dayCounter.toString() + personalEventStr
