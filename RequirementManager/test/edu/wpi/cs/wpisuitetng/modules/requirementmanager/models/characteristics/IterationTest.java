@@ -68,12 +68,12 @@ public class IterationTest {
 		assertEquals(new Iteration(0,"").toString(), new Iteration(0,"").getName());
 	}
 	
-	@Test
+	/*@Test
 	public void testRenameIteration() {
 		Iteration i = new Iteration(0,"Iteration 1");
 		i.setName("Iteration 2");
 		assertEquals("Iteration 2", i.getName());
-	}
+	}*/
 
 	@Test
 	public void testEqualityWithEqualIterations() {
