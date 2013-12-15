@@ -764,12 +764,12 @@ public class CalendarCalendarView extends JTabbedPane{
 						if(month.equals(monthView)){
 							for(Event z: personalEventList)
 							{
-								personalEventStr = personalEventStr + z.getName() + '\n';
+								personalEventStr = personalEventStr + z.getName() + "<br>";
 								break;
 							}
 							for(Event z: teamEventList)
 							{
-								teamEventStr = teamEventStr + z.getName() + '\n';
+								teamEventStr = teamEventStr + z.getName() + "<br>";
 								break;
 							}
 						}
@@ -782,7 +782,7 @@ public class CalendarCalendarView extends JTabbedPane{
 						if(month.equals(monthView)){
 							for(Event z: personalEventList)
 							{
-								personalEventStr = personalEventStr + z.getName() + '\n';
+								personalEventStr = personalEventStr + z.getName() + "<br>";
 								break;
 							}
 						}
@@ -795,7 +795,7 @@ public class CalendarCalendarView extends JTabbedPane{
 						if(month.equals(monthView)){
 							for(Event z: teamEventList)
 							{
-								teamEventStr = teamEventStr + z.getName() + '\n';
+								teamEventStr = teamEventStr + z.getName() + "<br>";
 								break;
 							}
 						}
@@ -811,7 +811,7 @@ public class CalendarCalendarView extends JTabbedPane{
 						if(month.equals(monthView)){
 							for(Event z: personalEventList)
 							{
-								personalEventStr = personalEventStr + z.getName() + '\n';
+								personalEventStr = personalEventStr + z.getName() + "<br>";
 								break;
 							}
 						}
@@ -826,7 +826,7 @@ public class CalendarCalendarView extends JTabbedPane{
 						if(month.equals(monthView)){
 							for(Event z: teamEventList)
 							{
-								teamEventStr = teamEventStr + z.getName() + '\n';
+								teamEventStr = teamEventStr + z.getName() + "<br>";
 								break;
 							}
 						}
@@ -839,7 +839,7 @@ public class CalendarCalendarView extends JTabbedPane{
 				dayCounter++;*/
 
 				if(month.equals(monthView))
-					month.getModel().setValueAt(dayCounter.toString() + personalEventStr + teamEventStr, i, j);
+					month.getModel().setValueAt("<html>" + dayCounter.toString() + personalEventStr + teamEventStr + "</html>", i, j);
 				else
 					month.getModel().setValueAt(dayCounter, i, j);
 				//monthView.setValueAt(dayCounter.toString() + personalEventStr + teamEventStr, i, j);
@@ -1496,9 +1496,8 @@ public class CalendarCalendarView extends JTabbedPane{
 		List<Event> eventlist = EventListModel.getInstance().getEvents();
 		
 		populateYear(monthArray, currentYear);
-		
-		populateMonth(getMonthView(), simulateYear(currentYear), 
-    			daysInMonth(currentMonth, currentYear), currentMonth);
+
+		simulateYear(currentYear);
 		
 		populateWeek(weekDayHeaders, eventlist);
 		
