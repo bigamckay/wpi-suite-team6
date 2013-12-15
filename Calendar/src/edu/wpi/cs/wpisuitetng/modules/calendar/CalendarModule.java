@@ -38,6 +38,8 @@ public class CalendarModule implements IJanewayModule {
 		tbView.getCalendar(mainView.getCalendar());
 		tbView.getTabView(mainView.getTabView());
 		
+		mainView.getCalendar().setTabView(mainView.getTabView());
+		
 		// Create a JPanel to hold the toolbar
 		JPanel toolbarPanel = new JPanel();
 		toolbarPanel.add(tbView);
