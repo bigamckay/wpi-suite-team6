@@ -766,7 +766,7 @@ public class CalendarCalendarView extends JTabbedPane {
 		// 02, 14, 0);
 
 		try {
-			System.out.println("Not doing the test events");
+//			System.out.println("Not doing the test events");
 			// Event testEvent1 = new Event("Team 6 Meeting", "Flower",
 			// testStart, testStart,"Funtimes!", "hi", false);
 			// Event testEvent2 = new Event("PlayDate", "Bancroft Towers",
@@ -783,12 +783,14 @@ public class CalendarCalendarView extends JTabbedPane {
 			for (; j < 7; j++) {
 				String personalEventStr = " ";
 				String teamEventStr = " ";
-//				String htmlContainer = "<html>";
+				
 				List<Event> personalEventList = isThereAPersonalEventOnThisDate(
 						testList /* EventListModel.getInstance().getEvents() */,
 						currentYear, whatMonth, dayCounter);
+				
 				List<Event> teamEventList = isThereATeamEventOnThisDate(
 						testList, currentYear, whatMonth, dayCounter);
+				
 				if (personalViewSelected && teamViewSelected) {
 					if (personalEventList.size() != 0
 							&& teamEventList.size() != 0) {
@@ -879,13 +881,10 @@ public class CalendarCalendarView extends JTabbedPane {
 				 */
 
 				if (month.equals(monthView)) {
-//					month.getModel().setValueAt("<html>Hello<br>World</html>", i, j);
-					System.out.println("Printing HTML for Events");
+					System.out.println("Printing Personal Event List String");
 					System.out.println(personalEventStr);
-					System.out.println("<html>" + dayCounter.toString() + personalEventStr + teamEventStr + "</html>");
 					month.getModel().setValueAt("<html>" + dayCounter.toString() + personalEventStr + teamEventStr + "</html>", i, j);
-							/*dayCounter.toString() + "<html>Hello<br>World</html>", i, j);/*personalEventStr
-									+ teamEventStr, i, j);*/}
+					}
 				else
 					month.getModel().setValueAt(dayCounter, i, j);
 				// monthView.setValueAt(dayCounter.toString() + personalEventStr
@@ -1009,7 +1008,7 @@ public class CalendarCalendarView extends JTabbedPane {
 	 */
 	public void populateYear(JTable[] monthArray, int year) {
 		int startDay = 0;
-		System.out.println("populateYear is running");
+//		System.out.println("populateYear is running");
 		for (int i = 0; i < 12; i++) {
 			populateMonthNull(monthArray[i]);
 			if (i == 0)
