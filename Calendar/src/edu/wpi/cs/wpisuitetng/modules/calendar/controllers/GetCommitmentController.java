@@ -57,8 +57,8 @@ public class GetCommitmentController implements ActionListener{
 	/**
 	 * Sends an HTTP request to store a commitment when the
 	 * update button is pressed
-	 * @param e ActionCommitment	
-	 * @see java.awt.commitment.ActionListener#actionPerformed(ActionCommitment)
+	 * @param e ActionEvent	
+	 * @see java.awt.commitment.ActionListener#actionPerformed(ActionEvent)
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {

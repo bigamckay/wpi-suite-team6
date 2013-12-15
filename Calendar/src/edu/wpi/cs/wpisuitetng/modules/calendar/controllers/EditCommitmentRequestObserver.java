@@ -44,7 +44,9 @@ public class EditCommitmentRequestObserver implements RequestObserver{
 		final ResponseModel response = iReq.getResponse();
 		
 		// Parse the requirement out of the response body
-		final Commitment commitment = Commitment.fromJSON(response.getBody(), Commitment.class);		
+		final Commitment commitment = Commitment.fromJSON(response.getBody(), Commitment.class);
+		
+		controller.editSuccessful(commitment);
 	}
 	
 	/**

@@ -197,6 +197,27 @@ public class CommitmentListModel extends AbstractListModel {
 		catch (Exception e) {}*/
 	}
 	
+	
+	/**
+	 * 'Updates' the Commitment with the ID matching the updatedCommitment
+	 * Should only be called by EditCommitmentController
+	 * 
+	 * @param updatedCommitment commitment from EditCommitmentController
+	
+	 * @return the commitment for the id or null if the commitment is not found */
+	public void editCommitment(Commitment updatedCommitment)
+	{
+		Commitment indexedCommitment = null;
+		// iterate through list of commitments until id is found
+		for (int i=0; i < this.commitments.size(); i++){
+			indexedCommitment = commitments.get(i);
+			if (indexedCommitment.getId() == updatedCommitment.getId()){
+				this.commitments.remove(i);
+				this.commitments.add(updatedCommitment);
+			}
+		}
+	}
+	
 	/**
 	 * Adds the given array of commitments to the list
 	 * 
