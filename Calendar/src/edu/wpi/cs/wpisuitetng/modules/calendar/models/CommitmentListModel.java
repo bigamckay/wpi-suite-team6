@@ -76,12 +76,12 @@ public class CommitmentListModel extends AbstractListModel {
 	 * 
 	 * @param newReq The commitment to be added to the list of commitments in the project
 	 */
-	public void addcommitment(Commitment newReq){
+	public void addCommitment(Commitment newReq){
 		try 
 		{
 			AddCommitmentController.getInstance().addCommitment(newReq);
-			//ViewcommitmentController.getInstance().refreshTable();
-			//ViewcommitmentController.getInstance().refreshTree();
+			//ViewCommitmentController.getInstance().refreshTable();
+			//ViewCommitmentController.getInstance().refreshTree();
 		}
 		catch(Exception e)
 		{
@@ -99,16 +99,16 @@ public class CommitmentListModel extends AbstractListModel {
 	
 	/** 
 	 * Adds an commitment to the private commitments class.
-	 * This should only be called by the AddcommitmentRequestObserver
+	 * This should only be called by the AddCommitmentRequestObserver
 	 * as the response from the server is the commitment with the ID field
 	 * filled in.
 	 * 
-	 * @param response : commitment that was retrieved as a response from the server
+	 * @param response : Commitment that was retrieved as a response from the server
 	 */
-	public void addcommitmentFromObserver(Commitment response) throws WPISuiteException{
+	public void addCommitmentFromObserver(Commitment response) throws WPISuiteException{
 		if(response.getId() != 0){
 			commitments.add(response);
-			System.out.println("Added commitment to commitmentListModel: " + response.getName() + ", ID: " + response.getId());
+			System.out.println("Added Commitment to CommitmentListModel: " + response.getName() + ", ID: " + response.getId());
 		}
 		else{
 			throw new WPISuiteException("Cannot add an commitment with ID of zero as it is not stored on the detabase.");
@@ -117,12 +117,12 @@ public class CommitmentListModel extends AbstractListModel {
 	
 	
 	/**
-	 * Returns the commitment with the given ID
+	 * Returns the Commitment with the given ID
 	 * 
 	 * @param id The ID number of the commitment to be returned
 	
 	 * @return the commitment for the id or null if the commitment is not found */
-	public Commitment getcommitment(int id)
+	public Commitment getCommitment(int id)
 	{
 		Commitment temp = null;
 		// iterate through list of commitments until id is found
@@ -136,19 +136,19 @@ public class CommitmentListModel extends AbstractListModel {
 	}
 	/**
 	 * Sends request to the server to remove the commitment with the specified ID form the database.
-	 * On success, the RemovecommitmentRequestObserver sends request to the server to update the 
-	 * commitmentListModel by calling GetcommitmentController.getInstance().retrievecommitments()
+	 * On success, the RemoveCommitmentRequestObserver sends request to the server to update the 
+	 * CommitmentListModel by calling GetCommitmentController.getInstance().retrieveCommitments()
 	 * 
 	 * @param removeId The ID number of the commitment to be removed from the list of commitments in the project
 	 */
-	public void removecommitment(int removeId){
+	public void removeCommitment(int removeId){
 		RemoveCommitmentController.getInstance().RemoveCommitment(removeId);
 	}
 	
 
 	/**
 	 * Provides the number of elements in the list of commitments for the project. This
-	 * function is called internally by the JList in NewcommitmentPanel. Returns elements
+	 * function is called internally by the JList in NewCommitmentPanel. Returns elements
 	 * in reverse order, so the newest commitment is returned first.
 	 * 
 	
@@ -162,7 +162,7 @@ public class CommitmentListModel extends AbstractListModel {
 
 	/**
 	 * This function takes an index and finds the commitment in the list of commitments
-	 * for the project. Used internally by the JList in NewcommitmentModel.
+	 * for the project. Used internally by the JList in NewCommitmentModel.
 	 * 
 	 * @param index The index of the commitment to be returned
 	
@@ -191,8 +191,8 @@ public class CommitmentListModel extends AbstractListModel {
 		}
 		this.fireIntervalRemoved(this, 0, Math.max(oldSize - 1, 0));
 		/*try{
-			ViewcommitmentController.getInstance().refreshTable();
-			ViewcommitmentController.getInstance().refreshTree();
+			ViewCommitmentController.getInstance().refreshTable();
+			ViewCommitmentController.getInstance().refreshTree();
 		}
 		catch (Exception e) {}*/
 	}
@@ -202,13 +202,13 @@ public class CommitmentListModel extends AbstractListModel {
 	 * 
 	 * @param commitments the array of commitments to add
 	 */
-	public void addcommitments(Commitment[] commitments) {
+	public void addCommitments(Commitment[] commitments) {
 		for (int i = 0; i < commitments.length; i++) {
 			this.commitments.add(commitments[i]);
 		}
 		this.fireIntervalAdded(this, 0, Math.max(getSize() - 1, 0));
-		/*ViewcommitmentController.getInstance().refreshTable();
-		ViewcommitmentController.getInstance().refreshTree();*/
+		/*ViewCommitmentController.getInstance().refreshTable();
+		ViewCommitmentController.getInstance().refreshTree();*/
 	}
 
 	/**

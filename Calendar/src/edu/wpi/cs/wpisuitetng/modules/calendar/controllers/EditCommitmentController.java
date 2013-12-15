@@ -22,18 +22,21 @@ import edu.wpi.cs.wpisuitetng.network.Request;
 import edu.wpi.cs.wpisuitetng.network.models.HttpMethod;
 
 public class EditCommitmentController {
-		
+	
+	private static EditCommitmentController instance;
 	private EditCommitmentRequestObserver observer;
 	
-	private static EditCommitmentController instance; 
-	
 	/**
-	 * Construct an EditCommitmentController for the given model, view pair
+	 * Construct an UpdateCommitmentController for the given model, view pair	
 	 */
 	private EditCommitmentController() {
 		observer = new EditCommitmentRequestObserver(this);
 	}
 	
+	/**	
+	 * @return the instance of the UpdateCommitmentController or creates one if it does not
+	 * exist. 
+	 */
 	public static EditCommitmentController getInstance()
 	{
 		if(instance == null)
@@ -43,17 +46,15 @@ public class EditCommitmentController {
 		
 		return instance;
 	}
-	
-	// test comment
 
 	/**
-	 * This method adds a requirement to the server.
-	 * @param newRequirement is the requirement to be added to the server.
+	 * This method updates a commitment to the server.
+	 * @param newCommitment is the commitment to be updated to the server.
 	 */
-	public void editCommitment(Commitment newCommitment) 
+	public void updateCommitment(Commitment newCommitment) 
 	{
-		final Request request = Network.getInstance().makeRequest("calender/commitment", HttpMethod.PUT); // PUT == create
-		request.setBody(newCommitment.toJSON()); // put the new requirement in the body of the request
+		Request request = Network.getInstance().makeRequest("calendar/commitment", HttpMethod.POST); // POST == update
+		request.setBody(newCommitment.toJSON()); // put the new commitment in the body of the request
 		request.addObserver(observer); // add an observer to process the response
 		request.send(); 
 	}
