@@ -42,6 +42,7 @@ import javax.swing.table.DefaultTableModel;
 import edu.wpi.cs.wpisuitetng.exceptions.WPISuiteException;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Event;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.EventListModel;
+import edu.wpi.cs.wpisuitetng.modules.calendar.utils.DateTimeUtils;
 import edu.wpi.cs.wpisuitetng.modules.calendar.utils.ListUtils;
 import edu.wpi.cs.wpisuitetng.modules.core.models.User;
 
@@ -1281,9 +1282,7 @@ public class CalendarCalendarView extends JTabbedPane{
 				/*if(e.getStart().before(date)){
 					return false;
 				}*/
-				if(e.getStart().get(Calendar.YEAR) == year
-						&& e.getStart().get(Calendar.MONTH) == month
-						&& e.getStart().get(Calendar.DATE) == day){
+				if(DateTimeUtils.isDayPartOfEvent(e, date)){
 
 					//System.out.println("IN CUSTOM RENDERER"); THE CODE NEVER GETS HERE!!!!!!!!!
 					personalEvents.add(e);
@@ -1304,9 +1303,7 @@ public class CalendarCalendarView extends JTabbedPane{
 				/*if(e.getStart().before(date)){
 					return false;
 				}*/
-				if(e.getStart().get(Calendar.YEAR) == year
-						&& e.getStart().get(Calendar.MONTH) == month
-						&& e.getStart().get(Calendar.DATE) == day){
+				if(DateTimeUtils.isDayPartOfEvent(e, date)){
 
 					//System.out.println("IN CUSTOM RENDERER"); THE CODE NEVER GETS HERE!!!!!!!!!
 					teamEvents.add(e);
