@@ -80,6 +80,7 @@ public class ToolbarView extends JSplitPane{
 	            if(calView.getTitleAt(calView.getSelectedIndex()).equals("Week View"))
 	            {
 	            	currentFocus = "week";
+	            	calView.updateWeekName(currentDay, calView.currentMonth, calView.currentYear);
 	            }
 	            else if(calView.getTitleAt(calView.getSelectedIndex()).equals("Year View"))
 	            {

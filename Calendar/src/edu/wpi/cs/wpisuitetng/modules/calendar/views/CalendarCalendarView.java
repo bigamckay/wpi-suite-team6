@@ -1316,7 +1316,9 @@ public class CalendarCalendarView extends JTabbedPane{
 	
 	public void updateWeekName(int currDay, int currMonth, int currYear) { 
 		String month1, month2, startDayStr, endDayStr;
-		int currentDotw = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
+		Calendar temp = new GregorianCalendar(currYear, currMonth, currDay);
+		int currentDotw = temp.get(temp.DAY_OF_WEEK);
+		//int currentDotw = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
 		
 		weekStart = currDay + 1 - currentDotw;
 		weekEnd = currDay + 7 - currentDotw;
@@ -1335,7 +1337,7 @@ public class CalendarCalendarView extends JTabbedPane{
 				month1 = getCurrentMonth(currentMonth - 1);
 			}
 		}
-		if (currDay + 7 - currentDotw > daysInMonth(currentMonth, currentYear)) {
+		if (currDay + 7 - currentDotw >= daysInMonth(currentMonth, currentYear)) {
 			if (currentMonth >= 11) {
 				month2 = getCurrentMonth(0);
 				endDayStr = String.valueOf(currDay + 7 - currentDotw - daysInMonth(0, currentYear));
