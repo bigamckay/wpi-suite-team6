@@ -13,40 +13,54 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.controllers;
 
 
-/**
- * request observer for adding commitments
- */
+import edu.wpi.cs.wpisuitetng.exceptions.WPISuiteException;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controllers.AddCommitmentController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CommitmentListModel;
+import edu.wpi.cs.wpisuitetng.modules.calendar.views.CalendarCalendarView;
 import edu.wpi.cs.wpisuitetng.network.RequestObserver;
 import edu.wpi.cs.wpisuitetng.network.models.IRequest;
 import edu.wpi.cs.wpisuitetng.network.models.ResponseModel;
 
 public class AddCommitmentRequestObserver implements RequestObserver {
-	
+		
 	private AddCommitmentController controller;
 	
 	/**
-	 * Constructs the observer given an AddCommitmentController
-	 * @param controller the controller used to add commitments
+	 * Constructs the observer given an AddRequirementController
+	 * @param controller the controller used to add requirements
 	 */
 	public AddCommitmentRequestObserver(AddCommitmentController controller) {
 		this.controller = controller;
 	}
 	
+	
 	/**
-	 * Parse the commitment that was received from the server then pass them to
+	 * Parse the requirement that was received from the server then pass them to
 	 * the controller.
 	 * 
 	 * @see edu.wpi.cs.wpisuitetng.network.RequestObserver#responseSuccess(edu.wpi.cs.wpisuitetng.network.models.IRequest)
 	 */
 	@Override
 	public void responseSuccess(IRequest iReq) {
+		
 		// Get the response to the given request
 		final ResponseModel response = iReq.getResponse();
 		
 		// Parse the requirement out of the response body
-		final Commitment commitment = Commitment.fromJSON(response.getBody(), Commitment.class);		
+
+		final Commitment commitment = Commitment.fromJSON(response.getBody(), Commitment.class);
+		
+		// add the commitment to the CommitmentListModel
+		try{
+			CommitmentListModel.getInstance().addCommitmentFromObserver(commitment);
+		} catch(WPISuiteException e){
+			fail(iReq, e);
+		}
+
+		// Send response to controller
+		controller.successfulAddition();
+		
 	}
 
 	/**
@@ -57,7 +71,7 @@ public class AddCommitmentRequestObserver implements RequestObserver {
 	 * @see edu.wpi.cs.wpisuitetng.network.RequestObserver#responseError(IRequest) */
 	@Override
 	public void responseError(IRequest iReq) {
-		System.err.println("The request to add a commitment failed");
+		System.err.println("The request to add an commitment failed");
 	}
 
 	/**
@@ -69,7 +83,7 @@ public class AddCommitmentRequestObserver implements RequestObserver {
 	 * @see edu.wpi.cs.wpisuitetng.network.RequestObserver#fail(IRequest, Exception) */
 	@Override
 	public void fail(IRequest iReq, Exception exception) {
-		System.err.println("The request to add a commitment failed spectacularly");
+		System.err.println("The request to add an commitment failed spectacularly");
 	}
 
 }
