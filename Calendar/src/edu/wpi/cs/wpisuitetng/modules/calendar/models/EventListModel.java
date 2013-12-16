@@ -20,9 +20,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.UUID;
 
-import javax.naming.event.EventContext;
 import javax.swing.AbstractListModel;
 
 import edu.wpi.cs.wpisuitetng.exceptions.WPISuiteException;
@@ -186,10 +184,12 @@ public class EventListModel extends AbstractListModel {
 	 */
 	public void emptyModel() {
 		int oldSize = getSize();
-		Iterator<Event> iterator = events.iterator();
-		while (iterator.hasNext()) {
-			iterator.next();
-			iterator.remove();
+		synchronized(events){
+			Iterator<Event> iterator = events.iterator();
+			while (iterator.hasNext()) {
+				iterator.next();
+				iterator.remove();
+			}
 		}
 		this.fireIntervalRemoved(this, 0, Math.max(oldSize - 1, 0));
 		/*try{
@@ -213,6 +213,28 @@ public class EventListModel extends AbstractListModel {
 		ViewEventController.getInstance().refreshTree();*/
 	}
 
+	
+	/**
+	 * 'Updates' the Event with the ID matching the updatedEvent
+	 * Should only be called by EditEventController
+	 * 
+	 * @param updatedEvent event from EditEventController
+	
+	 * @return the event for the id or null if the event is not found */
+	public void editEvent(Event updatedEvent)
+	{
+		Event indexedEvent = null;
+		// iterate through list of events until id is found
+		for (int i=0; i < this.events.size(); i++){
+			indexedEvent = events.get(i);
+			if (indexedEvent.getId() == updatedEvent.getId()){
+				this.events.remove(i);
+				this.events.add(updatedEvent);
+			}
+		}
+	}
+	
+	
 	/**
 	 * Returns the list of the events. If the list has not been requested from
 	 * the server, send that request.

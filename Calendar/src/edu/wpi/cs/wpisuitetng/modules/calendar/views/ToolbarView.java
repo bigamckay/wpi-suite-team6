@@ -80,6 +80,7 @@ public class ToolbarView extends JSplitPane{
 	            if(calView.getTitleAt(calView.getSelectedIndex()).equals("Week View"))
 	            {
 	            	currentFocus = "week";
+	            	calView.updateWeekName(currentDay, calView.currentMonth, calView.currentYear);
 	            }
 	            else if(calView.getTitleAt(calView.getSelectedIndex()).equals("Year View"))
 	            {
@@ -305,6 +306,7 @@ public class ToolbarView extends JSplitPane{
 					calView.populateWeek(calView.weekDayHeaders, EventListModel.getInstance().getEvents());
 					System.out.println("CurrentDay = "+ currentDay);
 				}
+				
 				else if(currentFocus == "month")
 				{
 					calView.currentMonth++;
@@ -319,6 +321,7 @@ public class ToolbarView extends JSplitPane{
 					
 					calView.monthLabel.setText(calView.getCurrentMonth(calView.currentMonth));
 				}
+				
 				else if(currentFocus == "year")
 				{
 					calView.currentYear++;

@@ -95,7 +95,7 @@ public class RequirementTest {
 	 * 
 	
 	 */
-	@Test
+	/*@Test
 	public void settingRequirementFieldsTest () {
 		Requirement object = new Requirement(5, "Test", "This is a test");
 		
@@ -172,7 +172,7 @@ public class RequirementTest {
 		
 		// TODO: setIteration
 		
-	}
+	}*/
 	
 	@Test
 	public void testCopyFromRequirement() {

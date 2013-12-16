@@ -24,8 +24,12 @@ import javax.swing.Timer;
 import edu.wpi.cs.wpisuitetng.janeway.modules.AbstractJanewayModule;
 import edu.wpi.cs.wpisuitetng.janeway.modules.IJanewayModule;
 import edu.wpi.cs.wpisuitetng.janeway.modules.JanewayTabModel;
+import edu.wpi.cs.wpisuitetng.modules.calendar.controllers.AddCommitmentController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controllers.AddEventController;
-import edu.wpi.cs.wpisuitetng.modules.calendar.controllers.AddEventRequestObserver;
+
+import edu.wpi.cs.wpisuitetng.modules.calendar.controllers.EditCommitmentController;
+import edu.wpi.cs.wpisuitetng.modules.calendar.controllers.EditEventController;
+import edu.wpi.cs.wpisuitetng.modules.calendar.controllers.GetCommitmentController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controllers.GetEventController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.EventListModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.views.MainView;
@@ -33,7 +37,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.views.ToolbarView;
 
 public class CalendarModule extends AbstractJanewayModule {
 	
-	private static final int REFRESH_SECONDS = 10; //time between autorefreshes
+	private static final int REFRESH_SECONDS = 25; //time between auto-refreshes
 	
 	List<JanewayTabModel> tabs;
 	
@@ -51,7 +55,10 @@ public class CalendarModule extends AbstractJanewayModule {
 		// Also Give calendar access to the controllers so they can push an update from server to GUI - Craig
 		GetEventController.getInstance().AssignCalendarView(mainView.getCalendar());
 		AddEventController.getInstance().AssignCalendarView(mainView.getCalendar());
-		
+		EditEventController.getInstance().AssignCalendarView(mainView.getCalendar());
+		GetCommitmentController.getInstance().AssignCalendarView(mainView.getCalendar());
+		AddCommitmentController.getInstance().AssignCalendarView(mainView.getCalendar());
+		EditCommitmentController.getInstance().AssignCalendarView(mainView.getCalendar());
 		
 		
 		

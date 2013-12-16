@@ -12,6 +12,7 @@
 
 package edu.wpi.cs.wpisuitetng.modules.calendar.controllers;
 
+
 import edu.wpi.cs.wpisuitetng.network.Network;
 import edu.wpi.cs.wpisuitetng.network.Request;
 import edu.wpi.cs.wpisuitetng.network.models.HttpMethod;
@@ -44,12 +45,12 @@ public class RemoveCommitmentController {
 	}
 	
 	/**
-	 * Sends an HTTP request to retrieve all Commitments
-	 * @param id Integer : ID of Commitment that is used for reference in 
+	 * Sends an HTTP request to retrieve all commitments
+	 * @param id Integer : ID of commitment that is used for reference in 
 	 */
 	public void RemoveCommitment(int id) {
 		//Check this address for the database
-		final Request request = Network.getInstance().makeRequest("calendar/Commitment/" + Integer.toString(id), HttpMethod.DELETE);
+		final Request request = Network.getInstance().makeRequest("calendar/commitment/" + Integer.toString(id), HttpMethod.DELETE);
 		request.addObserver(observer); // add an observer to process the response
 		request.send(); // send the request
 	}
