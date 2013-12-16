@@ -45,8 +45,6 @@ public class EditEventRequestObserver implements RequestObserver{
 		
 		// Parse the requirement out of the response body
 		final Event event = Event.fromJSON(response.getBody(), Event.class);		
-		
-		controller.editSuccessful(event);
 	}
 	
 	/**
@@ -74,4 +72,3 @@ public class EditEventRequestObserver implements RequestObserver{
 	}
 
 }
-
