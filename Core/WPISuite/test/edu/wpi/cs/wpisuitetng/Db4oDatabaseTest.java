@@ -41,7 +41,7 @@ public class Db4oDatabaseTest {
 		db.delete(me);
 	}
 	
-	/*@Test
+	@Test
 	public void testDelete() throws WPISuiteException{
 		Data db = DataStore.getDataStore();
 		User[] arr = new User[1];
@@ -50,7 +50,7 @@ public class Db4oDatabaseTest {
 		db.delete(firstUser);
 		User me = db.retrieve(User.class, "username", "rchamer").toArray(arr)[0];
 		assertEquals(me, null);
-	}*/
+	}
 	
 	@Test
 	public void testUpdate() throws WPISuiteException{

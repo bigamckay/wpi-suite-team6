@@ -35,7 +35,7 @@ public class IterationModelTest {
 	/**
 	 * Test emptying the model.
 	 */
-	/*@Test
+	@Test
 	public void testEmptyModel() {
 		ViewEventController viewCon = ViewEventController.getInstance();
 		OverviewTable ovTable = new OverviewTable(null, null);
@@ -53,7 +53,7 @@ public class IterationModelTest {
 		itrModel.addIterations(itrList);
 		itrModel.emptyModel();
 		assertEquals(0, itrModel.getSize());
-	}*/
+	}
 	
 	/**
 	 * Test size and adding
@@ -96,7 +96,7 @@ public class IterationModelTest {
 	/**
 	 * Test getting a single iteration
 	 */
-	/*@Test
+	@Test
 	public void testGetIteration() {
 		ViewEventController viewCon = ViewEventController.getInstance();
 		OverviewTable ovTable = new OverviewTable(null, null);
@@ -121,7 +121,7 @@ public class IterationModelTest {
 		assertEquals("Backlog", itrModel.getIteration(null).getName());
 		assertEquals(3, itrModel.getIteration("").getId());
 		assertEquals("Backlog", itrModel.getIteration("").getName());
-	}/*
+	}
 	
 	/**
 	 * test getting all iterations

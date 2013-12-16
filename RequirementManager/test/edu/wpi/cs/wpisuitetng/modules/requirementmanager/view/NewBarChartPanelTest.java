@@ -51,7 +51,7 @@ public class NewBarChartPanelTest {
 	
 	 * @throws Exception
 	 * @throws java.lang.Exception */
-	/*@BeforeClass
+	@BeforeClass
 	public static void setUp() throws Exception {
 		String [][] exData = new String[1][8];
 		
@@ -69,7 +69,7 @@ public class NewBarChartPanelTest {
 	
 		req1 = new Requirement(1,  "reqName", "The description");
 		req2 = new Requirement(2, "anotherReq", "another description");
-	}*/
+	}
 
 	/*@Test
 	public void creationOfStatusBarChartTabTest() {
