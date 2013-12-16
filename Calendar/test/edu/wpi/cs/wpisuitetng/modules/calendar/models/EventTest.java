@@ -28,7 +28,6 @@ import edu.wpi.cs.wpisuitetng.modules.core.models.User;
 import edu.wpi.cs.wpisuitetng.modules.calendar.MockNetwork;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Event;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.AbstractCalendarModel;
-import edu.wpi.cs.wpisuitetng.modules.calendar.utils.DateTimeUtils;
 
 public class EventTest {
 		
@@ -36,7 +35,6 @@ public class EventTest {
 	Event basicEvent;
 	Event basicEvent2;
 	Event basicEvent3;
-	Event multiDayEvent;
 	
 	// create test users for the events
 	String testUser = "jvaljean";
@@ -48,9 +46,6 @@ public class EventTest {
 	Calendar testStart2 = new GregorianCalendar(2014, Calendar.JANUARY, 21, 18, 0);
 	Calendar testEnd = new GregorianCalendar(2014, Calendar.NOVEMBER, 14, 22, 0);
 	Calendar testEnd2 = new GregorianCalendar(2014, Calendar.JANUARY, 21, 20, 0);
-	
-	Calendar testStart3 = new GregorianCalendar(2014, Calendar.JANUARY, 21, 18, 0);
-	Calendar testEnd3 = new GregorianCalendar(2014, Calendar.JANUARY, 28, 20, 0);
 	
 	@Before
 	public void setup() {
@@ -74,9 +69,6 @@ public class EventTest {
 		}catch(WPISuiteException e){}
 		
 		
-		try{
-			multiDayEvent = new Event("Yet Another Event","Somewhere Else", testStart3 ,testEnd3,"Doing something else?",testUser2, true);
-		}catch(WPISuiteException e){}
 	}
 	
 	
@@ -203,7 +195,7 @@ public class EventTest {
 			assertTrue("Exception not thrown when should have.", false);
 		}catch(WPISuiteException e){
 			assertEquals("Exception thrown that event's name shouldn't be Event Name.", 
-					e.getMessage(), "Please assign an Event Name.");
+					e.getMessage(), "Please do not enter default name prompt  of \"Event Name\" as event name.");
 		}
 	}
 	
@@ -388,26 +380,7 @@ public class EventTest {
 		}
 	}*/
 
-	// test multiday events
-	@Test
-	public void testIsDayPartOfEvent(){
-		Calendar dateBeforeEvent = new GregorianCalendar(2014, Calendar.JANUARY, 20, 18, 0);
-		Calendar dateOnStart = new GregorianCalendar(2014, Calendar.JANUARY, 21, 22, 0);
-		Calendar dateDuringEvent = new GregorianCalendar(2014, Calendar.JANUARY, 25, 18, 0);
-		Calendar dateOnEnd = new GregorianCalendar(2014, Calendar.JANUARY, 28, 18, 0);
-		Calendar dateAfterEvent = new GregorianCalendar(2014, Calendar.JANUARY, 29, 18, 0);
-		
-		assertFalse(DateTimeUtils.isDayPartOfEvent(multiDayEvent, dateBeforeEvent));
-		assertTrue(DateTimeUtils.isDayPartOfEvent(multiDayEvent, dateOnStart));
-		assertTrue(DateTimeUtils.isDayPartOfEvent(multiDayEvent, dateDuringEvent));
-		assertTrue(DateTimeUtils.isDayPartOfEvent(multiDayEvent, dateOnEnd));
-		assertFalse(DateTimeUtils.isDayPartOfEvent(multiDayEvent, dateAfterEvent));
-	}
-	
-	
-	
-	
-	//	@Test
+//	@Test
 //	public void testFromJson() {
 //		fail("Not yet implemented");
 //	}
