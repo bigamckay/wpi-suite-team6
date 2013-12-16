@@ -58,7 +58,7 @@ public class IterationModelTest {
 	/**
 	 * Test size and adding
 	 */
-	/*@Test
+	@Test
 	public void testGetSizeAndAddIterations() {
 		Iteration itrList[] = new Iteration[]{
 			new Iteration(1, "Iteration1"),
@@ -68,12 +68,12 @@ public class IterationModelTest {
 		IterationModel itrModel = IterationModel.getInstance();
 		itrModel.addIterations(itrList);
 		assertEquals(3, itrModel.getSize());
-	}*/
+	}
 	
 	/**
 	 * test retrieving the element at a given location
 	 */
-	/*@Test
+	@Test
 	public void testGetElementAt() {
 		ViewEventController viewCon = ViewEventController.getInstance();
 		OverviewTable ovTable = new OverviewTable(null, null);
@@ -91,7 +91,7 @@ public class IterationModelTest {
 		itrModel.addIterations(itrList);
 		assertEquals(3, itrModel.getSize());
 		assertEquals("Iteration2", itrModel.getElementAt(1).getName());
-	}*/
+	}
 	
 	/**
 	 * Test getting a single iteration
@@ -126,7 +126,7 @@ public class IterationModelTest {
 	/**
 	 * test getting all iterations
 	 */
-	/*@Test
+	@Test
 	public void testGetIterations() {
 		ViewEventController viewCon = ViewEventController.getInstance();
 		OverviewTable ovTable = new OverviewTable(null, null);
@@ -149,8 +149,8 @@ public class IterationModelTest {
 		assertEquals(2, returnList.get(1).getId());
 		assertEquals("Backlog", returnList.get(2).getName());
 		assertEquals(3, returnList.get(2).getId());
-	}*/
-	/*
+	}
+	
 	@SuppressWarnings("deprecation")
 	@Test
 	public void testGetIterationForDateWithBoth1or2IterationsOnTheSameDate() {
@@ -190,9 +190,8 @@ public class IterationModelTest {
 		assertEquals("Iteration2", returnList.get(1).getName());
 		assertEquals(2, returnList.get(1).getId());
 		assertEquals(2, returnList.size());
-	}*/
+	}
 	
-	/*
 	@SuppressWarnings("deprecation")
 	@Test
 	public void testGetConflictingIterationFOrVariousDates() {
@@ -233,5 +232,5 @@ public class IterationModelTest {
 		returnItr = itrModel.getConflictingIteration(new Date(2013, 4, 15), new Date(2013, 4, 25));
 		assertEquals("Iteration2", returnItr.getName());
 		assertEquals(2, returnItr.getId());
-	}*/
+	}
 }
