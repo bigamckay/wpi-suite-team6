@@ -1282,11 +1282,7 @@ public class CalendarCalendarView extends JTabbedPane{
 				/*if(e.getStart().before(date)){
 					return false;
 				}*/
-				if(e.getStart().get(Calendar.YEAR) == year
-						&& e.getStart().get(Calendar.MONTH) == month
-						&& e.getStart().get(Calendar.DATE) == day){
-
-
+				if(DateTimeUtils.isDayPartOfEvent(e, date)){
 
 					//System.out.println("IN CUSTOM RENDERER"); THE CODE NEVER GETS HERE!!!!!!!!!
 					personalEvents.add(e);
