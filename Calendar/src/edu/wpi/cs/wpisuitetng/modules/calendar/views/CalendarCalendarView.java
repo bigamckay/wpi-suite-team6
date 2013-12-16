@@ -17,10 +17,6 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -260,43 +256,6 @@ public class CalendarCalendarView extends JTabbedPane{
 		monthView.setRowHeight(67);
 		monthDays.setViewportView(monthView);
 		monthPanel.add(monthDays);
-		
-		addMouseListener(new MouseListener(){
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				//populateMonthNull(getMonthView());
-	            //simulateYear(currentYear);
-	            //System.out.println(getCurrentMonth(currentMonth));
-	            //monthLabel.setText(getCurrentMonth(currentMonth));
-			}
-
-			@Override
-			public void mousePressed(MouseEvent e) {
-				populateMonthNull(getMonthView());
-	            simulateYear(currentYear);
-	            System.out.println(getCurrentMonth(currentMonth));
-	            monthLabel.setText(getCurrentMonth(currentMonth));
-			}
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
-	    });
 		
 		JPanel monthName = new JPanel();
 		monthName.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
@@ -1011,10 +970,8 @@ public class CalendarCalendarView extends JTabbedPane{
 				startDay = simulateMonth(determineStartingDay(year), daysInMonth(i,year));
 				
 				if(currentMonth == 0) {
-					populateMonthNull(monthView);
 					startDay = determineStartingDay(year);
 					populateMonth(monthView, startDay, daysInMonth(i,year), i);
-					return startDay;
 				}
 			}
 			else if (i==currentMonth) {
@@ -1024,7 +981,6 @@ public class CalendarCalendarView extends JTabbedPane{
 			}
 			else
 				startDay = simulateMonth(startDay, daysInMonth(i,year));
-			
 		}
 		return -1;
 	}
@@ -1540,7 +1496,8 @@ public class CalendarCalendarView extends JTabbedPane{
 		
 		populateYear(monthArray, currentYear);
 		
-		simulateYear(currentYear);
+		populateMonth(getMonthView(), simulateYear(currentYear), 
+    			daysInMonth(currentMonth, currentYear), currentMonth);
 		
 		populateWeek(weekDayHeaders, eventlist);
 		

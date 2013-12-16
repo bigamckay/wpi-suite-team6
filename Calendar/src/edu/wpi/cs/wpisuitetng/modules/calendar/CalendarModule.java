@@ -33,7 +33,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.views.ToolbarView;
 
 public class CalendarModule extends AbstractJanewayModule {
 	
-	private static final int REFRESH_SECONDS = 25; //time between auto-refreshes
+	private static final int REFRESH_SECONDS = 10; //time between autorefreshes
 	
 	List<JanewayTabModel> tabs;
 	
