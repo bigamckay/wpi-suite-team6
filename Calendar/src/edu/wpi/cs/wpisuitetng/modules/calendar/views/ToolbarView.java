@@ -138,15 +138,9 @@ public class ToolbarView extends JSplitPane{
 	        @Override
 	        public void actionPerformed(ActionEvent e){
 	        	calView.populateMonthNull(calView.getMonthView());
-	        	calView.setPersonalViewSelected(btnPersonalView.isSelected());
+	        	calView.setPersonalViewSelected(true);
 	        	calView.setTeamViewSelected(false);
-	        	calView.populateYear(calView.monthArray, calView.currentYear);
-	        	calView.populateWeek(calView.weekDayHeaders, EventListModel.getInstance().getEvents());
-	        	calView.populateDay(tabView.dayTable, EventListModel.getInstance().getEvents());
-	        	calView.populateMonth(calView.getMonthView(), 
-	        			calView.simulateYear(calView.currentYear), 
-	        			calView.daysInMonth(calView.currentMonth, calView.currentYear), 
-	        			calView.currentMonth);
+	        	calView.PopulateCalendarCalendarView();
 	        }
 		});
 		
@@ -154,15 +148,9 @@ public class ToolbarView extends JSplitPane{
 	        @Override
 	        public void actionPerformed(ActionEvent e){
 	        	calView.populateMonthNull(calView.getMonthView());
-	        	calView.setTeamViewSelected(btnTeamView.isSelected());
+	        	calView.setTeamViewSelected(true);
 	        	calView.setPersonalViewSelected(false);
-	        	calView.populateYear(calView.monthArray, calView.currentYear);
-	        	calView.populateWeek(calView.weekDayHeaders, EventListModel.getInstance().getEvents());
-	        	calView.populateDay(tabView.dayTable, EventListModel.getInstance().getEvents());
-	        	calView.populateMonth(calView.getMonthView(), 
-	        			calView.simulateYear(calView.currentYear), 
-	        			calView.daysInMonth(calView.currentMonth, calView.currentYear), 
-	        			calView.currentMonth);
+	        	calView.PopulateCalendarCalendarView();
 	        }
 		});
 		
