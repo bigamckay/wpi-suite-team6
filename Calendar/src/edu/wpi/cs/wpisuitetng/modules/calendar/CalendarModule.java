@@ -12,18 +12,32 @@
 
 package edu.wpi.cs.wpisuitetng.modules.calendar;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
+import edu.wpi.cs.wpisuitetng.janeway.modules.AbstractJanewayModule;
 import edu.wpi.cs.wpisuitetng.janeway.modules.IJanewayModule;
 import edu.wpi.cs.wpisuitetng.janeway.modules.JanewayTabModel;
+import edu.wpi.cs.wpisuitetng.modules.calendar.controllers.AddCommitmentController;
+import edu.wpi.cs.wpisuitetng.modules.calendar.controllers.AddEventController;
+
+import edu.wpi.cs.wpisuitetng.modules.calendar.controllers.EditCommitmentController;
+import edu.wpi.cs.wpisuitetng.modules.calendar.controllers.EditEventController;
+import edu.wpi.cs.wpisuitetng.modules.calendar.controllers.GetCommitmentController;
+import edu.wpi.cs.wpisuitetng.modules.calendar.controllers.GetEventController;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.EventListModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.views.MainView;
 import edu.wpi.cs.wpisuitetng.modules.calendar.views.ToolbarView;
 
-public class CalendarModule implements IJanewayModule {
+public class CalendarModule extends AbstractJanewayModule {
+	
+	private static final int REFRESH_SECONDS = 25; //time between auto-refreshes
 	
 	List<JanewayTabModel> tabs;
 	
@@ -37,6 +51,16 @@ public class CalendarModule implements IJanewayModule {
 		// Give the toolbar access to the Calendar and Tab Views
 		tbView.getCalendar(mainView.getCalendar());
 		tbView.getTabView(mainView.getTabView());
+		
+		// Also Give calendar access to the controllers so they can push an update from server to GUI - Craig
+		GetEventController.getInstance().AssignCalendarView(mainView.getCalendar());
+		AddEventController.getInstance().AssignCalendarView(mainView.getCalendar());
+		EditEventController.getInstance().AssignCalendarView(mainView.getCalendar());
+		GetCommitmentController.getInstance().AssignCalendarView(mainView.getCalendar());
+		AddCommitmentController.getInstance().AssignCalendarView(mainView.getCalendar());
+		EditCommitmentController.getInstance().AssignCalendarView(mainView.getCalendar());
+		
+		
 		
 		mainView.getCalendar().setTabView(mainView.getTabView());
 		
@@ -56,6 +80,17 @@ public class CalendarModule implements IJanewayModule {
 		// Add the tab to the list of tabs owned by this module
 		tabs.add(tab1);
 		
+		//set up a timer to automatically refresh every REFRESH_TIME seconds
+		new Timer(REFRESH_SECONDS * 1000, new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Automatically refreshing calendar...");
+				GetEventController.getInstance().retrieveEvents();
+			}
+			
+		}).start();
+		
 	}
 
 
@@ -69,6 +104,12 @@ public class CalendarModule implements IJanewayModule {
 	public List<JanewayTabModel> getTabs() {
 		// TODO Auto-generated method stub
 		return tabs;
+	}
+	
+	@Override
+	public void onLoginComplete(){
+		EventListModel.getInstance().LoginSuccess();
+		GetEventController.getInstance().retrieveEvents();
 	}
 
 }

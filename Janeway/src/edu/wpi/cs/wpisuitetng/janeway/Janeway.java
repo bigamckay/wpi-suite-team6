@@ -137,4 +137,12 @@ public class Janeway {
 		
 		return retVal;
 	}
+	
+	/**
+	 * Get a list of the modules currently loaded in Janeway.
+	 * @return
+	 */
+	public static List<IJanewayModule> getLoadedModules(){
+		return modules;
+	}
 }
