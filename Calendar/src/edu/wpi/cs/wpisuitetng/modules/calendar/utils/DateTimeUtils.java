@@ -116,4 +116,31 @@ public class DateTimeUtils {
 		}
 		return toPrint;
 	}
+<<<<<<< HEAD
+=======
+	
+	
+	// function that takes in a event and a day and returns true if that day is part of the event
+	public static boolean isDayPartOfEvent(Event event, Calendar day){
+		Calendar startDate = event.getStart();
+		Calendar endDate = event.getEnd();
+		if(startDate.get(Calendar.YEAR) == day.get(Calendar.YEAR)
+				&& startDate.get(Calendar.MONTH) == day.get(Calendar.MONTH)
+				&& startDate.get(Calendar.DAY_OF_MONTH) == day.get(Calendar.DAY_OF_MONTH)){
+			return true;
+		}
+		else if(endDate.get(Calendar.YEAR) == day.get(Calendar.YEAR)
+				&& endDate.get(Calendar.MONTH) == day.get(Calendar.MONTH)
+				&& endDate.get(Calendar.DAY_OF_MONTH) == day.get(Calendar.DAY_OF_MONTH)){
+			return true;
+		}
+		else if(startDate.before(day) && endDate.after(day)){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+
+>>>>>>> branch 'feat/scroll-pane-set' of https://github.com/frenchie16/wpi-suite-team6.git
 }
