@@ -23,7 +23,7 @@ public class MyCellRenderer extends DefaultTableCellRenderer{
 			cellComponent.setBackground(Color.WHITE);
 			//System.out.println("empty");
 		}
-		else if(this.row == row){
+		else if(this.row == row || table.getValueAt(row, column).toString().length() > 4){
 			//System.out.println("row " + row);
 			//System.out.println("RED");
 			if(this.whatType == 0){
@@ -36,6 +36,7 @@ public class MyCellRenderer extends DefaultTableCellRenderer{
 				cellComponent.setBackground(new Color(204, 180, 204));
 			}
 		}
+
 		else{
 			cellComponent.setBackground(Color.WHITE);
 		}

@@ -22,15 +22,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Calendar;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JSplitPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import edu.wpi.cs.wpisuitetng.janeway.gui.container.TabPanel;
+
+
 
 
 
@@ -59,14 +63,17 @@ public class ToolbarView extends JSplitPane{
 	private int currentDay;
 	private String month = new String();
 	private String currentFocus = new String();
-	private JCheckBox btnTeamView = new JCheckBox("Team View");
-	private JCheckBox btnPersonalView = new JCheckBox("Personal View");
+	private JRadioButton btnTeamView = new JRadioButton("Team View");
+	private JRadioButton btnPersonalView = new JRadioButton("Personal View");
+	ButtonGroup EventViewType = new ButtonGroup();
 	
 	public ToolbarView() {
 		
 	}
 	
 	private void initialize() {	
+		EventViewType.add(btnTeamView);
+		EventViewType.add(btnPersonalView);
 		
 		//initialize month and day to current month
 		//calculate number of days in current month
@@ -132,6 +139,7 @@ public class ToolbarView extends JSplitPane{
 	        public void actionPerformed(ActionEvent e){
 	        	calView.populateMonthNull(calView.getMonthView());
 	        	calView.setPersonalViewSelected(btnPersonalView.isSelected());
+	        	calView.setTeamViewSelected(false);
 	        	calView.populateYear(calView.monthArray, calView.currentYear);
 	        	calView.populateWeek(calView.weekDayHeaders, EventListModel.getInstance().getEvents());
 	        	calView.populateDay(tabView.dayTable, EventListModel.getInstance().getEvents());
@@ -147,6 +155,7 @@ public class ToolbarView extends JSplitPane{
 	        public void actionPerformed(ActionEvent e){
 	        	calView.populateMonthNull(calView.getMonthView());
 	        	calView.setTeamViewSelected(btnTeamView.isSelected());
+	        	calView.setPersonalViewSelected(false);
 	        	calView.populateYear(calView.monthArray, calView.currentYear);
 	        	calView.populateWeek(calView.weekDayHeaders, EventListModel.getInstance().getEvents());
 	        	calView.populateDay(tabView.dayTable, EventListModel.getInstance().getEvents());
@@ -485,11 +494,11 @@ public class ToolbarView extends JSplitPane{
 		return month;
 	}
 	
-	public JCheckBox getBtnPersonalView(){
+	public JRadioButton getBtnPersonalView(){
 		return this.btnPersonalView;
 	}
 	
-	public JCheckBox getBtnTeamView(){
+	public JRadioButton getBtnTeamView(){
 		return this.btnTeamView;
 	}
 }

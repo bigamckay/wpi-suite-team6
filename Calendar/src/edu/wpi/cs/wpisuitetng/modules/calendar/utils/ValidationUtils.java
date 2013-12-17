@@ -42,6 +42,10 @@ public class ValidationUtils {
 		if(name.length() > SHORT_MAX)
 			throw new WPISuiteException("Name too long.");
 		
+		if(name.length() <= 1){
+			throw new WPISuiteException("Name must be longer than one character.");
+		}
+		
 		if(name.length() == 0)
 			throw new WPISuiteException("Name cannot be empty."); 
 		
