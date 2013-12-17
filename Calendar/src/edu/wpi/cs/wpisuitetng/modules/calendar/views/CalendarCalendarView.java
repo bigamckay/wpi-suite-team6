@@ -378,6 +378,24 @@ public class CalendarCalendarView extends JTabbedPane{
 		JanDayTable.getColumnModel().getColumn(5).setPreferredWidth(15);
 		JanDayTable.getColumnModel().getColumn(6).setPreferredWidth(15);
 		JanScrollPane.setViewportView(JanDayTable);
+		JanDayTable.addMouseListener(new MouseAdapter() {
+			@SuppressWarnings("null")
+			public void mouseClicked(MouseEvent e) {
+				//if (e.getClickCount() >= 2) {
+					JTable target = (JTable)e.getSource();
+					int row = target.getSelectedRow();
+					int column = target.getSelectedColumn();
+					
+					int cellValue = (int) JanDayTable.getValueAt(row, column);
+					
+					int cellDate = cellValue;
+					specDay = cellDate;
+					System.out.println(specDay);
+					populateDayNull(tabView.dayTable);
+					populateSpecificDay(tabView.dayTable, testList, specDay);
+				//}
+			}
+		});
 		
 		JScrollPane FebScrollPane = new JScrollPane();
 		FebScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
@@ -408,6 +426,24 @@ public class CalendarCalendarView extends JTabbedPane{
 			}
 		));
 		FebScrollPane.setViewportView(FebDayTable);
+		FebDayTable.addMouseListener(new MouseAdapter() {
+			@SuppressWarnings("null")
+			public void mouseClicked(MouseEvent e) {
+				//if (e.getClickCount() >= 2) {
+					JTable target = (JTable)e.getSource();
+					int row = target.getSelectedRow();
+					int column = target.getSelectedColumn();
+					
+					int cellValue = (int) FebDayTable.getValueAt(row, column);
+					
+					int cellDate = cellValue;
+					specDay = cellDate;
+					System.out.println(specDay);
+					populateDayNull(tabView.dayTable);
+					populateSpecificDay(tabView.dayTable, testList, specDay);
+				//}
+			}
+		});
 		
 		JScrollPane MarScrollPane = new JScrollPane();
 		MarScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
@@ -438,6 +474,24 @@ public class CalendarCalendarView extends JTabbedPane{
 			}
 		));
 		MarScrollPane.setViewportView(MarDayTable);
+		MarDayTable.addMouseListener(new MouseAdapter() {
+			@SuppressWarnings("null")
+			public void mouseClicked(MouseEvent e) {
+				//if (e.getClickCount() >= 2) {
+					JTable target = (JTable)e.getSource();
+					int row = target.getSelectedRow();
+					int column = target.getSelectedColumn();
+					
+					int cellValue = (int) MarDayTable.getValueAt(row, column);
+					
+					int cellDate = cellValue;
+					specDay = cellDate;
+					System.out.println(specDay);
+					populateDayNull(tabView.dayTable);
+					populateSpecificDay(tabView.dayTable, testList, specDay);
+				//}
+			}
+		});
 		
 		JScrollPane AprScrollPane = new JScrollPane();
 		AprScrollPane.setViewportBorder(null);
@@ -470,6 +524,24 @@ public class CalendarCalendarView extends JTabbedPane{
 				}
 			));
 		AprScrollPane.setViewportView(AprDayTable);
+		AprDayTable.addMouseListener(new MouseAdapter() {
+			@SuppressWarnings("null")
+			public void mouseClicked(MouseEvent e) {
+				//if (e.getClickCount() >= 2) {
+					JTable target = (JTable)e.getSource();
+					int row = target.getSelectedRow();
+					int column = target.getSelectedColumn();
+					
+					int cellValue = (int) AprDayTable.getValueAt(row, column);
+					
+					int cellDate = cellValue;
+					specDay = cellDate;
+					System.out.println(specDay);
+					populateDayNull(tabView.dayTable);
+					populateSpecificDay(tabView.dayTable, testList, specDay);
+				//}
+			}
+		});
 		
 		JScrollPane MayScrollPane = new JScrollPane();
 		MayScrollPane.setViewportBorder(null);
@@ -502,6 +574,24 @@ public class CalendarCalendarView extends JTabbedPane{
 				}
 			));
 		MayScrollPane.setViewportView(MayDayTable);
+		MayDayTable.addMouseListener(new MouseAdapter() {
+			@SuppressWarnings("null")
+			public void mouseClicked(MouseEvent e) {
+				//if (e.getClickCount() >= 2) {
+					JTable target = (JTable)e.getSource();
+					int row = target.getSelectedRow();
+					int column = target.getSelectedColumn();
+					
+					int cellValue = (int) MayDayTable.getValueAt(row, column);
+					
+					int cellDate = cellValue;
+					specDay = cellDate;
+					System.out.println(specDay);
+					populateDayNull(tabView.dayTable);
+					populateSpecificDay(tabView.dayTable, testList, specDay);
+				//}
+			}
+		});
 		
 		JScrollPane JunScrollPane = new JScrollPane();
 		JunScrollPane.setViewportBorder(null);
@@ -534,6 +624,24 @@ public class CalendarCalendarView extends JTabbedPane{
 				}
 			));
 		JunScrollPane.setViewportView(JunDayTable);
+		JunDayTable.addMouseListener(new MouseAdapter() {
+			@SuppressWarnings("null")
+			public void mouseClicked(MouseEvent e) {
+				//if (e.getClickCount() >= 2) {
+					JTable target = (JTable)e.getSource();
+					int row = target.getSelectedRow();
+					int column = target.getSelectedColumn();
+					
+					int cellValue = (int) JunDayTable.getValueAt(row, column);
+					
+					int cellDate = cellValue;
+					specDay = cellDate;
+					System.out.println(specDay);
+					populateDayNull(tabView.dayTable);
+					populateSpecificDay(tabView.dayTable, testList, specDay);
+				//}
+			}
+		});
 		
 		JScrollPane JulScrollPane = new JScrollPane();
 		JulScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
@@ -564,6 +672,24 @@ public class CalendarCalendarView extends JTabbedPane{
 				}
 			));
 		JulScrollPane.setViewportView(JulDayTable);
+		JulDayTable.addMouseListener(new MouseAdapter() {
+			@SuppressWarnings("null")
+			public void mouseClicked(MouseEvent e) {
+				//if (e.getClickCount() >= 2) {
+					JTable target = (JTable)e.getSource();
+					int row = target.getSelectedRow();
+					int column = target.getSelectedColumn();
+					
+					int cellValue = (int) JulDayTable.getValueAt(row, column);
+					
+					int cellDate = cellValue;
+					specDay = cellDate;
+					System.out.println(specDay);
+					populateDayNull(tabView.dayTable);
+					populateSpecificDay(tabView.dayTable, testList, specDay);
+				//}
+			}
+		});
 		
 		JScrollPane AugScrollPane = new JScrollPane();
 		AugScrollPane.setViewportBorder(null);
@@ -596,6 +722,24 @@ public class CalendarCalendarView extends JTabbedPane{
 				}
 			));
 		AugScrollPane.setViewportView(AugDayTable);
+		AugDayTable.addMouseListener(new MouseAdapter() {
+			@SuppressWarnings("null")
+			public void mouseClicked(MouseEvent e) {
+				//if (e.getClickCount() >= 2) {
+					JTable target = (JTable)e.getSource();
+					int row = target.getSelectedRow();
+					int column = target.getSelectedColumn();
+					
+					int cellValue = (int) AugDayTable.getValueAt(row, column);
+					
+					int cellDate = cellValue;
+					specDay = cellDate;
+					System.out.println(specDay);
+					populateDayNull(tabView.dayTable);
+					populateSpecificDay(tabView.dayTable, testList, specDay);
+				//}
+			}
+		});
 		
 		JScrollPane SepScrollPane = new JScrollPane();
 		SepScrollPane.setViewportBorder(null);
@@ -628,6 +772,24 @@ public class CalendarCalendarView extends JTabbedPane{
 				}
 			));
 		SepScrollPane.setViewportView(SepDayTable);
+		SepDayTable.addMouseListener(new MouseAdapter() {
+			@SuppressWarnings("null")
+			public void mouseClicked(MouseEvent e) {
+				//if (e.getClickCount() >= 2) {
+					JTable target = (JTable)e.getSource();
+					int row = target.getSelectedRow();
+					int column = target.getSelectedColumn();
+					
+					int cellValue = (int) SepDayTable.getValueAt(row, column);
+					
+					int cellDate = cellValue;
+					specDay = cellDate;
+					System.out.println(specDay);
+					populateDayNull(tabView.dayTable);
+					populateSpecificDay(tabView.dayTable, testList, specDay);
+				//}
+			}
+		});
 		
 		JScrollPane OctScrollPane = new JScrollPane();
 		OctScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
@@ -658,6 +820,24 @@ public class CalendarCalendarView extends JTabbedPane{
 				}
 			));
 		OctScrollPane.setViewportView(OctDayTable);
+		OctDayTable.addMouseListener(new MouseAdapter() {
+			@SuppressWarnings("null")
+			public void mouseClicked(MouseEvent e) {
+				//if (e.getClickCount() >= 2) {
+					JTable target = (JTable)e.getSource();
+					int row = target.getSelectedRow();
+					int column = target.getSelectedColumn();
+					
+					int cellValue = (int) OctDayTable.getValueAt(row, column);
+					
+					int cellDate = cellValue;
+					specDay = cellDate;
+					System.out.println(specDay);
+					populateDayNull(tabView.dayTable);
+					populateSpecificDay(tabView.dayTable, testList, specDay);
+				//}
+			}
+		});
 		
 		JScrollPane NovScrollPane = new JScrollPane();
 		NovScrollPane.setViewportBorder(null);
@@ -690,6 +870,24 @@ public class CalendarCalendarView extends JTabbedPane{
 				}
 			));
 		NovScrollPane.setViewportView(NovDayTable);
+		NovDayTable.addMouseListener(new MouseAdapter() {
+			@SuppressWarnings("null")
+			public void mouseClicked(MouseEvent e) {
+				//if (e.getClickCount() >= 2) {
+					JTable target = (JTable)e.getSource();
+					int row = target.getSelectedRow();
+					int column = target.getSelectedColumn();
+					
+					int cellValue = (int) NovDayTable.getValueAt(row, column);
+					
+					int cellDate = cellValue;
+					specDay = cellDate;
+					System.out.println(specDay);
+					populateDayNull(tabView.dayTable);
+					populateSpecificDay(tabView.dayTable, testList, specDay);
+				//}
+			}
+		});
 		
 		JScrollPane DecScrollPane = new JScrollPane();
 		DecScrollPane.setViewportBorder(null);
@@ -722,6 +920,24 @@ public class CalendarCalendarView extends JTabbedPane{
 				}
 			));
 		DecScrollPane.setViewportView(DecDayTable);
+		DecDayTable.addMouseListener(new MouseAdapter() {
+			@SuppressWarnings("null")
+			public void mouseClicked(MouseEvent e) {
+				//if (e.getClickCount() >= 2) {
+					JTable target = (JTable)e.getSource();
+					int row = target.getSelectedRow();
+					int column = target.getSelectedColumn();
+					
+					int cellValue = (int) DecDayTable.getValueAt(row, column);
+					
+					int cellDate = cellValue;
+					specDay = cellDate;
+					System.out.println(specDay);
+					populateDayNull(tabView.dayTable);
+					populateSpecificDay(tabView.dayTable, testList, specDay);
+				//}
+			}
+		});
 		
 		/*JPanel titlePanel = new JPanel();
 		titlePanel.setBounds(0, 0, 1018, 80);
