@@ -1025,6 +1025,7 @@ public class CalendarCalendarView extends JTabbedPane{
 				String teamEventStr = " ";
 				List<Event> personalEventList = isThereAPersonalEventOnThisDate(EventListModel.getInstance().getEvents() /*EventListModel.getInstance().getEvents()*/, currentYear, whatMonth, dayCounter);
 				List<Event> teamEventList = isThereATeamEventOnThisDate(EventListModel.getInstance().getEvents(), currentYear, whatMonth, dayCounter);
+				
 				if(personalViewSelected && teamViewSelected){
 					if(personalEventList.size() != 0 && teamEventList.size() != 0){
 						MyCellRenderer cellRender = new MyCellRenderer(i, 2); 
@@ -1049,10 +1050,13 @@ public class CalendarCalendarView extends JTabbedPane{
 						//System.out.println("row passed in " + i);
 						cellRender.getTableCellRendererComponent(month, dayCounter, false, false, i, j);
 						month.getColumnModel().getColumn(j).setCellRenderer(cellRender);
-						if(month.equals(monthView)){
-							for(Event z: personalEventList)
-							{
+						for(Event z: personalEventList)
+						{
+							if(month.equals(monthView)){
 								personalEventStr = personalEventStr + z.getName() + '\n';
+							}
+							else{
+								personalEventStr = personalEventStr + "  ";
 								break;
 							}
 						}
@@ -1078,14 +1082,17 @@ public class CalendarCalendarView extends JTabbedPane{
 						//System.out.println("row passed in " + i);
 						cellRender.getTableCellRendererComponent(month, dayCounter, false, false, i, j);
 						month.getColumnModel().getColumn(j).setCellRenderer(cellRender);
-						if(month.equals(monthView)){
-							for(Event z: personalEventList)
-							{
+						for(Event z: personalEventList)
+						{
+							if(month.equals(monthView)){
 								personalEventStr = personalEventStr + z.getName() + '\n';
-								break;
+							} else {
+								personalEventStr = personalEventStr + "  ";
 							}
+							break;
 						}
 					}
+					
 				}
 				else if(teamViewSelected){
 					if(teamEventList.size() != 0){
@@ -1093,13 +1100,16 @@ public class CalendarCalendarView extends JTabbedPane{
 						//System.out.println("row passed in " + i);
 						cellRender.getTableCellRendererComponent(month, dayCounter, false, false, i, j);
 						month.getColumnModel().getColumn(j).setCellRenderer(cellRender);
-						if(month.equals(monthView)){
 							for(Event z: teamEventList)
 							{
-								teamEventStr = teamEventStr + z.getName() + '\n';
+								if(month.equals(monthView)){
+									teamEventStr = teamEventStr + z.getName() + '\n';
+								} else {
+									teamEventStr = teamEventStr + "  ";
+								}
 								break;
 							}
-						}
+						
 					}
 				}
 				/*month.getModel().setValueAt(dayCounter.toString(), i, j);
@@ -1108,10 +1118,8 @@ public class CalendarCalendarView extends JTabbedPane{
 				}
 				dayCounter++;*/
 
-				if(month.equals(monthView))
-					month.getModel().setValueAt(dayCounter.toString() + personalEventStr + teamEventStr, i, j);
-				else
-					month.getModel().setValueAt(dayCounter, i, j);
+				month.getModel().setValueAt(dayCounter.toString() + personalEventStr + teamEventStr, i, j);
+
 				//monthView.setValueAt(dayCounter.toString() + personalEventStr + teamEventStr, i, j);
 				if (dayCounter == daysInMonth){
 					return j+1;
