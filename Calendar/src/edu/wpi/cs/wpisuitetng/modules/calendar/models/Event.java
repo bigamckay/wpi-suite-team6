@@ -230,6 +230,28 @@ public class Event extends AbstractCalendarModel {
 	public void setPersonal(boolean personal) {
 		this.personal = personal;
 	}
+	
+	public boolean isMultiDayEvent(){
+		if (this.start.equals(this.end)){
+			return false;
+		}
+		else return true;
+	}
+	
+	public int numDaysInMultiDayEvent(){
+		if (isMultiDayEvent()){
+			long start = this.start.getTimeInMillis();
+			long end = this.end.getTimeInMillis();
+			
+			long elapsedTimeInMillis = end - start;
+			
+			int daysElapsed = (int)(elapsedTimeInMillis/86400000); //maybe change
+			
+			return daysElapsed;
+			
+		}
+		else return 1;
+	}
 
 	
 	@Override
