@@ -77,8 +77,8 @@ public class ToolbarView extends JSplitPane{
 		
 		//initialize month and day to current month
 		//calculate number of days in current month
-		btnPersonalView.setForeground(new Color(255, 180, 204));
-		btnTeamView.setForeground(new Color(180, 180, 255));
+		btnPersonalView.setForeground(new Color(180, 80, 100));
+		btnTeamView.setForeground(new Color(100, 100, 180));
 		currentDay = Calendar.getInstance().get(Calendar.DATE);
 		currentFocus = "week";
 		
