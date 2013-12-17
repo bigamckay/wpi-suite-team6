@@ -1347,6 +1347,7 @@ public class CalendarCalendarView extends JTabbedPane{
 			
 			
 				if(personalViewSelected && teamViewSelected){
+					//For if there is a personal event AND a team event
 					if(isThereAPersonalEventOnThisDate(EventListModel.getInstance().getEvents(), currentYear, e.getEnd().get(Calendar.MONTH), e.getEnd().get(Calendar.DATE)).size() != 0 && isThereATeamEventOnThisDate(EventListModel.getInstance().getEvents(), currentYear, e.getEnd().get(Calendar.MONTH), e.getEnd().get(Calendar.DATE)).size() != 0){
 						MyCellRenderer cellRender = new MyCellRenderer(e.getEnd().get(Calendar.HOUR_OF_DAY), 2);
 						//System.out.println("row passed in " + Calendar.e.getEnd().get(Calendar.HOUR_OF_DAY));
@@ -1354,13 +1355,24 @@ public class CalendarCalendarView extends JTabbedPane{
 						day.getColumnModel().getColumn(e.getEnd().get(Calendar.DAY_OF_WEEK)).setCellRenderer(cellRender);
 						day.getModel().setValueAt(e.getName(), e.getEnd().get(Calendar.HOUR_OF_DAY), e.getEnd().get(Calendar.DAY_OF_WEEK));
 					}
+					//For if there is a personal event but no team event
 					else if(isThereAPersonalEventOnThisDate(/*EventListModel.getInstance().getEvents(),*/EventListModel.getInstance().getEvents(), currentYear, e.getEnd().get(Calendar.MONTH), e.getEnd().get(Calendar.DATE)).size() != 0){
 						MyCellRenderer cellRender = new MyCellRenderer(e.getEnd().get(Calendar.HOUR_OF_DAY), 0);
 						//System.out.println("row passed in " + e.getEnd().get(Calendar.HOUR_OF_DAY));
-						cellRender.getTableCellRendererComponent(day, e.getEnd().get(Calendar.DATE), false, false, e.getEnd().get(Calendar.HOUR_OF_DAY), e.getEnd().get(Calendar.DAY_OF_WEEK));
-						day.getColumnModel().getColumn(e.getEnd().get(Calendar.DAY_OF_WEEK)).setCellRenderer(cellRender);
-						day.getModel().setValueAt(e.getName(), e.getEnd().get(Calendar.HOUR_OF_DAY), e.getEnd().get(Calendar.DAY_OF_WEEK));
+						
+						int daysInEvent = e.numDaysInMultiDayEvent();
+						for (int dayToRender = 0; dayToRender == daysInEvent; dayToRender++)
+						{
+							cellRender.getTableCellRendererComponent(day, e.getEnd().get(Calendar.DATE), false, false, e.getEnd().get(Calendar.HOUR_OF_DAY), (e.getEnd().get(Calendar.DAY_OF_WEEK)-dayToRender));
+							day.getColumnModel().getColumn((e.getEnd().get(Calendar.DAY_OF_WEEK)-dayToRender)).setCellRenderer(cellRender);
+							day.getModel().setValueAt(e.getName(), e.getEnd().get(Calendar.HOUR_OF_DAY), (e.getEnd().get(Calendar.DAY_OF_WEEK)-dayToRender));
+						}
+						
+						//cellRender.getTableCellRendererComponent(day, e.getEnd().get(Calendar.DATE), false, false, e.getEnd().get(Calendar.HOUR_OF_DAY), e.getEnd().get(Calendar.DAY_OF_WEEK));
+						//day.getColumnModel().getColumn(e.getEnd().get(Calendar.DAY_OF_WEEK)).setCellRenderer(cellRender);
+						//day.getModel().setValueAt(e.getName(), e.getEnd().get(Calendar.HOUR_OF_DAY), e.getEnd().get(Calendar.DAY_OF_WEEK));
 					}
+					//For if there is a team event but no personal event
 					else if(isThereATeamEventOnThisDate(/*EventListModel.getInstance().getEvents(),*/EventListModel.getInstance().getEvents(), currentYear, e.getEnd().get(Calendar.MONTH), e.getEnd().get(Calendar.DATE)).size() != 0){
 						MyCellRenderer cellRender = new MyCellRenderer(e.getEnd().get(Calendar.HOUR_OF_DAY), 1);
 						//System.out.println("row passed in " + e.getEnd().get(Calendar.HOUR_OF_DAY));
