@@ -226,7 +226,14 @@ public class CalendarCalendarView extends JTabbedPane{
 			new String[] {
 				"Time", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
 			}
-		));
+		) {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				// all cells false
+				return false;
+			}
+		}
+		);
 		
 		weekScrollPane.setViewportView(weekDayHeaders);
 		
@@ -238,6 +245,13 @@ public class CalendarCalendarView extends JTabbedPane{
 		 * Month View
 		 */
 		
+		Object[][] emptyArray = new Object[][] {
+				{ null, null, null, null, null, null, null },
+				{ null, null, null, null, null, null, null },
+				{ null, null, null, null, null, null, null },
+				{ null, null, null, null, null, null, null },
+				{ null, null, null, null, null, null, null },
+				{ null, null, null, null, null, null, null } };
 		JPanel monthPanel = new JPanel();
 		monthPanel.setLayout(null);
 		monthPanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
@@ -251,19 +265,14 @@ public class CalendarCalendarView extends JTabbedPane{
 		monthView.setBounds(1, 1, 684, 402);
 		monthView.setRowSelectionAllowed(false);
 		monthView.getTableHeader().setReorderingAllowed(false);
-		monthView.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-			},
-			new String[] {
-				"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"
+		monthView.setModel(new DefaultTableModel(emptyArray, 
+				new String[] {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" }) {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				// all cells false
+				return false;
 			}
-		));
+		});
 		monthView.setRowHeight(67);
 		monthDays.setViewportView(monthView);
 		monthPanel.add(monthDays);
@@ -392,19 +401,14 @@ public class CalendarCalendarView extends JTabbedPane{
 		JanDayTable = new JTable();
 		JanDayTable.setRowSelectionAllowed(false);
 		JanDayTable.getTableHeader().setReorderingAllowed(false);
-		JanDayTable.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-			},
-			new String[] {
-				"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"
+		JanDayTable.setModel(new DefaultTableModel(emptyArray, new String[] {
+				"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" }) {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				// all cells false
+				return false;
 			}
-		));
+		});
 		
 		//populateYear(monthArray);
 		
@@ -451,19 +455,14 @@ public class CalendarCalendarView extends JTabbedPane{
 		FebDayTable = new JTable();
 		FebDayTable.setRowSelectionAllowed(false);
 		FebDayTable.getTableHeader().setReorderingAllowed(false);
-		FebDayTable.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-			},
-			new String[] {
-				"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"
+		FebDayTable.setModel(new DefaultTableModel(emptyArray, new String[] {
+				"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" }) {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				// all cells false
+				return false;
 			}
-		));
+		});
 		FebScrollPane.setViewportView(FebDayTable);
 		FebDayTable.addMouseListener(new MouseAdapter() {
 			@SuppressWarnings("null")
@@ -500,19 +499,14 @@ public class CalendarCalendarView extends JTabbedPane{
 		MarDayTable = new JTable();
 		MarDayTable.setRowSelectionAllowed(false);
 		MarDayTable.getTableHeader().setReorderingAllowed(false);
-		MarDayTable.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-			},
-			new String[] {
-				"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"
+		MarDayTable.setModel(new DefaultTableModel(emptyArray, new String[] {
+				"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" }) {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				// all cells false
+				return false;
 			}
-		));
+		});
 		MarScrollPane.setViewportView(MarDayTable);
 		MarDayTable.addMouseListener(new MouseAdapter() {
 			@SuppressWarnings("null")
@@ -551,19 +545,14 @@ public class CalendarCalendarView extends JTabbedPane{
 		AprDayTable = new JTable();
 		AprDayTable.setRowSelectionAllowed(false);
 		AprDayTable.getTableHeader().setReorderingAllowed(false);
-		AprDayTable.setModel(new DefaultTableModel(
-				new Object[][] {
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-				},
-				new String[] {
-					"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"
-				}
-			));
+		AprDayTable.setModel(new DefaultTableModel(emptyArray, new String[] {
+				"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" }) {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				// all cells false
+				return false;
+			}
+		});
 		AprScrollPane.setViewportView(AprDayTable);
 		AprDayTable.addMouseListener(new MouseAdapter() {
 			@SuppressWarnings("null")
@@ -602,19 +591,14 @@ public class CalendarCalendarView extends JTabbedPane{
 		MayDayTable = new JTable();
 		MayDayTable.setRowSelectionAllowed(false);
 		MayDayTable.getTableHeader().setReorderingAllowed(false);
-		MayDayTable.setModel(new DefaultTableModel(
-				new Object[][] {
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-				},
-				new String[] {
-					"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"
-				}
-			));
+		MayDayTable.setModel(new DefaultTableModel(emptyArray, new String[] {
+				"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" }) {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				// all cells false
+				return false;
+			}
+		});
 		MayScrollPane.setViewportView(MayDayTable);
 		MayDayTable.addMouseListener(new MouseAdapter() {
 			@SuppressWarnings("null")
@@ -653,19 +637,14 @@ public class CalendarCalendarView extends JTabbedPane{
 		JunDayTable = new JTable();
 		JunDayTable.setRowSelectionAllowed(false);
 		JunDayTable.getTableHeader().setReorderingAllowed(false);
-		JunDayTable.setModel(new DefaultTableModel(
-				new Object[][] {
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-				},
-				new String[] {
-					"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"
-				}
-			));
+		JunDayTable.setModel(new DefaultTableModel(emptyArray, new String[] {
+				"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" }) {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				// all cells false
+				return false;
+			}
+		});
 		JunScrollPane.setViewportView(JunDayTable);
 		JunDayTable.addMouseListener(new MouseAdapter() {
 			@SuppressWarnings("null")
@@ -702,19 +681,14 @@ public class CalendarCalendarView extends JTabbedPane{
 		JulDayTable = new JTable();
 		JulDayTable.setRowSelectionAllowed(false);
 		JulDayTable.getTableHeader().setReorderingAllowed(false);
-		JulDayTable.setModel(new DefaultTableModel(
-				new Object[][] {
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-				},
-				new String[] {
-					"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"
-				}
-			));
+		JulDayTable.setModel(new DefaultTableModel(emptyArray, new String[] {
+				"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" }) {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				// all cells false
+				return false;
+			}
+		});
 		JulScrollPane.setViewportView(JulDayTable);
 		JulDayTable.addMouseListener(new MouseAdapter() {
 			@SuppressWarnings("null")
@@ -753,19 +727,14 @@ public class CalendarCalendarView extends JTabbedPane{
 		AugDayTable = new JTable();
 		AugDayTable.setRowSelectionAllowed(false);
 		AugDayTable.getTableHeader().setReorderingAllowed(false);
-		AugDayTable.setModel(new DefaultTableModel(
-				new Object[][] {
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-				},
-				new String[] {
-					"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"
-				}
-			));
+		AugDayTable.setModel(new DefaultTableModel(emptyArray, new String[] {
+				"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" }) {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				// all cells false
+				return false;
+			}
+		});
 		AugScrollPane.setViewportView(AugDayTable);
 		AugDayTable.addMouseListener(new MouseAdapter() {
 			@SuppressWarnings("null")
@@ -804,19 +773,14 @@ public class CalendarCalendarView extends JTabbedPane{
 		SepDayTable = new JTable();
 		SepDayTable.setRowSelectionAllowed(false);
 		SepDayTable.getTableHeader().setReorderingAllowed(false);
-		SepDayTable.setModel(new DefaultTableModel(
-				new Object[][] {
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-				},
-				new String[] {
-					"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"
-				}
-			));
+		SepDayTable.setModel(new DefaultTableModel(emptyArray, new String[] {
+				"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" }) {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				// all cells false
+				return false;
+			}
+		});
 		SepScrollPane.setViewportView(SepDayTable);
 		SepDayTable.addMouseListener(new MouseAdapter() {
 			@SuppressWarnings("null")
@@ -853,19 +817,14 @@ public class CalendarCalendarView extends JTabbedPane{
 		OctDayTable = new JTable();
 		OctDayTable.setRowSelectionAllowed(false);
 		OctDayTable.getTableHeader().setReorderingAllowed(false);
-		OctDayTable.setModel(new DefaultTableModel(
-				new Object[][] {
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-				},
-				new String[] {
-					"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"
-				}
-			));
+		OctDayTable.setModel(new DefaultTableModel(emptyArray, new String[] {
+				"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" }) {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				// all cells false
+				return false;
+			}
+		});
 		OctScrollPane.setViewportView(OctDayTable);
 		OctDayTable.addMouseListener(new MouseAdapter() {
 			@SuppressWarnings("null")
@@ -904,19 +863,14 @@ public class CalendarCalendarView extends JTabbedPane{
 		NovDayTable = new JTable();
 		NovDayTable.setRowSelectionAllowed(false);
 		NovDayTable.getTableHeader().setReorderingAllowed(false);
-		NovDayTable.setModel(new DefaultTableModel(
-				new Object[][] {
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-				},
-				new String[] {
-					"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"
-				}
-			));
+		NovDayTable.setModel(new DefaultTableModel(emptyArray, new String[] {
+				"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" }) {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				// all cells false
+				return false;
+			}
+		});
 		NovScrollPane.setViewportView(NovDayTable);
 		NovDayTable.addMouseListener(new MouseAdapter() {
 			@SuppressWarnings("null")
@@ -955,19 +909,14 @@ public class CalendarCalendarView extends JTabbedPane{
 		DecDayTable = new JTable();
 		DecDayTable.setRowSelectionAllowed(false);
 		DecDayTable.getTableHeader().setReorderingAllowed(false);
-		DecDayTable.setModel(new DefaultTableModel(
-				new Object[][] {
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-				},
-				new String[] {
-					"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"
-				}
-			));
+		DecDayTable.setModel(new DefaultTableModel(emptyArray, new String[] {
+				"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" }) {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				// all cells false
+				return false;
+			}
+		});
 		DecScrollPane.setViewportView(DecDayTable);
 		DecDayTable.addMouseListener(new MouseAdapter() {
 			@SuppressWarnings("null")
@@ -1733,7 +1682,7 @@ public class CalendarCalendarView extends JTabbedPane{
 		int goflag = 0;
 		populateDayNull(day);
 		day.getColumnModel().getColumn(1).setCellRenderer(new DefaultTableCellRenderer());
-		for(Event e : events){
+		for (Event e : events) {
 			if (e.getStart().get(Calendar.YEAR) != currentYear) {
 				if (currentMonth >= 11) {
 					if (e.getStart().get(Calendar.MONTH) <= 0) {
@@ -1769,41 +1718,41 @@ public class CalendarCalendarView extends JTabbedPane{
 					if(isThereAPersonalEventOnThisDate(EventListModel.getInstance().getEvents(), currentYear, e.getEnd().get(Calendar.MONTH), e.getEnd().get(Calendar.DATE)).size() != 0 && isThereATeamEventOnThisDate(EventListModel.getInstance().getEvents(), currentYear, e.getEnd().get(Calendar.MONTH), e.getEnd().get(Calendar.DATE)).size() != 0){
 						MyCellRenderer cellRender = new MyCellRenderer(e.getEnd().get(Calendar.HOUR_OF_DAY), 2);
 						//System.out.println("row passed in " + Calendar.e.getEnd().get(Calendar.HOUR_OF_DAY));
-						cellRender.getTableCellRendererComponent(day, e.getEnd().get(Calendar.DATE), false, false, e.getEnd().get(Calendar.HOUR_OF_DAY),1);
-						day.getColumnModel().getColumn(1).setCellRenderer(cellRender);
-						day.getModel().setValueAt(e.getName(), e.getStart().get(Calendar.HOUR_OF_DAY),1);
+						cellRender.getTableCellRendererComponent(day, e.getEnd().get(Calendar.DATE), false, false, e.getEnd().get(Calendar.HOUR_OF_DAY), e.getEnd().get(Calendar.DAY_OF_WEEK));
+						day.getColumnModel().getColumn(e.getEnd().get(Calendar.DAY_OF_WEEK)).setCellRenderer(cellRender);
+						day.getModel().setValueAt(e.getName(), e.getEnd().get(Calendar.HOUR_OF_DAY), e.getEnd().get(Calendar.DAY_OF_WEEK));
 					}
 					else if(isThereAPersonalEventOnThisDate(/*EventListModel.getInstance().getEvents(),*/EventListModel.getInstance().getEvents(), currentYear, e.getEnd().get(Calendar.MONTH), e.getEnd().get(Calendar.DATE)).size() != 0){
 						MyCellRenderer cellRender = new MyCellRenderer(e.getEnd().get(Calendar.HOUR_OF_DAY), 0);
 						//System.out.println("row passed in " + e.getEnd().get(Calendar.HOUR_OF_DAY));
-						cellRender.getTableCellRendererComponent(day, e.getEnd().get(Calendar.DATE), false, false, e.getEnd().get(Calendar.HOUR_OF_DAY),1);
-						day.getColumnModel().getColumn(1).setCellRenderer(cellRender);
-						day.getModel().setValueAt(e.getName(), e.getStart().get(Calendar.HOUR_OF_DAY),1);
+						cellRender.getTableCellRendererComponent(day, e.getEnd().get(Calendar.DATE), false, false, e.getEnd().get(Calendar.HOUR_OF_DAY), e.getEnd().get(Calendar.DAY_OF_WEEK));
+						day.getColumnModel().getColumn(e.getEnd().get(Calendar.DAY_OF_WEEK)).setCellRenderer(cellRender);
+						day.getModel().setValueAt(e.getName(), e.getEnd().get(Calendar.HOUR_OF_DAY), e.getEnd().get(Calendar.DAY_OF_WEEK));
 					}
 					else if(isThereATeamEventOnThisDate(/*EventListModel.getInstance().getEvents(),*/EventListModel.getInstance().getEvents(), currentYear, e.getEnd().get(Calendar.MONTH), e.getEnd().get(Calendar.DATE)).size() != 0){
 						MyCellRenderer cellRender = new MyCellRenderer(e.getEnd().get(Calendar.HOUR_OF_DAY), 1);
 						//System.out.println("row passed in " + e.getEnd().get(Calendar.HOUR_OF_DAY));
-						cellRender.getTableCellRendererComponent(day, e.getEnd().get(Calendar.DATE), false, false, e.getEnd().get(Calendar.HOUR_OF_DAY),1);
-						day.getColumnModel().getColumn(1).setCellRenderer(cellRender);
-						day.getModel().setValueAt(e.getName(), e.getStart().get(Calendar.HOUR_OF_DAY),1);
+						cellRender.getTableCellRendererComponent(day, e.getEnd().get(Calendar.DATE), false, false, e.getEnd().get(Calendar.HOUR_OF_DAY), e.getEnd().get(Calendar.DAY_OF_WEEK));
+						day.getColumnModel().getColumn(e.getEnd().get(Calendar.DAY_OF_WEEK)).setCellRenderer(cellRender);
+						day.getModel().setValueAt(e.getName(), e.getEnd().get(Calendar.HOUR_OF_DAY), e.getEnd().get(Calendar.DAY_OF_WEEK));
 					}
 				}
 				else if(personalViewSelected){
 					if(isThereAPersonalEventOnThisDate(/*EventListModel.getInstance().getEvents(),*/EventListModel.getInstance().getEvents(), currentYear, e.getEnd().get(Calendar.MONTH), e.getEnd().get(Calendar.DATE)).size() != 0){
 						MyCellRenderer cellRender = new MyCellRenderer(e.getEnd().get(Calendar.HOUR_OF_DAY), 0);
 						//System.out.println("row passed in " + e.getEnd().get(Calendar.HOUR_OF_DAY));
-						cellRender.getTableCellRendererComponent(day, e.getEnd().get(Calendar.DATE), false, false, e.getEnd().get(Calendar.HOUR_OF_DAY),1);
-						day.getColumnModel().getColumn(1).setCellRenderer(cellRender);
-						day.getModel().setValueAt(e.getName(), e.getStart().get(Calendar.HOUR_OF_DAY),1);
+						cellRender.getTableCellRendererComponent(day, e.getEnd().get(Calendar.DATE), false, false, e.getEnd().get(Calendar.HOUR_OF_DAY), e.getEnd().get(Calendar.DAY_OF_WEEK));
+						day.getColumnModel().getColumn(e.getEnd().get(Calendar.DAY_OF_WEEK)).setCellRenderer(cellRender);
+						day.getModel().setValueAt(e.getName(), e.getEnd().get(Calendar.HOUR_OF_DAY), e.getEnd().get(Calendar.DAY_OF_WEEK));
 					}
 				}
 				else if(teamViewSelected){
 					if(isThereATeamEventOnThisDate(/*EventListModel.getInstance().getEvents(),*/EventListModel.getInstance().getEvents(), currentYear, e.getEnd().get(Calendar.MONTH), e.getEnd().get(Calendar.DATE)).size() != 0){
 						MyCellRenderer cellRender = new MyCellRenderer(e.getEnd().get(Calendar.HOUR_OF_DAY), 1);
 						//System.out.println("row passed in " + i);
-						cellRender.getTableCellRendererComponent(day, e.getStart().get(Calendar.DATE), false, false, e.getStart().get(Calendar.HOUR_OF_DAY),1);
-						day.getColumnModel().getColumn(1).setCellRenderer(cellRender);
-						day.getModel().setValueAt(e.getName(), e.getStart().get(Calendar.HOUR_OF_DAY),1);
+						cellRender.getTableCellRendererComponent(day, e.getEnd().get(Calendar.DATE), false, false, e.getEnd().get(Calendar.HOUR_OF_DAY), e.getEnd().get(Calendar.DAY_OF_WEEK));
+						day.getColumnModel().getColumn(e.getEnd().get(Calendar.DAY_OF_WEEK)).setCellRenderer(cellRender);
+						day.getModel().setValueAt(e.getName(), e.getEnd().get(Calendar.HOUR_OF_DAY), e.getEnd().get(Calendar.DAY_OF_WEEK));
 					}
 				}
 				//day.getModel().setValueAt(e.getName(), e.getStart().get(Calendar.HOUR_OF_DAY),1);

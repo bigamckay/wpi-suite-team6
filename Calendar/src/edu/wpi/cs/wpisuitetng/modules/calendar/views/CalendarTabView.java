@@ -86,7 +86,13 @@ public class CalendarTabView extends JTabbedPane {
 			new String[] {
 				"Time", ""
 			}
-		));
+		) {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				// all cells false
+				return false;
+			}
+		});
 		dayTable.getColumnModel().getColumn(0).setPreferredWidth(65);
 		dayTable.getColumnModel().getColumn(0).setMinWidth(65);
 		dayTable.getColumnModel().getColumn(1).setPreferredWidth(200);
@@ -105,7 +111,13 @@ public class CalendarTabView extends JTabbedPane {
 			new String[] {
 				"Date", "Event Name"
 			}
-		));
+		) {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+			   //all cells false
+			   return false;
+		    }
+		});
 		eventTable.getColumnModel().getColumn(0).setPreferredWidth(65);
 		eventTable.getColumnModel().getColumn(0).setMinWidth(65);
 		eventTable.getColumnModel().getColumn(1).setPreferredWidth(200);
@@ -124,7 +136,13 @@ public class CalendarTabView extends JTabbedPane {
 			new String[] {
 				"Date", "Commitment Name"
 			}
-		));
+		) {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+			   //all cells false
+			   return false;
+		    }
+		});
 		commitTable.getColumnModel().getColumn(0).setPreferredWidth(65);
 		commitTable.getColumnModel().getColumn(0).setMinWidth(65);
 		commitTable.getColumnModel().getColumn(1).setPreferredWidth(200);
