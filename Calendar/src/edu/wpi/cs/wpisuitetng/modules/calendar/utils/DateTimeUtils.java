@@ -116,10 +116,7 @@ public class DateTimeUtils {
 		}
 		return toPrint;
 	}
-<<<<<<< HEAD
-=======
-	
-	
+
 	// function that takes in a event and a day and returns true if that day is part of the event
 	public static boolean isDayPartOfEvent(Event event, Calendar day){
 		Calendar startDate = event.getStart();
@@ -142,5 +139,4 @@ public class DateTimeUtils {
 		}
 	}
 
->>>>>>> branch 'feat/scroll-pane-set' of https://github.com/frenchie16/wpi-suite-team6.git
 }
