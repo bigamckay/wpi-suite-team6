@@ -92,6 +92,7 @@ public class CalendarTabView extends JTabbedPane {
 		dayTable.getColumnModel().getColumn(1).setPreferredWidth(200);
 		dayTable.getColumnModel().getColumn(1).setMinWidth(200);
 		dayScrollPane.setViewportView(dayTable);
+		dayScrollPane.getVerticalScrollBar().setValue(150);
 		
 		JScrollPane eventScrollPane = new JScrollPane();
 		//addTab("Events", null, eventScrollPane, null);
