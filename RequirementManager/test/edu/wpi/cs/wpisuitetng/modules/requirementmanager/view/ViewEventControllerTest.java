@@ -29,7 +29,7 @@ public class ViewEventControllerTest {
 	
 	 * @throws Exception
 	 * @throws java.lang.Exception */
-	/*@Before
+	@Before
 	public void setUp() throws Exception {
 		String [][] exData = new String[1][8];
 		
@@ -155,10 +155,5 @@ public class ViewEventControllerTest {
 		// multiple children can be made for the same parent
 		vec.createChildRequirement(1);
 		assertEquals(prevTabCount + 2, vec.getMainView().getTabCount());
-	}*/
-	@Test
-	public void holdTest()
-	{
-		assertEquals(true, true);
 	}
 }

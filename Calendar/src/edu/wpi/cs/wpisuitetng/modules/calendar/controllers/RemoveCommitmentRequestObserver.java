@@ -12,7 +12,6 @@
 
 package edu.wpi.cs.wpisuitetng.modules.calendar.controllers;
 
-
 import edu.wpi.cs.wpisuitetng.network.RequestObserver;
 import edu.wpi.cs.wpisuitetng.network.models.IRequest;
 
@@ -46,7 +45,7 @@ public class RemoveCommitmentRequestObserver implements RequestObserver{
 	 * @see edu.wpi.cs.wpisuitetng.network.RequestObserver#responseError(IRequest) */
 	@Override
 	public void responseError(IRequest iReq) {
-		System.err.println("The request to remove an commitment failed");
+		System.err.println("The request to remove a commitment failed");
 	}
 
 	/**
@@ -58,6 +57,6 @@ public class RemoveCommitmentRequestObserver implements RequestObserver{
 	 * @see edu.wpi.cs.wpisuitetng.network.RequestObserver#fail(IRequest, Exception) */
 	@Override
 	public void fail(IRequest iReq, Exception exception) {
-		System.err.println("The request to remove an commitment failed spectacularly");
+		System.err.println("The request to remove a commitment failed spectacularly");
 	}
 }

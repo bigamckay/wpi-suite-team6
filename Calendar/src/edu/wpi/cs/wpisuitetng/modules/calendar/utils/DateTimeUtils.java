@@ -117,8 +117,7 @@ public class DateTimeUtils {
 		}
 		return toPrint;
 	}
-	
-	
+
 	// function that takes in a event and a day and returns true if that day is part of the event
 	public static boolean isDayPartOfEvent(Event event, Calendar day){
 		Calendar startDate = event.getStart();

@@ -17,12 +17,6 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class EventManagerTest {
-	
-	@Test
-	public void holdTest()
-	{
-		assertEquals(true, true);
-	}
 
 	
 	// NEED TO IMPLEMENT THESE TESTS

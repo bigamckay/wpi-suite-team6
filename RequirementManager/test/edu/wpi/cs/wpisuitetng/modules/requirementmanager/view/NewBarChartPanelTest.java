@@ -51,7 +51,7 @@ public class NewBarChartPanelTest {
 	
 	 * @throws Exception
 	 * @throws java.lang.Exception */
-	/*@BeforeClass
+	@BeforeClass
 	public static void setUp() throws Exception {
 		String [][] exData = new String[1][8];
 		
@@ -69,9 +69,9 @@ public class NewBarChartPanelTest {
 	
 		req1 = new Requirement(1,  "reqName", "The description");
 		req2 = new Requirement(2, "anotherReq", "another description");
-	}*/
+	}
 
-	/*@Test
+	@Test
 	public void creationOfStatusBarChartTabTest() {
 		ToolbarView tb = new ToolbarView(true);
 		assertEquals(2, vec.getMainView().getTabCount());
@@ -91,7 +91,7 @@ public class NewBarChartPanelTest {
 	/* any input other than Status or Iteration will create a bar chart that has info 
 	 * about the number of requirements a user has assigned
 	 */
-	/*@Test
+	@Test
 	public void testDataAssignedBarChart() {
 		List<String> assigned = new ArrayList<String>();
 		assigned.add("Bob");
@@ -106,16 +106,11 @@ public class NewBarChartPanelTest {
 		assertEquals(2, vec.getMainView().getTabCount());
 		vec.createBarChart("Data");
 		assertEquals(3, vec.getMainView().getTabCount());
-	}*/
+	}
 	
-	/*@Test
+	@Test
 	public void testGetBarChartTitle() {
 		NewBarChartPanel bc = new NewBarChartPanel("The Name");
 		assertEquals("The Name", bc.getTitle());
-	}*/
-	@Test
-	public void holdTest()
-	{
-		assertEquals(true, true);
 	}
 }
