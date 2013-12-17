@@ -24,6 +24,7 @@ import javax.swing.UIManager;
 import javax.swing.border.EtchedBorder;
 import javax.swing.table.DefaultTableModel;
 
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CommitmentTableModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Event;
 
 /**
@@ -117,14 +118,7 @@ public class CalendarTabView extends JTabbedPane {
 		
 		commitTable = new JTable();
 		commitTable.getTableHeader().setReorderingAllowed(false);
-		commitTable.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null},
-			},
-			new String[] {
-				"Date", "Commitment Name"
-			}
-		));
+		commitTable.setModel(CommitmentTableModel.getInstance());
 		commitTable.getColumnModel().getColumn(0).setPreferredWidth(65);
 		commitTable.getColumnModel().getColumn(0).setMinWidth(65);
 		commitTable.getColumnModel().getColumn(1).setPreferredWidth(200);

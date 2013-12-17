@@ -22,6 +22,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.AbstractListModel;
+import javax.swing.table.AbstractTableModel;
 
 import edu.wpi.cs.wpisuitetng.exceptions.WPISuiteException;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controllers.AddCommitmentController;
@@ -30,20 +31,23 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.controllers.RemoveCommitmentContr
 
 /**
  * NOTE that this is a model in the swing sense, NOT the WPISuite sense
- * This is a model for the post board. It contains all of the messages
- * to be displayed on the board. It extends AbstractListModel so that
- * it can provide the model data to the JList component in the BoardPanel.
+ * 
+ * This is the swing model for the commitments table in CalendarTabView.
  *
  */
 @SuppressWarnings({"serial"})
-public class CommitmentListModel extends AbstractListModel {
+public class CommitmentTableModel extends AbstractTableModel {
+	
+	private static final int DAY_COLUMN = 0;
+	private static final int NAME_COLUMN = 1;
+	
 	/**
 	 * The list in which all the commitments for a single project are contained
 	 */
 	private List<Commitment> commitments;
 	
 	//the static object to allow the commitment model to be 
-	private static CommitmentListModel instance; 
+	private static CommitmentTableModel instance; 
 	
 	private boolean isSuccessfulLogin;
 	private boolean isInitialized;
@@ -51,7 +55,7 @@ public class CommitmentListModel extends AbstractListModel {
 	/**
 	 * Constructs an empty list of commitments for the project
 	 */
-	private CommitmentListModel (){
+	private CommitmentTableModel (){
 		commitments = Collections.synchronizedList(new ArrayList<Commitment>());
 		
 		this.isSuccessfulLogin = false;
@@ -61,11 +65,11 @@ public class CommitmentListModel extends AbstractListModel {
 	/**
 	
 	 * @return the instance of the commitment model singleton. */
-	public static CommitmentListModel getInstance()
+	public static CommitmentTableModel getInstance()
 	{
 		if(instance == null)
 		{
-			instance = new CommitmentListModel();			
+			instance = new CommitmentTableModel();			
 		}
 		
 		return instance;
@@ -189,7 +193,7 @@ public class CommitmentListModel extends AbstractListModel {
 			iterator.next();
 			iterator.remove();
 		}
-		this.fireIntervalRemoved(this, 0, Math.max(oldSize - 1, 0));
+		this.fireTableRowsDeleted(0, oldSize);
 		/*try{
 			ViewCommitmentController.getInstance().refreshTable();
 			ViewCommitmentController.getInstance().refreshTree();
@@ -227,7 +231,7 @@ public class CommitmentListModel extends AbstractListModel {
 		for (int i = 0; i < commitments.length; i++) {
 			this.commitments.add(commitments[i]);
 		}
-		this.fireIntervalAdded(this, 0, Math.max(getSize() - 1, 0));
+		this.fireTableRowsInserted(0, Math.max(getSize() - 1, 0));
 		/*ViewCommitmentController.getInstance().refreshTable();
 		ViewCommitmentController.getInstance().refreshTree();*/
 	}
@@ -243,6 +247,28 @@ public class CommitmentListModel extends AbstractListModel {
 			this.isInitialized = true;
 		}
 		return commitments;
+	}
+
+	@Override
+	public int getRowCount() {
+		return commitments.size();
+	}
+
+	@Override
+	public int getColumnCount() {
+		return 2;
+	}
+
+	@Override
+	public Object getValueAt(int rowIndex, int columnIndex) {
+		switch(columnIndex){
+		case DAY_COLUMN:
+			return commitments.get(rowIndex).getDueDate();
+		case NAME_COLUMN:
+			return commitments.get(rowIndex).getName();
+		default:
+			return null;
+		}
 	}
 	
 	/**
