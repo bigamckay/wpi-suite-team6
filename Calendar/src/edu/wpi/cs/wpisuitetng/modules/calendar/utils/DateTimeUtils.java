@@ -16,6 +16,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import edu.wpi.cs.wpisuitetng.exceptions.WPISuiteException;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.Event;
 
 /**
  * This class contains various utilities and helper functions for dealing with date and time.
