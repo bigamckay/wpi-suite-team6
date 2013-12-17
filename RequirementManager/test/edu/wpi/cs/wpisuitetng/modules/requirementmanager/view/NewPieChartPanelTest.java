@@ -43,16 +43,11 @@ public class NewPieChartPanelTest {
 	static Requirement req2;
 	
 	static ViewEventController vec;
-	@Test
-	public void holdTest()
-	{
-		assertEquals(true, true);
-	}
 	/**
 	
 	 * @throws Exception
 	 * @throws java.lang.Exception */
-	/*@BeforeClass
+	@BeforeClass
 	public static void setUp() throws Exception {
 		String [][] exData = new String[1][8];
 		
@@ -101,12 +96,12 @@ public class NewPieChartPanelTest {
 		assertEquals(2, vec.getMainView().getTabCount());
 		vec.createPieChart("Iteration");
 		assertEquals(3, vec.getMainView().getTabCount());
-	}*/
+	}
 	
 	/* any input other than Status or Iteration will create a pie chart that has info 
 	 * about the number of requirements a user has assigned
 	 */
-	/*@Test
+	@Test
 	public void testDataAssignedPieChart() {
 		while(2 < vec.getMainView().getTabCount()) {
 			vec.getMainView().removeTabAt(2);	// remove any previously created tabs
@@ -120,5 +115,5 @@ public class NewPieChartPanelTest {
 	public void testGetPieChartTitle() {
 		NewPieChartPanel pc = new NewPieChartPanel("The Name");
 		assertEquals("The Name", pc.getTitle());
-	}*/
+	}
 }

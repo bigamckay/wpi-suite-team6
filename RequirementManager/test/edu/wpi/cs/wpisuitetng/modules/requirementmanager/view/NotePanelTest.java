@@ -28,18 +28,11 @@ public class NotePanelTest {
 	
 	private RequirementPanel reqPan;
 	private Requirement req;
-	
-	@Test
-	public void holdTest()
-	{
-		assertEquals(true, true);
-	}
 	/**
 	 * Sets up the mock network, iteration, and local variables
 	
 	
 	 * @throws Exception * @throws java.lang.Exception */
-	/*
 	@Before
 	public void setUp() throws Exception {
 		req = new Requirement(1, "Name", "Description");
@@ -89,5 +82,5 @@ public class NotePanelTest {
 		reqPan.getTabsPanel().getNotePanel().getClearButton().doClick();	// clear the note text box
 		assertFalse(reqPan.getTabsPanel().getNotePanel().getClearButton().isEnabled());
 		assertEquals("", reqPan.getTabsPanel().getNotePanel().getNoteMessage().getText());
-	}*/
+	}
 }

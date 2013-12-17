@@ -32,17 +32,10 @@ import edu.wpi.cs.wpisuitetng.network.configuration.NetworkConfiguration;
  */
 public class EditRequirementPanelTest {
 
-	@Test
-	public void holdTest()
-	{
-		assertEquals(true, true);
-	}
-	
 	/**
 	 * Method setUp.
 	
 	 * @throws Exception */
-	/*
 	@Before
 	public void setUp() throws Exception {
 		// Mock network
@@ -57,12 +50,11 @@ public class EditRequirementPanelTest {
 		Object[][] data = {};
 		OverviewTable table = new OverviewTable(data, columnNames);		
 		ViewEventController.getInstance().setOverviewTable(table);
-	}*/
+	}
 
 	/**
 	 * check whether the field is enabled or not as default
 	 */
-	/*
 	@Test 
 	public void defaultEnabilityAndField()
 	{
@@ -107,12 +99,11 @@ public class EditRequirementPanelTest {
 		assertEquals("0",testEdit.getInfoPanel().getBoxEstimate().getText());
 		assertEquals(RequirementType.EPIC,testEdit.getInfoPanel().getDropdownType().getSelectedItem());
 		
-	}*/
+	}
 
 	/**
 	 * Check the error messages when invalid fields are filled
 	 */
-	/*
 	@Test
 	public void errorFieldTest() 
 	{
@@ -162,13 +153,12 @@ public class EditRequirementPanelTest {
 		assertEquals(errorMessageNoninterger,testEdit.getInfoPanel().getErrorEstimate().getText());
 		assertEquals(errorMessageRequiredDescription,testEdit.getInfoPanel().getErrorDescription().getText());
 		
-	}*/
+	}
 	
 	
 	/**
 	 * Check when required fields are not filled
 	 */
-	/*
 	@Test
 	public void errorRequiredFieldTest() {
 		
@@ -211,12 +201,11 @@ public class EditRequirementPanelTest {
 		assertEquals(true, testEdit.getButtonPanel().getButtonCancel().isEnabled());
 		
 
-	}*/
+	}
 	
 	/**
 	 * Check when undo the change
 	 */
-	/*
 	@Test
 	public void undoChangeButtonTest() {
 		
@@ -259,7 +248,7 @@ public class EditRequirementPanelTest {
 		assertEquals(RequirementType.EPIC,testEdit.getInfoPanel().getDropdownType().getSelectedItem());
 		
 		
-	}*/
+	}
 	
 	/**
 	 * test fifferent fields
