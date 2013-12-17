@@ -420,6 +420,7 @@ public class CalendarCalendarView extends JTabbedPane{
 			@SuppressWarnings("null")
 			public void mouseClicked(MouseEvent e) {
 				//if (e.getClickCount() >= 2) {
+					currentMonth = 0;
 					JTable target = (JTable)e.getSource();
 					int row = target.getSelectedRow();
 					int column = target.getSelectedColumn();
@@ -468,6 +469,7 @@ public class CalendarCalendarView extends JTabbedPane{
 			@SuppressWarnings("null")
 			public void mouseClicked(MouseEvent e) {
 				//if (e.getClickCount() >= 2) {
+					currentMonth = 1;
 					JTable target = (JTable)e.getSource();
 					int row = target.getSelectedRow();
 					int column = target.getSelectedColumn();
@@ -515,7 +517,8 @@ public class CalendarCalendarView extends JTabbedPane{
 		MarDayTable.addMouseListener(new MouseAdapter() {
 			@SuppressWarnings("null")
 			public void mouseClicked(MouseEvent e) {
-				//if (e.getClickCount() >= 2) {
+				//if (e.getClickCount-() >= 2) {
+					currentMonth = 2;
 					JTable target = (JTable)e.getSource();
 					int row = target.getSelectedRow();
 					int column = target.getSelectedColumn();
@@ -566,6 +569,7 @@ public class CalendarCalendarView extends JTabbedPane{
 			@SuppressWarnings("null")
 			public void mouseClicked(MouseEvent e) {
 				//if (e.getClickCount() >= 2) {
+					currentMonth = 3;
 					JTable target = (JTable)e.getSource();
 					int row = target.getSelectedRow();
 					int column = target.getSelectedColumn();
@@ -616,6 +620,7 @@ public class CalendarCalendarView extends JTabbedPane{
 			@SuppressWarnings("null")
 			public void mouseClicked(MouseEvent e) {
 				//if (e.getClickCount() >= 2) {
+					currentMonth = 4;
 					JTable target = (JTable)e.getSource();
 					int row = target.getSelectedRow();
 					int column = target.getSelectedColumn();
@@ -666,6 +671,7 @@ public class CalendarCalendarView extends JTabbedPane{
 			@SuppressWarnings("null")
 			public void mouseClicked(MouseEvent e) {
 				//if (e.getClickCount() >= 2) {
+					currentMonth = 5;
 					JTable target = (JTable)e.getSource();
 					int row = target.getSelectedRow();
 					int column = target.getSelectedColumn();
@@ -714,6 +720,7 @@ public class CalendarCalendarView extends JTabbedPane{
 			@SuppressWarnings("null")
 			public void mouseClicked(MouseEvent e) {
 				//if (e.getClickCount() >= 2) {
+					currentMonth = 6;
 					JTable target = (JTable)e.getSource();
 					int row = target.getSelectedRow();
 					int column = target.getSelectedColumn();
@@ -764,6 +771,7 @@ public class CalendarCalendarView extends JTabbedPane{
 			@SuppressWarnings("null")
 			public void mouseClicked(MouseEvent e) {
 				//if (e.getClickCount() >= 2) {
+					currentMonth = 7;
 					JTable target = (JTable)e.getSource();
 					int row = target.getSelectedRow();
 					int column = target.getSelectedColumn();
@@ -814,6 +822,7 @@ public class CalendarCalendarView extends JTabbedPane{
 			@SuppressWarnings("null")
 			public void mouseClicked(MouseEvent e) {
 				//if (e.getClickCount() >= 2) {
+					currentMonth = 8;
 					JTable target = (JTable)e.getSource();
 					int row = target.getSelectedRow();
 					int column = target.getSelectedColumn();
@@ -862,6 +871,7 @@ public class CalendarCalendarView extends JTabbedPane{
 			@SuppressWarnings("null")
 			public void mouseClicked(MouseEvent e) {
 				//if (e.getClickCount() >= 2) {
+					currentMonth = 9;
 					JTable target = (JTable)e.getSource();
 					int row = target.getSelectedRow();
 					int column = target.getSelectedColumn();
@@ -912,6 +922,7 @@ public class CalendarCalendarView extends JTabbedPane{
 			@SuppressWarnings("null")
 			public void mouseClicked(MouseEvent e) {
 				//if (e.getClickCount() >= 2) {
+					currentMonth = 10;
 					JTable target = (JTable)e.getSource();
 					int row = target.getSelectedRow();
 					int column = target.getSelectedColumn();
@@ -962,6 +973,7 @@ public class CalendarCalendarView extends JTabbedPane{
 			@SuppressWarnings("null")
 			public void mouseClicked(MouseEvent e) {
 				//if (e.getClickCount() >= 2) {
+					currentMonth = 11;
 					JTable target = (JTable)e.getSource();
 					int row = target.getSelectedRow();
 					int column = target.getSelectedColumn();
