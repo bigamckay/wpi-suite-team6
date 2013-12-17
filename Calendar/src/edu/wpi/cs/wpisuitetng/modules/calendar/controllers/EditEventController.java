@@ -17,8 +17,6 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.controllers;
  * server controller for editing events
  */
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Event;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.EventListModel;
-import edu.wpi.cs.wpisuitetng.modules.calendar.views.CalendarCalendarView;
 import edu.wpi.cs.wpisuitetng.network.Network;
 import edu.wpi.cs.wpisuitetng.network.Request;
 import edu.wpi.cs.wpisuitetng.network.models.HttpMethod;
@@ -27,7 +25,6 @@ public class EditEventController {
 	
 	private static EditEventController instance;
 	private EditEventRequestObserver observer;
-	private CalendarCalendarView calView;
 	
 	/**
 	 * Construct an UpdateEventController for the given model, view pair	
@@ -61,20 +58,4 @@ public class EditEventController {
 		request.addObserver(observer); // add an observer to process the response
 		request.send(); 
 	}
-	
-	public void editSuccessful(Event updatedEvent){
-		EventListModel.getInstance().editEvent(updatedEvent);
-		calView.PopulateCalendarCalendarView();
-	}
-	
-	/** Calendar Module provides access to the EditEventRequestObserver 
-	 * 
-	 * @param calView the CalendarCalendarView that the observer can pass its update
-	 */
-	public void AssignCalendarView(CalendarCalendarView calView){
-		if (this.calView == null){
-			this.calView = calView;
-		}
-	}
 }
-

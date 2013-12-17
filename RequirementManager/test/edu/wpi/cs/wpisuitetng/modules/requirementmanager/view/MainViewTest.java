@@ -21,17 +21,10 @@ import edu.wpi.cs.wpisuitetng.modules.requirementmanager.view.requirements.Requi
 public class MainViewTest {
 
 	private ViewEventController vec;
-	
-	@Test
-	public void holdTest()
-	{
-		assertEquals(true, true);
-	}
 	/**
 	
 	
 	 * @throws Exception * @throws java.lang.Exception */
-	/*
 	@Before
 	public void setUp() throws Exception {
 		
@@ -68,7 +61,7 @@ public class MainViewTest {
 		assertEquals("New Req.",vec.getMainView().getTitleAt(2));
 		
 	}
-	*/
+	
 
 
 }

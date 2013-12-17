@@ -12,22 +12,18 @@
 
 package edu.wpi.cs.wpisuitetng.modules.calendar.models;
 
-
-/**
- * this class contains the structure and methods for commitments
- */
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 
 import javax.swing.AbstractListModel;
 
-import edu.wpi.cs.wpisuitetng.exceptions.WPISuiteException;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controllers.AddCommitmentController;
-import edu.wpi.cs.wpisuitetng.modules.calendar.controllers.GetCommitmentController;
-import edu.wpi.cs.wpisuitetng.modules.calendar.controllers.RemoveCommitmentController;
 
+/**
+ * this class contains the model for having a list of commitments
+ */
 /**
  * NOTE that this is a model in the swing sense, NOT the WPISuite sense
  * This is a model for the post board. It contains all of the messages
@@ -38,24 +34,20 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.controllers.RemoveCommitmentContr
 @SuppressWarnings({"serial"})
 public class CommitmentListModel extends AbstractListModel {
 	/**
-	 * The list in which all the commitments for a single project are contained
+	 * The list in which all the commitments are contained
 	 */
 	private List<Commitment> commitments;
+	private int nextID; // the next available ID number for the commitments that are added.
 	
 	//the static object to allow the commitment model to be 
 	private static CommitmentListModel instance; 
-	
-	private boolean isSuccessfulLogin;
-	private boolean isInitialized;
 
 	/**
-	 * Constructs an empty list of commitments for the project
+	 * Constructs an empty list of commitments
 	 */
 	private CommitmentListModel (){
-		commitments = Collections.synchronizedList(new ArrayList<Commitment>());
-		
-		this.isSuccessfulLogin = false;
-		this.isInitialized = false;
+		commitments = new ArrayList<Commitment>();
+		nextID = 0;
 	}
 	
 	/**
@@ -65,21 +57,23 @@ public class CommitmentListModel extends AbstractListModel {
 	{
 		if(instance == null)
 		{
-			instance = new CommitmentListModel();			
+			instance = new CommitmentListModel();
 		}
 		
 		return instance;
 	}
 	
 	/**
-	 * Adds a single commitment to the commitments of the project
+	 * Adds a single commitment to the commitments
 	 * 
-	 * @param newReq The commitment to be added to the list of commitments in the project
+	 * @param newReq The commitment to be added to the list of commitments
 	 */
-	public void addCommitment(Commitment newReq){
+	public void addCommitment(Commitment newCommit){
+		// add the requirement
+		commitments.add(newCommit);
 		try 
 		{
-			AddCommitmentController.getInstance().addCommitment(newReq);
+			AddCommitmentController.getInstance().addCommitment(newCommit);
 			//ViewCommitmentController.getInstance().refreshTable();
 			//ViewCommitmentController.getInstance().refreshTree();
 		}
@@ -88,34 +82,6 @@ public class CommitmentListModel extends AbstractListModel {
 			
 		}
 	}
-	
-	/**
-	 * Used by Janeway to declare that we can access the server
-	 */
-	public void LoginSuccess(){
-		this.isSuccessfulLogin = true;
-		getCommitments();
-	}
-	
-	/** 
-	 * Adds an commitment to the private commitments class.
-	 * This should only be called by the AddCommitmentRequestObserver
-	 * as the response from the server is the commitment with the ID field
-	 * filled in.
-	 * 
-	 * @param response : Commitment that was retrieved as a response from the server
-	 */
-	public void addCommitmentFromObserver(Commitment response) throws WPISuiteException{
-		if(response.getId() != 0){
-			commitments.add(response);
-			System.out.println("Added Commitment to CommitmentListModel: " + response.getName() + ", ID: " + response.getId());
-		}
-		else{
-			throw new WPISuiteException("Cannot add an commitment with ID of zero as it is not stored on the detabase.");
-		}
-	}
-	
-	
 	/**
 	 * Returns the Commitment with the given ID
 	 * 
@@ -125,7 +91,7 @@ public class CommitmentListModel extends AbstractListModel {
 	public Commitment getCommitment(int id)
 	{
 		Commitment temp = null;
-		// iterate through list of commitments until id is found
+		// iterate through list of events until id is found
 		for (int i=0; i < this.commitments.size(); i++){
 			temp = commitments.get(i);
 			if (temp.getId() == id){
@@ -135,34 +101,55 @@ public class CommitmentListModel extends AbstractListModel {
 		return temp;
 	}
 	/**
-	 * Sends request to the server to remove the commitment with the specified ID form the database.
-	 * On success, the RemoveCommitmentRequestObserver sends request to the server to update the 
-	 * CommitmentListModel by calling GetCommitmentController.getInstance().retrieveCommitments()
+	 * Removes the commitment with the given ID
 	 * 
-	 * @param removeId The ID number of the commitment to be removed from the list of commitments in the project
+	 * @param removeId The ID number of the commitment to be removed from the list of commitments
 	 */
-	public void removeCommitment(int removeId){
-		RemoveCommitmentController.getInstance().RemoveCommitment(removeId);
+	public void remove(int removeId){
+		// iterate through list of requirements until id of project is found
+		for (int i=0; i < this.commitments.size(); i++){
+			if (commitments.get(i).getId() == removeId){
+				// remove the id
+				commitments.remove(i);
+				break;
+			}
+		}
+		/*try {
+			ViewCommitmentController.getInstance().refreshTable();
+			ViewCommitmentController.getInstance().refreshTree();
+		}
+		catch(Exception e) {}*/
 	}
-	
 
 	/**
-	 * Provides the number of elements in the list of commitments for the project. This
-	 * function is called internally by the JList in NewCommitmentPanel. Returns elements
+	 * Provides the number of elements in the list of commitments. This
+	 * function is called internally by the JList in NewRequirementPanel. Returns elements
 	 * in reverse order, so the newest commitment is returned first.
 	 * 
 	
 	
 	
-	 * @return the number of commitments in the project * @see javax.swing.ListModel#getSize() * @see javax.swing.ListModel#getSize() * @see javax.swing.ListModel#getSize()
+	 * @return the number of commitments * @see javax.swing.ListModel#getSize() * @see javax.swing.ListModel#getSize() * @see javax.swing.ListModel#getSize()
 	 */
-	public int getSize() {				
+	public int getSize() {
 		return commitments.size();
+	}
+	
+	/**
+	 * 
+	 * Provides the next ID number that should be used for a new commitment that is created.
+	 * 
+	
+	 * @return the next open id number */
+	public int getNextID()
+	{
+		
+		return this.nextID++;
 	}
 
 	/**
-	 * This function takes an index and finds the commitment in the list of commitments
-	 * for the project. Used internally by the JList in NewCommitmentModel.
+	 * This function takes an index and finds the commitment in the list of commitments.
+	 * Used internally by the JList in NewRequirementModel.
 	 * 
 	 * @param index The index of the commitment to be returned
 	
@@ -197,27 +184,6 @@ public class CommitmentListModel extends AbstractListModel {
 		catch (Exception e) {}*/
 	}
 	
-	
-	/**
-	 * 'Updates' the Commitment with the ID matching the updatedCommitment
-	 * Should only be called by EditCommitmentController
-	 * 
-	 * @param updatedCommitment commitment from EditCommitmentController
-	
-	 * @return the commitment for the id or null if the commitment is not found */
-	public void editCommitment(Commitment updatedCommitment)
-	{
-		Commitment indexedCommitment = null;
-		// iterate through list of commitments until id is found
-		for (int i=0; i < this.commitments.size(); i++){
-			indexedCommitment = commitments.get(i);
-			if (indexedCommitment.getId() == updatedCommitment.getId()){
-				this.commitments.remove(i);
-				this.commitments.add(updatedCommitment);
-			}
-		}
-	}
-	
 	/**
 	 * Adds the given array of commitments to the list
 	 * 
@@ -233,25 +199,18 @@ public class CommitmentListModel extends AbstractListModel {
 	}
 
 	/**
-	 * Returns the list of the commitments. If the list has not been requested from
-	 * the server, send that request.
+	 * Returns the list of the commitments
 	
 	 * @return the commitments held within the commitmentmodel. */
 	public List<Commitment> getCommitments() {
-		if (this.isSuccessfulLogin && !this.isInitialized){
-			GetCommitmentController.getInstance().retrieveCommitments();
-			this.isInitialized = true;
-		}
 		return commitments;
-	}
+	}	
 	
 	/**
-	 * Returns the list of requirements that are assigned to the given iteration
-	 * @param name the iteration name
-	 * 
-	 * THIS CAN BE USEFUL LATER
+	 * Returns the list of commitments that are assigned to the given user
+	 * @param name the user name
 	
-	 * @return the list of requirements */
+	 * @return the list of commitments */
 	/*public List<Requirement> getRequirementsForIteration(String name) {
 		List<Requirement> reqForIteration = new LinkedList<Requirement>();
 		
