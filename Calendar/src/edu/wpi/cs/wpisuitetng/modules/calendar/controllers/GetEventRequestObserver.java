@@ -21,6 +21,7 @@ import java.util.Calendar;
 import edu.wpi.cs.wpisuitetng.network.RequestObserver;
 import edu.wpi.cs.wpisuitetng.network.models.IRequest;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Event;
+import edu.wpi.cs.wpisuitetng.modules.calendar.views.CalendarCalendarView;
 
 public class GetEventRequestObserver implements RequestObserver{
 	
@@ -34,6 +35,7 @@ public class GetEventRequestObserver implements RequestObserver{
 		this.controller = controller;
 	}
 
+	
 	/**
 	 * Parse the requirements out of the response body and pass them to the controller
 	 * 
@@ -44,7 +46,7 @@ public class GetEventRequestObserver implements RequestObserver{
 		// Convert the JSON array of requirements to a Requirement object array
 		Event[] events = Event.fromJSONArray(iReq.getResponse().getBody(), Event[].class);
 		
-		// Pass these Requirements to the controller
+		// Pass these events to the controller
 		controller.receivedEvents(events);
 	}
 

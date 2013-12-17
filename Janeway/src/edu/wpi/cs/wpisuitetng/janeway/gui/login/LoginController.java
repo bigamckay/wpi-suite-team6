@@ -18,6 +18,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.swing.JFrame;
@@ -25,9 +27,13 @@ import javax.swing.JOptionPane;
 
 import org.apache.commons.codec.binary.Base64;
 
+import edu.wpi.cs.wpisuitetng.janeway.Janeway;
 import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
+import edu.wpi.cs.wpisuitetng.janeway.modules.AbstractJanewayModule;
+import edu.wpi.cs.wpisuitetng.janeway.modules.IJanewayModule;
 import edu.wpi.cs.wpisuitetng.network.Network;
 import edu.wpi.cs.wpisuitetng.network.Request;
+import edu.wpi.cs.wpisuitetng.network.RequestObserver;
 import edu.wpi.cs.wpisuitetng.network.configuration.NetworkConfiguration;
 import edu.wpi.cs.wpisuitetng.network.models.HttpMethod;
 import edu.wpi.cs.wpisuitetng.network.models.ResponseModel;
@@ -46,7 +52,7 @@ public class LoginController implements ActionListener {
 
 	/** The title of error dialogs */
 	private static final String errorTitle = "Login Error";
-
+	
 	/**
 	 * Construct a new login controller
 	 * @param mainGUI the main application GUI to load after login
@@ -145,6 +151,7 @@ public class LoginController implements ActionListener {
 			projectSelectRequest.addObserver(new ProjectSelectRequestObserver(this));
 			projectSelectRequest.setBody(ConfigManager.getConfig().getProjectName());
 			projectSelectRequest.send();
+			
 		}
 		else {
 			JOptionPane.showMessageDialog(view, "Unable to login: no cookies returned.", "Login Error", 
@@ -197,6 +204,10 @@ public class LoginController implements ActionListener {
 			// Show the main GUI
 			mainGUI.setVisible(true);
 			view.dispose();
+			//notify modules that the login process is complete
+			for(IJanewayModule module : Janeway.getLoadedModules()){
+				if(module instanceof AbstractJanewayModule) ((AbstractJanewayModule) module).onLoginComplete();
+			}
 		}
 		else {
 			JOptionPane.showMessageDialog(view, "Unable to select project: no cookies returned.", "Project Selection Error", 
