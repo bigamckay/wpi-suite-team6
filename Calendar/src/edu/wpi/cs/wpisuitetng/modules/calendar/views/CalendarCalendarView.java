@@ -91,8 +91,6 @@ public class CalendarCalendarView extends JTabbedPane{
 	public JLabel monthLabel;
 	public int yearNullRan = 0;
 	
-	public int specDay = 0;
-	
 	public JTable[] monthArray;
 	private final DefaultTableModel clearedModel = new DefaultTableModel(
 			new Object[][] {
@@ -145,6 +143,9 @@ public class CalendarCalendarView extends JTabbedPane{
 	public int currentDay = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
 	public int currentDotw = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
 	private String month = new String();
+	private ToolbarView tbView;
+
+	public int specDay = currentDay;
 	
 	
 	public CalendarCalendarView() {
@@ -323,7 +324,8 @@ public class CalendarCalendarView extends JTabbedPane{
 					int column = target.getSelectedColumn();
 					
 					String cellValue = (String)monthView.getValueAt(row, column);
-					cellValue = cellValue.substring(0, cellValue.length() - 2);
+					if (cellValue != null){
+						cellValue = cellValue.substring(0, cellValue.length() - 2);
 					
 					String cellDate = "-";
 					for(int i=0; i <= cellValue.length(); i++){
@@ -354,7 +356,7 @@ public class CalendarCalendarView extends JTabbedPane{
 					System.out.println(specDay);
 					populateDayNull(tabView.dayTable);
 					populateSpecificDay(tabView.dayTable, EventListModel.getInstance().getEvents(), specDay);
-				//}
+				}
 			}
 		});
 		
@@ -1772,6 +1774,7 @@ public class CalendarCalendarView extends JTabbedPane{
 	public void populateSpecificDay(JTable day, List<Event> events, int specificDay){
 		int goflag = 0;
 		populateDayNull(day);
+		tbView.currDay.setText(getCurrentMonth(currentMonth) + " " + specificDay + ", " + String.valueOf(currentYear));
 		day.getColumnModel().getColumn(1).setCellRenderer(new DefaultTableCellRenderer());
 		for(Event e : events){
 			if (e.getStart().get(Calendar.YEAR) != currentYear) {
@@ -1868,6 +1871,11 @@ public class CalendarCalendarView extends JTabbedPane{
 		populateWeek(weekDayHeaders, eventlist);
 		
 		//populateDay(tabView.dayTable, EventListModel.getInstance().getEvents());
+		
+	}
+
+	public void setToolbarView(ToolbarView tbView) {
+		this.tbView = tbView;
 		
 	}
 	

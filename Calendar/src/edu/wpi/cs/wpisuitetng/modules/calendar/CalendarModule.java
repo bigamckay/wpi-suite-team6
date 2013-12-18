@@ -49,8 +49,13 @@ public class CalendarModule extends AbstractJanewayModule {
 		ToolbarView tbView = new ToolbarView();
 		
 		// Give the toolbar access to the Calendar and Tab Views
-		tbView.getCalendar(mainView.getCalendar());
-		tbView.getTabView(mainView.getTabView());
+		tbView.setCalendar(mainView.getCalendar());
+
+		// Give CalendarView access to ToolbarView
+		mainView.getCalendar().setToolbarView(tbView);
+		tbView.setTabView(mainView.getTabView());
+		
+		
 		
 		// Also Give calendar access to the controllers so they can push an update from server to GUI - Craig
 		GetEventController.getInstance().AssignCalendarView(mainView.getCalendar());

@@ -58,7 +58,7 @@ public class ToolbarView extends JSplitPane{
 	// location is the pixel value for the divider
 	private int location = 300;
 	private int startYear;
-	private JLabel currDay;
+	public JLabel currDay;
 	//private JTextField searchField;
 	private int currentDay;
 	private String month = new String();
@@ -413,7 +413,7 @@ public class ToolbarView extends JSplitPane{
 	 * Prevents the initialization of the panel until the calView is collected
 	 * @param newCal - the instance of the CalendarCalendarView
 	 */
-	public void getCalendar(CalendarCalendarView newCal) {
+	public void setCalendar(CalendarCalendarView newCal) {
 		calView = newCal;
 		startYear = calView.currentYear;
 		calInit = true;
@@ -421,7 +421,7 @@ public class ToolbarView extends JSplitPane{
 			initialize();
 	}
 	
-	public void getTabView(CalendarTabView newTab) {
+	public void setTabView(CalendarTabView newTab) {
 		tabView = newTab;
 		tabInit = true;
 		if (calInit)
