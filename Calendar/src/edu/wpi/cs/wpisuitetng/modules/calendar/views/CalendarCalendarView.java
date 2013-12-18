@@ -429,7 +429,7 @@ public class CalendarCalendarView extends JTabbedPane{
 					int row = target.getSelectedRow();
 					int column = target.getSelectedColumn();
 					
-					int cellValue = (int) JanDayTable.getValueAt(row, column);
+					int cellValue = Integer.parseInt(JanDayTable.getValueAt(row, column).toString().trim());
 					
 					int cellDate = cellValue;
 					specDay = cellDate;
@@ -473,7 +473,7 @@ public class CalendarCalendarView extends JTabbedPane{
 					int row = target.getSelectedRow();
 					int column = target.getSelectedColumn();
 					
-					int cellValue = (int) FebDayTable.getValueAt(row, column);
+					int cellValue = Integer.parseInt(FebDayTable.getValueAt(row, column).toString().trim());
 					
 					int cellDate = cellValue;
 					specDay = cellDate;
@@ -517,8 +517,8 @@ public class CalendarCalendarView extends JTabbedPane{
 					int row = target.getSelectedRow();
 					int column = target.getSelectedColumn();
 					
-					int cellValue = (int) MarDayTable.getValueAt(row, column);
-					
+					int cellValue = Integer.parseInt(MarDayTable.getValueAt(row, column).toString().trim());
+
 					int cellDate = cellValue;
 					specDay = cellDate;
 					System.out.println(specDay);
@@ -563,7 +563,7 @@ public class CalendarCalendarView extends JTabbedPane{
 					int row = target.getSelectedRow();
 					int column = target.getSelectedColumn();
 					
-					int cellValue = (int) AprDayTable.getValueAt(row, column);
+					int cellValue = Integer.parseInt(AprDayTable.getValueAt(row, column).toString().trim());
 					
 					int cellDate = cellValue;
 					specDay = cellDate;
@@ -609,7 +609,7 @@ public class CalendarCalendarView extends JTabbedPane{
 					int row = target.getSelectedRow();
 					int column = target.getSelectedColumn();
 					
-					int cellValue = (int) MayDayTable.getValueAt(row, column);
+					int cellValue = Integer.parseInt(MayDayTable.getValueAt(row, column).toString().trim());
 					
 					int cellDate = cellValue;
 					specDay = cellDate;
@@ -655,7 +655,7 @@ public class CalendarCalendarView extends JTabbedPane{
 					int row = target.getSelectedRow();
 					int column = target.getSelectedColumn();
 					
-					int cellValue = (int) JunDayTable.getValueAt(row, column);
+					int cellValue = Integer.parseInt(JunDayTable.getValueAt(row, column).toString().trim());
 					
 					int cellDate = cellValue;
 					specDay = cellDate;
@@ -699,7 +699,7 @@ public class CalendarCalendarView extends JTabbedPane{
 					int row = target.getSelectedRow();
 					int column = target.getSelectedColumn();
 					
-					int cellValue = (int) JulDayTable.getValueAt(row, column);
+					int cellValue = Integer.parseInt(JulDayTable.getValueAt(row, column).toString().trim());
 					
 					int cellDate = cellValue;
 					specDay = cellDate;
@@ -745,7 +745,7 @@ public class CalendarCalendarView extends JTabbedPane{
 					int row = target.getSelectedRow();
 					int column = target.getSelectedColumn();
 					
-					int cellValue = (int) AugDayTable.getValueAt(row, column);
+					int cellValue = Integer.parseInt(AugDayTable.getValueAt(row, column).toString().trim());
 					
 					int cellDate = cellValue;
 					specDay = cellDate;
@@ -791,7 +791,7 @@ public class CalendarCalendarView extends JTabbedPane{
 					int row = target.getSelectedRow();
 					int column = target.getSelectedColumn();
 					
-					int cellValue = (int) SepDayTable.getValueAt(row, column);
+					int cellValue = Integer.parseInt(SepDayTable.getValueAt(row, column).toString().trim());
 					
 					int cellDate = cellValue;
 					specDay = cellDate;
@@ -835,7 +835,7 @@ public class CalendarCalendarView extends JTabbedPane{
 					int row = target.getSelectedRow();
 					int column = target.getSelectedColumn();
 					
-					int cellValue = (int) OctDayTable.getValueAt(row, column);
+					int cellValue = Integer.parseInt(OctDayTable.getValueAt(row, column).toString().trim());
 					
 					int cellDate = cellValue;
 					specDay = cellDate;
@@ -881,7 +881,7 @@ public class CalendarCalendarView extends JTabbedPane{
 					int row = target.getSelectedRow();
 					int column = target.getSelectedColumn();
 					
-					int cellValue = (int) NovDayTable.getValueAt(row, column);
+					int cellValue = Integer.parseInt(NovDayTable.getValueAt(row, column).toString().trim());
 					
 					int cellDate = cellValue;
 					specDay = cellDate;
@@ -927,7 +927,8 @@ public class CalendarCalendarView extends JTabbedPane{
 					int row = target.getSelectedRow();
 					int column = target.getSelectedColumn();
 					
-					int cellValue = (int) DecDayTable.getValueAt(row, column);
+					int cellValue = Integer.parseInt(DecDayTable.getValueAt(row, column).toString().trim());
+					
 					
 					int cellDate = cellValue;
 					specDay = cellDate;
@@ -1796,7 +1797,7 @@ public class CalendarCalendarView extends JTabbedPane{
 			}
 			//DAY_OF_WEEK returns number 1-7 for Sunday - Saturday
 			//HOUR_OF_DAY returns number 0-23 for hours in day
-			if (e.getStart().get(Calendar.MONTH) == currentMonth && (weekStart <= e.getStart().get(Calendar.DATE)) && (weekEnd >= e.getStart().get(Calendar.DATE)) && e.getStart().get(Calendar.DATE) == specificDay) {
+			if (e.getStart().get(Calendar.MONTH) == currentMonth && /* (weekStart <= e.getStart().get(Calendar.DATE)) && (weekEnd >= e.getStart().get(Calendar.DATE)) && */ e.getStart().get(Calendar.DATE) == specificDay) {
 				/*day.getModel().setValueAt(e.getName(), e.getStart().get(Calendar.HOUR_OF_DAY), e.getStart().get(Calendar.DAY_OF_WEEK));
 				if (e.getStart().get(Calendar.MONTH) == currentMonth) {
 					day.getModel().setValueAt("*", e.getStart().get(Calendar.HOUR_OF_DAY), e.getStart().get(Calendar.DAY_OF_WEEK));
@@ -1832,7 +1833,8 @@ public class CalendarCalendarView extends JTabbedPane{
 						//System.out.println("row passed in " + e.getStart().get(Calendar.HOUR_OF_DAY));
 						cellRender.getTableCellRendererComponent(day, e.getStart().get(Calendar.DATE), false, false, e.getStart().get(Calendar.HOUR_OF_DAY),1);
 						day.getColumnModel().getColumn(1).setCellRenderer(cellRender);
-						day.getModel().setValueAt(e.getName(), e.getStart().get(Calendar.HOUR_OF_DAY),1);
+						if (e.isPersonal())
+							day.getModel().setValueAt(e.getName(), e.getStart().get(Calendar.HOUR_OF_DAY),1);
 					}
 				}
 				else if(teamViewSelected){
@@ -1841,7 +1843,8 @@ public class CalendarCalendarView extends JTabbedPane{
 						//System.out.println("row passed in " + i);
 						cellRender.getTableCellRendererComponent(day, e.getStart().get(Calendar.DATE), false, false, e.getStart().get(Calendar.HOUR_OF_DAY),1);
 						day.getColumnModel().getColumn(1).setCellRenderer(cellRender);
-						day.getModel().setValueAt(e.getName(), e.getStart().get(Calendar.HOUR_OF_DAY),1);
+						if (!e.isPersonal())
+							day.getModel().setValueAt(e.getName(), e.getStart().get(Calendar.HOUR_OF_DAY),1);
 					}
 				}
 				//day.getModel().setValueAt(e.getName(), e.getStart().get(Calendar.HOUR_OF_DAY),1);
