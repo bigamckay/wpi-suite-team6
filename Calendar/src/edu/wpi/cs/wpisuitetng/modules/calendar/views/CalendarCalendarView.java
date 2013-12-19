@@ -63,6 +63,7 @@ public class CalendarCalendarView extends JTabbedPane{
 	
 	private boolean personalViewSelected = true;
 	private boolean teamViewSelected = false;
+	private boolean hasPlayed = false;
 
 	public CalendarTabView tabView;
 	
@@ -89,6 +90,7 @@ public class CalendarCalendarView extends JTabbedPane{
 	private JTable monthView;
 	
 	public JLabel monthLabel;
+
 	public int yearNullRan = 0;
 	
 	public JTable[] monthArray;
@@ -356,6 +358,11 @@ public class CalendarCalendarView extends JTabbedPane{
 					System.out.println(specDay);
 					populateDayNull(tabView.dayTable);
 					populateSpecificDay(tabView.dayTable, EventListModel.getInstance().getEvents(), specDay);
+					
+					if(monthLabel.getText() == "April" && specDay == 1 && hasPlayed == false)
+					{
+						System.out.println("YOLO GOES HERE");
+					}
 				}
 			}
 		});
