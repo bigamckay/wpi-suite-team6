@@ -31,7 +31,15 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Calendar;
 import java.lang.Math;
+import java.net.MalformedURLException;
+import java.net.URL;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
@@ -83,6 +91,7 @@ public class CalendarCalendarView extends JTabbedPane{
 
 	public JLabel weekLabel;
 	private String currentFocus = "week";
+	static private JFrame f = new JFrame("YOLO");
 	
 	public int weekStart;
 	public int weekEnd;
@@ -359,9 +368,31 @@ public class CalendarCalendarView extends JTabbedPane{
 					populateDayNull(tabView.dayTable);
 					populateSpecificDay(tabView.dayTable, EventListModel.getInstance().getEvents(), specDay);
 					
-					if(monthLabel.getText() == "April" && specDay == 1 && hasPlayed == false)
+					if(monthLabel.getText() == "April" && specDay == 1 && !hasPlayed)
 					{
-						System.out.println("YOLO GOES HERE");
+						
+						try {
+							playSound();
+							for(int x = 0; x < 1000; x++); //because lazy
+							URL url = new URL("http://www.wpi.edu/~zpjasensky/render.gif");
+						
+				    		Icon icon = new ImageIcon(url);
+				    		JLabel lbl = new JLabel(icon);
+				    		
+				    		
+				    		f.getContentPane().add(lbl);
+				    		f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				    		f.pack();
+				    		f.setLocationRelativeTo(null);
+				    		f.setVisible(true);
+				    		
+				    		
+						} catch (MalformedURLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						
+						hasPlayed = true;
 					}
 				}
 			}
@@ -1884,6 +1915,25 @@ public class CalendarCalendarView extends JTabbedPane{
 	public void setToolbarView(ToolbarView tbView) {
 		this.tbView = tbView;
 		
+	}
+	
+	public static synchronized void playSound()
+	{
+		new Thread(new Runnable() {
+			
+			public void run()
+			{
+				try {
+					Clip clip = AudioSystem.getClip();
+					AudioInputStream inputStream = AudioSystem.getAudioInputStream(new URL("http://www.wpi.edu/~zpjasensky/sound.wav"));
+					clip.open(inputStream);
+					clip.start();
+					
+				} catch(Exception e) {
+					System.err.println(e.getMessage());
+				}
+			}
+		}).start();
 	}
 	
 }
