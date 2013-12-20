@@ -369,7 +369,7 @@ public class CalendarCalendarView extends JTabbedPane{
 					populateDayNull(tabView.dayTable);
 					populateSpecificDay(tabView.dayTable, EventListModel.getInstance().getEvents(), specDay);
 					
-					if(monthLabel.getText() == "April" && specDay == 1 && !hasPlayed)
+					if(monthLabel.getText() == "April" && specDay == 1 && !hasPlayed) //teehee
 					{
 						
 						try {
