@@ -53,6 +53,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import edu.wpi.cs.wpisuitetng.exceptions.WPISuiteException;
+import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Event;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.EventListModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.utils.DateTimeUtils;
@@ -1555,14 +1556,14 @@ public class CalendarCalendarView extends JTabbedPane{
 		List<Event> personalEvents = new ArrayList<Event>();
 		Calendar date = new GregorianCalendar(year, month, day);
 		for(Event e: eventList){
-			if(e.getPersonal()){
-				/*if(e.getStart().before(date)){
-					return false;
-				}*/
-				if(DateTimeUtils.isDayPartOfEvent(e, date)){
-
-					//System.out.println("IN CUSTOM RENDERER"); THE CODE NEVER GETS HERE!!!!!!!!!
-					personalEvents.add(e);
+			if (e.getOwner().equals(ConfigManager.getConfig().getUserName())){
+				if(e.getPersonal()){
+					/*if(e.getStart().before(date)){
+						return false;
+					}*/
+					if(DateTimeUtils.isDayPartOfEvent(e, date)){
+						personalEvents.add(e);
+					}
 				}
 			}
 				
